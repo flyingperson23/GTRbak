@@ -1,0 +1,7 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "gtr:items/tools/magnifying_glass_base",
+	  "layer1": "gtr:items/tools/magnifying_glass"
+  }
+}

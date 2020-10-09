@@ -1,0 +1,7 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "gtr:items/material_sets/netherstar/dust_small",
+        "layer1": "gtr:items/material_sets/netherstar/dust_small_overlay"
+    }
+}

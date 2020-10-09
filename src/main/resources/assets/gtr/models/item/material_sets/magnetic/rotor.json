@@ -1,0 +1,7 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "gtr:items/material_sets/magnetic/rotor",
+        "layer1": "gtr:items/material_sets/magnetic/rotor_overlay"
+    }
+}

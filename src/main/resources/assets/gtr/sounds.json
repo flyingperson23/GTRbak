@@ -1,0 +1,7 @@
+{
+  "wrench": {
+    "category": "player",
+    "subtitle": "gtr.subtitle.wrench",
+    "sounds": [ "gtr:wrench" ]
+  }
+}

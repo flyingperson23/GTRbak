@@ -1,0 +1,25 @@
+{
+  "type": "gtr:metaitem_shaped",
+  "pattern": [
+    "WCW",
+    "CGC",
+    "WCW"
+  ],
+  "key": {
+    "G": {
+      "type": "gtr:metaitem",
+      "name": "quantumstar"
+    },
+    "C": {
+      "type": "forge:ore_dict",
+      "ore": "circuitElite"
+    },
+    "W": {
+      "type": "forge:ore_dict",
+      "ore": "wireGtHexOsmium"
+    }
+  },
+  "result": {
+    "name": "field.generator.iv"
+  }
+}

@@ -1,0 +1,57 @@
+package gtr.common.metatileentities.multi.electric;
+
+import gtr.api.metatileentity.MetaTileEntity;
+import gtr.api.metatileentity.MetaTileEntityHolder;
+import gtr.api.metatileentity.multiblock.IMultiblockPart;
+import gtr.api.metatileentity.multiblock.MultiblockAbility;
+import gtr.api.metatileentity.multiblock.RecipeMapMultiblockController;
+import gtr.api.multiblock.BlockPattern;
+import gtr.api.multiblock.FactoryBlockPattern;
+import gtr.api.recipes.RecipeMaps;
+import gtr.api.render.ICubeRenderer;
+import gtr.api.render.Textures;
+import gtr.common.blocks.BlockMetalCasing.MetalCasingType;
+import gtr.common.blocks.MetaBlocks;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.ResourceLocation;
+
+public class MetaTileEntityImplosionCompressor extends RecipeMapMultiblockController {
+
+    private static final MultiblockAbility<?>[] ALLOWED_ABILITIES = {
+        MultiblockAbility.IMPORT_ITEMS, MultiblockAbility.EXPORT_ITEMS, MultiblockAbility.INPUT_ENERGY
+    };
+
+    public MetaTileEntityImplosionCompressor(ResourceLocation metaTileEntityId) {
+        super(metaTileEntityId, RecipeMaps.IMPLOSION_RECIPES);
+    }
+
+    @Override
+    public MetaTileEntity createMetaTileEntity(MetaTileEntityHolder holder) {
+        return new MetaTileEntityImplosionCompressor(metaTileEntityId);
+    }
+
+    @Override
+    protected BlockPattern createStructurePattern() {
+        return FactoryBlockPattern.start()
+            .aisle("XXX", "XXX", "XXX")
+            .aisle("XXX", "X#X", "XXX")
+            .aisle("XXX", "XSX", "XXX")
+            .setAmountAtLeast('L', 14)
+            .where('S', selfPredicate())
+            .where('L', statePredicate(getCasingState()))
+            .where('X', statePredicate(getCasingState()).or(abilityPartPredicate(ALLOWED_ABILITIES)))
+            .where('#', isAirPredicate())
+            .where('C', statePredicate(getCasingState()))
+            .build();
+    }
+
+    @Override
+    public ICubeRenderer getBaseTexture(IMultiblockPart sourcePart) {
+        return Textures.SOLID_STEEL_CASING;
+    }
+
+    protected IBlockState getCasingState() {
+        return MetaBlocks.METAL_CASING.getState(MetalCasingType.STEEL_SOLID);
+    }
+
+}

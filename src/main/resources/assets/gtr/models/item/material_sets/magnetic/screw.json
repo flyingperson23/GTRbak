@@ -1,0 +1,7 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "gtr:items/material_sets/magnetic/screw",
+        "layer1": "gtr:items/material_sets/magnetic/screw_overlay"
+    }
+}

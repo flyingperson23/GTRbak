@@ -1,0 +1,25 @@
+{
+  "type": "gtr:metaitem_shaped",
+  "pattern": [
+    "ILI",
+    "LGL",
+    "ILI"
+  ],
+  "key": {
+    "I": {
+      "type": "gtr:metaitem",
+      "name": "plate.iridium_alloy"
+    },
+    "L": {
+      "type": "gtr:metaitem",
+      "name": "lapotron_crystal"
+    },
+    "G": {
+      "type": "gtr:metaitem",
+      "name": "field.generator.ev"
+    }
+  },
+  "result": {
+    "name": "energy_field_projector"
+  }
+}

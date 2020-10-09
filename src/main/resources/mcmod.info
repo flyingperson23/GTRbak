@@ -1,14 +1,16 @@
 [{
-  "modid": "gregtech",
-  "name": "GregTech Community Edition",
-  "description": "Finally, the awesome technology of GregTech-Intergalactical can be used in 1.12!",
+  "modid": "gtr",
+  "name": "GT: Remastered",
+  "description": "GTCE, but better",
   "version": "${version}",
   "mcversion": "${mcversion}",
-  "logoFile": "/assets/gregtech/textures/gt_logo_long.png",
-  "url": "https://minecraft.curseforge.com/projects/gregtechce",
+  "logoFile": "/assets/gtr/textures/gt_logo_long.png",
+  "url": "https://minecraft.curseforge.com/projects/gtrce",
   "authorList": [
       "Archengius",
-      "Exidex"
+      "Exidex",
+      "Rongmario",
+      "FlyingPerson"
   ],
   "credits": "GregoriusT for making GregTech and textures, various GT community members for help in development.",
   "dependencies": ["codechickenlib"]

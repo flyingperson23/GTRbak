@@ -1,0 +1,7 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "gtr:items/tools/knife_base",
+	  "layer1": "gtr:items/tools/knife"
+  }
+}
