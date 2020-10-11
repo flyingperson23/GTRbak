@@ -28,6 +28,9 @@ public class MetaTileEntityCableDiode extends TieredMetaTileEntity {
     public MetaTileEntityCableDiode(ResourceLocation metaTileEntityId, int tier, int amperage) {
         super(metaTileEntityId, tier);
         this.amperage = amperage;
+        reinitializeEnergyContainer();
+
+        System.out.println(energyContainer.getEnergyCapacity());
     }
 
     @Override
@@ -40,6 +43,8 @@ public class MetaTileEntityCableDiode extends TieredMetaTileEntity {
         long tierVoltage = GTValues.V[getTier()];
         this.energyContainer = new EnergyContainerHandler(this, tierVoltage * amperage, tierVoltage, amperage, tierVoltage, amperage);
         ((EnergyContainerHandler) this.energyContainer).setSideOutputCondition(s -> s == getFrontFacing());
+
+
     }
 
     @Override

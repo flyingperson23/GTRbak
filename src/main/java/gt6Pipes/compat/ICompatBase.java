@@ -30,10 +30,6 @@ public interface ICompatBase {
      *  @param direction the direction of the the block to disconnect from block
      *  @param player the player connecting/disconnecting the pipe*/
     void disconnect(BlockWrapper block, EnumFacing direction, EntityPlayer player);
-    /**@param block block to get drops from
-     * @param blockState state to get drops from
-     * @return list of drops block should drop*/
-    Collection<ItemStack> getDrops(BlockWrapper block, IBlockState blockState);
     /**@return list of blocks from this compat module that can be broken with a wrench*/
     List<Block> getAcceptedBlocks();
     /**@return harvest speed for blocks from this module*/

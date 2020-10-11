@@ -80,6 +80,8 @@ public class OreConfigUtils {
     public static Block getBlockByName(String name) {
         ResourceLocation blockName = new ResourceLocation(name);
         Block block = GameRegistry.findRegistry(Block.class).getValue(blockName);
+
+
         if (block == null)
             throw new IllegalArgumentException("Block with identifier " + blockName + " not found!");
         return block;

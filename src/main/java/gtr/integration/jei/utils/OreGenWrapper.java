@@ -1,6 +1,13 @@
 package gtr.integration.jei.utils;
 
+import gtr.api.net.NetworkHandler;
+import gtr.api.unification.OreDictUnifier;
+import gtr.api.unification.material.type.Material;
+import gtr.api.unification.ore.OrePrefix;
 import gtr.api.worldgen.config.OreDepositDefinition;
+import gtr.common.blocks.BlockOre;
+import gtr.common.blocks.StoneBlock;
+import gtr.integration.jei.recipe.primitive.OreByProduct;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeWrapper;
@@ -8,28 +15,58 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.IFluidBlock;
 
 import java.util.*;
 
 public class OreGenWrapper implements IRecipeWrapper {
 
     List<List<ItemStack>> ores = new ArrayList<>();
+    List<List<FluidStack>> fluids = new ArrayList<>();
 
     OreDepositDefinition definition;
 
-    public OreGenWrapper(Collection<IBlockState> c, OreDepositDefinition definition) {
-        this.definition = definition;
-        ores.add(new ArrayList<>());
+    public OreGenWrapper(OreDepositDefinition d) {
+        this.definition = d;
 
-        if (c.size() > 0) {
-            c.stream().map(state -> new ItemStack(Item.getItemFromBlock(state.getBlock()))).filter(i -> !ores.get(0).contains(i)).forEach(ores.get(0)::add);
+        Collection<IBlockState> results = d.getBlockFiller().getAllPossibleStates().get(0).getPossibleResults();
+
+        // Ore blocks
+
+        List<Material> mats = new ArrayList<>();
+
+        results.stream().filter(state -> state.getBlock() instanceof BlockOre).map(state -> ((BlockOre) state.getBlock()).material)
+            .filter(m -> !mats.contains(m)).forEach(mats::add);
+
+        for (Material m : mats) {
+            ArrayList<ItemStack> l = new ArrayList<>();
+            for (OrePrefix ore : OreByProduct.ORES) {
+                l.add(OreDictUnifier.get(ore, m));
+            }
+            ores.add(l);
         }
+
+        // Fluids
+        List<Fluid> f = new ArrayList<>();
+        results.stream().filter(state -> state.getBlock() instanceof IFluidBlock).map(state -> ((IFluidBlock) state.getBlock()).getFluid())
+            .filter(fluid -> !f.contains(fluid)).forEach(f::add);
+
+        f.forEach(fluid -> fluids.add(Collections.singletonList(new FluidStack(fluid, 1000))));
+    }
+
+    public boolean shouldDelete() {
+        return fluids.isEmpty() && ores.isEmpty();
     }
 
     @Override
     public void getIngredients(IIngredients ingredients) {
         ingredients.setInputLists(VanillaTypes.ITEM, ores);
         ingredients.setOutputLists(VanillaTypes.ITEM, ores);
+
+        ingredients.setInputLists(VanillaTypes.FLUID, fluids);
+        ingredients.setOutputLists(VanillaTypes.FLUID, fluids);
     }
 
     @Override

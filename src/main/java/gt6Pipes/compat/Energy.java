@@ -79,11 +79,6 @@ public class Energy extends CompatBaseTE {
     }
 
     @Override
-    public Collection<ItemStack> getDrops(TileEntity te, IBlockState blockState) {
-        return te.getBlockType().getDrops(te.getWorld(), te.getPos(), blockState, 0);
-    }
-
-    @Override
     public List<Block> getAcceptedBlocks() {
         ArrayList<Block> accepted = new ArrayList<>();
         accepted.add(MetaBlocks.CABLE);

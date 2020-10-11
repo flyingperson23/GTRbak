@@ -17,7 +17,7 @@
         {
           "weight": 100,
           "value": {
-            "block": "gregtech:mineral",
+            "block": "gtr:mineral",
             "variant": "marble",
             "chiseling_variant": "normal"
           }

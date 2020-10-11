@@ -41,6 +41,7 @@ public class SoftHammerBehaviour implements IItemBehaviour {
                     controllable.setWorkingEnabled(true);
                 }
                 GTUtility.doDamageItem(stack, cost, false);
+
                 return EnumActionResult.SUCCESS;
             }
         }

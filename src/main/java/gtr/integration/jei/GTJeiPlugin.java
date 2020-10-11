@@ -21,6 +21,7 @@ import gtr.api.unification.material.type.Material;
 import gtr.api.unification.ore.OrePrefix;
 import gtr.api.worldgen.config.OreDepositDefinition;
 import gtr.api.worldgen.config.WorldGenRegistry;
+import gtr.api.worldgen.filler.FillerEntry;
 import gtr.common.blocks.BlockOre;
 import gtr.common.blocks.MetaBlocks;
 import gtr.common.items.MetaItems;
@@ -87,19 +88,8 @@ public class GTJeiPlugin implements IModPlugin {
 
 
         List<OreGenWrapper> l = new ArrayList<>();
-
-        for (OreDepositDefinition d : WorldGenRegistry.getOreDeposits()) {
-            if (d.getBlockFiller().getAllPossibleStates().size() > 0) {
-                d.getBlockFiller().getAllPossibleStates().forEach((i) -> {
-                    if (i.getPossibleResults().size() > 0) {
-                        if (((IBlockState) i.getPossibleResults().toArray()[0]).getBlock() instanceof BlockOre)
-                            l.add(new OreGenWrapper(i.getPossibleResults(), d));
-                    }
-                });
-            }
-        }
-
-
+        WorldGenRegistry.getOreDeposits().forEach(deposit -> l.add(new OreGenWrapper(deposit)));
+        l.removeIf(OreGenWrapper::shouldDelete);
         registry.addRecipes(l, "gtr:ores");
 
 

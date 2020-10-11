@@ -18,6 +18,8 @@ import gtr.api.worldgen.populator.IVeinPopulator;
 import gtr.api.worldgen.populator.VeinBufferPopulator;
 import gtr.api.worldgen.populator.VeinChunkPopulator;
 import gtr.api.worldgen.shape.IBlockGeneratorAccess;
+import gtr.api.worldgen.shape.PlateGenerator;
+import gtr.api.worldgen.shape.SphereGenerator;
 import gtr.common.ConfigHolder;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -227,8 +229,8 @@ public class CachedGridEntry implements GridEntryInfo, IBlockGeneratorAccess, IB
     }
 
     private void doGenerateVein(OreDepositDefinition definition) {
-        this.currentOreVein = definition;
 
+        this.currentOreVein = definition;
         int topHeightOffset = currentOreVein.getShapeGenerator().getMaxSize().getY() / 2 + 4;
         int maximumHeight = Math.min(masterEntry.getMaxBottomHeight(), currentOreVein.getHeightLimit()[1] - topHeightOffset);
         int minimumHeight = Math.max(3, currentOreVein.getHeightLimit()[0]);
@@ -243,6 +245,10 @@ public class CachedGridEntry implements GridEntryInfo, IBlockGeneratorAccess, IB
         IVeinPopulator veinPopulator = currentOreVein.getVeinPopulator();
         if (veinPopulator instanceof VeinBufferPopulator) {
             ((VeinBufferPopulator) veinPopulator).populateBlockBuffer(gridRandom, this, this, currentOreVein);
+        }
+
+        if (definition.getShapeGenerator() instanceof PlateGenerator) {
+            System.out.println(veinCenterX+" "+veinCenterY+" "+veinCenterZ);
         }
         this.currentOreVein = null;
     }
@@ -346,16 +352,12 @@ public class CachedGridEntry implements GridEntryInfo, IBlockGeneratorAccess, IB
                     IBlockState newState;
                     if (index == 0) {
                         //it's primary ore block
-
-
-
                         if (!definition.getGenerationPredicate().test(currentState, world, blockPos))
                             continue; //do not generate if predicate didn't match
-
-
-
-
                         newState = definition.getBlockFiller().apply(currentState, world, blockPos, blockX, blockY, blockZ);
+
+
+
                     } else {
                         //it's populator-generated block with index
                         VeinBufferPopulator populator = (VeinBufferPopulator) definition.getVeinPopulator();
@@ -368,7 +370,6 @@ public class CachedGridEntry implements GridEntryInfo, IBlockGeneratorAccess, IB
                         generatedOreVein = true;
                         generatedAnything = true;
                     }
-
                 }
                 if (generatedOreVein) {
                     this.generatedBlocksSet.put(definition, generatedBlocks);

@@ -3,10 +3,7 @@ package gtr.common.items;
 import gtr.api.GTValues;
 import gtr.api.items.ToolDictNames;
 import gtr.api.items.metaitem.ElectricStats;
-import gtr.api.items.toolitem.ScrewdriverItemStat;
-import gtr.api.items.toolitem.SoftMalletItemStat;
-import gtr.api.items.toolitem.ToolMetaItem;
-import gtr.api.items.toolitem.WrenchItemStat;
+import gtr.api.items.toolitem.*;
 import gtr.api.recipes.ModHandler;
 import gtr.api.unification.material.Materials;
 import gtr.api.unification.material.type.IngotMaterial;
@@ -86,7 +83,8 @@ public class MetaTool extends ToolMetaItem<ToolMetaItem<?>.MetaToolValueItem> {
 
         WIRE_CUTTER = addItem(13, "tool.wire_cutter").setToolStats(new ToolWireCutter())
             .setFullRepairCost(4.125)
-            .addOreDict(ToolDictNames.craftingToolWireCutter);
+            .addOreDict(ToolDictNames.craftingToolWireCutter)
+            .addComponents(new WireCutterItemStat());
 
         SCOOP = addItem(14, "tool.scoop").setToolStats(new ToolScoop())
             .setFullRepairCost(3)

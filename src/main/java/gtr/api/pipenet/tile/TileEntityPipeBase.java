@@ -28,7 +28,7 @@ import java.util.function.Consumer;
 public abstract class TileEntityPipeBase<PipeType extends Enum<PipeType> & IPipeType<NodeDataType>, NodeDataType> extends SyncedTileEntityBase implements IPipeTile<PipeType, NodeDataType> {
 
     private TIntIntMap blockedConnectionsMap = new TIntIntHashMap();
-    private int blockedConnections = 0;
+    private int blockedConnections = 63;
 
     protected int insulationColor = DEFAULT_INSULATION_COLOR;
     protected final PipeCoverableImplementation coverableImplementation = new PipeCoverableImplementation(this);

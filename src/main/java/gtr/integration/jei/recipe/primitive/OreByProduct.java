@@ -1,13 +1,10 @@
 package gtr.integration.jei.recipe.primitive;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.google.common.collect.ImmutableList;
 
-import gtr.api.recipes.CountableIngredient;
 import gtr.api.recipes.RecipeMaps;
 import gtr.api.unification.OreDictUnifier;
 import gtr.api.unification.material.type.DustMaterial;
@@ -15,13 +12,14 @@ import gtr.api.unification.material.type.Material;
 import gtr.api.unification.ore.OrePrefix;
 import gtr.api.util.GTUtility;
 import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 
 public class OreByProduct implements IRecipeWrapper {
-	private final static ImmutableList<OrePrefix> ORES = ImmutableList.of(
+	public final static ImmutableList<OrePrefix> ORES = ImmutableList.of(
 			OrePrefix.ore, 
 			OrePrefix.oreBasalt,
 			OrePrefix.oreBlackgranite, 
@@ -37,17 +35,16 @@ public class OreByProduct implements IRecipeWrapper {
 	private final List<ItemStack> outputs = new ArrayList<>();
 	private final DustMaterial material;
 	private final List<ItemStack> oreIngredients;
-	private final List<ItemStack> byProductIngredients;
 
-	public OreByProduct(DustMaterial material) {
+    public OreByProduct(DustMaterial material) {
 		this.material = material;
-		this.oreIngredients = new ArrayList<ItemStack>();
+		this.oreIngredients = new ArrayList<>();
 		for (OrePrefix ore : ORES)
 			this.oreIngredients.add(OreDictUnifier.get(ore, material));
-		this.byProductIngredients = new ArrayList<ItemStack>();
+        List<ItemStack> byProductIngredients = new ArrayList<>();
 
 		for (Material mat : material.oreByProducts)
-			this.byProductIngredients.add(OreDictUnifier.get(OrePrefix.dust, mat));
+			byProductIngredients.add(OreDictUnifier.get(OrePrefix.dust, mat));
 
 		this.oreProcessingSteps.add(OreDictUnifier.get(OrePrefix.crushed, material));
 		this.oreProcessingSteps.add(OreDictUnifier.get(OrePrefix.crushedPurified, material));
@@ -56,11 +53,10 @@ public class OreByProduct implements IRecipeWrapper {
 		this.oreProcessingSteps.add(OreDictUnifier.get(OrePrefix.dustPure, material));
 		this.oreProcessingSteps.add(OreDictUnifier.get(OrePrefix.dust, material));
 
-		List<ItemStack> inputOres = new ArrayList<ItemStack>();
-		inputOres.addAll(oreIngredients);
+        List<ItemStack> inputOres = new ArrayList<>(oreIngredients);
 		matchingInputs.add(inputOres);
 		for (ItemStack stack : oreProcessingSteps) {
-			List<ItemStack> stepStack = new ArrayList<ItemStack>();
+			List<ItemStack> stepStack = new ArrayList<>();
 			stepStack.add(stack);
 			matchingInputs.add(stepStack);
 		}
@@ -69,8 +65,8 @@ public class OreByProduct implements IRecipeWrapper {
 
 	@Override
 	public void getIngredients(IIngredients ingredients) {
-		ingredients.setInputLists(ItemStack.class, this.matchingInputs);
-		ingredients.setOutputs(ItemStack.class, this.outputs);
+		ingredients.setInputLists(VanillaTypes.ITEM, this.matchingInputs);
+		ingredients.setOutputs(VanillaTypes.ITEM, this.outputs);
 	}
 
 	public void addTooltip(int slotIndex, boolean input, Object ingredient, List<String> tooltip) {

@@ -17,7 +17,7 @@
         {
           "weight": 100,
           "value": {
-            "block": "gregtech:granite",
+            "block": "gtr:granite",
             "variant": "red_granite",
             "chiseling_variant": "normal"
           }

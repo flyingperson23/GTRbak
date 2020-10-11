@@ -10,11 +10,10 @@ import gtr.api.util.WorldBlockPredicate;
 import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Predicate;
 
 public class PredicateConfigUtils {
@@ -22,6 +21,8 @@ public class PredicateConfigUtils {
     public static IBlockState parseBlockStateDefinition(JsonObject object) {
         Block block = OreConfigUtils.getBlockByName(object.get("block").getAsString());
         IBlockState blockState = block.getDefaultState();
+
+
 
         for (IProperty<?> property : block.getBlockState().getProperties()) {
             JsonElement valueElement = object.get(property.getName());

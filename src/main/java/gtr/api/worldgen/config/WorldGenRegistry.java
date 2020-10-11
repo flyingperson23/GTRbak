@@ -127,7 +127,7 @@ public class WorldGenRegistry {
         }
         List<Path> worldgenFiles = Files.walk(worldgenRootPath)
             .filter(path -> path.toString().endsWith(".json"))
-            .filter(path -> Files.isRegularFile(path))
+            .filter(Files::isRegularFile)
             .collect(Collectors.toList());
 
         for (Path worldgenDefinition : worldgenFiles) {
@@ -152,20 +152,20 @@ public class WorldGenRegistry {
     private static void extractJarVeinDefinitions(Path worldgenRootPath) throws IOException {
         FileSystem zipFileSystem = null;
         try {
-            URI sampleUri = WorldGenRegistry.class.getResource("/assets/gtr/.gtassetsroot").toURI();
+            URI sampleUri = WorldGenRegistry.class.getResource("/assets/gtr..gtassetsroot").toURI();
             Path worldgenJarRootPath;
             if (sampleUri.getScheme().equals("jar") || sampleUri.getScheme().equals("zip")) {
                 zipFileSystem = FileSystems.newFileSystem(sampleUri, Collections.emptyMap());
-                worldgenJarRootPath = zipFileSystem.getPath("/assets/gtr/worldgen");
+                worldgenJarRootPath = zipFileSystem.getPath("/assets/gtr.worldgen");
             } else if (sampleUri.getScheme().equals("file")) {
-                worldgenJarRootPath = Paths.get(WorldGenRegistry.class.getResource("/assets/gtr/worldgen").toURI());
+                worldgenJarRootPath = Paths.get(WorldGenRegistry.class.getResource("/assets/gtr.worldgen").toURI());
             } else {
                 throw new IllegalStateException("Unable to locate absolute path to worldgen root directory: " + sampleUri);
             }
             GTLog.logger.info("Attempting extraction of standard worldgen definitions from {} to {}",
                 worldgenJarRootPath, worldgenRootPath);
             List<Path> jarFiles = Files.walk(worldgenJarRootPath)
-                .filter(jarFile -> Files.isRegularFile(jarFile))
+                .filter(Files::isRegularFile)
                 .collect(Collectors.toList());
             for (Path jarFile : jarFiles) {
                 Path worldgenPath = worldgenRootPath.resolve(worldgenJarRootPath.relativize(jarFile).toString());

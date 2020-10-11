@@ -2,6 +2,7 @@ package gtr.api.capability;
 
 import gtr.api.capability.tool.IScrewdriverItem;
 import gtr.api.capability.tool.ISoftHammerItem;
+import gtr.api.capability.tool.IWireCutterItem;
 import gtr.api.capability.tool.IWrenchItem;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
@@ -22,5 +23,8 @@ public class GregtechCapabilities {
 
     @CapabilityInject(ISoftHammerItem.class)
     public static Capability<ISoftHammerItem> CAPABILITY_MALLET = null;
+
+    @CapabilityInject(IWireCutterItem.class)
+    public static Capability<IWireCutterItem> CAPABILITY_WIRE_CUTTER = null;
 
 }

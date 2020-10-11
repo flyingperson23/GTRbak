@@ -528,9 +528,9 @@ public class Utils {
         for (ItemStack item : items) dropItem(item, player);
     }
 
-    public static boolean isValidWrench(Item item, BlockWrapper b) {
+    public static boolean isValidWrench(ItemStack item, BlockWrapper b) {
         for (IWrenchProvider c : GT6Pipes.instance.WRENCH_PROVIDERS) {
-                if (c.enable() && c.isAcceptable(new ItemStack(item), b)) return true;
+                if (c.enable() && c.isAcceptable(item, b)) return true;
         }
         return false;
     }

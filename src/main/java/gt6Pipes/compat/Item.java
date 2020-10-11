@@ -1,6 +1,5 @@
 package gt6Pipes.compat;
 
-import gt6Pipes.compat.CompatBaseTE;
 import gt6Pipes.util.Utils;
 import gtr.api.pipenet.tile.AttachmentType;
 import gtr.common.pipelike.inventory.tile.TileEntityInventoryPipe;
@@ -66,11 +65,6 @@ public class Item extends CompatBaseTE {
                 Utils.update(te);
             }
         }
-    }
-
-    @Override
-    public Collection<ItemStack> getDrops(TileEntity te, IBlockState blockState) {
-        return te.getBlockType().getDrops(te.getWorld(), te.getPos(), blockState, 0);
     }
 
     @Override

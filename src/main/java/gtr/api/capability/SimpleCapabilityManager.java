@@ -2,6 +2,7 @@ package gtr.api.capability;
 
 import gtr.api.capability.tool.IScrewdriverItem;
 import gtr.api.capability.tool.ISoftHammerItem;
+import gtr.api.capability.tool.IWireCutterItem;
 import gtr.api.capability.tool.IWrenchItem;
 import gtr.api.cover.ICoverable;
 import gtr.api.worldgen.generator.GTWorldGenCapability;
@@ -42,6 +43,7 @@ public class SimpleCapabilityManager {
         registerCapabilityWithNoDefault(IWrenchItem.class);
         registerCapabilityWithNoDefault(IScrewdriverItem.class);
         registerCapabilityWithNoDefault(ISoftHammerItem.class);
+        registerCapabilityWithNoDefault(IWireCutterItem.class);
 
         //internal capabilities
         CapabilityManager.INSTANCE.register(GTWorldGenCapability.class, GTWorldGenCapability.STORAGE, GTWorldGenCapability.FACTORY);

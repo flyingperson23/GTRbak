@@ -30,10 +30,6 @@ public abstract class CompatBaseTE implements ICompatBase {
      *  @param direction the direction of the the block to disconnect from block
      *  @param player the player connecting/disconnecting the pipe*/
     public abstract void disconnect(TileEntity block, EnumFacing direction, EntityPlayer player);
-    /**@param block block to get drops from
-     * @param blockState state to get drops from
-     * @return list of drops block should drop*/
-    public abstract Collection<ItemStack> getDrops(TileEntity block, IBlockState blockState);
 
     @Override
     public boolean canConnect(BlockWrapper block, EnumFacing direction) {
@@ -58,10 +54,5 @@ public abstract class CompatBaseTE implements ICompatBase {
     @Override
     public void disconnect(BlockWrapper block, EnumFacing direction, EntityPlayer player) {
         disconnect(Utils.getTE(block), direction, player);
-    }
-
-    @Override
-    public Collection<ItemStack> getDrops(BlockWrapper block, IBlockState blockState) {
-        return getDrops(Utils.getTE(block), blockState);
     }
 }

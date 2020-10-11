@@ -38,7 +38,6 @@ public class WorldGeneratorImpl implements IWorldGenerator {
         int selfGridX = Math.floorDiv(chunkX, GRID_SIZE_X);
         int selfGridZ = Math.floorDiv(chunkZ, GRID_SIZE_Z);
         generateInternal(world, selfGridX, selfGridZ, chunkX, chunkZ, random);
-        System.out.println(world.provider.getDimension());
     }
 
     private void generateInternal(World world, int selfGridX, int selfGridZ, int chunkX, int chunkZ, Random random) {

@@ -17,7 +17,7 @@
         {
           "weight": 100,
           "value": {
-            "block": "gregtech:mineral",
+            "block": "gtr:mineral",
             "variant": "basalt",
             "chiseling_variant": "normal"
           }

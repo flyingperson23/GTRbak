@@ -31,53 +31,6 @@ public class Materials {
     public static MarkerMaterial _NULL = new MarkerMaterial("_null");
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     /**
      * 'Direct Elements'
      */
@@ -605,6 +558,15 @@ public class Materials {
     public static DustMaterial Bastnasite = new DustMaterial(966, "bastnasite", 0xC86E2D, MaterialIconSet.FINE, 2, of(new MaterialStack(Cerium, 1), new MaterialStack(Carbon, 1), new MaterialStack(Fluorine, 1), new MaterialStack(Oxygen, 3)), GENERATE_ORE);
 
 
+    public static DustMaterial PotassiumFeldspar = new DustMaterial(973, "potassium_feldspar", 0x782828, MaterialIconSet.FINE, 1, of(new MaterialStack(Potassium, 1), new MaterialStack(Aluminium, 1), new MaterialStack(Silicon, 3), new MaterialStack(Oxygen, 8)), 0);
+    public static DustMaterial Basalt = new DustMaterial(967, "basalt", 0x1E1414, MaterialIconSet.ROUGH, 1, of(new MaterialStack(Olivine, 1), new MaterialStack(Calcite, 3), new MaterialStack(Flint, 8), new MaterialStack(DarkAsh, 4)), NO_SMASHING);
+    public static DustMaterial Andesite = new DustMaterial(968, "andesite", 0xBEBEBE, MaterialIconSet.ROUGH, 2, of(), NO_SMASHING);
+    public static DustMaterial Diorite = new DustMaterial(969, "diorite", 0xFFFFFF, MaterialIconSet.ROUGH, 2, of(), NO_SMASHING);
+    public static DustMaterial GraniteBlack = new DustMaterial(970, "granite_black", 0x0A0A0A, MaterialIconSet.ROUGH, 3, of(new MaterialStack(SiliconDioxide, 4), new MaterialStack(Biotite, 1)), NO_SMASHING);
+    public static DustMaterial GraniteRed = new DustMaterial(971, "granite_red", 0xFF0080, MaterialIconSet.ROUGH, 3, of(new MaterialStack(Aluminium, 2), new MaterialStack(PotassiumFeldspar, 1), new MaterialStack(Oxygen, 3)), NO_SMASHING);
+    public static DustMaterial Marble = new DustMaterial(972, "marble", 0xC8C8C8, MaterialIconSet.FINE, 1, of(new MaterialStack(Magnesium, 1), new MaterialStack(Calcite, 7)), NO_SMASHING);
+
+
 
     static {
         for (DustMaterial dustMaterial : new DustMaterial[]{Magnetite, VanadiumMagnetite}) {
@@ -726,6 +688,7 @@ public class Materials {
         Cuprite.addOreByProducts(Iron, Antimony, Malachite);
         Tennantite.addOreByProducts(Iron, Antimony, Zinc);
         Lepidolite.addOreByProducts(Boron);
+        GraniteRed.addOreByProducts(PotassiumFeldspar);
         Chalcopyrite.addOreByProducts(Pyrite, Cobalt, Cadmium, Gold);
         Sphalerite.addOreByProducts(Cadmium, Gallium, Zinc);
         Uraninite.addOreByProducts(Uranium, Thorium, Lead);
@@ -827,6 +790,7 @@ public class Materials {
         Salt.addOreByProducts(RockSalt, Borax);
         RockSalt.addOreByProducts(Salt, Borax);
         Lepidolite.addOreByProducts(Boron);
+        Marble.addOreByProducts(Calcite);
 
         //LV
         RedAlloy.setCableProperties(GTValues.V[0], 1, 0);

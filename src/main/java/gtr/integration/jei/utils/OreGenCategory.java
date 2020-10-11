@@ -5,12 +5,16 @@ import gtr.common.blocks.BlockOre;
 import gtr.common.blocks.MetaBlocks;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
+import mezz.jei.api.gui.IGuiFluidStackGroup;
 import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fluids.FluidStack;
+
+import java.util.List;
 
 public class OreGenCategory implements IRecipeCategory<OreGenWrapper> {
 
@@ -54,12 +58,19 @@ public class OreGenCategory implements IRecipeCategory<OreGenWrapper> {
     @Override
     public void setRecipe(IRecipeLayout recipeLayout, OreGenWrapper recipeWrapper, IIngredients ingredients) {
         IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
+        IGuiFluidStackGroup guiFluidStacks = recipeLayout.getFluidStacks();
 
         int counter = 0;
 
-        for (ItemStack s : recipeWrapper.ores.get(0)) {
+        for (List<ItemStack> i : recipeWrapper.ores) {
             guiItemStacks.init(counter, true, counter*20, 50);
-            guiItemStacks.set(counter, s);
+            guiItemStacks.set(counter, i);
+            counter++;
+        }
+
+        for (List<FluidStack> f : recipeWrapper.fluids) {
+            guiFluidStacks.init(counter, true, counter*20, 50);
+            guiFluidStacks.set(counter, f);
             counter++;
         }
     }

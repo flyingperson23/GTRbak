@@ -138,11 +138,15 @@ public class MetaTileEntityTransformer extends TieredMetaTileEntity {
                 setTransformUp(false);
                 playerIn.sendMessage(new TextComponentTranslation("gtr.machine.transformer.message_transform_down",
                     energyContainer.getInputVoltage(), energyContainer.getInputAmperage(), energyContainer.getOutputVoltage(), energyContainer.getOutputAmperage()));
+                getWorld().notifyBlockUpdate(getPos(), getWorld().getBlockState(getPos()), getWorld().getBlockState(getPos()), 3);
+                markDirty();
                 return true;
             } else {
                 setTransformUp(true);
                 playerIn.sendMessage(new TextComponentTranslation("gtr.machine.transformer.message_transform_up",
                     energyContainer.getInputVoltage(), energyContainer.getInputAmperage(), energyContainer.getOutputVoltage(), energyContainer.getOutputAmperage()));
+                getWorld().notifyBlockUpdate(getPos(), getWorld().getBlockState(getPos()), getWorld().getBlockState(getPos()), 3);
+                markDirty();
                 return true;
             }
         }

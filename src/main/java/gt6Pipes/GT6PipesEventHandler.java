@@ -101,24 +101,6 @@ public class GT6PipesEventHandler {
     }
 
     @SubscribeEvent
-    public void onEvent(BlockEvent.BreakEvent event) {
-        if (event.getPlayer().getHeldItemMainhand().getItem() instanceof IWrenchItem) {
-            for (ICompatBase compat : GT6Pipes.instance.COMPAT_LIST) {
-                if (compat.isAcceptable(new BlockWrapper(event.getPos(), event.getPlayer()))) {
-                    BlockWrapper block = new BlockWrapper(event.getPos(), event.getPlayer());
-                    Utils.dropItems(compat.getDrops(block, block.state), event.getPlayer());
-                    event.getWorld().playSound(event.getPlayer(), event.getPos(), ModSounds.wrench_sound, SoundCategory.PLAYERS, 1.0F, 1.0F);
-                    event.getWorld().setBlockToAir(event.getPos());
-                    event.getWorld().notifyBlockUpdate(event.getPos(), event.getState(), event.getState(), 3);
-                    event.setCanceled(true);
-                }
-            }
-        }
-    }
-
-
-
-    @SubscribeEvent
     public void onEvent(PlayerInteractEvent event) {
         if (!(event instanceof PlayerInteractEvent.LeftClickEmpty | event instanceof  PlayerInteractEvent.LeftClickBlock)) {
             RayTraceResult lookingAt = Utils.getBlockLookingAtIgnoreBB(event.getEntityPlayer());
@@ -158,18 +140,18 @@ public class GT6PipesEventHandler {
                 for (int i = 0; i < GT6Pipes.instance.COMPAT_LIST.size(); i++) {
                     ICompatBase compat = GT6Pipes.instance.COMPAT_LIST.get(i);
                     BlockWrapper b = new BlockWrapper(pos, player);
-                    if (compat.isAcceptable(b) && Utils.isValidWrench(player.getHeldItemMainhand().getItem(), b)) {
+                    if (compat.isAcceptable(b) && Utils.isValidWrench(player.getHeldItemMainhand(), b)) {
                         GT6Pipes.BETTER_PIPES_NETWORK_WRAPPER.sendToServer(new MessageGetConnections(pos, i));
                         if (ConnectionGrid.instance() != null) {
                             if (ConnectionGrid.instance().get(pos) != null) {
                                 Renderer.renderOverlay(player, pos, lookingAt.sideHit, event.getPartialTicks(), ConnectionGrid.instance().get(pos).connections);
                                 EnumFacing directionHovered = Utils.getDirection(lookingAt.sideHit, lookingAt.hitVec);
-                                if (directionHovered != null) Renderer.drawOutline(player, pos.offset(directionHovered, 1), event.getPartialTicks());
+                                if (directionHovered != null)
+                                    Renderer.drawOutline(player, pos.offset(directionHovered, 1), event.getPartialTicks());
                             }
                         }
                     }
                 }
-
             }
         }
         if (GT6Pipes.instance.counter % 100 == 0) ConnectionGrid.instance().clear();
