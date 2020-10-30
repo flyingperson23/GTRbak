@@ -217,7 +217,7 @@ public class MetaTileEntityItemCollector extends TieredMetaTileEntity {
     @Override
     protected ModularUI createUI(EntityPlayer entityPlayer) {
         int rowSize = (int) Math.sqrt(exportItems.getSlots());
-        Builder builder = ModularUI.builder(GuiTextures.BACKGROUND, 176,
+        Builder builder = ModularUI.builder(GuiTextures.getBackground(this, GuiTextures.BACKGROUND_LOCATION), 176,
             45 + rowSize * 18 + 105 + 82)
             .label(10, 5, getMetaFullName());
 

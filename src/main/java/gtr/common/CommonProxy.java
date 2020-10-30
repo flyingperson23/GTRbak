@@ -1,11 +1,8 @@
 package gtr.common;
 
-import gt6Pipes.GT6Pipes;
-import gt6Pipes.ModSounds;
-import gt6Pipes.network.MessageGetConnections;
-import gt6Pipes.network.MessagePlaySound;
-import gt6Pipes.network.MessageReturnConnections;
-import gt6Pipes.network.MessageSwingArm;
+import gtr.GregTechMod;
+import gtr.api.net.displayrecipes.*;
+import gtr.api.net.wrenchnet.*;
 import gtr.api.GTValues;
 import gtr.api.block.machines.MachineItemBlock;
 import gtr.api.enchants.EnchantmentEnderDamage;
@@ -58,15 +55,22 @@ public class CommonProxy {
 
 
     public void init(FMLInitializationEvent e) {
-        GT6Pipes.BETTER_PIPES_NETWORK_WRAPPER.registerMessage(MessageGetConnections.MessageHandler.class, MessageGetConnections.class, 0, Side.SERVER);
-        GT6Pipes.BETTER_PIPES_NETWORK_WRAPPER.registerMessage(MessageReturnConnections.MessageHandler.class, MessageReturnConnections.class, 1, Side.CLIENT);
-        GT6Pipes.BETTER_PIPES_NETWORK_WRAPPER.registerMessage(MessagePlaySound.MessageHandler.class, MessagePlaySound.class, 2, Side.CLIENT);
-        GT6Pipes.BETTER_PIPES_NETWORK_WRAPPER.registerMessage(MessageSwingArm.MessageHandler.class, MessageSwingArm.class, 3, Side.CLIENT);
+        GregTechMod.WRENCH_NET_WRAPPER.registerMessage(MessageGetConnections.MessageHandler.class, MessageGetConnections.class, 0, Side.SERVER);
+        GregTechMod.WRENCH_NET_WRAPPER.registerMessage(MessageReturnConnections.MessageHandler.class, MessageReturnConnections.class, 1, Side.CLIENT);
+        GregTechMod.WRENCH_NET_WRAPPER.registerMessage(MessagePlaySound.MessageHandler.class, MessagePlaySound.class, 2, Side.CLIENT);
+        GregTechMod.WRENCH_NET_WRAPPER.registerMessage(MessageSwingArm.MessageHandler.class, MessageSwingArm.class, 3, Side.CLIENT);
+
+        GregTechMod.DISPLAY_INFO_WRAPPER.registerMessage(MessageSetFuelDieselEngine.MessageHandler.class, MessageSetFuelDieselEngine.class, 0, Side.CLIENT);
+        GregTechMod.DISPLAY_INFO_WRAPPER.registerMessage(MessageRequestFuelDieselEngine.MessageHandler.class, MessageRequestFuelDieselEngine.class, 1, Side.SERVER);
+        GregTechMod.DISPLAY_INFO_WRAPPER.registerMessage(MessageSetFuelLargeTurbine.MessageHandler.class, MessageSetFuelLargeTurbine.class, 2, Side.CLIENT);
+        GregTechMod.DISPLAY_INFO_WRAPPER.registerMessage(MessageRequestFuelLargeTurbine.MessageHandler.class, MessageRequestFuelLargeTurbine.class, 3, Side.SERVER);
+        GregTechMod.DISPLAY_INFO_WRAPPER.registerMessage(MessageSetRecipeMultiblock.MessageHandler.class, MessageSetRecipeMultiblock.class, 4, Side.CLIENT);
+        GregTechMod.DISPLAY_INFO_WRAPPER.registerMessage(MessageRequestRecipeMultiblock.MessageHandler.class, MessageRequestRecipeMultiblock.class, 5, Side.SERVER);
     }
 
     @SubscribeEvent
     public static void registerSounds(RegistryEvent.Register<SoundEvent> sounds) {
-        ModSounds.init(sounds.getRegistry());
+        Sounds.init(sounds.getRegistry());
     }
 
 
@@ -89,7 +93,7 @@ public class CommonProxy {
         registry.register(METAL_CASING);
         registry.register(TURBINE_CASING);
         registry.register(MACHINE_CASING);
-        registry.register(MUTLIBLOCK_CASING);
+        registry.register(MULTIBLOCK_CASING);
         registry.register(WIRE_COIL);
         registry.register(WARNING_SIGN);
         registry.register(GRANITE);
@@ -135,7 +139,7 @@ public class CommonProxy {
         registry.register(createItemBlock(METAL_CASING, VariantItemBlock::new));
         registry.register(createItemBlock(TURBINE_CASING, VariantItemBlock::new));
         registry.register(createItemBlock(MACHINE_CASING, VariantItemBlock::new));
-        registry.register(createItemBlock(MUTLIBLOCK_CASING, VariantItemBlock::new));
+        registry.register(createItemBlock(MULTIBLOCK_CASING, VariantItemBlock::new));
         registry.register(createItemBlock(WIRE_COIL, VariantItemBlock::new));
         registry.register(createItemBlock(WARNING_SIGN, VariantItemBlock::new));
         registry.register(createItemBlock(GRANITE, StoneItemBlock::new));

@@ -172,14 +172,11 @@ public class CableRenderer implements ICCBlockRenderer, IItemRenderer {
 
     private static void renderCableCube(int connections, CCRenderState renderState, IVertexOperation[] pipeline, IVertexOperation[] wire, IVertexOperation[] overlays, EnumFacing side, float thickness) {
         if ((connections & 1 << side.getIndex()) > 0) {
-            boolean renderFrontSide = (connections & 1 << (6 + side.getIndex())) > 0;
             Cuboid6 cuboid6 = BlockCable.getSideBox(side, thickness);
             for (EnumFacing renderedSide : EnumFacing.VALUES) {
                 if (renderedSide == side) {
-                    if (renderFrontSide) {
-                        renderCableSide(renderState, wire, renderedSide, cuboid6);
-                        renderCableSide(renderState, overlays, renderedSide, cuboid6);
-                    }
+                    renderCableSide(renderState, wire, renderedSide, cuboid6);
+                    renderCableSide(renderState, overlays, renderedSide, cuboid6);
                 } else if (renderedSide != side.getOpposite()) {
                     renderCableSide(renderState, pipeline, renderedSide, cuboid6);
                 }

@@ -27,7 +27,7 @@ public abstract class FueledMultiblockController extends MultiblockWithDisplayBa
     protected final FuelRecipeMap recipeMap;
     protected FuelRecipeLogic workableHandler;
     protected IEnergyContainer energyContainer;
-    protected IMultipleTankHandler importFluidHandler;
+    public IMultipleTankHandler importFluidHandler;
 
     public FueledMultiblockController(ResourceLocation metaTileEntityId, FuelRecipeMap recipeMap, long maxVoltage) {
         super(metaTileEntityId);
@@ -90,7 +90,6 @@ public abstract class FueledMultiblockController extends MultiblockWithDisplayBa
 
     @Override
     protected boolean checkStructureComponents(List<IMultiblockPart> parts, Map<MultiblockAbility<Object>, List<Object>> abilities) {
-        //noinspection SuspiciousMethodCalls
         return abilities.containsKey(MultiblockAbility.IMPORT_FLUIDS) &&
             abilities.containsKey(MultiblockAbility.OUTPUT_ENERGY);
     }

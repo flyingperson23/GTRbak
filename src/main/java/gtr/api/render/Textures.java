@@ -9,6 +9,7 @@ import codechicken.lib.vec.Matrix4;
 import codechicken.lib.vec.TransformationList;
 import codechicken.lib.vec.uv.IconTransformation;
 import gtr.api.GTValues;
+import gtr.api.gui.resources.TextureArea;
 import gtr.api.util.GTLog;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -38,6 +39,7 @@ public class Textures {
     public static SimpleSidedCubeRenderer STEAM_CASING_STEEL = new SimpleSidedCubeRenderer("casings/steam/steel");
     public static SimpleSidedCubeRenderer STEAM_BRICKED_CASING_BRONZE = new SimpleSidedCubeRenderer("casings/steam/bricked_bronze");
     public static SimpleSidedCubeRenderer STEAM_BRICKED_CASING_STEEL = new SimpleSidedCubeRenderer("casings/steam/bricked_steel");
+    public static SimpleSidedCubeRenderer PYROLYSE = new SimpleSidedCubeRenderer("casings/pyrolyse");
     public static SimpleSidedCubeRenderer[] VOLTAGE_CASINGS = new SimpleSidedCubeRenderer[GTValues.V.length];
 
     public static SimpleSidedCubeRenderer MAGIC_ENERGY_ABSORBER = new SimpleSidedCubeRenderer("casings/magic/absorber/normal");
@@ -45,6 +47,13 @@ public class Textures {
 
     public static SimpleSidedCubeRenderer MAGIC_ENERGY_CONVERTER = new SimpleSidedCubeRenderer("casings/magic/converter/normal");
     public static SimpleSidedCubeRenderer MAGIC_ENERGY_CONVERTER_ACTIVE = new SimpleSidedCubeRenderer("casings/magic/converter/active");
+
+    public static TextureArea EMPTY = TextureArea.fullImage("textures/gui/base/empty.png");
+
+    public static SimpleCubeRenderer FUSION_BASE = new SimpleCubeRenderer("casings/fusion/machine_casing_fusion_glass");
+    public static SimpleCubeRenderer ACTIVE_FUSION_BASE = new SimpleCubeRenderer("casings/fusion/machine_casing_fusion_glass_yellow");
+    public static SimpleCubeRenderer FUSION_SIDE_2 = new SimpleCubeRenderer("casings/fusion/machine_casing_fusion_side");
+
 
     public static SimpleCubeRenderer BRONZE_PLATED_BRICKS = new SimpleCubeRenderer("casings/solid/machine_bronze_plated_bricks");
     public static SimpleCubeRenderer PRIMITIVE_BRICKS = new SimpleCubeRenderer("casings/solid/machine_primitive_bricks");
@@ -64,6 +73,8 @@ public class Textures {
     public static SimpleCubeRenderer TITANIUM_FIREBOX_ACTIVE = new SimpleCubeRenderer("casings/firebox/machine_casing_firebox_titanium_active");
     public static SimpleCubeRenderer TUNGSTENSTEEL_FIREBOX = new SimpleCubeRenderer("casings/firebox/machine_casing_firebox_tungstensteel");
     public static SimpleCubeRenderer TUNGSTENSTEEL_FIREBOX_ACTIVE = new SimpleCubeRenderer("casings/firebox/machine_casing_firebox_tungstensteel_active");
+    public static SimpleCubeRenderer HIGH_POWER = new SimpleCubeRenderer("casings/high_power/high_power");
+    public static SimpleCubeRenderer BATTERY_HOLDER = new SimpleCubeRenderer("machines/battery_holder/battery_holder");
 
     public static SimpleSidedCubeRenderer TESLA_COIL = new SimpleSidedCubeRenderer("casings/tesla_coil");
     public static SimpleOrientedCubeRenderer CRAFTING_TABLE = new SimpleOrientedCubeRenderer("casings/crafting_table");
@@ -77,6 +88,7 @@ public class Textures {
     public static OrientedOverlayRenderer MULTIBLOCK_WORKABLE_OVERLAY = new OrientedOverlayRenderer("machines/multiblock_workable", FRONT);
     public static LargeTurbineRenderer LARGE_TURBINE_ROTOR_RENDERER = new LargeTurbineRenderer();
 
+    public static OrientedOverlayRenderer WORLD_ACCELERATOR = new OrientedOverlayRenderer("machines/accelerator", FRONT, SIDE, BACK);
     public static OrientedOverlayRenderer ALLOY_SMELTER_OVERLAY = new OrientedOverlayRenderer("machines/alloy_smelter", FRONT);
     public static OrientedOverlayRenderer FURNACE_OVERLAY = new OrientedOverlayRenderer("machines/furnace", FRONT);
     public static OrientedOverlayRenderer ELECTRIC_FURNACE_OVERLAY = new OrientedOverlayRenderer("machines/electric_furnace", FRONT);
@@ -118,6 +130,7 @@ public class Textures {
     public static OrientedOverlayRenderer SIFTER_OVERLAY = new OrientedOverlayRenderer("machines/sifter", FRONT, TOP);
     public static OrientedOverlayRenderer THERMAL_CENTRIFUGE_OVERLAY = new OrientedOverlayRenderer("machines/thermal_centrifuge", FRONT);
     public static OrientedOverlayRenderer WIREMILL_OVERLAY = new OrientedOverlayRenderer("machines/wiremill", FRONT, TOP);
+    public static OrientedOverlayRenderer FUSION_REACTOR_OVERLAY = new OrientedOverlayRenderer("machines/fusion_reactor", FRONT);
 
     public static OrientedOverlayRenderer DIESEL_GENERATOR_OVERLAY = new OrientedOverlayRenderer("generators/diesel", TOP);
     public static OrientedOverlayRenderer GAS_TURBINE_OVERLAY = new OrientedOverlayRenderer("generators/gas_turbine", SIDE);

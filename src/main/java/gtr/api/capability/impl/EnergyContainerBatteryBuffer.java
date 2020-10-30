@@ -23,7 +23,7 @@ import java.util.BitSet;
 
 public class EnergyContainerBatteryBuffer extends MTETrait implements IEnergyContainer {
 
-    private BitSet batterySlotsUsedThisTick = new BitSet();
+    private final BitSet batterySlotsUsedThisTick = new BitSet();
     private final int tier;
 
     public EnergyContainerBatteryBuffer(MetaTileEntity metaTileEntity, int tier) {
@@ -45,8 +45,8 @@ public class EnergyContainerBatteryBuffer extends MTETrait implements IEnergyCon
                 ItemStack batteryStack = inventory.getStackInSlot(i);
                 IElectricItem electricItem = getBatteryContainer(batteryStack);
                 if (electricItem == null) continue;
-                if (chargeItemWithVoltageExact(electricItem, voltage, getTier(), true)) {
-                    chargeItemWithVoltageExact(electricItem, voltage, getTier(), false);
+                if (chargeItemWithVoltage(electricItem, voltage, getTier(), true)) {
+                    chargeItemWithVoltage(electricItem, voltage, getTier(), false);
                     inventory.setStackInSlot(i, batteryStack);
                     this.batterySlotsUsedThisTick.set(i);
                     if (--amperage == 0) break;
@@ -60,8 +60,9 @@ public class EnergyContainerBatteryBuffer extends MTETrait implements IEnergyCon
         return amperageUsed;
     }
 
-    private static boolean chargeItemWithVoltageExact(IElectricItem electricItem, long voltage, int tier, boolean simulate) {
-        return electricItem.charge(voltage, tier, false, simulate) == voltage;
+    private static boolean chargeItemWithVoltage(IElectricItem electricItem, long voltage, int tier, boolean simulate) {
+        long charged = electricItem.charge(voltage, tier, false, simulate);
+        return charged > 0;
     }
 
     private static long chargeItem(IElectricItem electricItem, long amount, int tier, boolean discharge) {

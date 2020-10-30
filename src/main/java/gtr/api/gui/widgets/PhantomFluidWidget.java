@@ -30,8 +30,8 @@ public class PhantomFluidWidget extends Widget implements IIngredientSlot, IGhos
 
     protected TextureArea backgroundTexture = GuiTextures.FLUID_SLOT;
 
-    private Supplier<FluidStack> fluidStackSupplier;
-    private Consumer<FluidStack> fluidStackUpdater;
+    private final Supplier<FluidStack> fluidStackSupplier;
+    private final Consumer<FluidStack> fluidStackUpdater;
     protected FluidStack lastFluidStack;
 
     public PhantomFluidWidget(int xPosition, int yPosition, int width, int height, Supplier<FluidStack> fluidStackSupplier, Consumer<FluidStack> fluidStackUpdater) {

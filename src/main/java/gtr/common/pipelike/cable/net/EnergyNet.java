@@ -17,8 +17,8 @@ import java.util.Stack;
 
 public class EnergyNet extends PipeNet<WireProperties> {
 
-    private final PerTickLongCounter currentAmperageCounter = new PerTickLongCounter(0L);
-    private final PerTickLongCounter currentMaxVoltageCounter = new PerTickLongCounter(0L);
+    public final PerTickLongCounter currentAmperageCounter = new PerTickLongCounter(0L);
+    public final PerTickLongCounter currentMaxVoltageCounter = new PerTickLongCounter(0L);
 
     protected EnergyNet(WorldPipeNet<WireProperties, EnergyNet> world) {
         super(world);
@@ -55,10 +55,9 @@ public class EnergyNet extends PipeNet<WireProperties> {
             for (EnumFacing facing : EnumFacing.VALUES) {
                 currentPos.move(facing);
                 Node<WireProperties> secondNode = getNodeAt(currentPos);
-                if (secondNode != null && canNodesConnect(firstNode, facing, secondNode, this) && !observedSet.contains(currentPos)) {
+                if (secondNode != null && !observedSet.contains(currentPos)) {
                     BlockPos immutablePos = currentPos.toImmutable();
                     observedSet.add(immutablePos);
-                    firstNode = secondNode;
                     moveStack.push(facing.getOpposite());
                     currentPath.path.put(immutablePos, getNodeAt(immutablePos).data);
                     if (secondNode.isActive) {

@@ -33,8 +33,8 @@ public class ConfigHolder {
     @Config.Comment("Whether veins should be generated in center of chunk. Default: false")
     public static boolean generateVeinsInCenterOfChunk = false;
 
-    @Config.Comment("Whether to disable vanilla ores generation in world. Default: false")
-    public static boolean disableVanillaOres = false;
+    @Config.Comment("Whether to disable vanilla ores generation in world. Default: true")
+    public static boolean disableVanillaOres = true;
 
     @Config.Comment("Whether to disable rubber tree world generation. Default: false")
     @Config.RequiresMcRestart
@@ -75,7 +75,7 @@ public class ConfigHolder {
     public static boolean euCompat = true;
 
     @Config.Comment("Whether to use modPriorities setting in config for prioritizing ore dictionary item registrations. " +
-        "By default, GTCE will sort ore dictionary registrations alphabetically comparing their owner ModIDs. Default: false")
+        "By default, GTR will sort ore dictionary registrations alphabetically comparing their owner ModIDs. Default: false")
     @Config.RequiresMcRestart
     public static boolean useCustomModPriorities = false;
 

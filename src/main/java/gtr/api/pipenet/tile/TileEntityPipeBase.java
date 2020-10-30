@@ -166,16 +166,17 @@ public abstract class TileEntityPipeBase<PipeType extends Enum<PipeType> & IPipe
 
     public void setConnected(EnumFacing direction, boolean connected) {
         setConnectionBlocked(AttachmentType.PIPE, direction, connected);
-        if (world.getBlockState(pos.offset(direction)).getBlock() instanceof BlockPipe) {
+        //if (world.getBlockState(pos.offset(direction)).getBlock() instanceof BlockPipe) {
             TileEntityPipeBase<?, ?> p = (TileEntityPipeBase<?, ?>) world.getTileEntity(pos.offset(direction));
             if (p != null) {
                 p.setConnectionBlocked(AttachmentType.PIPE, direction.getOpposite(), connected);
                 p.recomputeBlockedConnections();
                 p.updateSideBlockedConnection(direction.getOpposite());
             }
-        }
+        //}
         recomputeBlockedConnections();
         updateSideBlockedConnection(direction);
+
     }
 
     private void recomputeBlockedConnections() {

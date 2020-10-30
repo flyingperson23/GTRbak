@@ -91,11 +91,6 @@ public abstract class BlockPipe<PipeType extends Enum<PipeType> & IPipeType<Node
 
     public abstract boolean isAcceptable(TileEntity te, EnumFacing direction);
 
-    public boolean canConnect(World world, BlockPos pos, EnumFacing direction) {
-        TileEntity te = world.getTileEntity(pos.offset(direction));
-        return te != null && isAcceptable(te, direction);
-    }
-
     public abstract void setTileEntityData(TileEntityPipeBase<PipeType, NodeDataType> pipeTile, ItemStack itemStack);
 
     @Override
@@ -329,35 +324,7 @@ public abstract class BlockPipe<PipeType extends Enum<PipeType> & IPipeType<Node
      * @return 0 - not a pipe; 1 - pipe but blocked; 2,3 - accessible
      */
     protected final int isPipeAccessibleAtSide(IBlockAccess world, IPipeTile<PipeType, NodeDataType> selfTile, EnumFacing side) {
-        IPipeTile<PipeType, NodeDataType> tileEntityPipe = getPipeTileEntity(world, selfTile.getPipePos().offset(side));
-        return isPipeAccessibleAtSideInternal(selfTile, tileEntityPipe, side);
-    }
-
-    protected final int isPipeAccessibleAtSideInternal(IPipeTile<PipeType, NodeDataType> selfTile, IPipeTile<PipeType, NodeDataType> tileEntityPipe, EnumFacing side) {
-        if (tileEntityPipe == null) {
-            return 0; //not a cable pipe entity
-        }
-        if ((tileEntityPipe.getBlockedConnections() & 1 << side.getOpposite().getIndex()) > 0 ||
-            (selfTile.getBlockedConnections() & 1 << side.getIndex()) > 0) {
-            return 1; //connection is blocked on this facing
-        }
-
-        int insulationColor = selfTile.getInsulationColor();
-        if (insulationColor != IPipeTile.DEFAULT_INSULATION_COLOR &&
-            tileEntityPipe.getInsulationColor() != IPipeTile.DEFAULT_INSULATION_COLOR &&
-            insulationColor != tileEntityPipe.getInsulationColor()) {
-            return 1; //color doesn't match; unable to connect
-        }
-
-        if (!canPipesConnect(selfTile, side, tileEntityPipe)) {
-            return 1; //custom connection predicate didn't match
-        }
-        PipeType otherPipeType = tileEntityPipe.getPipeType();
-        PipeType myPipeType = selfTile.getPipeType();
-        if (otherPipeType == null || myPipeType == null) {
-            return 0;
-        }
-        return myPipeType.getThickness() > otherPipeType.getThickness() ? 3 : 2;
+        return GTUtility.fromGTCEBitmask(selfTile.getBlockedConnections()).contains(side) ? 1 : 2;
     }
 
     protected boolean canPipesConnect(IPipeTile<PipeType, NodeDataType> selfTile, EnumFacing side, IPipeTile<PipeType, NodeDataType> sideTile) {

@@ -27,20 +27,22 @@ public class MetaTileEntityEnergyHatch extends MetaTileEntityMultiblockPart impl
 
     private final boolean isExportHatch;
     private final IEnergyContainer energyContainer;
+    private final int amps;
 
-    public MetaTileEntityEnergyHatch(ResourceLocation metaTileEntityId, int tier, boolean isExportHatch) {
+    public MetaTileEntityEnergyHatch(ResourceLocation metaTileEntityId, int tier, boolean isExportHatch, int amps) {
         super(metaTileEntityId, tier);
         this.isExportHatch = isExportHatch;
+        this.amps = amps;
         if (isExportHatch) {
-            this.energyContainer = EnergyContainerHandler.emitterContainer(this, GTValues.V[tier] * 128L, GTValues.V[tier], 4);
+            this.energyContainer = EnergyContainerHandler.emitterContainer(this, GTValues.V[tier] * amps * 2, GTValues.V[tier], amps);
         } else {
-            this.energyContainer = EnergyContainerHandler.receiverContainer(this, GTValues.V[tier] * 16L, GTValues.V[tier], 2);
+            this.energyContainer = EnergyContainerHandler.receiverContainer(this, GTValues.V[tier] * amps * 2, GTValues.V[tier], amps);
         }
     }
 
     @Override
     public MetaTileEntity createMetaTileEntity(MetaTileEntityHolder holder) {
-        return new MetaTileEntityEnergyHatch(metaTileEntityId, getTier(), isExportHatch);
+        return new MetaTileEntityEnergyHatch(metaTileEntityId, getTier(), isExportHatch, amps);
     }
 
     @Override

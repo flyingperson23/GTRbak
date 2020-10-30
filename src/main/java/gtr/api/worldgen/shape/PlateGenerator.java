@@ -102,7 +102,6 @@ public class PlateGenerator extends ShapeGenerator {
                 boolean hasRoofSub = roofSharpness > gridRandom.nextFloat();
                 for (int y = -height; y <= height; y++) {
 
-                    System.out.println(x+" "+y+" "+z);
                     if (hasRoofSub && (y == height || gridRandom.nextBoolean())) {
                         continue;
                     } else hasRoofSub = false;

@@ -42,6 +42,7 @@ public class ColorSprayBehaviour extends AbstractUsableBehaviour {
     }
 
     private boolean tryPaintBlock(World world, BlockPos pos, EnumFacing side) {
+        System.out.println(world.isRemote);
         IBlockState blockState = world.getBlockState(pos);
         Block block = blockState.getBlock();
         return block.recolorBlock(world, pos, side, this.color) || tryPaintSpecialBlock(world, pos, block);

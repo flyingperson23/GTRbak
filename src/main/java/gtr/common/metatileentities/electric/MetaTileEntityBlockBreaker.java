@@ -240,7 +240,7 @@ public class MetaTileEntityBlockBreaker extends TieredMetaTileEntity {
     @Override
     protected ModularUI createUI(EntityPlayer entityPlayer) {
         int rowSize = (int) Math.sqrt(getInventorySize());
-        Builder builder = ModularUI.builder(GuiTextures.BACKGROUND, 176, 18 + 18 * rowSize + 94)
+        Builder builder = ModularUI.builder(GuiTextures.getBackground(this, GuiTextures.BACKGROUND_LOCATION), 176, 18 + 18 * rowSize + 94)
             .label(10, 5, getMetaFullName());
 
         for (int y = 0; y < rowSize; y++) {

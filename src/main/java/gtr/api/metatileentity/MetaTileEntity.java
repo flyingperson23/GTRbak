@@ -63,8 +63,8 @@ public abstract class MetaTileEntity implements ICoverable {
     public final ResourceLocation metaTileEntityId;
     MetaTileEntityHolder holder;
 
-    protected IItemHandlerModifiable importItems;
-    protected IItemHandlerModifiable exportItems;
+    public IItemHandlerModifiable importItems;
+    public IItemHandlerModifiable exportItems;
 
     protected IItemHandler itemInventory;
 
@@ -302,7 +302,7 @@ public abstract class MetaTileEntity implements ICoverable {
         return onRightClick(playerIn, hand, result.sideHit, result);
     }
 
-    public final boolean onCoverScrewdriverClick(EntityPlayer playerIn, EnumHand hand, CuboidRayTraceResult result) {
+    public boolean onCoverScrewdriverClick(EntityPlayer playerIn, EnumHand hand, CuboidRayTraceResult result) {
         EnumFacing coverSide = ICoverable.traceCoverSide(result);
         CoverBehavior coverBehavior = coverSide == null ? null : getCoverAtSide(coverSide);
         EnumActionResult coverResult = coverBehavior == null ? EnumActionResult.PASS :
@@ -363,7 +363,7 @@ public abstract class MetaTileEntity implements ICoverable {
         return coverBehaviors[side.getIndex()];
     }
 
-    public final boolean placeCoverOnSide(EnumFacing side, ItemStack itemStack, CoverDefinition coverDefinition) {
+    public boolean placeCoverOnSide(EnumFacing side, ItemStack itemStack, CoverDefinition coverDefinition) {
         Preconditions.checkNotNull(side, "side");
         Preconditions.checkNotNull(coverDefinition, "coverDefinition");
         CoverBehavior coverBehavior = coverDefinition.createCoverBehavior(this, side);

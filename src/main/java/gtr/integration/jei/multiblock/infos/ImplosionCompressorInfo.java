@@ -31,7 +31,7 @@ public class ImplosionCompressorInfo extends MultiblockInfoPage {
             .where('X', MetaBlocks.METAL_CASING.getState(MetalCasingType.STEEL_SOLID))
             .where('#', Blocks.AIR.getDefaultState())
             .where('I', MetaTileEntities.ITEM_IMPORT_BUS[GTValues.HV], EnumFacing.SOUTH)
-            .where('E', MetaTileEntities.ENERGY_INPUT_HATCH[GTValues.HV], EnumFacing.EAST)
+            .where('E', MetaTileEntities.ENERGY_INPUT_HATCH[GTValues.HV][0], EnumFacing.EAST)
             .where('B', MetaTileEntities.ITEM_EXPORT_BUS[GTValues.HV], EnumFacing.NORTH)
             .build();
         return Lists.newArrayList(shapeInfo);

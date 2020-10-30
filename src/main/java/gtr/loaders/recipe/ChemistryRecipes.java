@@ -240,7 +240,7 @@ public class ChemistryRecipes {
         RecipeMaps.CHEMICAL_RECIPES.recipeBuilder().duration(200).EUt(22).fluidInputs(Materials.Toluene.getFluid(B), Materials.Oxygen.getFluid(B * 2)).outputs(OreDictUnifier.get(OrePrefix.dust, Materials.Ash, 2)).fluidOutputs(Materials.Phenol.getFluid(B), Materials.Water.getFluid(B)).buildAndRegister();
 
         //Preparations for various plastics
-        RecipeMaps.CRACKING_RECIPES.recipeBuilder().duration(120).EUt(44).fluidInputs(Materials.EthyleneDichloride.getFluid(B), Materials.Steam.getFluid(B/10)).fluidOutputs(Materials.VinylChloride.getFluid(B), Materials.HydrochloricAcid.getFluid(B)).buildAndRegister();
+        RecipeMaps.CHEMICAL_RECIPES.recipeBuilder().duration(120).EUt(44).fluidInputs(Materials.EthyleneDichloride.getFluid(B), Materials.Steam.getFluid(B/10)).fluidOutputs(Materials.VinylChloride.getFluid(B), Materials.HydrochloricAcid.getFluid(B)).buildAndRegister();
 
         RecipeMaps.MIXER_RECIPES.recipeBuilder().duration(200).EUt(24).input(OrePrefix.dustTiny, Materials.Zinc, 4).fluidInputs(Materials.AceticAcid.getFluid(B)).fluidOutputs(Materials.VinylAcetate.getFluid(B)).buildAndRegister();
         RecipeMaps.CHEMICAL_RECIPES.recipeBuilder().duration(90).EUt(42).input(OrePrefix.dustTiny, Materials.Palladium).fluidInputs(Materials.AceticAcid.getFluid(B * 2), Materials.Oxygen.getFluid(B), Materials.Ethylene.getFluid(B * 2)).fluidOutputs(Materials.VinylAcetate.getFluid(B * 5)).buildAndRegister();

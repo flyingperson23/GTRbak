@@ -6,6 +6,7 @@ import com.google.common.collect.ImmutableList;
 import gtr.api.gui.resources.TextureArea;
 import gtr.api.gui.widgets.*;
 import gtr.api.gui.widgets.ProgressWidget.MoveType;
+import gtr.api.metatileentity.MetaTileEntity;
 import gtr.api.util.Position;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -94,6 +95,10 @@ public final class ModularUI implements ISizeProvider {
         return new Builder(GuiTextures.BACKGROUND, 176, 166);
     }
 
+    public static Builder defaultBuilder(MetaTileEntity te) {
+        return new Builder(GuiTextures.getBackground(te, GuiTextures.BACKGROUND_LOCATION), 176, 166);
+    }
+
     public static Builder borderedBuilder() {
         return new Builder(GuiTextures.BORDERED_BACKGROUND, 195, 136);
     }
@@ -131,11 +136,12 @@ public final class ModularUI implements ISizeProvider {
      */
     public static class Builder {
 
-        private ImmutableBiMap.Builder<Integer, Widget> widgets = ImmutableBiMap.builder();
-        private ImmutableList.Builder<Runnable> openListeners = ImmutableList.builder();
-        private ImmutableList.Builder<Runnable> closeListeners = ImmutableList.builder();
-        private TextureArea background;
-        private int width, height;
+        private final ImmutableBiMap.Builder<Integer, Widget> widgets = ImmutableBiMap.builder();
+        private final ImmutableList.Builder<Runnable> openListeners = ImmutableList.builder();
+        private final ImmutableList.Builder<Runnable> closeListeners = ImmutableList.builder();
+        public TextureArea background;
+        private final int width;
+        private final int height;
         private int nextFreeWidgetId = 0;
 
         public Builder(TextureArea background, int width, int height) {
@@ -146,8 +152,9 @@ public final class ModularUI implements ISizeProvider {
         }
 
         public Builder widget(Widget widget) {
-            Preconditions.checkNotNull(widget);
-            widgets.put(nextFreeWidgetId++, widget);
+            if (widget != null) {
+                widgets.put(nextFreeWidgetId++, widget);
+            }
             return this;
         }
 

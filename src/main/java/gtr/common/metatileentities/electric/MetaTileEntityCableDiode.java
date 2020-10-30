@@ -28,9 +28,6 @@ public class MetaTileEntityCableDiode extends TieredMetaTileEntity {
     public MetaTileEntityCableDiode(ResourceLocation metaTileEntityId, int tier, int amperage) {
         super(metaTileEntityId, tier);
         this.amperage = amperage;
-        reinitializeEnergyContainer();
-
-        System.out.println(energyContainer.getEnergyCapacity());
     }
 
     @Override
@@ -41,10 +38,8 @@ public class MetaTileEntityCableDiode extends TieredMetaTileEntity {
     @Override
     protected void reinitializeEnergyContainer() {
         long tierVoltage = GTValues.V[getTier()];
-        this.energyContainer = new EnergyContainerHandler(this, tierVoltage * amperage, tierVoltage, amperage, tierVoltage, amperage);
+        this.energyContainer = new EnergyContainerHandler(this, tierVoltage * amperage * 4, tierVoltage, amperage, tierVoltage, amperage);
         ((EnergyContainerHandler) this.energyContainer).setSideOutputCondition(s -> s == getFrontFacing());
-
-
     }
 
     @Override
@@ -75,5 +70,13 @@ public class MetaTileEntityCableDiode extends TieredMetaTileEntity {
         tooltip.add(I18n.format("gtr.universal.tooltip.voltage_in", energyContainer.getInputVoltage(), tierName));
         tooltip.add(I18n.format("gtr.universal.tooltip.voltage_out", energyContainer.getOutputVoltage(), tierName));
         tooltip.add(I18n.format("gtr.universal.tooltip.amperage", amperage));
+    }
+
+    protected long getMaxInputOutputAmperage() {
+        return amperage;
+    }
+
+    protected boolean isEnergyEmitter() {
+        return true;
     }
 }

@@ -20,6 +20,7 @@ import net.minecraftforge.energy.IEnergyStorage;
 
 import java.lang.ref.WeakReference;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 public class CableEnergyContainer implements IEnergyContainer {
@@ -94,9 +95,9 @@ public class CableEnergyContainer implements IEnergyContainer {
             if (energyContainer != null) {
                 amperesUsed += energyContainer.acceptEnergyFromNetwork(facing.getOpposite(), voltage, amperage - amperesUsed);
             } else if (storage != null) {
-                amperesUsed += (storage.receiveEnergy((int) (4*voltage*(amperage-amperesUsed)), false) / ConfigHolder.rfPerEU) / voltage;
-            } else if (IC2Handler.isAcceptor(tileEntity)) {
-                amperesUsed += IC2Handler.receiveEnergy(tileEntity, voltage, amperage-amperesUsed, facing.getOpposite());
+                amperesUsed += (storage.receiveEnergy((int) (ConfigHolder.rfPerEU*voltage*(Math.ceil(amperage - amperesUsed))), false) / ConfigHolder.rfPerEU) / voltage;
+            } else if (IC2Handler.isAcceptable(tileEntity)) {
+                amperesUsed += IC2Handler.receiveEnergy(tileEntity, voltage, amperage-amperesUsed, facing.getOpposite()) / voltage;
             }
             if (amperesUsed == amperage)
                 break;

@@ -505,7 +505,7 @@ public class RecipeMaps {
      */
 
     @ZenProperty
-    public static final RecipeMap<SimpleRecipeBuilder> CRACKING_RECIPES = new RecipeMap<>("cracker", 0, 0, 0, 0, 2, 2, 1, 2, new SimpleRecipeBuilder());
+    public static final RecipeMap<SimpleRecipeBuilder> CRACKING_RECIPES = new RecipeMap<>("cracker", 0, 0, 0, 0, 2, 2, 1, 1, new SimpleRecipeBuilder());
 
     /**
      * Example:

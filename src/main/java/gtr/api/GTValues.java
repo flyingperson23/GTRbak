@@ -79,16 +79,6 @@ public class GTValues {
     public static final String[] VN = new String[] {"LV", "MV", "HV", "EV", "IV", "LuV", "UV"};
 
     /**
-     * Gets short name for given voltage
-     */
-    public static String getName(long voltage) {
-        for (int i = 0; i < V.length; i++) {
-            if (voltage <= V[i]) return VN[i];
-        }
-        return VN[VN.length-1];
-    }
-
-    /**
      * Color values for the voltages
      */
     public static final int[] VC = new int[] {0xDCDCDC, 0xFF6400, 0xFFFF1E, 0x808080, 0xF0F0F5, 0xF0F0F5, 0xF0F0F5};

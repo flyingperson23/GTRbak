@@ -219,10 +219,10 @@ public class MetaFluids {
         }
     }
 
-    private static class MaterialFluid extends Fluid {
+    public static class MaterialFluid extends Fluid {
 
-        private final FluidMaterial material;
-        private final FluidState state;
+        public final FluidMaterial material;
+        public final FluidState state;
 
         public MaterialFluid(String fluidName, FluidMaterial material, FluidState fluidState, ResourceLocation texture) {
             super(fluidName, texture, texture, GTUtility.convertRGBtoOpaqueRGBA_MC(material.materialRGB));

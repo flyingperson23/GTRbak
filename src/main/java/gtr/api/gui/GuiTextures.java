@@ -1,15 +1,40 @@
 package gtr.api.gui;
 
+import gtr.api.GTValues;
 import gtr.api.gui.resources.AdoptableTextureArea;
 import gtr.api.gui.resources.SizedTextureArea;
 import gtr.api.gui.resources.TextureArea;
+import gtr.api.metatileentity.MetaTileEntity;
+import net.minecraft.block.Block;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.item.EnumDyeColor;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class GuiTextures {
 
     //BASE TEXTURES
-    public static final TextureArea BACKGROUND = AdoptableTextureArea.fullImage("textures/gui/base/background.png", 176, 166, 3, 3);
-    public static final TextureArea BORDERED_BACKGROUND = AdoptableTextureArea.fullImage("textures/gui/base/bordered_background.png", 195, 136, 4, 4);
-    public static final TextureArea BOXED_BACKGROUND = AdoptableTextureArea.fullImage("textures/gui/base/boxed_background.png", 256, 174, 11, 11);
+    public static final String BACKGROUND_LOCATION = "textures/gui/base/background.png";
+    public static final String BORDERED_BACKGROUND_LOCATION = "textures/gui/base/bordered_background.png";
+    public static final String BOXED_BACKGROUND_LOCATION = "textures/gui/base/boxed_background.png";
+
+    public static final TextureArea BACKGROUND = AdoptableTextureArea.fullImage(BACKGROUND_LOCATION, 176, 166, 3, 3);
+    public static final TextureArea BORDERED_BACKGROUND = AdoptableTextureArea.fullImage(BORDERED_BACKGROUND_LOCATION, 195, 136, 4, 4);
+    public static final TextureArea BOXED_BACKGROUND = AdoptableTextureArea.fullImage(BOXED_BACKGROUND_LOCATION, 256, 174, 11, 11);
+
+    public static final TextureArea CHECK = TextureArea.fullImage("textures/gui/multiblock/check.png");
+    public static final TextureArea X = TextureArea.fullImage("textures/gui/multiblock/x.png");
+    public static final TextureArea ENERGY_EMPTY = TextureArea.fullImage("textures/gui/multiblock/energy_empty.png");
+    public static final TextureArea ENERGY_FULL = TextureArea.fullImage("textures/gui/multiblock/energy_full.png");
+    public static final TextureArea ENERGY_SINGLE = TextureArea.fullImage("textures/gui/multiblock/single_energy.png");
+    public static final TextureArea ACTIVE = TextureArea.fullImage("textures/gui/multiblock/active.png");
+    public static final TextureArea INACTIVE = TextureArea.fullImage("textures/gui/multiblock/inactive.png");
 
     //deprecated texture areas retained for binary & source compatibility
     @Deprecated public static final TextureArea BACKGROUND_SMALL = BACKGROUND; //replaced by normal background
@@ -124,5 +149,35 @@ public class GuiTextures {
     public static final TextureArea PROGRESS_BAR_SLICE = TextureArea.fullImage("textures/gui/progress_bar/progress_bar_slice.png");
     public static final TextureArea PROGRESS_BAR_WIREMILL = TextureArea.fullImage("textures/gui/progress_bar/progress_bar_wiremill.png");
 
+    public static TextureArea getBackground(MetaTileEntity te, String location) {
+        int color = te.getPaintingColor();
+        double dR = (color >> 16) & 0xFF;
+        double dG = (color >> 8) & 0xFF;
+        double dB = color & 0xFF;
+        float fR = (float) dR / 255.0f;
+        float fG = (float) dG / 255.0f;
+        float fB = (float) dB / 255.0f;
+
+        return new TextureArea(new ResourceLocation(GTValues.MODID, location), 0.0, 0.0, 1.0, 1.0) {
+            @Override
+            @SideOnly(Side.CLIENT)
+            public void drawSubArea(double x, double y, int width, int height, double drawnU, double drawnV, double drawnWidth, double drawnHeight) {
+                //sub area is just different width and height
+                double imageU = this.offsetX + (this.imageWidth * drawnU);
+                double imageV = this.offsetY + (this.imageHeight * drawnV);
+                double imageWidth = this.imageWidth * drawnWidth;
+                double imageHeight = this.imageHeight * drawnHeight;
+                Minecraft.getMinecraft().renderEngine.bindTexture(imageLocation);
+                Tessellator tessellator = Tessellator.getInstance();
+                BufferBuilder bufferbuilder = tessellator.getBuffer();
+                bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
+                bufferbuilder.pos(x, y + height, 0.0D).tex(imageU, imageV + imageHeight).color(fR, fG, fB, 1.0f).endVertex();
+                bufferbuilder.pos(x + width, y + height, 0.0D).tex(imageU + imageWidth, imageV + imageHeight).color(fR, fG, fB, 1.0f).endVertex();
+                bufferbuilder.pos(x + width, y, 0.0D).tex(imageU + imageWidth, imageV).color(fR, fG, fB, 1.0f).endVertex();
+                bufferbuilder.pos(x, y, 0.0D).tex(imageU, imageV).color(fR, fG, fB, 1.0f).endVertex();
+                tessellator.draw();
+            }
+        };
+    }
 
 }

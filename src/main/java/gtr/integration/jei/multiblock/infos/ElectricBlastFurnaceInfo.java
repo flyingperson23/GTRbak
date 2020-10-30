@@ -34,7 +34,7 @@ public class ElectricBlastFurnaceInfo extends MultiblockInfoPage {
                 .where('C', MetaBlocks.WIRE_COIL.getState(coilType))
                 .where('S', MetaTileEntities.ELECTRIC_BLAST_FURNACE, EnumFacing.WEST)
 
-                .where('E', MetaTileEntities.ENERGY_INPUT_HATCH[GTValues.MV], EnumFacing.EAST)
+                .where('E', MetaTileEntities.ENERGY_INPUT_HATCH[GTValues.MV][0], EnumFacing.EAST)
                 .where('I', MetaTileEntities.ITEM_IMPORT_BUS[GTValues.LV], EnumFacing.WEST)
                 .where('O', MetaTileEntities.ITEM_EXPORT_BUS[GTValues.LV], EnumFacing.WEST)
 

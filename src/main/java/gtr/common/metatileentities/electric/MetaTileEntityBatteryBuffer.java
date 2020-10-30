@@ -127,7 +127,7 @@ public class MetaTileEntityBatteryBuffer extends TieredMetaTileEntity implements
     @Override
     protected ModularUI createUI(EntityPlayer entityPlayer) {
         int rowSize = (int) Math.sqrt(inventorySize);
-        Builder builder = ModularUI.builder(GuiTextures.BACKGROUND, 176,
+        Builder builder = ModularUI.builder(GuiTextures.getBackground(this, GuiTextures.BACKGROUND_LOCATION), 176,
             18 + 18 * rowSize + 94)
             .label(10, 5, getMetaFullName());
 

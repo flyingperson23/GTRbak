@@ -31,23 +31,25 @@ public abstract class AbstractRecipeLogic extends MTETrait implements IWorkable 
 
     public final RecipeMap<?> recipeMap;
 
-    protected boolean forceRecipeRecheck;
-    protected ItemStack[] lastItemInputs;
-    protected FluidStack[] lastFluidInputs;
-    protected Recipe previousRecipe;
-    protected boolean allowOverclocking = true;
+    public boolean forceRecipeRecheck;
+    public ItemStack[] lastItemInputs;
+    public FluidStack[] lastFluidInputs;
+    public Recipe previousRecipe;
+    public boolean allowOverclocking = true;
 
-    protected int progressTime;
-    protected int maxProgressTime;
-    protected int recipeEUt;
-    protected List<FluidStack> fluidOutputs;
-    protected NonNullList<ItemStack> itemOutputs;
-    protected final Random random = new Random();
+    public int progressTime;
+    public int maxProgressTime;
+    public int recipeEUt;
+    public List<FluidStack> fluidOutputs;
+    public NonNullList<ItemStack> itemOutputs;
+    public final Random random = new Random();
 
-    protected boolean isActive;
-    protected boolean workingEnabled = true;
-    protected boolean hasNotEnoughEnergy;
-    protected boolean wasActiveAndNeedsUpdate;
+    public boolean isActive;
+    public boolean workingEnabled = true;
+    public boolean hasNotEnoughEnergy;
+    public boolean wasActiveAndNeedsUpdate;
+
+    public Recipe current;
 
     public AbstractRecipeLogic(MetaTileEntity tileEntity, RecipeMap<?> recipeMap) {
         super(tileEntity);
@@ -137,6 +139,10 @@ public abstract class AbstractRecipeLogic extends MTETrait implements IWorkable 
         }
     }
 
+    public void refresh() {
+        trySearchNewRecipe();
+    }
+
     protected void trySearchNewRecipe() {
         long maxVoltage = getMaxVoltage();
         Recipe currentRecipe = null;
@@ -159,6 +165,7 @@ public abstract class AbstractRecipeLogic extends MTETrait implements IWorkable 
         if (currentRecipe != null && setupAndConsumeRecipeInputs(currentRecipe)) {
             setupRecipe(currentRecipe);
         }
+        current = currentRecipe;
     }
 
     public void forceRecipeRecheck() {

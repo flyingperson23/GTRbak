@@ -1,13 +1,19 @@
 package gtr.api.gui.widgets;
 
+import com.google.common.collect.Lists;
 import gtr.api.gui.IRenderContext;
 import gtr.api.gui.Widget;
 import gtr.api.gui.resources.TextureArea;
 import gtr.api.util.Position;
 import gtr.api.util.Size;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 
+import java.util.List;
 import java.util.function.DoubleSupplier;
+import java.util.function.Supplier;
 
 public class ProgressWidget extends Widget {
 
@@ -23,10 +29,16 @@ public class ProgressWidget extends Widget {
     private TextureArea filledBarArea;
 
     private double lastProgressValue;
+    private Supplier<List<String>> textSupplier = null;
 
     public ProgressWidget(DoubleSupplier progressSupplier, int x, int y, int width, int height) {
         super(new Position(x, y), new Size(width, height));
         this.progressSupplier = progressSupplier;
+    }
+
+    public ProgressWidget(DoubleSupplier progressSupplier, int x, int y, int width, int height, Supplier<List<String>> textSupplier) {
+        this(progressSupplier, x, y, width, height);
+        this.textSupplier = textSupplier;
     }
 
     public ProgressWidget(DoubleSupplier progressSupplier, int x, int y, int width, int height, TextureArea fullImage, MoveType moveType) {
@@ -35,6 +47,20 @@ public class ProgressWidget extends Widget {
         this.emptyBarArea = fullImage.getSubArea(0.0, 0.0, 1.0, 0.5);
         this.filledBarArea = fullImage.getSubArea(0.0, 0.5, 1.0, 0.5);
         this.moveType = moveType;
+    }
+
+    public ProgressWidget(DoubleSupplier progressSupplier, int x, int y, int width, int height, TextureArea fullImage, MoveType moveType, Supplier<List<String>> textSupplier) {
+        this(progressSupplier, x, y, width, height, fullImage, moveType);
+        this.textSupplier = textSupplier;
+    }
+
+    @Override
+    public void drawInForeground(int mouseX, int mouseY) {
+        super.drawInForeground(mouseX, mouseY);
+        if (isMouseOverElement(mouseX, mouseY) && textSupplier != null) {
+            drawHoveringText(ItemStack.EMPTY, textSupplier.get(), -1, mouseX, mouseY);
+            GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
+        }
     }
 
     public ProgressWidget setProgressBar(TextureArea emptyBarArea, TextureArea filledBarArea, MoveType moveType) {

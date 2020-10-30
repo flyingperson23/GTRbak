@@ -8,6 +8,7 @@ import gtr.api.capability.impl.EnergyContainerHandler;
 import gtr.api.capability.impl.FluidHandlerProxy;
 import gtr.api.capability.impl.FluidTankList;
 import gtr.api.capability.impl.ItemHandlerProxy;
+import gtr.api.cover.CoverDefinition;
 import gtr.api.gui.GuiTextures;
 import gtr.api.gui.ModularUI;
 import gtr.api.gui.widgets.DischargerSlotWidget;
@@ -62,6 +63,15 @@ public class SimpleMachineMetaTileEntity extends WorkableTieredMetaTileEntity {
                 return 1;
             }
         };
+    }
+
+    @Override
+    public boolean placeCoverOnSide(EnumFacing side, ItemStack itemStack, CoverDefinition coverDefinition) {
+        boolean coverPlaced = super.placeCoverOnSide(side,itemStack,coverDefinition);
+        if (coverPlaced && getOutputFacing() == side && getCoverAtSide(side).shouldCoverInteractWithOutputside()) {
+            setAllowInputFromOutputSide(true);
+        }
+        return coverPlaced;
     }
 
     @Override
@@ -286,7 +296,7 @@ public class SimpleMachineMetaTileEntity extends WorkableTieredMetaTileEntity {
     }
 
     protected ModularUI.Builder createGuiTemplate(EntityPlayer player) {
-        ModularUI.Builder builder = workable.recipeMap.createUITemplate(workable::getProgressPercent, importItems, exportItems, importFluids, exportFluids)
+        ModularUI.Builder builder = workable.recipeMap.createUITemplate(this, workable::getProgressPercent, importItems, exportItems, importFluids, exportFluids)
             .widget(new LabelWidget(5, 5, getMetaFullName()))
             .widget(new DischargerSlotWidget(chargerInventory, 0, 79, 62)
                 .setBackgroundTexture(GuiTextures.SLOT, GuiTextures.CHARGER_OVERLAY))

@@ -23,8 +23,8 @@ import java.util.List;
 
 public class VariantBlock<T extends Enum<T> & IStringSerializable> extends Block {
 
-    protected PropertyEnum<T> VARIANT;
-    protected T[] VALUES;
+    public PropertyEnum<T> VARIANT;
+    public T[] VALUES;
 
     public VariantBlock(Material materialIn) {
         super(materialIn);

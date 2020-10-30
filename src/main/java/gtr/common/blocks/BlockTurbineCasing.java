@@ -1,12 +1,16 @@
 package gtr.common.blocks;
 
+import gtr.api.capability.GregtechCapabilities;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLiving.SpawnPlacementType;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
+
+import javax.annotation.Nullable;
 
 public class BlockTurbineCasing extends VariantBlock<BlockTurbineCasing.TurbineCasingType> {
 
@@ -23,6 +27,17 @@ public class BlockTurbineCasing extends VariantBlock<BlockTurbineCasing.TurbineC
     @Override
     public boolean canCreatureSpawn(IBlockState state, IBlockAccess world, BlockPos pos, SpawnPlacementType type) {
         return false;
+    }
+
+    @Override
+    public boolean canHarvestBlock(IBlockAccess world, BlockPos pos, EntityPlayer player) {
+        return player.getHeldItemMainhand().hasCapability(GregtechCapabilities.CAPABILITY_WRENCH, null);
+    }
+
+    @Nullable
+    @Override
+    public String getHarvestTool(IBlockState state) {
+        return "wrench";
     }
 
     public enum TurbineCasingType implements IStringSerializable {

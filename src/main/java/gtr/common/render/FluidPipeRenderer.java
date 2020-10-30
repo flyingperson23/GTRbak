@@ -62,9 +62,6 @@ public class FluidPipeRenderer implements ICCBlockRenderer, IItemRenderer {
     public static EnumBlockRenderType BLOCK_RENDER_TYPE;
     private static ThreadLocal<BlockRenderer.BlockFace> blockFaces = ThreadLocal.withInitial(BlockRenderer.BlockFace::new);
 
-    //private TextureAtlasSprite[] insulationTextures = new TextureAtlasSprite[6];
-    //private TextureAtlasSprite wireTexture;
-
 
     private Map<FluidPipeType, TextureAtlasSprite> pipeTextures = new HashMap<>();
     private Map<FluidPipeType, TextureAtlasSprite> connectionTextures = new HashMap<>();
@@ -186,14 +183,11 @@ public class FluidPipeRenderer implements ICCBlockRenderer, IItemRenderer {
 
     private static void renderFluidPipeSide(int connections, CCRenderState renderState, IVertexOperation[] pipeline, IVertexOperation[] wire, IVertexOperation[] overlays, EnumFacing side, float thickness) {
         if ((connections & 1 << side.getIndex()) > 0) {
-            boolean renderFrontSide = (connections & 1 << (6 + side.getIndex())) > 0;
             Cuboid6 cuboid6 = BlockFluidPipe.getSideBox(side, thickness);
             for (EnumFacing renderedSide : EnumFacing.VALUES) {
                 if (renderedSide == side) {
-                    if (renderFrontSide) {
-                        renderFluidPipeSide(renderState, wire, renderedSide, cuboid6);
-                        renderFluidPipeSide(renderState, overlays, renderedSide, cuboid6);
-                    }
+                    renderFluidPipeSide(renderState, wire, renderedSide, cuboid6);
+                    renderFluidPipeSide(renderState, overlays, renderedSide, cuboid6);
                 } else if (renderedSide != side.getOpposite()) {
                     renderFluidPipeSide(renderState, pipeline, renderedSide, cuboid6);
                 }

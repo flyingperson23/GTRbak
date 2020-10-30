@@ -107,11 +107,10 @@ public abstract class MetaTileEntityMultiblockPart extends MetaTileEntity implem
         if (dataId == 100) {
             if (buf.readBoolean()) {
                 this.controllerPos = buf.readBlockPos();
-                this.controllerTile = null;
             } else {
                 this.controllerPos = null;
-                this.controllerTile = null;
             }
+            this.controllerTile = null;
             getHolder().scheduleChunkForRenderUpdate();
         }
     }

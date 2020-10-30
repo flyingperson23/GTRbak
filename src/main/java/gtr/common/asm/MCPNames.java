@@ -37,7 +37,7 @@ public class MCPNames
 			{
 				e.printStackTrace();
 
-				System.out.println("[RT] [ERROR] Error getting mappings from Gradlew SRG, falling back to mcp folder.");
+				System.out.println("[GTR] [ERROR] Error getting mappings from Gradlew SRG, falling back to mcp folder.");
 				fields = readMappings(new File("./../mcp/fields.csv"));
 				methods = readMappings(new File("./../mcp/methods.csv"));
 			}

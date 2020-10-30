@@ -9,6 +9,7 @@ import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.tuple.Pair;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -77,7 +78,7 @@ public class BlockPattern {
             }
         }
         if (centerOffset == null) {
-            throw new IllegalArgumentException("Didn't found center predicate");
+            throw new IllegalArgumentException("Didn't find center predicate");
         }
     }
 
@@ -168,6 +169,57 @@ public class BlockPattern {
 
         return matchContext;
     }
+
+
+    public List<BlockPos> getBlocks(World world, BlockPos centerPos, EnumFacing facing) {
+        int[] countMatchesCache = new int[countMatches.length];
+        boolean findFirstAisle = false;
+        int minZ = -centerOffset[4];
+
+        this.matchContext.reset();
+        this.layerContext.reset();
+
+        List<BlockPos> list = new ArrayList<>();
+
+        //Checking aisles
+        for (int c = 0, z = minZ++, r; c < this.fingerLength; c++) {
+            //Checking repeatable slices
+            loop:
+            for (r = 0; (findFirstAisle ? r < aisleRepetitions[c][1] : z <= -centerOffset[3]); r++) {
+                //Checking single slice
+                this.layerContext.reset();
+
+                for (int b = 0, y = -centerOffset[1]; b < this.thumbLength; b++, y++) {
+                    for (int a = 0, x = -centerOffset[0]; a < this.palmLength; a++, x++) {
+                        list.add(new BlockPos(a, b, c));
+                        setActualRelativeOffset(blockPos, x, y, z, facing);
+                        blockPos.setPos(blockPos.getX() + centerPos.getX(), blockPos.getY() + centerPos.getY(), blockPos.getZ() + centerPos.getZ());
+                        worldState.update(world, blockPos, matchContext, layerContext);
+                        for (int i = 0; i < countMatchesCache.length; i++) {
+                            if (countMatches[i].getLeft().test(worldState)) {
+                                countMatchesCache[i]++;
+                            }
+                        }
+                    }
+                }
+                findFirstAisle = true;
+                z++;
+
+                //Check layer-local matcher predicate
+                Predicate<PatternMatchContext> layerPredicate = layerMatchers.get(c);
+                if (layerPredicate != null && !layerPredicate.test(layerContext)) {
+                    return null;
+                }
+            }
+            //Repetitions out of range
+            if (r < aisleRepetitions[c][0]) {
+                return null;
+            }
+        }
+
+        return list;
+    }
+
 
     private MutableBlockPos setActualRelativeOffset(MutableBlockPos pos, int x, int y, int z, EnumFacing facing) {
         //if (!ArrayUtils.contains(ALLOWED_FACINGS, facing))

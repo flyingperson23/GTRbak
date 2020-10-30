@@ -4,13 +4,21 @@ import codechicken.lib.raytracer.CuboidRayTraceResult;
 import codechicken.lib.render.CCRenderState;
 import codechicken.lib.render.pipeline.IVertexOperation;
 import codechicken.lib.vec.Matrix4;
+import gtr.GregTechMod;
 import gtr.api.GTValues;
 import gtr.api.capability.GregtechCapabilities;
 import gtr.api.capability.impl.FluidTankList;
 import gtr.api.capability.impl.FuelRecipeLogic;
 import gtr.api.capability.impl.ItemHandlerList;
 import gtr.api.capability.tool.ISoftHammerItem;
+import gtr.api.gui.IUIHolder;
+import gtr.api.gui.ModularUI;
 import gtr.api.gui.Widget.ClickData;
+import gtr.api.gui.resources.TextureArea;
+import gtr.api.gui.widgets.ActiveWidget;
+import gtr.api.gui.widgets.AdvancedTextWidget;
+import gtr.api.gui.widgets.JeiOpenWidget;
+import gtr.api.gui.widgets.StructureFormedWidget;
 import gtr.api.metatileentity.MetaTileEntity;
 import gtr.api.metatileentity.MetaTileEntityHolder;
 import gtr.api.metatileentity.multiblock.IMultiblockPart;
@@ -19,6 +27,7 @@ import gtr.api.metatileentity.multiblock.MultiblockWithDisplayBase;
 import gtr.api.multiblock.BlockPattern;
 import gtr.api.multiblock.FactoryBlockPattern;
 import gtr.api.multiblock.PatternMatchContext;
+import gtr.api.net.displayrecipes.MessageRequestRecipeMultiblock;
 import gtr.api.recipes.ModHandler;
 import gtr.api.recipes.RecipeMaps;
 import gtr.api.recipes.recipes.FuelRecipe;
@@ -56,10 +65,20 @@ import java.util.Map;
 import static gtr.api.gui.widgets.AdvancedTextWidget.withButton;
 import static gtr.api.gui.widgets.AdvancedTextWidget.withHoverTextTranslate;
 
-public class MetaTileEntityLargeBoiler extends MultiblockWithDisplayBase {
+public class MetaTileEntityLargeBoiler extends MultiblockWithDisplayBase implements IUIHolder {
 
     private static final int CONSUMPTION_MULTIPLIER = 100;
     private static final int BOILING_TEMPERATURE = 100;
+
+    @Override
+    public boolean isRemote() {
+        return getWorld().isRemote;
+    }
+
+    @Override
+    public void markAsDirty() {
+        markDirty();
+    }
 
     public enum BoilerType {
         BRONZE(900, 1.0f, 28, 500,
@@ -169,6 +188,26 @@ public class MetaTileEntityLargeBoiler extends MultiblockWithDisplayBase {
         if (!getWorld().isRemote && isStructureFormed()) {
             replaceFireboxAsActive(false);
         }
+    }
+
+    @Override
+    protected ModularUI createUI(EntityPlayer entityPlayer) {
+
+        StructureFormedWidget structureFormed = new StructureFormedWidget(155, 64, 13, 13, this::isStructureFormed);
+
+        AdvancedTextWidget text = new AdvancedTextWidget(10, 7, this::addDisplayText, 0xFFFFFF)
+            .setMaxWidthLimit(156)
+            .setClickHandler(this::handleDisplayClick);
+
+        JeiOpenWidget recipes = new JeiOpenWidget(130, 59, 18, 18, RecipeMaps.SEMI_FLUID_GENERATOR_FUELS);
+
+
+        ModularUI.Builder builder = ModularUI.defaultBuilder();
+        builder.image(0, 0, 176, 166, TextureArea.fullImage("textures/gui/multiblock/large_boiler.png"));
+        builder.widget(text);
+
+        return builder.widget(structureFormed).widget(recipes).bindPlayerInventory(entityPlayer.inventory, Textures.EMPTY, 7, 83)
+            .build(this, entityPlayer);
     }
 
     @Override

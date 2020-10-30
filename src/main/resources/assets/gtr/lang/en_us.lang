@@ -1311,14 +1311,14 @@ gtr.fluid_pipe.throughput=Transfer: §e%d mb/t
 gtr.fluid_pipe.max_temperature=Max Temperature: §c%dK
 gtr.fluid_pipe.non_gas_proof=Can't transfer gases.
 
-gtr.multiblock.work_paused=Work Paused.
-gtr.multiblock.running=Running perfectly.
-gtr.multiblock.idling=Idling.
-gtr.multiblock.not_enough_energy=WARNING: Machine needs more energy.
+gtr.multiblock.work_paused=Work Paused
+gtr.multiblock.running=Running perfectly
+gtr.multiblock.idling=Idling
+gtr.multiblock.not_enough_energy=WARNING: Machine needs more energy
 gtr.multiblock.progress=Progress: %s%%
-gtr.multiblock.invalid_structure=Invalid structure.
+gtr.multiblock.invalid_structure=Invalid structure
 gtr.multiblock.invalid_structure.tooltip=This block is a controller of the multiblock structure. For building help, see structure template in JEI
-gtr.multiblock.validation_failed=Invalid amount of inputs/outputs.
+gtr.multiblock.validation_failed=Invalid amount of inputs/outputs
 gtr.multiblock.max_energy_per_tick=Max EU/t: %s (%s)
 gtr.multiblock.generation_eu=Outputting: %s EU/t
 
@@ -1329,16 +1329,16 @@ gtr.multiblock.distillation_tower.distilling_fluid=Distilling %s
 gtr.multiblock.cracker.cracking_fluid=Cracking %s
 
 gtr.multiblock.diesel_engine.lubricant_amount=Lubricant Amount: %sL
-gtr.multiblock.diesel_engine.fuel_amount=Fuel Amount: %sL (%s)
+gtr.multiblock.diesel_engine.fuel_amount=Fuel Amount: %sL
 gtr.multiblock.diesel_engine.oxygen_amount=Oxygen Amount: %sL
-gtr.multiblock.diesel_engine.oxygen_boosted=Oxygen boosted.
-gtr.multiblock.diesel_engine.supply_oxygen_to_boost=Supply oxygen to boost.
+gtr.multiblock.diesel_engine.oxygen_boosted=Oxygen boosted
+gtr.multiblock.diesel_engine.supply_oxygen_to_boost=Supply oxygen to boost
 
-gtr.multiblock.turbine.fuel_amount=Fuel Amount: %sL (%s)
-gtr.multiblock.turbine.rotor_speed=Rotor Speed: %s / %s RPM
-gtr.multiblock.turbine.rotor_efficiency=Rotor Efficiency: %s%%
+gtr.multiblock.turbine.fuel_amount=Fuel: %sL
+gtr.multiblock.turbine.rotor_speed=Speed: %s / %s RPM
+gtr.multiblock.turbine.rotor_efficiency=Efficiency: %s%%
 gtr.multiblock.turbine.rotor_durability=Rotor Durability: %s%%
-gtr.multiblock.turbine.low_rotor_durability=WARNING: Rotor Durability below %s%% (%s%%)
+gtr.multiblock.turbine.low_rotor_durability=WARNING: Rotor Durability Low!
 
 gtr.multiblock.large_boiler.temperature=Temperature: %s / %s C
 gtr.multiblock.large_boiler.steam_output=Steam Output: %s mb/t
@@ -1479,6 +1479,8 @@ metaitem.generic.electric_item.tooltip=%d/%d EU - Tier §e%d (%d)
 metaitem.int_circuit.configuration=Configuration: %d
 item.invalid.name=Invalid item
 fluid.empty=Empty
+gtr.tooltip.multi_structure=§aShift Right-Click on controller to show structure
+
 
 metaitem.shape.empty.name=Empty Shape Plate
 
@@ -1878,7 +1880,7 @@ cover.robotic_arm.title=Robotic Arm Settings (%s)
 cover.robotic_arm.transfer_mode.transfer_any=Transfer Any
 cover.robotic_arm.transfer_mode.transfer_exact=Supply Exact
 cover.robotic_arm.transfer_mode.keep_exact=Keep Exact
-cover.robotic_arm.transfer_mode.description=Â§eTransfer AnyÂ§r - in this mode, cover will transfer as much items matching it's filter as possible./nÂ§eSupply ExactÂ§r - in this mode, cover will supply items in portions specified in item filter slots (or transfer rate for ore dictionary filter). If amount of items is less than portion size, items won't be moved./nÂ§eKeep ExactÂ§r - in this mode, cover will keep specified amount of items in the destination inventory, supplying additional amount of items if required./nÂ§7Tip: left/right click on filter slots to change item amount,  use shift clicking to change amount faster.
+cover.robotic_arm.transfer_mode.description=§eTransfer Any§r - in this mode, cover will transfer as much items matching it's filter as possible./n§eSupply Exact§r - in this mode, cover will supply items in portions specified in item filter slots (or transfer rate for ore dictionary filter). If amount of items is less than portion size, items won't be moved./n§eKeep Exact§r - in this mode, cover will keep specified amount of items in the destination inventory, supplying additional amount of items if required./n§7Tip: left/right click on filter slots to change item amount,  use shift clicking to change amount faster.
 
 cover.pump.title=Pump Cover Settings (%s)
 cover.pump.transfer_rate=%sMB/s
@@ -3044,11 +3046,11 @@ fluid.slurry=Dirty %s Slurry
 fluid.cleanslurry=Clean %s Slurry
 
 # Wire coil blocks
-tile.wire_coil.tooltip_ebf=When used in Â§aElectric Blast FurnaceÂ§7:
-tile.wire_coil.tooltip_heat=  Base Heating Capacity: Â§e%dK
-tile.wire_coil.tooltip_smelter=When used in Â§aMulti SmelterÂ§7:
-tile.wire_coil.tooltip_level=  Level: Â§e%d
-tile.wire_coil.tooltip_discount=  Energy Discount: Â§a%dx
+tile.wire_coil.tooltip_ebf=When used in §aElectric Blast Furnace§7:
+tile.wire_coil.tooltip_heat=  Base Heating Capacity: §e%dK
+tile.wire_coil.tooltip_smelter=When used in §aMulti Smelter§7:
+tile.wire_coil.tooltip_level=  Level: §e%d
+tile.wire_coil.tooltip_discount=  Energy Discount: §a%dx
 
 tile.wire_coil.cupronickel.name=Cupronickel Coil Block
 tile.wire_coil.kanthal.name=Kanthal Coil Block
@@ -3096,6 +3098,7 @@ tile.machine_casing.bronze_hull.name=Bronze Hull
 tile.machine_casing.bronze_bricks_hull.name=Bricked Bronze Hull
 tile.machine_casing.steel_hull.name=Steel Hull
 tile.machine_casing.steel_bricks_hull.name=Bricked Steel Hull
+tile.machine_casing.pyrolyse.name=Pyrolyse Oven Casing
 
 # Turbine casing blocks
 tile.turbine_casing.bronze_gearbox.name=Bronze Gear Box Casing
@@ -3111,10 +3114,9 @@ tile.multiblock_casing.engine_intake.name=Engine Intake Casing
 tile.multiblock_casing.grate.name=Grate Machine Casing
 tile.multiblock_casing.assembler.name=Assembler Machine Casing
 tile.multiblock_casing.fusion.name=Fusion Machine Casing
-tile.multiblock_casing.fusion_mk2.name=Fusion Machine Casing [Mark II]
 
 #Machine general things
-gtr.machine.tooltip.added_by=Â§cÂ§oAdded by: %s
+gtr.machine.tooltip.added_by=§c§oAdded by: %s
 
 # Tanks
 gtr.machine.wooden_tank.name=Wooden Tank
@@ -3194,9 +3196,9 @@ gtr.machine.magic_energy_absorber.ev.name=Elite Magic Energy Absorber
 gtr.machine.magic_energy_absorber.iv.name=Master Magic Energy Absorber
 gtr.machine.magic_energy_absorber.luv.name=Expert Magic Energy Absorber
 
-gtr.machine.magic_energy_absorber.tooltip=Max Voltage OUT: Â§a2048 Â§7(Â§aEVÂ§7)/nCollects energy from ender crystals in 64 blocks/nEach ender crystal adds 32 EU/t to output/nPlace Dragon Egg on top to amplify output/n/nWhen amplified:/nEach ender crystal adds 128 EU/t
+gtr.machine.magic_energy_absorber.tooltip=Max Voltage OUT: §a2048 §7(§aEV§7)/nCollects energy from ender crystals in 64 blocks/nEach ender crystal adds 32 EU/t to output/nPlace Dragon Egg on top to amplify output/n/nWhen amplified:/nEach ender crystal adds 128 EU/t
 gtr.machine.magic_energy_converter.name=Magic Energy Converter
-gtr.machine.magic_energy_converter.tooltip=Voltage OUT: Â§a128 Â§7(Â§aMVÂ§7)/nCollects essentia from containers within 16 blocks/nConsumes 20 Potentia per second
+gtr.machine.magic_energy_converter.tooltip=Voltage OUT: §a128 §7(§aMV§7)/nCollects essentia from containers within 16 blocks/nConsumes 20 Potentia per second
 
 # Machines
 gtr.machine.electric_furnace.lv.name=Basic Electric Furnace
@@ -3495,10 +3497,11 @@ gtr.machine.air_collector.iv.name=Master Air Collector
 gtr.machine.air_collector.description=Collects air from adjacent air blocks
 
 #Fusion Reactor
-gtr.machine.fusion_reactor.ev.name=Fusion Reactor
-gtr.machine.fusion_reactor.iv.name=Fusion Reactor [Mark II]
-gtr.multiblock.fusion_reactor.ev.description=The Fusion Reactor is a large multiblock structure used for fusing elements into heavier ones. The Mark 1 Fusion Reactor can only use EV Energy Hatches./nFor every Hatch it has its buffer increases by 100k.
-gtr.multiblock.fusion_reactor.iv.description=The Fusion Reactor Mark 2 is a large multiblock structure used for fusing elements into heavier ones./nThe Mark 2 Fusion Reactor can only use IV Energy Hatches./nFor every Hatch it has its buffer increases by 200k.
+gtr.machine.fusion_reactor.name=Fusion Reactor
+gtr.multiblock.fusion_reactor.description=The Fusion Reactor is a large multiblock structure used for fusing elements into heavier ones. The Mark 1 Fusion Reactor can only use EV Energy Hatches./nFor every Hatch it has its buffer increases by 100k.
+gtr.machine.fusion_energy_injector.name=Fusion Energy Injector
+gtr.machine.fusion_material_extractor.name=Fusion Material Extractor
+gtr.machine.fusion_material_injector.name=Fusion Material Injector
 
 #Bedrock Drill
 gtr.machine.bedrock_drill.name=Bedrock Drill
@@ -3507,3 +3510,31 @@ gtr.multiblock.bedrock_drilling_unit.description=By changing drill head types of
 gtr.machine.assembly_line.name=Assembly Line
 gtr.multiblock.assembly_line.description=The Assembly Line is a large multiblock structure consisting of 5 to 16 "slices"./nIn theory, it's a large Assembler, used for creating advanced crafting components.
 
+gtr.recipe.consumeChance=Inputs consumed %s%% of the time.
+
+gtr.tooltip.formed=Structure Formed
+gtr.tooltip.notformed=Invalid Structure
+gtr.tooltip.recipes=Recipes
+gtr.tooltip.active=Active
+gtr.tooltip.inactive=Inactive
+gtr.pyrolyse_tooltip=Coil type affects speed
+
+gtr.machine.large_transformer.name=Large Transformer
+gtr.multiblock.large_transformer.description=Can transformer from any voltage to any other voltage
+gtr.multiblock.large_transformer.input=Input: %s EU / %s Amps
+gtr.multiblock.large_transformer.output=Output: %s EU / %s Amps
+gtr.multiblock.large_transformer.input_average=Amps Input/t: %s
+gtr.multiblock.large_transformer.output_average=Amps Output/t: %s
+gtr.multiblock.large_battery_buffer.stored=Energy: %s / %s EU
+
+tile.multiblock_casing.high_power.name=High Power Casing
+
+gtr.machine.large_battery_buffer.name=Large Battery Buffer
+gtr.multiblock.large_battery_buffer.description=Can house any number of energy input or output hatches,/nor battery holders, which can hold batteris of/nany tier. Functions as a transformer if components/nare different voltages.
+gtr.machine.battery_holder.name=Battery Holder
+gtr.multiblock.large_battery_buffer.input=Input Total: %s Amps %s
+gtr.multiblock.large_battery_buffer.output=Output Total: %s Amps %s
+
+gtr.tooltip.energyi=Energy Input Buffer
+gtr.tooltip.energyo=Energy Output Buffer
+gtr.tooltip.energye=Energy Storage

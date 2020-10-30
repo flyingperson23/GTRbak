@@ -107,7 +107,14 @@
           "top": "gtr:blocks/casings/steam/bricked_steel/top",
           "side": "gtr:blocks/casings/steam/bricked_steel/side"
         }
-      }
+      },
+	  "pyrolyse": {
+		"textures": {
+		  "bottom": "gtr:blocks/casings/pyrolyse/bottom",
+		  "top": "gtr:blocks/casings/pyrolyse/top",
+		  "side": "gtr:blocks/casings/pyrolyse/side"
+		}
+	  }
     }
   }
 }

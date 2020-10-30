@@ -7,6 +7,8 @@ import codechicken.lib.raytracer.IndexedCuboid6;
 import codechicken.lib.raytracer.RayTracer;
 import codechicken.lib.vec.Cuboid6;
 import com.google.common.collect.Lists;
+import com.mojang.realmsclient.gui.ChatFormatting;
+import gtr.GregTechMod;
 import gtr.api.GregTechAPI;
 import gtr.api.block.BlockCustomParticle;
 import gtr.api.capability.GregtechCapabilities;
@@ -18,6 +20,7 @@ import gtr.api.cover.IFacadeCover;
 import gtr.api.metatileentity.MetaTileEntity;
 import gtr.api.metatileentity.MetaTileEntityHolder;
 import gtr.api.render.MetaTileEntityRenderer;
+import gtr.common.ConfigHolder;
 import gtr.common.tools.DamageValues;
 import gtr.api.render.IBlockAppearance;
 import gtr.integration.ctm.IFacadeWrapper;
@@ -31,6 +34,7 @@ import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving.SpawnPlacementType;
@@ -77,14 +81,19 @@ public class BlockMachine extends BlockCustomParticle implements ITileEntityProv
         setHardness(6.0f);
         setResistance(6.0f);
         setUnlocalizedName("unnamed");
-        setHarvestLevel("wrench", 1);
         setDefaultState(getDefaultState().withProperty(OPAQUE, true));
+        setHarvestLevel("wrench", 1);
+    }
+
+    @Override
+    public boolean canHarvestBlock(IBlockAccess world, BlockPos pos, EntityPlayer player) {
+        return player.getHeldItemMainhand().hasCapability(GregtechCapabilities.CAPABILITY_WRENCH, null);
     }
 
     @Nullable
     @Override
     public String getHarvestTool(IBlockState state) {
-        return ((IExtendedBlockState) state).getValue(HARVEST_TOOL);
+        return "wrench";
     }
 
     @Override
@@ -105,7 +114,7 @@ public class BlockMachine extends BlockCustomParticle implements ITileEntityProv
             return state;
 
         return ((IExtendedBlockState) state)
-            .withProperty(HARVEST_TOOL, metaTileEntity.getHarvestTool())
+            .withProperty(HARVEST_TOOL, metaTileEntity.getHarvestTool() == null ? "wrench" : metaTileEntity.getHarvestTool())
             .withProperty(HARVEST_LEVEL, metaTileEntity.getHarvestLevel());
     }
 

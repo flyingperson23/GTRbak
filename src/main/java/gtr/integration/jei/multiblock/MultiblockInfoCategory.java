@@ -32,7 +32,7 @@ public class MultiblockInfoCategory implements IRecipeCategory<MultiblockInfoRec
         put("coke_oven", new MultiblockInfoRecipeWrapper(new CokeOvenInfo()));
         put("vacuum_freezer", new MultiblockInfoRecipeWrapper(new VacuumFreezerInfo()));
         put("implosion_compressor", new MultiblockInfoRecipeWrapper(new ImplosionCompressorInfo()));
-        put("pyrolyze_oven", new MultiblockInfoRecipeWrapper(new PyrolyzeOvenInfo()));
+        put("pyrolyze_oven", new MultiblockInfoRecipeWrapper(new PyrolyseOvenInfo()));
         put("cracker_unit", new MultiblockInfoRecipeWrapper(new CrackerUnitInfo()));
         put("diesel_engine", new MultiblockInfoRecipeWrapper(new DieselEngineInfo()));
         put("distillation_tower", new MultiblockInfoRecipeWrapper(new DistillationTowerInfo()));
@@ -45,6 +45,9 @@ public class MultiblockInfoCategory implements IRecipeCategory<MultiblockInfoRec
         put("large_steam_turbine", new MultiblockInfoRecipeWrapper(new LargeTurbineInfo(MetaTileEntities.LARGE_STEAM_TURBINE)));
         put("large_gas_turbine", new MultiblockInfoRecipeWrapper(new LargeTurbineInfo(MetaTileEntities.LARGE_GAS_TURBINE)));
         put("large_plasma_turbine", new MultiblockInfoRecipeWrapper(new LargeTurbineInfo(MetaTileEntities.LARGE_PLASMA_TURBINE)));
+        put("fusion_reactor", new MultiblockInfoRecipeWrapper(new FusionInfo()));
+        put("large_transformer", new MultiblockInfoRecipeWrapper(new LargeTransformerInfo()));
+        put("large_battery_buffer", new MultiblockInfoRecipeWrapper(new LargeBatteryBufferInfo()));
     }};
 
     public static void registerRecipes(IModRegistry registry) {

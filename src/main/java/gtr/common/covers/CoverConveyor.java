@@ -59,6 +59,11 @@ public class CoverConveyor extends CoverBehavior implements CoverWithUI, ITickab
         this.itemFilterContainer = new ItemFilterContainer(this);
     }
 
+    @Override
+    public boolean shouldCoverInteractWithOutputside() {
+        return true;
+    }
+
     protected void setTransferRate(int transferRate) {
         this.transferRate = transferRate;
         coverHolder.markDirty();

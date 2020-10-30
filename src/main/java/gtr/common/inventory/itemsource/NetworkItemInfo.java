@@ -3,14 +3,14 @@ package gtr.common.inventory.itemsource;
 import gtr.api.util.ItemStackKey;
 import gtr.common.inventory.IItemInfo;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class NetworkItemInfo implements IItemInfo {
 
     private final ItemStackKey itemStackKey;
     private int totalItemAmount = 0;
-    private Map<ItemSource, Integer> inventories = new HashMap<>();
+    private Map<ItemSource, Integer> inventories = new ConcurrentHashMap<>();
 
     public NetworkItemInfo(ItemStackKey itemStackKey) {
         this.itemStackKey = itemStackKey;

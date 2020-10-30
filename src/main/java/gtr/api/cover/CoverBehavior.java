@@ -118,6 +118,10 @@ public abstract class CoverBehavior implements IUIHolder {
         return coverDefinition.getDropItemStack();
     }
 
+    public boolean shouldCoverInteractWithOutputside() {
+        return false;
+    }
+
     public List<ItemStack> getDrops() {
         return Lists.newArrayList(getPickItem());
     }

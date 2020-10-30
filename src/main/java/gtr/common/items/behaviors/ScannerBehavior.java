@@ -12,7 +12,10 @@ import gtr.api.items.metaitem.stats.IItemUseManager;
 import gtr.api.items.toolitem.IScannableBlock;
 import gtr.api.metatileentity.MetaTileEntity;
 import gtr.api.metatileentity.MetaTileEntityHolder;
+import gtr.api.util.GTUtility;
+import gtr.common.pipelike.cable.net.EnergyNet;
 import gtr.common.pipelike.cable.net.WorldENet;
+import gtr.common.pipelike.cable.tile.CableEnergyContainer;
 import gtr.common.pipelike.cable.tile.TileEntityCable;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -168,17 +171,19 @@ public class ScannerBehavior implements IItemBehaviour, IItemUseManager {
                     container = tileEntity.getCapability(GregtechCapabilities.CAPABILITY_ENERGY_CONTAINER, f);
             }
             if (container != null) {
-                list.add("Max IN: " + ChatFormatting.RED + container.getInputVoltage() + " (" + GTValues.getName(container.getInputVoltage()) + ") " + ChatFormatting.RESET + " EU at " + ChatFormatting.RED + container.getInputAmperage() + ChatFormatting.RESET + " A");
-                list.add("Max OUT: " + ChatFormatting.RED + container.getOutputVoltage() + " (" + GTValues.getName(container.getOutputVoltage()) + ") " + ChatFormatting.RESET + " EU at " + ChatFormatting.RED + container.getOutputAmperage() + ChatFormatting.RESET + " A");
+                list.add("Max IN: " + ChatFormatting.RED + container.getInputVoltage() + " (" + GTValues.VN[GTUtility.getTierByVoltage(container.getInputVoltage())] + ") " + ChatFormatting.RESET + " EU at " + ChatFormatting.RED + container.getInputAmperage() + ChatFormatting.RESET + " A");
+                list.add("Max OUT: " + ChatFormatting.RED + container.getOutputVoltage() + " (" + GTValues.VN[GTUtility.getTierByVoltage(container.getOutputVoltage())] + ") " + ChatFormatting.RESET + " EU at " + ChatFormatting.RED + container.getOutputAmperage() + ChatFormatting.RESET + " A");
                 list.add("Energy: " + ChatFormatting.GREEN + formatNumbers(container.getEnergyStored()) + ChatFormatting.RESET + " EU / " + ChatFormatting.YELLOW + formatNumbers(container.getEnergyCapacity()) + ChatFormatting.RESET + " EU");
 
             }
 
 
             if (tileEntity instanceof TileEntityCable) {
-                TileEntityCable t = (TileEntityCable) tileEntity;
-                long amps = WorldENet.getWorldENet(world).getNetFromPos(pos).getLastAmperage();
-                long volts = WorldENet.getWorldENet(world).getNetFromPos(pos).getLastMaxVoltage();
+                long amps = WorldENet.getWorldENet(world).getNetFromPos(pos).currentAmperageCounter.get(world);
+                long volts = WorldENet.getWorldENet(world).getNetFromPos(pos).currentMaxVoltageCounter.get(world);
+
+                System.out.println(amps+" "+WorldENet.getWorldENet(world).getNetFromPos(pos).getLastAmperage());
+
                 list.add(ChatFormatting.RED + "Last Amperage: " + ChatFormatting.RESET + amps + "A");
                 list.add(ChatFormatting.RED + "Last Voltage: " + ChatFormatting.RESET + volts + "V");
             }

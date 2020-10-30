@@ -2,7 +2,6 @@ package gtr;
 
 import codechicken.lib.CodeChickenLib;
 import crafttweaker.CraftTweakerAPI;
-import gt6Pipes.GT6Pipes;
 import gtr.api.GTValues;
 import gtr.api.capability.SimpleCapabilityManager;
 import gtr.api.cover.CoverBehaviorUIFactory;
@@ -29,10 +28,12 @@ import gtr.common.covers.CoverBehaviors;
 import gtr.common.covers.filter.FilterTypeRegistry;
 import gtr.common.items.MetaItems;
 import gtr.common.metatileentities.MetaTileEntities;
+import gtr.common.render.WrenchOverlayHandler;
 import gtr.common.util.ResourcePackFix;
 import gtr.common.worldgen.LootTableHelper;
 import gtr.common.worldgen.WorldGenAbandonedBase;
 import gtr.common.worldgen.WorldGenRubberTree;
+import gtr.integration.multi.client.PreviewHandler;
 import gtr.integration.multipart.GTMultipartFactory;
 import gtr.integration.theoneprobe.TheOneProbeCompatibility;
 import gtr.loaders.dungeon.DungeonLootLoader;
@@ -41,8 +42,9 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.common.Optional.Method;
-import net.minecraftforge.fml.common.discovery.ASMDataTable;
 import net.minecraftforge.fml.common.event.*;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -51,7 +53,7 @@ import org.apache.logging.log4j.Level;
 @Mod(modid = GTValues.MODID,
     name = "GT: Remastered",
     acceptedMinecraftVersions = "[1.12,1.13)",
-    dependencies = "required:forge@[14.23.5.2847,);" + CodeChickenLib.MOD_VERSION_DEP + "after:forestry;after:forgemultipartcbe;after:jei@[4.15.0,);after:crafttweaker;after:ic2;")
+    dependencies = "required:forge@[14.23.5.2847,);" + CodeChickenLib.MOD_VERSION_DEP + "after:forestry;required:ctm;after:forgemultipartcbe;after:jei@[4.15.0,);after:crafttweaker;after:ic2;")
 public class GregTechMod {
 
     public int counter = 0;
@@ -72,7 +74,10 @@ public class GregTechMod {
     @SidedProxy(modId = GTValues.MODID, clientSide = "gtr.common.ClientProxy", serverSide = "gtr.common.CommonProxy")
     public static CommonProxy proxy;
 
-    ASMDataTable asmDataTable;
+    public static final SimpleNetworkWrapper WRENCH_NET_WRAPPER = NetworkRegistry.INSTANCE.newSimpleChannel("gtr.wrenchnet");
+    public WrenchOverlayHandler wrenchHandler = new WrenchOverlayHandler();
+
+    public static final SimpleNetworkWrapper DISPLAY_INFO_WRAPPER = NetworkRegistry.INSTANCE.newSimpleChannel("gtr.displaynet");
 
     @Mod.EventHandler
     @SideOnly(Side.CLIENT)
@@ -86,7 +91,6 @@ public class GregTechMod {
 
     @Mod.EventHandler
     public void onPreInit(FMLPreInitializationEvent event) {
-        GT6Pipes.instance.preInit(event);
         GTLog.init(event.getModLog());
         NetworkHandler.init();
         MetaTileEntityUIFactory.INSTANCE.init();
@@ -95,7 +99,6 @@ public class GregTechMod {
         SimpleCapabilityManager.init();
         OreDictUnifier.init();
         NBTUtil.registerSerializers();
-        asmDataTable = event.getAsmData();
 
         //first, register primary materials and run material handlers
         Materials.register();
@@ -123,7 +126,7 @@ public class GregTechMod {
     @Mod.EventHandler
     public void onInit(FMLInitializationEvent event) {
 
-        GT6Pipes.instance.init();
+        MinecraftForge.EVENT_BUS.register(new WrenchOverlayHandler());
         proxy.onLoad();
         proxy.init(event);
         if (RecipeMap.isFoundInvalidRecipe()) {
@@ -176,20 +179,18 @@ public class GregTechMod {
     @Mod.EventHandler
     public void onPostInit(FMLPostInitializationEvent event) {
         proxy.onPostLoad();
-        GT6Pipes.instance.postInit();
+        wrenchHandler.postInit();
 
 
         GTLog.logger.log(Level.DEBUG, "Confirming ASM Transformations...");
         CustomClassWriter.customClassLoader = null;
+
+        if (event.getSide().isClient()) PreviewHandler.init();
     }
 
     @Mod.EventHandler
     public void onServerLoad(FMLServerStartingEvent event) {
         event.registerServerCommand(new GregTechCommand());
-    }
-
-    public ASMDataTable getASMData() {
-        return asmDataTable;
     }
 
 }

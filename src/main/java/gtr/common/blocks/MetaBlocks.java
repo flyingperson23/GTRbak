@@ -8,7 +8,6 @@ import gtr.api.metatileentity.MetaTileEntityHolder;
 import gtr.api.render.MetaTileEntityRenderer;
 import gtr.api.render.MetaTileEntityTESR;
 import gtr.api.unification.OreDictUnifier;
-import gtr.api.unification.material.MarkerMaterials;
 import gtr.api.unification.material.Materials;
 import gtr.api.unification.material.type.DustMaterial;
 import gtr.api.unification.material.type.DustMaterial.MatFlags;
@@ -87,9 +86,10 @@ public class MetaBlocks {
     public static BlockMetalCasing METAL_CASING;
     public static BlockTurbineCasing TURBINE_CASING;
     public static BlockMachineCasing MACHINE_CASING;
-    public static BlockMultiblockCasing MUTLIBLOCK_CASING;
+    public static BlockMultiblockCasing MULTIBLOCK_CASING;
     public static BlockWireCoil WIRE_COIL;
     public static BlockWarningSign WARNING_SIGN;
+
 
     public static BlockGranite GRANITE;
     public static BlockMineral MINERAL;
@@ -130,8 +130,8 @@ public class MetaBlocks {
         TURBINE_CASING.setRegistryName("turbine_casing");
         MACHINE_CASING = new BlockMachineCasing();
         MACHINE_CASING.setRegistryName("machine_casing");
-        MUTLIBLOCK_CASING = new BlockMultiblockCasing();
-        MUTLIBLOCK_CASING.setRegistryName("multiblock_casing");
+        MULTIBLOCK_CASING = new BlockMultiblockCasing();
+        MULTIBLOCK_CASING.setRegistryName("multiblock_casing");
         WIRE_COIL = new BlockWireCoil();
         WIRE_COIL.setRegistryName("wire_coil");
         WARNING_SIGN = new BlockWarningSign();
@@ -140,6 +140,7 @@ public class MetaBlocks {
         GRANITE.setRegistryName("granite");
         MINERAL = new BlockMineral();
         MINERAL.setRegistryName("mineral");
+
 
         CONCRETE = new BlockConcrete();
         CONCRETE.setRegistryName("concrete");
@@ -292,7 +293,7 @@ public class MetaBlocks {
         registerItemModel(METAL_CASING);
         registerItemModel(TURBINE_CASING);
         registerItemModel(MACHINE_CASING);
-        registerItemModel(MUTLIBLOCK_CASING);
+        registerItemModel(MULTIBLOCK_CASING);
         registerItemModel(WIRE_COIL);
         registerItemModel(WARNING_SIGN);
         registerItemModel(GRANITE);
@@ -303,7 +304,7 @@ public class MetaBlocks {
         registerItemModel(SAPLING);
 
         COMPRESSED.values().stream().distinct().forEach(MetaBlocks::registerItemModel);
-        FRAMES.values().forEach(it -> registerItemModelWithFilteredProperties(it));
+        FRAMES.values().forEach(MetaBlocks::registerItemModelWithFilteredProperties);
         ORES.stream().distinct().forEach(MetaBlocks::registerItemModel);
     }
 

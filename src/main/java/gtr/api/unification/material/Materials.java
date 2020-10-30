@@ -5,7 +5,6 @@ import gtr.api.unification.Element;
 import gtr.api.unification.material.type.*;
 import gtr.api.unification.ore.OrePrefix;
 import gtr.api.unification.stack.MaterialStack;
-import net.minecraft.init.Enchantments;
 
 import static com.google.common.collect.ImmutableList.of;
 import static gtr.api.unification.material.type.DustMaterial.MatFlags.*;

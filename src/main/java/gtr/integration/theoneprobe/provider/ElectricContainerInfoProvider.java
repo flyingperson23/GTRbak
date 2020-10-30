@@ -3,6 +3,8 @@ package gtr.integration.theoneprobe.provider;
 import gtr.api.capability.GregtechCapabilities;
 import gtr.api.capability.GregtechTileCapabilities;
 import gtr.api.capability.IEnergyContainer;
+import gtr.api.metatileentity.MetaTileEntityHolder;
+import gtr.common.metatileentities.electric.MetaTileEntityWorldAccelerator;
 import mcjty.theoneprobe.api.ElementAlignment;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.TextStyleClass;
@@ -41,6 +43,19 @@ public class ElectricContainerInfoProvider extends CapabilityInfoProvider<IEnerg
             .backgroundColor(0x00000000)
             .filledColor(0xFFFFE000)
             .alternateFilledColor(0xFFEED000));
+
+        if (tileEntity instanceof MetaTileEntityHolder) {
+            if (((MetaTileEntityHolder) tileEntity).getMetaTileEntity() instanceof MetaTileEntityWorldAccelerator) {
+                MetaTileEntityWorldAccelerator accelerator = (MetaTileEntityWorldAccelerator) ((MetaTileEntityHolder) tileEntity).getMetaTileEntity();
+                int machines = accelerator.teList.size();
+
+                probeInfo.horizontal(probeInfo.defaultLayoutStyle().alignment(ElementAlignment.ALIGN_CENTER)).text(TextStyleClass.INFO+"Machines accelerating: "+machines+additionalSpacing);
+                probeInfo.horizontal(probeInfo.defaultLayoutStyle().alignment(ElementAlignment.ALIGN_CENTER)).text(TextStyleClass.INFO+"Range: "+accelerator.range);
+                probeInfo.horizontal(probeInfo.defaultLayoutStyle().alignment(ElementAlignment.ALIGN_CENTER)).text(TextStyleClass.INFO+"Speed: "+accelerator.speed);
+                probeInfo.horizontal(probeInfo.defaultLayoutStyle().alignment(ElementAlignment.ALIGN_CENTER)).text(TextStyleClass.INFO+"Consuming "+(accelerator.teList.size()*accelerator.speed*MetaTileEntityWorldAccelerator.energyPerTEUpdateTick)+" EU/t"+additionalSpacing);
+                if (!accelerator.enabled) probeInfo.text(TextStyleClass.INFOIMP + "{*gtr.top.working_disabled*}");
+            }
+        }
     }
 
 }

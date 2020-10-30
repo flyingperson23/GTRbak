@@ -1,6 +1,8 @@
 package gtr.common;
 
 import gtr.api.GTValues;
+import gtr.api.block.machines.BlockMachine;
+import gtr.api.capability.GregtechCapabilities;
 import gtr.api.items.toolitem.ItemCatcher;
 import gtr.api.pipenet.Node;
 import gtr.common.pipelike.cable.WireProperties;
@@ -36,7 +38,7 @@ public class EventHandlers {
             }
             if (flag) {
                 WorldENet.getWorldENet(e.getWorld()).addNode(e.getPos(), new WireProperties(1, 1, 0), Node.DEFAULT_MARK, 0, true);
-            } else if (IC2Handler.isAcceptor(te)) {
+            } else if (IC2Handler.isAcceptable(te)) {
                 WorldENet.getWorldENet(e.getWorld()).addNode(e.getPos(), new WireProperties(1, 1, 0), Node.DEFAULT_MARK, 0, true);
             }
         }

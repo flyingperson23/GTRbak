@@ -58,7 +58,7 @@ public class MetaTileEntityFisher extends TieredMetaTileEntity {
     protected ModularUI createUI(EntityPlayer entityPlayer) {
         int rowSize = (int) Math.sqrt(inventorySize);
 
-        ModularUI.Builder builder = ModularUI.builder(GuiTextures.BACKGROUND, 176,
+        ModularUI.Builder builder = ModularUI.builder(GuiTextures.getBackground(this, GuiTextures.BACKGROUND_LOCATION), 176,
             18 + 18 * rowSize + 94)
             .label(10, 5, getMetaFullName())
             .widget(new SlotWidget(importItems, 0, 18, 18, true, true)

@@ -56,7 +56,7 @@ public class MetaTileEntityArmorTable extends MetaTileEntity {
             });
         gridWidget.placeWidgetAt(3, 2, elementDef, ElementOrientation.TOP);
 
-        return ModularUI.builder(GuiTextures.BOXED_BACKGROUND, 28 + horizontalGridSize * 20, 28 + verticalGridSize * 20)
+        return ModularUI.builder(GuiTextures.getBackground(this, GuiTextures.BOXED_BACKGROUND_LOCATION), 28 + horizontalGridSize * 20, 28 + verticalGridSize * 20)
             .widget(gridWidget)
             .build(getHolder(), entityPlayer);
     }

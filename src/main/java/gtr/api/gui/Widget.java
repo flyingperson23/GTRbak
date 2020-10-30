@@ -231,10 +231,12 @@ public abstract class Widget {
 
     @SideOnly(Side.CLIENT)
     protected void drawHoveringText(ItemStack itemStack, List<String> tooltip, int maxTextWidth, int mouseX, int mouseY) {
+        GlStateManager.pushMatrix();
         Minecraft mc = Minecraft.getMinecraft();
         GuiUtils.drawHoveringText(itemStack, tooltip, mouseX, mouseY,
             sizes.getScreenWidth(),
             sizes.getScreenHeight(), maxTextWidth, mc.fontRenderer);
+        GlStateManager.popMatrix();
     }
 
     @SideOnly(Side.CLIENT)

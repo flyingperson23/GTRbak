@@ -32,7 +32,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.tuple.Pair;
@@ -148,7 +147,6 @@ public class BlockCable extends BlockMaterialPipe<Insulation, WireProperties, Wo
     public boolean isAcceptable(TileEntity te, EnumFacing direction) {
         return te.hasCapability(GregtechCapabilities.CAPABILITY_ENERGY_CONTAINER, direction.getOpposite())
             || (te.hasCapability(CapabilityEnergy.ENERGY, direction.getOpposite()) && ConfigHolder.rfCompat)
-            || (IC2Handler.isAcceptor(te) && ConfigHolder.euCompat)
-            || (IC2Handler.isEmitter(te) && ConfigHolder.euCompat);
+            || (IC2Handler.isAcceptable(te) && ConfigHolder.euCompat);
     }
 }

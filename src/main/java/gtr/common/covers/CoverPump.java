@@ -61,6 +61,11 @@ public class CoverPump extends CoverBehavior implements CoverWithUI, ITickable, 
         this.fluidFilter = new FluidFilterContainer(this);
     }
 
+    @Override
+    public boolean shouldCoverInteractWithOutputside() {
+        return true;
+    }
+
     protected void setTransferRate(int transferRate) {
         this.transferRate = transferRate;
         coverHolder.markDirty();

@@ -62,10 +62,10 @@ public class ResourcePackFix {
             File expectedPackRoot = getGTCEResourcePackRoot();
 
             if (!expectedPackRoot.getAbsolutePath().equals(actualPackRoot.getAbsolutePath())) {
-                System.out.println("[GTCE] Found unexpected resource pack path in dev environment");
-                System.out.println("[GTCE] Expected path: " + expectedPackRoot.getAbsolutePath());
-                System.out.println("[GTCE] Actual path: " + actualPackRoot.getAbsolutePath());
-                System.out.println("[GTCE] Fixed resource pack patch automatically.");
+                System.out.println("[GTR] Found unexpected resource pack path in dev environment");
+                System.out.println("[GTR] Expected path: " + expectedPackRoot.getAbsolutePath());
+                System.out.println("[GTR] Actual path: " + actualPackRoot.getAbsolutePath());
+                System.out.println("[GTR] Fixed resource pack patch automatically.");
                 ObfuscationReflectionHelper.setPrivateValue(AbstractResourcePack.class, resourcePack, expectedPackRoot, "field_110597_b");
                 setModResourcePack(selfContainer.getModId(), resourcePack);
             }

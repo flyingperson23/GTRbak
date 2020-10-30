@@ -35,14 +35,14 @@
       },
       "fusion": {
         "textures": {
-          "all": "gtr:blocks/multiblock/fusion/fusioni_8"
+          "all": "gtr:blocks/casings/fusion/fusion_casing"
         }
       },
-      "fusion_mk2": {
-        "textures": {
-          "all": "gtr:blocks/multiblock/fusion/fusionii_8"
-        }
-      }
+	  "high_power": {
+		"textures": {
+		  "all": "gtr:blocks/casings/high_power/high_power"
+		}
+	  }
     }
   }
 }

@@ -2,22 +2,20 @@ package gtr.loaders.recipe;
 
 import gtr.api.GTValues;
 import gtr.api.items.metaitem.MetaItem;
-import gtr.api.recipes.CountableIngredient;
 import gtr.api.recipes.ModHandler;
+import gtr.api.recipes.RecipeMap;
 import gtr.api.recipes.RecipeMaps;
 import gtr.api.recipes.builders.CokeOvenRecipeBuilder;
 import gtr.api.recipes.builders.PBFRecipeBuilder;
 import gtr.api.recipes.ingredients.IntCircuitIngredient;
 import gtr.api.unification.OreDictUnifier;
 import gtr.api.unification.material.MarkerMaterials;
-import gtr.api.unification.material.MarkerMaterials.Color;
 import gtr.api.unification.material.MarkerMaterials.Tier;
 import gtr.api.unification.material.Materials;
 import gtr.api.unification.material.type.FluidMaterial;
 import gtr.api.unification.material.type.IngotMaterial;
 import gtr.api.unification.ore.OrePrefix;
 import gtr.api.unification.stack.MaterialStack;
-import gtr.api.unification.stack.UnificationEntry;
 import gtr.common.ConfigHolder;
 import gtr.common.blocks.BlockConcrete.ConcreteVariant;
 import gtr.common.blocks.BlockGranite.GraniteVariant;
@@ -74,6 +72,33 @@ public class MachineRecipeLoader {
         registerRecyclingRecipes();
         registerStoneBricksRecipes();
         registerOrganicRecyclingRecipes();
+        registerFusionRecipes();
+    }
+
+    private static void registerFusionRecipes() {
+        RecipeMaps.FUSION_RECIPES.recipeBuilder()
+            .fluidInputs(Materials.Lithium.getFluid(16), Materials.Tungsten.getFluid(16))
+            .fluidOutputs(Materials.Iridium.getFluid(16))
+            .duration(32)
+            .EUt(32768)
+            .EUToStart(300000000)
+            .buildAndRegister();
+
+        RecipeMaps.FUSION_RECIPES.recipeBuilder()
+            .fluidInputs(Materials.Tritium.getFluid(16), Materials.Deuterium.getFluid(16))
+            .fluidOutputs(Materials.Helium.getPlasma(16))
+            .duration(512)
+            .EUt(32768)
+            .EUToStart(150000000)
+            .buildAndRegister();
+
+        RecipeMaps.FUSION_RECIPES.recipeBuilder()
+            .fluidInputs(Materials.Water.getFluid(16), Materials.Lava.getFluid(16))
+            .fluidOutputs(Materials.Hydrogen.getFluid(16))
+            .duration(512)
+            .EUt(32)
+            .EUToStart(1000)
+            .buildAndRegister();
     }
 
     private static void registerBendingCompressingRecipes() {
@@ -478,7 +503,7 @@ public class MachineRecipeLoader {
         RecipeMaps.ASSEMBLER_RECIPES.recipeBuilder().EUt(16).input(OrePrefix.plate, Materials.StainlessSteel, 6).input(OrePrefix.frameGt, Materials.StainlessSteel, 1).outputs(MetaBlocks.METAL_CASING.getItemVariant(MetalCasingType.STAINLESS_CLEAN, 3)).duration(50).buildAndRegister();
         RecipeMaps.ASSEMBLER_RECIPES.recipeBuilder().EUt(16).input(OrePrefix.plate, Materials.Titanium, 6).input(OrePrefix.frameGt, Materials.Titanium, 1).outputs(MetaBlocks.METAL_CASING.getItemVariant(MetalCasingType.TITANIUM_STABLE, 3)).duration(50).buildAndRegister();
 
-        RecipeMaps.ASSEMBLER_RECIPES.recipeBuilder().EUt(16).inputs(MetaBlocks.MACHINE_CASING.getItemVariant(MachineCasingType.LuV)).input(OrePrefix.plate, Materials.TungstenSteel, 6).outputs(MetaBlocks.MUTLIBLOCK_CASING.getItemVariant(MultiblockCasingType.FUSION_CASING)).duration(50).buildAndRegister();
+        RecipeMaps.ASSEMBLER_RECIPES.recipeBuilder().EUt(16).inputs(MetaBlocks.MACHINE_CASING.getItemVariant(MachineCasingType.LuV)).input(OrePrefix.plate, Materials.TungstenSteel, 6).outputs(MetaBlocks.MULTIBLOCK_CASING.getItemVariant(MultiblockCasingType.FUSION_CASING)).duration(50).buildAndRegister();
         RecipeMaps.ASSEMBLER_RECIPES.recipeBuilder().EUt(16).input(OrePrefix.plate, Materials.Magnalium, 6).input(OrePrefix.frameGt, Materials.Steel, 1).outputs(MetaBlocks.TURBINE_CASING.getItemVariant(TurbineCasingType.STEEL_TURBINE_CASING, 3)).duration(50).buildAndRegister();
         RecipeMaps.ASSEMBLER_RECIPES.recipeBuilder().EUt(16).inputs(MetaBlocks.TURBINE_CASING.getItemVariant(TurbineCasingType.STEEL_TURBINE_CASING)).input(OrePrefix.plate, Materials.StainlessSteel, 6).outputs(MetaBlocks.TURBINE_CASING.getItemVariant(TurbineCasingType.STAINLESS_TURBINE_CASING, 3)).duration(50).buildAndRegister();
         RecipeMaps.ASSEMBLER_RECIPES.recipeBuilder().EUt(16).inputs(MetaBlocks.TURBINE_CASING.getItemVariant(TurbineCasingType.STEEL_TURBINE_CASING)).input(OrePrefix.plate, Materials.Titanium, 6).outputs(MetaBlocks.TURBINE_CASING.getItemVariant(TurbineCasingType.TITANIUM_TURBINE_CASING, 3)).duration(50).buildAndRegister();

@@ -16,6 +16,7 @@ import gtr.api.gui.widgets.ProgressWidget;
 import gtr.api.gui.widgets.ProgressWidget.MoveType;
 import gtr.api.gui.widgets.SlotWidget;
 import gtr.api.gui.widgets.TankWidget;
+import gtr.api.metatileentity.MetaTileEntity;
 import gtr.api.recipes.builders.IntCircuitRecipeBuilder;
 import gtr.api.recipes.crafttweaker.CTRecipe;
 import gtr.api.recipes.crafttweaker.CTRecipeBuilder;
@@ -45,6 +46,8 @@ import java.util.stream.Collectors;
 @ZenRegister
 public class RecipeMap<R extends RecipeBuilder<R>> {
 
+    public static int recipeCounter = 0;
+
     private static final List<RecipeMap<?>> RECIPE_MAPS = new ArrayList<>();
     @ZenProperty
     public static IChanceFunction chanceFunction = (chance, boostPerTier, tier) -> chance + (boostPerTier * tier);
@@ -61,7 +64,7 @@ public class RecipeMap<R extends RecipeBuilder<R>> {
     protected MoveType moveType;
 
     private final Map<FluidKey, Collection<Recipe>> recipeFluidMap = new HashMap<>();
-    private final Collection<Recipe> recipeList = new ArrayList<>();
+    private final HashMap<Recipe, Integer> recipeList = new HashMap<>();
 
     public RecipeMap(String unlocalizedName,
                      int minInputs, int maxInputs, int minOutputs, int maxOutputs,
@@ -161,7 +164,7 @@ public class RecipeMap<R extends RecipeBuilder<R>> {
                 return;
         }
         Recipe recipe = validationResult.getResult();
-        recipeList.add(recipe);
+        recipeList.put(recipe, recipeCounter++);
 
         for (FluidStack fluid : recipe.getFluidInputs()) {
             recipeFluidMap.computeIfAbsent(new FluidKey(fluid), k -> new HashSet<>(1)).add(recipe);
@@ -169,9 +172,9 @@ public class RecipeMap<R extends RecipeBuilder<R>> {
     }
 
     public boolean removeRecipe(Recipe recipe) {
-        //if we actually removed this recipe
-        if (recipeList.remove(recipe)) {
-            //also iterate trough fluid mappings and remove recipe from them
+        if (recipeList.containsKey(recipe)) {
+            int index = recipeList.get(recipe);
+            recipeList.remove(recipe, index);
             recipeFluidMap.values().forEach(fluidMap ->
                 fluidMap.removeIf(fluidRecipe -> fluidRecipe == recipe));
             return true;
@@ -253,7 +256,7 @@ public class RecipeMap<R extends RecipeBuilder<R>> {
 
     @Nullable
     private Recipe findByInputs(long voltage, List<ItemStack> inputs, List<FluidStack> fluidInputs) {
-        for (Recipe recipe : recipeList) {
+        for (Recipe recipe : recipeList.keySet()) {
             if (recipe.matches(false, inputs, fluidInputs)) {
                 return voltage >= recipe.getEUt() ? recipe : null;
             }
@@ -268,6 +271,14 @@ public class RecipeMap<R extends RecipeBuilder<R>> {
     //this DOES NOT include machine control widgets or binds player inventory
     public ModularUI.Builder createUITemplate(DoubleSupplier progressSupplier, IItemHandlerModifiable importItems, IItemHandlerModifiable exportItems, FluidTankList importFluids, FluidTankList exportFluids) {
         ModularUI.Builder builder = ModularUI.defaultBuilder();
+        builder.widget(new ProgressWidget(progressSupplier, 77, 22, 20, 20, progressBarTexture, moveType));
+        addInventorySlotGroup(builder, importItems, importFluids, false);
+        addInventorySlotGroup(builder, exportItems, exportFluids, true);
+        return builder;
+    }
+
+    public ModularUI.Builder createUITemplate(MetaTileEntity te, DoubleSupplier progressSupplier, IItemHandlerModifiable importItems, IItemHandlerModifiable exportItems, FluidTankList importFluids, FluidTankList exportFluids) {
+        ModularUI.Builder builder = ModularUI.defaultBuilder(te);
         builder.widget(new ProgressWidget(progressSupplier, 77, 22, 20, 20, progressBarTexture, moveType));
         addInventorySlotGroup(builder, importItems, importFluids, false);
         addInventorySlotGroup(builder, exportItems, exportFluids, true);
@@ -361,7 +372,15 @@ public class RecipeMap<R extends RecipeBuilder<R>> {
 
 
     public Collection<Recipe> getRecipeList() {
-        return Collections.unmodifiableCollection(recipeList);
+        return Collections.unmodifiableCollection(recipeList.keySet());
+    }
+
+    public Set<Map.Entry<Recipe, Integer>> getEntries() {
+        return Collections.unmodifiableSet(recipeList.entrySet());
+    }
+
+    public Map<Recipe, Integer> getMap() {
+        return Collections.unmodifiableMap(recipeList);
     }
 
     @ZenMethod("findRecipe")

@@ -253,7 +253,7 @@ public class MetaTileEntityRotorHolder extends MetaTileEntityMultiblockPart impl
 
     @Override
     protected ModularUI createUI(EntityPlayer entityPlayer) {
-        return ModularUI.defaultBuilder()
+        return ModularUI.defaultBuilder(this)
             .label(6, 6, getMetaFullName())
             .slot(rotorInventory, 0, 79, 36, GuiTextures.SLOT, GuiTextures.TURBINE_OVERLAY)
             .bindPlayerInventory(entityPlayer.inventory)

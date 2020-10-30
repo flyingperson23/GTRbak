@@ -19,10 +19,7 @@ import gtr.api.unification.material.Materials;
 import gtr.api.unification.material.type.DustMaterial;
 import gtr.api.unification.material.type.Material;
 import gtr.api.unification.ore.OrePrefix;
-import gtr.api.worldgen.config.OreDepositDefinition;
 import gtr.api.worldgen.config.WorldGenRegistry;
-import gtr.api.worldgen.filler.FillerEntry;
-import gtr.common.blocks.BlockOre;
 import gtr.common.blocks.MetaBlocks;
 import gtr.common.items.MetaItems;
 import gtr.common.metatileentities.MetaTileEntities;
@@ -33,12 +30,14 @@ import gtr.integration.jei.recipe.fuel.GTFuelRecipeWrapper;
 import gtr.integration.jei.recipe.primitive.*;
 import gtr.integration.jei.utils.*;
 import gtr.loaders.recipe.CustomItemReturnShapedOreRecipeRecipe;
+import mezz.jei.Internal;
 import mezz.jei.api.*;
 import mezz.jei.api.ingredients.IIngredientRegistry;
 import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
 import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
-import net.minecraft.block.state.IBlockState;
+import mezz.jei.runtime.JeiRuntime;
+import mezz.jei.startup.JeiStarter;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -46,6 +45,7 @@ import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -79,13 +79,16 @@ public class GTJeiPlugin implements IModPlugin {
         registry.addRecipeCategories(new PrimitiveBlastRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
         registry.addRecipeCategories(new CokeOvenRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
         registry.addRecipeCategories(new OreByProductCategory(registry.getJeiHelpers().getGuiHelper()));
+
+        registry.addRecipeCategories(new FluidRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
     public void register(IModRegistry registry) {
         IJeiHelpers jeiHelpers = registry.getJeiHelpers();
 
-
+        registry.handleRecipes(FluidWrapper.class, FluidRecipeWrapper::new, FluidRecipeCategory.NAME);
+        registry.addRecipes(FluidWrapper.getAllFluids(), FluidRecipeCategory.NAME);
 
         List<OreGenWrapper> l = new ArrayList<>();
         WorldGenRegistry.getOreDeposits().forEach(deposit -> l.add(new OreGenWrapper(deposit)));
@@ -186,5 +189,13 @@ public class GTJeiPlugin implements IModPlugin {
         }
 
         registry.addRecipeCatalyst(MetaTileEntities.WORKBENCH.getStackForm(), VanillaRecipeCategoryUid.CRAFTING);
+    }
+
+    public static void show(RecipeMap<?> recipes) {
+        Internal.getRuntime().getRecipesGui().showCategories(Collections.singletonList(GTValues.MODID+":"+recipes.unlocalizedName));
+    }
+
+    public static void show(FuelRecipeMap recipes) {
+        Internal.getRuntime().getRecipesGui().showCategories(Collections.singletonList(GTValues.MODID+":"+recipes.unlocalizedName));
     }
 }

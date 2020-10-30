@@ -32,7 +32,8 @@ import java.util.Map;
 public abstract class RecipeMapMultiblockController extends MultiblockWithDisplayBase {
 
     public final RecipeMap<?> recipeMap;
-    protected MultiblockRecipeLogic recipeMapWorkable;
+    public MultiblockRecipeLogic recipeMapWorkable;
+    public Recipe displayRecipe;
 
     protected IItemHandlerModifiable inputInventory;
     protected IItemHandlerModifiable outputInventory;
@@ -143,12 +144,9 @@ public abstract class RecipeMapMultiblockController extends MultiblockWithDispla
     @Override
     protected boolean checkStructureComponents(List<IMultiblockPart> parts, Map<MultiblockAbility<Object>, List<Object>> abilities) {
         //basically check minimal requirements for inputs count
-        //noinspection SuspiciousMethodCalls
         int itemInputsCount = abilities.getOrDefault(MultiblockAbility.IMPORT_ITEMS, Collections.emptyList())
             .stream().map(it -> (IItemHandler) it).mapToInt(IItemHandler::getSlots).sum();
-        //noinspection SuspiciousMethodCalls
         int fluidInputsCount = abilities.getOrDefault(MultiblockAbility.IMPORT_FLUIDS, Collections.emptyList()).size();
-        //noinspection SuspiciousMethodCalls
         return itemInputsCount >= recipeMap.getMinInputs() &&
             fluidInputsCount >= recipeMap.getMinFluidInputs() &&
             abilities.containsKey(MultiblockAbility.INPUT_ENERGY);

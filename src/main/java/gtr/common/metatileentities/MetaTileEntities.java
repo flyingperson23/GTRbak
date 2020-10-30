@@ -9,10 +9,7 @@ import gtr.api.render.Textures;
 import gtr.api.unification.material.Materials;
 import gtr.api.util.GTLog;
 import gtr.common.metatileentities.electric.*;
-import gtr.common.metatileentities.electric.multiblockpart.MetaTileEntityEnergyHatch;
-import gtr.common.metatileentities.electric.multiblockpart.MetaTileEntityFluidHatch;
-import gtr.common.metatileentities.electric.multiblockpart.MetaTileEntityItemBus;
-import gtr.common.metatileentities.electric.multiblockpart.MetaTileEntityRotorHolder;
+import gtr.common.metatileentities.electric.multiblockpart.*;
 import gtr.common.metatileentities.multi.MetaTileEntityCokeOven;
 import gtr.common.metatileentities.multi.MetaTileEntityCokeOvenHatch;
 import gtr.common.metatileentities.multi.MetaTileEntityLargeBoiler;
@@ -108,10 +105,14 @@ public class MetaTileEntities {
     public static MetaTileEntityItemBus[] ITEM_EXPORT_BUS = new MetaTileEntityItemBus[GTValues.V.length];
     public static MetaTileEntityFluidHatch[] FLUID_IMPORT_HATCH = new MetaTileEntityFluidHatch[GTValues.V.length];
     public static MetaTileEntityFluidHatch[] FLUID_EXPORT_HATCH = new MetaTileEntityFluidHatch[GTValues.V.length];
-    public static MetaTileEntityEnergyHatch[] ENERGY_INPUT_HATCH = new MetaTileEntityEnergyHatch[GTValues.V.length];
-    public static MetaTileEntityEnergyHatch[] ENERGY_OUTPUT_HATCH = new MetaTileEntityEnergyHatch[GTValues.V.length];
+    public static MetaTileEntityEnergyHatch[][] ENERGY_INPUT_HATCH = new MetaTileEntityEnergyHatch[GTValues.V.length][5];
+    public static MetaTileEntityEnergyHatch[][] ENERGY_OUTPUT_HATCH = new MetaTileEntityEnergyHatch[GTValues.V.length][5];
     public static MetaTileEntityRotorHolder[] ROTOR_HOLDER = new MetaTileEntityRotorHolder[3]; //HV, EV, IV
     public static MetaTileEntityCokeOvenHatch COKE_OVEN_HATCH;
+
+    public static MetaTileEntityFusionEnergyInjector FUSION_ENERGY_INJECTOR;
+    public static MetaTileEntityFusionMaterialInjector FUSION_MATERIAL_INJECTOR;
+    public static MetaTileEntityFusionMaterialExtractor FUSION_MATERIAL_EXTRACTOR;
 
     //MULTIBLOCKS SECTION
     public static MetaTileEntityPrimitiveBlastFurnace PRIMITIVE_BLAST_FURNACE;
@@ -133,6 +134,12 @@ public class MetaTileEntities {
     public static MetaTileEntityLargeBoiler LARGE_STEEL_BOILER;
     public static MetaTileEntityLargeBoiler LARGE_TITANIUM_BOILER;
     public static MetaTileEntityLargeBoiler LARGE_TUNGSTENSTEEL_BOILER;
+
+    public static MetaTileEntityFusionReactor FUSION_REACTOR;
+
+    public static MetaTileEntityLargeTransformer LARGE_TRANSFORMER;
+    public static MetaTileEntityLargeBatteryBuffer LARGE_BATTERY_BUFFER;
+    public static MetaTileEntityBatteryHolder BATTERY_HOLDER;
 
     //STORAGE SECTION
     public static MetaTileEntityChest SMALL_WOODEN_CHEST;
@@ -164,6 +171,7 @@ public class MetaTileEntities {
     public static MetaTileEntityQuantumTank[] QUANTUM_TANK = new MetaTileEntityQuantumTank[4];
     public static MetaTileEntityFisher[] FISHER = new MetaTileEntityFisher[4];
     public static MetaTileEntityCableDiode[][] CABLE_DIODES = new MetaTileEntityCableDiode[5][GTValues.DIODE_AMPS.length];
+    public static MetaTileEntityWorldAccelerator[] WORLD_ACCELERATOR = new MetaTileEntityWorldAccelerator[5];
 
     public static void init() {
         GTLog.logger.info("Registering MetaTileEntities");
@@ -430,8 +438,14 @@ public class MetaTileEntities {
         LARGE_TITANIUM_BOILER = GregTechAPI.registerMetaTileEntity(523, new MetaTileEntityLargeBoiler(gtrId("large_boiler.titanium"), BoilerType.TITANIUM));
         LARGE_TUNGSTENSTEEL_BOILER = GregTechAPI.registerMetaTileEntity(524, new MetaTileEntityLargeBoiler(gtrId("large_boiler.tungstensteel"), BoilerType.TUNGSTENSTEEL));
 
+        FUSION_REACTOR = GregTechAPI.registerMetaTileEntity(1100, new MetaTileEntityFusionReactor(gtrId("fusion_reactor"), GTValues.EV));
+
         COKE_OVEN = GregTechAPI.registerMetaTileEntity(526, new MetaTileEntityCokeOven(gtrId("coke_oven")));
         COKE_OVEN_HATCH = GregTechAPI.registerMetaTileEntity(527, new MetaTileEntityCokeOvenHatch(gtrId("coke_oven_hatch")));
+
+        FUSION_ENERGY_INJECTOR = GregTechAPI.registerMetaTileEntity(1101, new MetaTileEntityFusionEnergyInjector(gtrId("fusion_energy_injector")));
+        FUSION_MATERIAL_INJECTOR = GregTechAPI.registerMetaTileEntity(1102, new MetaTileEntityFusionMaterialInjector(gtrId("fusion_material_injector")));
+        FUSION_MATERIAL_EXTRACTOR = GregTechAPI.registerMetaTileEntity(1103, new MetaTileEntityFusionMaterialExtractor(gtrId("fusion_material_extractor")));
 
         int[] batteryBufferSlots = new int[]{1, 4, 9, 16};
         for (int i = 0; i < GTValues.V.length; i++) {
@@ -456,15 +470,36 @@ public class MetaTileEntities {
             ITEM_EXPORT_BUS[i] = new MetaTileEntityItemBus(gtrId("item_bus.export." + voltageName), i, true);
             FLUID_IMPORT_HATCH[i] = new MetaTileEntityFluidHatch(gtrId("fluid_hatch.import." + voltageName), i, false);
             FLUID_EXPORT_HATCH[i] = new MetaTileEntityFluidHatch(gtrId("fluid_hatch.export." + voltageName), i, true);
-            ENERGY_INPUT_HATCH[i] = new MetaTileEntityEnergyHatch(gtrId("energy_hatch.input." + voltageName), i, false);
-            ENERGY_OUTPUT_HATCH[i] = new MetaTileEntityEnergyHatch(gtrId("energy_hatch.output." + voltageName), i, true);
+
+            ENERGY_INPUT_HATCH[i][0] = new MetaTileEntityEnergyHatch(gtrId("energy_hatch.input." + voltageName+"."+1), i, false, 1);
+            ENERGY_OUTPUT_HATCH[i][0] = new MetaTileEntityEnergyHatch(gtrId("energy_hatch.output." + voltageName+"."+1), i, true, 1);
+
+            ENERGY_INPUT_HATCH[i][1] = new MetaTileEntityEnergyHatch(gtrId("energy_hatch.input." + voltageName+"."+2), i, false, 2);
+            ENERGY_OUTPUT_HATCH[i][1] = new MetaTileEntityEnergyHatch(gtrId("energy_hatch.output." + voltageName+"."+2), i, true, 2);
+
+            ENERGY_INPUT_HATCH[i][2] = new MetaTileEntityEnergyHatch(gtrId("energy_hatch.input." + voltageName+"."+4), i, false, 4);
+            ENERGY_OUTPUT_HATCH[i][2] = new MetaTileEntityEnergyHatch(gtrId("energy_hatch.output." + voltageName+"."+4), i, true, 4);
+
+            ENERGY_INPUT_HATCH[i][3] = new MetaTileEntityEnergyHatch(gtrId("energy_hatch.input." + voltageName+"."+8), i, false, 8);
+            ENERGY_OUTPUT_HATCH[i][3] = new MetaTileEntityEnergyHatch(gtrId("energy_hatch.output." + voltageName+"."+8), i, true, 8);
+
+            ENERGY_INPUT_HATCH[i][4] = new MetaTileEntityEnergyHatch(gtrId("energy_hatch.input." + voltageName+"."+16), i, false, 16);
+            ENERGY_OUTPUT_HATCH[i][4] = new MetaTileEntityEnergyHatch(gtrId("energy_hatch.output." + voltageName+"."+16), i, true, 16);
 
             GregTechAPI.registerMetaTileEntity(700 + 10 * i, ITEM_IMPORT_BUS[i]);
             GregTechAPI.registerMetaTileEntity(700 + 10 * i + 1, ITEM_EXPORT_BUS[i]);
             GregTechAPI.registerMetaTileEntity(700 + 10 * i + 2, FLUID_IMPORT_HATCH[i]);
             GregTechAPI.registerMetaTileEntity(700 + 10 * i + 3, FLUID_EXPORT_HATCH[i]);
-            GregTechAPI.registerMetaTileEntity(700 + 10 * i + 4, ENERGY_INPUT_HATCH[i]);
-            GregTechAPI.registerMetaTileEntity(700 + 10 * i + 5, ENERGY_OUTPUT_HATCH[i]);
+            GregTechAPI.registerMetaTileEntity(1250 + 11 * i + 1, ENERGY_INPUT_HATCH[i][0]);
+            GregTechAPI.registerMetaTileEntity(1250 + 11 * i + 2, ENERGY_OUTPUT_HATCH[i][0]);
+            GregTechAPI.registerMetaTileEntity(1250 + 11 * i + 3, ENERGY_INPUT_HATCH[i][1]);
+            GregTechAPI.registerMetaTileEntity(1250 + 11 * i + 4, ENERGY_OUTPUT_HATCH[i][1]);
+            GregTechAPI.registerMetaTileEntity(1250 + 11 * i + 5, ENERGY_INPUT_HATCH[i][2]);
+            GregTechAPI.registerMetaTileEntity(1250 + 11 * i + 6, ENERGY_OUTPUT_HATCH[i][2]);
+            GregTechAPI.registerMetaTileEntity(1250 + 11 * i + 7, ENERGY_INPUT_HATCH[i][3]);
+            GregTechAPI.registerMetaTileEntity(1250 + 11 * i + 8, ENERGY_OUTPUT_HATCH[i][3]);
+            GregTechAPI.registerMetaTileEntity(1250 + 11 * i + 9, ENERGY_INPUT_HATCH[i][4]);
+            GregTechAPI.registerMetaTileEntity(1250 + 11 * i + 10, ENERGY_OUTPUT_HATCH[i][4]);
         }
 
         ROTOR_HOLDER[0] = GregTechAPI.registerMetaTileEntity(817, new MetaTileEntityRotorHolder(gtrId("rotor_holder.hv"), GTValues.HV, 1.0f));
@@ -527,6 +562,15 @@ public class MetaTileEntities {
                 CABLE_DIODES[i][j] = metaTileEntity;
             }
         }
+        WORLD_ACCELERATOR[0] = GregTechAPI.registerMetaTileEntity(1200, new MetaTileEntityWorldAccelerator(gtrId("world_accelerator.lv"), GTValues.LV));
+        WORLD_ACCELERATOR[1] = GregTechAPI.registerMetaTileEntity(1201, new MetaTileEntityWorldAccelerator(gtrId("world_accelerator.mv"), GTValues.MV));
+        WORLD_ACCELERATOR[2] = GregTechAPI.registerMetaTileEntity(1202, new MetaTileEntityWorldAccelerator(gtrId("world_accelerator.hv"), GTValues.HV));
+        WORLD_ACCELERATOR[3] = GregTechAPI.registerMetaTileEntity(1203, new MetaTileEntityWorldAccelerator(gtrId("world_accelerator.ev"), GTValues.EV));
+        WORLD_ACCELERATOR[4] = GregTechAPI.registerMetaTileEntity(1204, new MetaTileEntityWorldAccelerator(gtrId("world_accelerator.iv"), GTValues.IV));
+
+        LARGE_TRANSFORMER = GregTechAPI.registerMetaTileEntity(1205, new MetaTileEntityLargeTransformer(gtrId("large_transformer")));
+        LARGE_BATTERY_BUFFER = GregTechAPI.registerMetaTileEntity(1206, new MetaTileEntityLargeBatteryBuffer(gtrId("large_battery_buffer")));
+        BATTERY_HOLDER = GregTechAPI.registerMetaTileEntity(1207, new MetaTileEntityBatteryHolder(gtrId("battery_holder")));
     }
 
     private static ResourceLocation gtrId(String name) {

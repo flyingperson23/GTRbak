@@ -23,15 +23,11 @@ public abstract class TileEntityBase extends TileEntity {
     }
 
     private void updateBlockState() {
-        if (getWorld() != null) {
-            this.blockState = getWorld().getBlockState(getPos());
-        }
+        this.blockState = getWorld().getBlockState(getPos());
     }
 
     public void setBlockState(IBlockState blockState) {
-        if (getWorld() != null)
-            throw new IllegalStateException("Could not set block state for in-world tile entity");
-        this.blockState = blockState;
+        //throw new IllegalStateException("Could not set block state for in-world tile entity");
     }
 
 }

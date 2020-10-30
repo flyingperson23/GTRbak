@@ -130,7 +130,7 @@ public class MetaTileEntityPump extends TieredMetaTileEntity {
     @Override
     protected ModularUI createUI(EntityPlayer entityPlayer) {
         Builder builder = ModularUI.defaultBuilder();
-        builder.image(7, 16, 81, 55, GuiTextures.DISPLAY);
+        builder.image(7, 16, 81, 55, GuiTextures.getBackground(this, "textures/gui/base/display.png"));
         TankWidget tankWidget = new TankWidget(exportFluids.getTankAt(0), 69, 52, 18, 18)
             .setHideTooltip(true).setAlwaysShowFull(true);
         builder.widget(tankWidget);

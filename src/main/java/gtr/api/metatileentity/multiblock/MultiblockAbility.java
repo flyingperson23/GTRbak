@@ -15,4 +15,6 @@ public class MultiblockAbility<T> {
     public static final MultiblockAbility<IEnergyContainer> INPUT_ENERGY = new MultiblockAbility<>();
     public static final MultiblockAbility<IEnergyContainer> OUTPUT_ENERGY = new MultiblockAbility<>();
 
+    public static final MultiblockAbility<IEnergyContainer> HOLD_ENERGY = new MultiblockAbility<>();
+
 }

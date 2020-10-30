@@ -205,6 +205,7 @@ public class CachedGridEntry implements GridEntryInfo, IBlockGeneratorAccess, IB
 
     public void triggerVeinsGeneration() {
         this.veinGeneratedMap = new HashMap<>();
+
         if (!cachedDepositMap.isEmpty()) {
             int currentCycle = 0;
             int maxCycles = ConfigHolder.minVeinsInSection + (ConfigHolder.additionalVeinsInSection == 0 ? 0 : gridRandom.nextInt(ConfigHolder.additionalVeinsInSection + 1));
@@ -245,10 +246,6 @@ public class CachedGridEntry implements GridEntryInfo, IBlockGeneratorAccess, IB
         IVeinPopulator veinPopulator = currentOreVein.getVeinPopulator();
         if (veinPopulator instanceof VeinBufferPopulator) {
             ((VeinBufferPopulator) veinPopulator).populateBlockBuffer(gridRandom, this, this, currentOreVein);
-        }
-
-        if (definition.getShapeGenerator() instanceof PlateGenerator) {
-            System.out.println(veinCenterX+" "+veinCenterY+" "+veinCenterZ);
         }
         this.currentOreVein = null;
     }
