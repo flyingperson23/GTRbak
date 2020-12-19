@@ -156,9 +156,9 @@ public class WorldGenRegistry {
             Path worldgenJarRootPath;
             if (sampleUri.getScheme().equals("jar") || sampleUri.getScheme().equals("zip")) {
                 zipFileSystem = FileSystems.newFileSystem(sampleUri, Collections.emptyMap());
-                worldgenJarRootPath = zipFileSystem.getPath("/assets/gtr.worldgen");
+                worldgenJarRootPath = zipFileSystem.getPath("/assets/gtr/worldgen");
             } else if (sampleUri.getScheme().equals("file")) {
-                worldgenJarRootPath = Paths.get(WorldGenRegistry.class.getResource("/assets/gtr.worldgen").toURI());
+                worldgenJarRootPath = Paths.get(WorldGenRegistry.class.getResource("/assets/gtr/worldgen").toURI());
             } else {
                 throw new IllegalStateException("Unable to locate absolute path to worldgen root directory: " + sampleUri);
             }
