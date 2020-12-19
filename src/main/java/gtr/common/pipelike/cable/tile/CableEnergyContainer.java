@@ -16,11 +16,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockPos.PooledMutableBlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.energy.IEnergyStorage;
 
 import java.lang.ref.WeakReference;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 
 public class CableEnergyContainer implements IEnergyContainer {
@@ -91,13 +89,17 @@ public class CableEnergyContainer implements IEnergyContainer {
                 continue; //do not emit into other cable tile entities
             }
             IEnergyContainer energyContainer = tileEntity.getCapability(GregtechCapabilities.CAPABILITY_ENERGY_CONTAINER, facing.getOpposite());
-            IEnergyStorage storage = tileEntity.getCapability(CapabilityEnergy.ENERGY, facing.getOpposite());
             if (energyContainer != null) {
                 amperesUsed += energyContainer.acceptEnergyFromNetwork(facing.getOpposite(), voltage, amperage - amperesUsed);
-            } else if (storage != null) {
-                amperesUsed += (storage.receiveEnergy((int) (ConfigHolder.rfPerEU*voltage*(Math.ceil(amperage - amperesUsed))), false) / ConfigHolder.rfPerEU) / voltage;
-            } else if (IC2Handler.isAcceptable(tileEntity)) {
-                amperesUsed += IC2Handler.receiveEnergy(tileEntity, voltage, amperage-amperesUsed, facing.getOpposite()) / voltage;
+            }
+            if (tileEntity.hasCapability(CapabilityEnergy.ENERGY, facing.getOpposite())) {
+                int rfToSend = (int) (ConfigHolder.rfPerEU*voltage*(amperage-amperesUsed));
+                rfToSend /= ConfigHolder.rfPerEU;
+                rfToSend *= ConfigHolder.rfPerEU;
+                amperesUsed += (tileEntity.getCapability(CapabilityEnergy.ENERGY, facing.getOpposite()).receiveEnergy(rfToSend, false) / ConfigHolder.rfPerEU) / voltage;
+            }
+            if (IC2Handler.isAcceptable(tileEntity)) {
+                amperesUsed += IC2Handler.receiveEnergy(tileEntity, voltage,  amperage - amperesUsed, facing.getOpposite()) / voltage;
             }
             if (amperesUsed == amperage)
                 break;

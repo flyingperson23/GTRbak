@@ -5,6 +5,7 @@ import gtr.api.gui.Widget;
 import gtr.api.gui.widgets.PhantomSlotWidget;
 import gtr.api.gui.widgets.ToggleButtonWidget;
 import gtr.api.util.ItemStackKey;
+import gtr.api.util.LargeStackSizeItemStackHandler;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.items.IItemHandler;
@@ -22,7 +23,7 @@ public class SimpleItemFilter extends ItemFilter {
     protected boolean ignoreNBT = true;
 
     public SimpleItemFilter() {
-        this.itemFilterSlots = new ItemStackHandler(MAX_MATCH_SLOTS) {
+        this.itemFilterSlots = new LargeStackSizeItemStackHandler(MAX_MATCH_SLOTS) {
             @Override
             public int getSlotLimit(int slot) {
                 return getMaxStackSize();

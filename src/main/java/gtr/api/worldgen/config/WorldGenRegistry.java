@@ -152,7 +152,7 @@ public class WorldGenRegistry {
     private static void extractJarVeinDefinitions(Path worldgenRootPath) throws IOException {
         FileSystem zipFileSystem = null;
         try {
-            URI sampleUri = WorldGenRegistry.class.getResource("/assets/gtr..gtassetsroot").toURI();
+            URI sampleUri = WorldGenRegistry.class.getResource("/assets/gtr/.gtassetsroot").toURI();
             Path worldgenJarRootPath;
             if (sampleUri.getScheme().equals("jar") || sampleUri.getScheme().equals("zip")) {
                 zipFileSystem = FileSystems.newFileSystem(sampleUri, Collections.emptyMap());

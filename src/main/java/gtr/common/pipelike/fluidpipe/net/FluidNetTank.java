@@ -3,6 +3,7 @@ package gtr.common.pipelike.fluidpipe.net;
 import com.google.common.base.Preconditions;
 import gtr.api.util.PerTickIntCounter;
 import gtr.common.pipelike.fluidpipe.FluidPipeProperties;
+import gtr.common.pipelike.fluidpipe.net.FluidPipeNet;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 

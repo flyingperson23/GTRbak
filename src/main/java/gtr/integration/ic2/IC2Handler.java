@@ -1,9 +1,14 @@
 package gtr.integration.ic2;
 
+import gtr.api.GTValues;
+import gtr.api.capability.IEnergyContainer;
 import ic2.api.energy.tile.IEnergySink;
 import ic2.api.energy.tile.IEnergySource;
+import ic2.api.item.ElectricItem;
+import ic2.api.item.IElectricItem;
 import ic2.core.block.TileEntityBlock;
 import ic2.core.block.comp.Energy;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 
@@ -27,6 +32,16 @@ public class IC2Handler {
         } else if (te instanceof TileEntityBlock && ((TileEntityBlock) te).hasComponent(Energy.class)) {
             return (int) ((TileEntityBlock) te).getComponent(Energy.class).addEnergy(voltage*amperes);
         } else return 0;
+    }
+
+    public static boolean canItemReceiveEU(ItemStack s) {
+        return s.getItem() instanceof IElectricItem;
+    }
+
+    public static long insertEnergyToItem(ItemStack s, IEnergyContainer container, int tier) {
+        long requestedPower = (long) Math.min(ElectricItem.manager.getMaxCharge(s) - ElectricItem.manager.getCharge(s), GTValues.V[ElectricItem.manager.getTier(s)]);
+        long powerToDeliver = Math.min(requestedPower, Math.min(container.getEnergyStored(), GTValues.V[tier]));
+        return (long) ElectricItem.manager.charge(s, powerToDeliver, ElectricItem.manager.getTier(s), true, false);
     }
 
 }

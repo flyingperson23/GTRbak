@@ -1,5 +1,6 @@
 package gtr.api.recipes.machines;
 
+import gtr.api.recipes.MatchingMode;
 import gtr.api.recipes.Recipe;
 import gtr.api.recipes.RecipeMap;
 import gtr.api.recipes.builders.SimpleRecipeBuilder;
@@ -20,8 +21,8 @@ public class RecipeMapFormingPress extends RecipeMap<SimpleRecipeBuilder> {
 
     @Override
     @Nullable
-    public Recipe findRecipe(long voltage, List<ItemStack> inputs, List<FluidStack> fluidInputs, int outputFluidTankCapacity) {
-        Recipe recipe = super.findRecipe(voltage, inputs, fluidInputs, outputFluidTankCapacity);
+    public Recipe findRecipe(long voltage, List<ItemStack> inputs, List<FluidStack> fluidInputs, int outputFluidTankCapacity, MatchingMode m) {
+        Recipe recipe = super.findRecipe(voltage, inputs, fluidInputs, outputFluidTankCapacity, m);
         if (inputs.size() < 2 || inputs.get(0).isEmpty() || inputs.get(1).isEmpty()) {
             return recipe;
         }

@@ -6,6 +6,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemTool;
 import net.minecraft.server.management.PlayerInteractionManager;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
@@ -26,6 +27,12 @@ public class ToolHooks {
 
         if (tool.getItem() instanceof IToolItem) {
             if (tool.hasCapability(GregtechCapabilities.CAPABILITY_ELECTRIC_ITEM, null)) {
+                ItemCatcher.startCatching();
+                interactionManager = manager;
+            }
+        }
+        if (tool.getItem() instanceof ItemTool && tool.getTagCompound() != null) {
+            if (tool.getTagCompound().hasKey("magnetic")) {
                 ItemCatcher.startCatching();
                 interactionManager = manager;
             }

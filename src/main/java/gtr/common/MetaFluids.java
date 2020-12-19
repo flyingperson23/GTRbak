@@ -140,8 +140,7 @@ public class MetaFluids {
                     fluidMaterial.setMaterialFluid(fluid);
                 }
                 if(fluidMaterial.shouldGeneratePlasma() && fluidMaterial.getMaterialPlasma() == null) {
-                    int temperature = fluidMaterial.getFluidTemperature();
-                    Fluid fluid = registerFluid(fluidMaterial, FluidType.NORMAL, 30000);
+                    Fluid fluid = registerFluid(fluidMaterial, FluidType.PLASMA, 30000);
                     fluidMaterial.setMaterialPlasma(fluid);
                 }
             }

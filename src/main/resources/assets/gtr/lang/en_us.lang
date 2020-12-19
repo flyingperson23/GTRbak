@@ -1,8 +1,12 @@
 enchantment.disjunction=Disjunction
 
+tooltip.magnetic=Magnetic
+
 metaitem.electric.discharge_mode.enabled=§eDischarge Mode Enabled
 metaitem.electric.discharge_mode.disabled=§eDischarge Mode Disabled
 metaitem.electric.discharge_mode.tooltip=Use while sneaking to toggle discharge mode
+gtr.machine.workbench.storage_note_1=(Available items from connected
+gtr.machine.workbench.storage_note_2=inventories usable for crafting)
 
 metaitem.credit.copper.name=Copper Credit
 metaitem.credit.copper.tooltip=0.125 Credits
@@ -147,14 +151,6 @@ metaitem.tool.dataorb.tooltip=A High Capacity Data Storage
 metaitem.circuit.integrated.tooltip=Use to open configuration GUI
 metaitem.circuit.integrated.gui=Integrated circuit configuration
 metaitem.circuit.integrated.jei_description=JEI is only showing recipes for the given configuration.\n\nYou can select a configuration in the Integrated circuit configuration tab.
-
-#CIRCUITS LOCALIZATION
-metaitem.boule.silicon.name=Silicon Boule
-metaitem.boule.glowstone.name=Glowstone-doped Boule
-metaitem.boule.naquadah.name=Naquadah-doped Boule
-metaitem.wafer.silicon.name=Silicon Wafer
-metaitem.wafer.glowstone.name=Glowstone-doped Wafer
-metaitem.wafer.naquadah.name=Naquadah-doped Wafer
 
 
 metaitem.carbon.fibers.name=Raw Carbon Fibers
@@ -308,10 +304,13 @@ cover.fluid_filter.mode.filter_both=Filter Fill & Drain
 cover.filter.mode.filter_both=Filter Insert/Extract
 
 cover.smart_item_filter.title=Smart Item Filter
-cover.smart_item_filter.mode.electrolyzer=Electrolyzer
-cover.smart_item_filter.mode.centrifuge=Centrifuge
-cover.smart_item_filter.mode.tooltip=Select Machine this Smart Filter will use for filtering./nIt will automatically pick right portions of items for robotic arm.
-
+cover.smart_item_filter.filtering_mode.electrolyzer=Electrolyzer
+cover.smart_item_filter.filtering_mode.centrifuge=Centrifuge
+cover.smart_item_filter.filtering_mode.sifter=Sifter
+cover.smart_item_filter.filtering_mode.description=Select Machine this Smart Filter will use for filtering./nIt will automatically pick right portions of items for robotic arm.
+cover.smart_item_filter.matching_mode.default=Default
+cover.smart_item_filter.matching_mode.ignore_fluid=Ignore Fluids
+cover.smart_item_filter.matching_mode.description=§eDefault§r - Will match recipes on both items/fluids criteria assuming you aren't providing any fluid. /n§eIgnore Fluids§r - Will match recipes only on items criteria.
 
 cover.conveyor.manual_io.enabled=Allow Manual Import/Export
 cover.conveyor.manual_io.disabled=Disallow Manual Import/Export
@@ -1365,65 +1364,6 @@ gtr.command.util.hand.tool_stats=Tool Stats Class: %s
 gtr.command.util.hand.meta_item=Meta Item Name: %s
 gtr.command.util.hand.not_a_player=This command is only usable by a player.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 death.attack.heat=%s was boiled alive.
 death.attack.frost=%s explored cryogenics.
 death.attack.electric=%s was shocked.
@@ -1690,6 +1630,7 @@ metaitem.circuit.advanced.name=Advanced HV Circuit
 metaitem.circuit.elite.name=Elite EV Circuit
 metaitem.circuit.master.name=Master IV Circuit
 metaitem.circuit.magic.name=Magical Circuit
+metaitem.circuit.ultimate.name=Ultimate Mainframe
 
 metaitem.datastick.name=Data Stick
 metaitem.datastick.tooltip=A Low Capacity Data Storage
@@ -2802,6 +2743,9 @@ material.milk=Milk
 material.cocoa=Cocoa
 material.wheat=Wheat
 
+material.technetium=Technetium
+material.oganesson=Oganesson
+
 item.gunpowder.dustTiny=Tiny Pile of Gunpowder
 item.gunpowder.dustSmall=Small Pile of Gunpowder
 item.paper.dustTiny=Tiny Pile of Chad
@@ -3190,6 +3134,12 @@ gtr.machine.world_accelerator.hv.name=Advanced World Accelerator
 gtr.machine.world_accelerator.ev.name=Elite World Accelerator
 gtr.machine.world_accelerator.iv.name=Master World Accelerator
 
+gtr.machine.wireless_charger.lv.name=Basic Wireless Charger
+gtr.machine.wireless_charger.mv.name=Intermediate Wireless Charger
+gtr.machine.wireless_charger.hv.name=Advanced Wireless Charger
+gtr.machine.wireless_charger.ev.name=Elite Wireless Charger
+gtr.machine.wireless_charger.iv.name=Master Wireless Charger
+
 gtr.machine.magic_energy_absorber.mv.name=Intermediate Magic Energy Absorber
 gtr.machine.magic_energy_absorber.hv.name=Advanced Magic Energy Absorber
 gtr.machine.magic_energy_absorber.ev.name=Elite Magic Energy Absorber
@@ -3538,3 +3488,130 @@ gtr.multiblock.large_battery_buffer.output=Output Total: %s Amps %s
 gtr.tooltip.energyi=Energy Input Buffer
 gtr.tooltip.energyo=Energy Output Buffer
 gtr.tooltip.energye=Energy Storage
+
+gtr.machine.energy_hatch.input.lv.1.name=LV Energy Input Hatch (1A)
+gtr.machine.energy_hatch.input.lv.2.name=LV Energy Input Hatch (2A)
+gtr.machine.energy_hatch.input.lv.4.name=LV Energy Input Hatch (4A)
+gtr.machine.energy_hatch.input.lv.8.name=LV Energy Input Hatch (8A)
+gtr.machine.energy_hatch.input.lv.16.name=LV Energy Input Hatch (16A)
+
+gtr.machine.energy_hatch.output.lv.1.name=LV Energy Output Hatch (1A)
+gtr.machine.energy_hatch.output.lv.2.name=LV Energy Output Hatch (2A)
+gtr.machine.energy_hatch.output.lv.4.name=LV Energy Output Hatch (4A)
+gtr.machine.energy_hatch.output.lv.8.name=LV Energy Output Hatch (8A)
+gtr.machine.energy_hatch.output.lv.16.name=LV Energy Output Hatch (16A)
+
+gtr.machine.energy_hatch.input.mv.1.name=MV Energy Input Hatch (1A)
+gtr.machine.energy_hatch.input.mv.2.name=MV Energy Input Hatch (2A)
+gtr.machine.energy_hatch.input.mv.4.name=MV Energy Input Hatch (4A)
+gtr.machine.energy_hatch.input.mv.8.name=MV Energy Input Hatch (8A)
+gtr.machine.energy_hatch.input.mv.16.name=MV Energy Input Hatch (16A)
+
+gtr.machine.energy_hatch.output.mv.1.name=MV Energy Output Hatch (1A)
+gtr.machine.energy_hatch.output.mv.2.name=MV Energy Output Hatch (2A)
+gtr.machine.energy_hatch.output.mv.4.name=MV Energy Output Hatch (4A)
+gtr.machine.energy_hatch.output.mv.8.name=MV Energy Output Hatch (8A)
+gtr.machine.energy_hatch.output.mv.16.name=MV Energy Output Hatch (16A)
+
+gtr.machine.energy_hatch.input.hv.1.name=HV Energy Input Hatch (1A)
+gtr.machine.energy_hatch.input.hv.2.name=HV Energy Input Hatch (2A)
+gtr.machine.energy_hatch.input.hv.4.name=HV Energy Input Hatch (4A)
+gtr.machine.energy_hatch.input.hv.8.name=HV Energy Input Hatch (8A)
+gtr.machine.energy_hatch.input.hv.16.name=HV Energy Input Hatch (16A)
+
+gtr.machine.energy_hatch.output.hv.1.name=HV Energy Output Hatch (1A)
+gtr.machine.energy_hatch.output.hv.2.name=HV Energy Output Hatch (2A)
+gtr.machine.energy_hatch.output.hv.4.name=HV Energy Output Hatch (4A)
+gtr.machine.energy_hatch.output.hv.8.name=HV Energy Output Hatch (8A)
+gtr.machine.energy_hatch.output.hv.16.name=HV Energy Output Hatch (16A)
+
+gtr.machine.energy_hatch.input.ev.1.name=EV Energy Input Hatch (1A)
+gtr.machine.energy_hatch.input.ev.2.name=EV Energy Input Hatch (2A)
+gtr.machine.energy_hatch.input.ev.4.name=EV Energy Input Hatch (4A)
+gtr.machine.energy_hatch.input.ev.8.name=EV Energy Input Hatch (8A)
+gtr.machine.energy_hatch.input.ev.16.name=EV Energy Input Hatch (16A)
+
+gtr.machine.energy_hatch.output.ev.1.name=EV Energy Output Hatch (1A)
+gtr.machine.energy_hatch.output.ev.2.name=EV Energy Output Hatch (2A)
+gtr.machine.energy_hatch.output.ev.4.name=EV Energy Output Hatch (4A)
+gtr.machine.energy_hatch.output.ev.8.name=EV Energy Output Hatch (8A)
+gtr.machine.energy_hatch.output.ev.16.name=EV Energy Output Hatch (16A)
+
+gtr.machine.energy_hatch.input.iv.1.name=IV Energy Input Hatch (1A)
+gtr.machine.energy_hatch.input.iv.2.name=IV Energy Input Hatch (2A)
+gtr.machine.energy_hatch.input.iv.4.name=IV Energy Input Hatch (4A)
+gtr.machine.energy_hatch.input.iv.8.name=IV Energy Input Hatch (8A)
+gtr.machine.energy_hatch.input.iv.16.name=IV Energy Input Hatch (16A)
+
+gtr.machine.energy_hatch.output.iv.1.name=IV Energy Output Hatch (1A)
+gtr.machine.energy_hatch.output.iv.2.name=IV Energy Output Hatch (2A)
+gtr.machine.energy_hatch.output.iv.4.name=IV Energy Output Hatch (4A)
+gtr.machine.energy_hatch.output.iv.8.name=IV Energy Output Hatch (8A)
+gtr.machine.energy_hatch.output.iv.16.name=IV Energy Output Hatch (16A)
+
+gtr.machine.energy_hatch.input.luv.1.name=LUV Energy Input Hatch (1A)
+gtr.machine.energy_hatch.input.luv.2.name=LUV Energy Input Hatch (2A)
+gtr.machine.energy_hatch.input.luv.4.name=LUV Energy Input Hatch (4A)
+gtr.machine.energy_hatch.input.luv.8.name=LUV Energy Input Hatch (8A)
+gtr.machine.energy_hatch.input.luv.16.name=LUV Energy Input Hatch (16A)
+
+gtr.machine.energy_hatch.output.luv.1.name=LUV Energy Output Hatch (1A)
+gtr.machine.energy_hatch.output.luv.2.name=LUV Energy Output Hatch (2A)
+gtr.machine.energy_hatch.output.luv.4.name=LUV Energy Output Hatch (4A)
+gtr.machine.energy_hatch.output.luv.8.name=LUV Energy Output Hatch (8A)
+gtr.machine.energy_hatch.output.luv.16.name=LUV Energy Output Hatch (16A)
+
+gtr.machine.energy_hatch.input.uv.1.name=UV Energy Input Hatch (1A)
+gtr.machine.energy_hatch.input.uv.2.name=UV Energy Input Hatch (2A)
+gtr.machine.energy_hatch.input.uv.4.name=UV Energy Input Hatch (4A)
+gtr.machine.energy_hatch.input.uv.8.name=UV Energy Input Hatch (8A)
+gtr.machine.energy_hatch.input.uv.16.name=UV Energy Input Hatch (16A)
+
+gtr.machine.energy_hatch.output.uv.1.name=UV Energy Output Hatch (1A)
+gtr.machine.energy_hatch.output.uv.2.name=UV Energy Output Hatch (2A)
+gtr.machine.energy_hatch.output.uv.4.name=UV Energy Output Hatch (4A)
+gtr.machine.energy_hatch.output.uv.8.name=UV Energy Output Hatch (8A)
+gtr.machine.energy_hatch.output.uv.16.name=UV Energy Output Hatch (16A)
+
+metaitem.zpm.name=Zero Point Module
+metaitem.zpm2.name=Ultimate Battery
+
+
+
+
+
+metaitem.nano.helmet.name=§eNano Suit Helmet
+metaitem.nano.chestplate.name=§eNano Suit Chestplate
+metaitem.nano.leggings.name=§eNano Suit Leggings
+metaitem.nano.boots.name=§eNano Suit Boots
+metaitem.nano.jetpack.name=§eNano Suit Jetplate
+
+metaitem.quantum.helmet.name=§bQuantum Suit Helmet
+metaitem.quantum.chestplate.name=§bQuantum Suit Chestplate
+metaitem.quantum.leggings.name=§bQuantum Suit Leggings
+metaitem.quantum.boots.name=§bQuantum Suit Boots
+metaitem.quantum.jetpack.name=§bQuantum Suit Jetplate
+
+metaarmor.nms.nightvision.enabled=Nano Suit: NightVision enabled
+metaarmor.nms.nightvision.disabled=Nano Suit: NightVision disabled
+
+metaarmor.qts.nightvision.enabled=Quantum Suit: NightVision enabled
+metaarmor.qts.nightvision.disabled=Quantum Suit: NightVision disabled
+
+metaarmor.jetpack.hover.enable=Jetpack: hover mode enabled
+metaarmor.jetpack.hover.disable=Jetpack: hover mode disabled
+
+metaarmor.hud.status.enabled=§aON
+metaarmor.hud.status.disabled=§cOFF
+metaarmor.hud.energy_lvl=Energy Level: %s
+metaarmor.hud.fuel_lvl=Fuel Level: %s
+metaarmor.hud.hover_mode=Hover Mode: %s
+mataarmor.hud.supply_mode=Supply Mode: %s
+metaarmor.hud.fly_mode=Fly Mode: %s
+metaarmor.hud.gravi_engine=Fly Mode: %s
+
+metaarmor.energy_share.enable=Energy Supply: Gadgets charging enabled
+metaarmor.energy_share.disable=Energy Supply: Gadgets charging disabled
+metaarmor.energy_share.tooltip=Supply Mode: %s
+metaarmor.energy_share.tooltip.guide=To change mode shift-right click when holding item
+

@@ -121,7 +121,7 @@ public abstract class AbstractRecipeLogic extends MTETrait implements IWorkable 
     protected void updateRecipeProgress() {
         boolean drawEnergy = drawEnergy(recipeEUt);
         if (drawEnergy || (recipeEUt < 0)) {
-            if (++progressTime >= maxProgressTime) {
+            if (++progressTime > maxProgressTime) {
                 completeRecipe();
             }
         } else if (recipeEUt > 0) {

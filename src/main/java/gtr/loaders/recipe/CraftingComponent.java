@@ -27,8 +27,10 @@ public enum CraftingComponent {
                     return new UnificationEntry(OrePrefix.circuit, Tier.Good);
                 case GTValues.HV:
                     return new UnificationEntry(OrePrefix.circuit, Tier.Advanced);
-                default:
+                case GTValues.EV:
                     return new UnificationEntry(OrePrefix.circuit, Tier.Elite);
+                default:
+                    return new UnificationEntry(OrePrefix.circuit, Tier.Ultimate);
 
             }
         }
@@ -397,7 +399,7 @@ public enum CraftingComponent {
             return new UnificationEntry(OrePrefix.stick, MAIN_MATERIAL.get(tier));
         }
     },
-        MAIN_MATERIAL {
+    MAIN_MATERIAL {
         @Override
         public Object getIngredient(int tier) {
             switch (tier) {

@@ -3,7 +3,9 @@ package gtr.integration.theoneprobe.provider;
 import gtr.api.capability.GregtechCapabilities;
 import gtr.api.capability.GregtechTileCapabilities;
 import gtr.api.capability.IEnergyContainer;
+import gtr.api.metatileentity.MetaTileEntity;
 import gtr.api.metatileentity.MetaTileEntityHolder;
+import gtr.common.metatileentities.electric.MetaTileEntityWirelessCharger;
 import gtr.common.metatileentities.electric.MetaTileEntityWorldAccelerator;
 import mcjty.theoneprobe.api.ElementAlignment;
 import mcjty.theoneprobe.api.IProbeInfo;
@@ -54,6 +56,11 @@ public class ElectricContainerInfoProvider extends CapabilityInfoProvider<IEnerg
                 probeInfo.horizontal(probeInfo.defaultLayoutStyle().alignment(ElementAlignment.ALIGN_CENTER)).text(TextStyleClass.INFO+"Speed: "+accelerator.speed);
                 probeInfo.horizontal(probeInfo.defaultLayoutStyle().alignment(ElementAlignment.ALIGN_CENTER)).text(TextStyleClass.INFO+"Consuming "+(accelerator.teList.size()*accelerator.speed*MetaTileEntityWorldAccelerator.energyPerTEUpdateTick)+" EU/t"+additionalSpacing);
                 if (!accelerator.enabled) probeInfo.text(TextStyleClass.INFOIMP + "{*gtr.top.working_disabled*}");
+            }
+            if (((MetaTileEntityHolder) tileEntity).getMetaTileEntity() instanceof MetaTileEntityWirelessCharger) {
+                MetaTileEntityWirelessCharger charger = (MetaTileEntityWirelessCharger) ((MetaTileEntityHolder) tileEntity).getMetaTileEntity();
+                probeInfo.horizontal(probeInfo.defaultLayoutStyle().alignment(ElementAlignment.ALIGN_CENTER)).text(TextStyleClass.INFO+"Range: "+charger.range);
+                if (!charger.enabled) probeInfo.text(TextStyleClass.INFOIMP + "{*gtr.top.working_disabled*}");
             }
         }
     }

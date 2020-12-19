@@ -1,8 +1,9 @@
 package gtr.common;
 
 import gtr.GregTechMod;
+import gtr.api.net.KeysPacket;
+import gtr.api.net.KeysUpdateHandler;
 import gtr.api.net.displayrecipes.*;
-import gtr.api.net.wrenchnet.*;
 import gtr.api.GTValues;
 import gtr.api.block.machines.MachineItemBlock;
 import gtr.api.enchants.EnchantmentEnderDamage;
@@ -55,17 +56,13 @@ public class CommonProxy {
 
 
     public void init(FMLInitializationEvent e) {
-        GregTechMod.WRENCH_NET_WRAPPER.registerMessage(MessageGetConnections.MessageHandler.class, MessageGetConnections.class, 0, Side.SERVER);
-        GregTechMod.WRENCH_NET_WRAPPER.registerMessage(MessageReturnConnections.MessageHandler.class, MessageReturnConnections.class, 1, Side.CLIENT);
-        GregTechMod.WRENCH_NET_WRAPPER.registerMessage(MessagePlaySound.MessageHandler.class, MessagePlaySound.class, 2, Side.CLIENT);
-        GregTechMod.WRENCH_NET_WRAPPER.registerMessage(MessageSwingArm.MessageHandler.class, MessageSwingArm.class, 3, Side.CLIENT);
-
         GregTechMod.DISPLAY_INFO_WRAPPER.registerMessage(MessageSetFuelDieselEngine.MessageHandler.class, MessageSetFuelDieselEngine.class, 0, Side.CLIENT);
         GregTechMod.DISPLAY_INFO_WRAPPER.registerMessage(MessageRequestFuelDieselEngine.MessageHandler.class, MessageRequestFuelDieselEngine.class, 1, Side.SERVER);
         GregTechMod.DISPLAY_INFO_WRAPPER.registerMessage(MessageSetFuelLargeTurbine.MessageHandler.class, MessageSetFuelLargeTurbine.class, 2, Side.CLIENT);
         GregTechMod.DISPLAY_INFO_WRAPPER.registerMessage(MessageRequestFuelLargeTurbine.MessageHandler.class, MessageRequestFuelLargeTurbine.class, 3, Side.SERVER);
         GregTechMod.DISPLAY_INFO_WRAPPER.registerMessage(MessageSetRecipeMultiblock.MessageHandler.class, MessageSetRecipeMultiblock.class, 4, Side.CLIENT);
         GregTechMod.DISPLAY_INFO_WRAPPER.registerMessage(MessageRequestRecipeMultiblock.MessageHandler.class, MessageRequestRecipeMultiblock.class, 5, Side.SERVER);
+        GregTechMod.DISPLAY_INFO_WRAPPER.registerMessage(KeysUpdateHandler.class, KeysPacket.class, 6, Side.SERVER);
     }
 
     @SubscribeEvent
@@ -102,7 +99,6 @@ public class CommonProxy {
         registry.register(LOG);
         registry.register(LEAVES);
         registry.register(SAPLING);
-        registry.register(CRUSHER_BLADE);
         registry.register(SURFACE_ROCK_NEW);
 
         COMPRESSED.values().stream().distinct().forEach(registry::register);
@@ -118,7 +114,6 @@ public class CommonProxy {
         PotionFluids.initPotionFluids();
     }
 
-    @SuppressWarnings("unchecked")
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event) {
         GTLog.logger.info("Registering Items...");
@@ -148,7 +143,7 @@ public class CommonProxy {
         registry.register(createMultiTexItemBlock(LOG, state -> state.getValue(BlockGregLog.VARIANT).getName()));
         registry.register(createMultiTexItemBlock(LEAVES, state -> state.getValue(BlockGregLeaves.VARIANT).getName()));
         registry.register(createMultiTexItemBlock(SAPLING, state -> state.getValue(BlockGregSapling.VARIANT).getName()));
-        registry.register(createItemBlock(CRUSHER_BLADE, ItemBlock::new));
+        //registry.register(createItemBlock(CRUSHER_BLADE, ItemBlock::new));
 
         COMPRESSED.values()
             .stream().distinct()

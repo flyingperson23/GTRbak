@@ -6,7 +6,7 @@ import net.minecraft.world.World;
 
 public class WorldENet extends WorldPipeNet<WireProperties, EnergyNet> {
 
-    private static final String DATA_ID = "gtr.e_net";
+    private static final String DATA_ID = "gregtech.e_net";
 
     public static WorldENet getWorldENet(World world) {
         WorldENet eNetWorldData = (WorldENet) world.loadData(WorldENet.class, DATA_ID);

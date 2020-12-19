@@ -1,5 +1,6 @@
 package gtr.api.recipes.machines;
 
+import gtr.api.recipes.MatchingMode;
 import gtr.api.recipes.ModHandler;
 import gtr.api.recipes.Recipe;
 import gtr.api.recipes.RecipeMap;
@@ -19,8 +20,8 @@ public class RecipeMapFurnace extends RecipeMap<SimpleRecipeBuilder> {
 
     @Override
     @Nullable
-    public Recipe findRecipe(long voltage, List<ItemStack> inputs, List<FluidStack> fluidInputs, int outputFluidTankCapacity) {
-        Recipe normalRecipe = super.findRecipe(voltage, inputs, fluidInputs, outputFluidTankCapacity);
+    public Recipe findRecipe(long voltage, List<ItemStack> inputs, List<FluidStack> fluidInputs, int outputFluidTankCapacity, MatchingMode m) {
+        Recipe normalRecipe = super.findRecipe(voltage, inputs, fluidInputs, outputFluidTankCapacity, m);
         if (normalRecipe != null || inputs.size() == 0 || inputs.get(0).isEmpty())
             return normalRecipe;
         ItemStack output = ModHandler.getSmeltingOutput(inputs.get(0));

@@ -52,17 +52,10 @@ import java.util.stream.IntStream;
 public class MetaTileEntityLargeBatteryBuffer extends MultiblockWithDisplayBase implements IUIHolder {
 
     private static final MultiblockAbility<?>[] ALLOWED_ABILITIES = {MultiblockAbility.OUTPUT_ENERGY, MultiblockAbility.INPUT_ENERGY, MultiblockAbility.HOLD_ENERGY};
-    private static final Point[] guiPoints = {new Point(154, 11), new Point(174, 11), new Point(154, 29), new Point(174, 29),
-    new Point(154, 47), new Point(174, 47), new Point(154, 65), new Point(174, 65),
-    new Point(154, 83), new Point(174, 83), new Point(154, 101), new Point(174, 101),
-    new Point(154, 119), new Point(174, 119), new Point(154, 137), new Point(174, 137)};
     private IEnergyContainer input;
     private IEnergyContainer hold;
     private IEnergyContainer output;
     private boolean isActive = false;
-    private int currentDrain = 0;
-    private int drain = 0;
-    DecimalFormat formatter = new DecimalFormat("#0.0");
 
     public MetaTileEntityLargeBatteryBuffer(ResourceLocation metaTileEntityId) {
         super(metaTileEntityId);
@@ -97,28 +90,7 @@ public class MetaTileEntityLargeBatteryBuffer extends MultiblockWithDisplayBase 
 
     @Override
     protected ModularUI createUI(EntityPlayer entityPlayer) {
-        int counter = 0;
         ModularUI.Builder builder = ModularUI.defaultBuilder();
-        for (IMultiblockPart m : getMultiblockParts()) {
-            if (m instanceof MetaTileEntityBatteryHolder) {
-                MetaTileEntityBatteryHolder bat = (MetaTileEntityBatteryHolder) m;
-                if (counter < 4) {
-
-                    int rowSize = (int) Math.sqrt(MetaTileEntityBatteryHolder.inventorySize);
-                    for (int y = 0; y < rowSize; y++) {
-                        for (int x = 0; x < rowSize; x++) {
-                            int index = y * rowSize + x;
-                            //builder.widget(new SlotWidget(bat.importItems, index, 89 - rowSize * 9 + x * 18, 18 + y * 18, true, true)
-                            //    .setBackgroundTexture(GuiTextures.SLOT, GuiTextures.BATTERY_OVERLAY));
-                        }
-                    }
-                }
-                counter++;
-
-            }
-        }
-        if (input != null) System.out.println(input.getEnergyStored() / input.getEnergyCapacity());
-        if (output != null) System.out.println(output.getEnergyStored() / output.getEnergyCapacity());
 
         ProgressWidget i = new ProgressWidget(this::getProgressI, 5, 148, 147, 5, () -> Lists.newArrayList(I18n.format("gtr.tooltip.energyi")))
             .setProgressBar(GuiTextures.ENERGY_EMPTY, TextureArea.fullImage("textures/gui/multiblock/energybar_i.png"), ProgressWidget.MoveType.HORIZONTAL);
@@ -139,7 +111,7 @@ public class MetaTileEntityLargeBatteryBuffer extends MultiblockWithDisplayBase 
     }
 
     public double getProgressE() {
-        return (double) hold.getEnergyStored() / (1.0 * hold.getEnergyCapacity());
+        return hold == null ? 0 : (double) hold.getEnergyStored() / (1.0 * hold.getEnergyCapacity());
     }
 
     public double getProgressI() {
@@ -159,36 +131,32 @@ public class MetaTileEntityLargeBatteryBuffer extends MultiblockWithDisplayBase 
             if (!isActive) {
                 setActive(true);
             }
+            if (hold != null && input != null) {
 
-            if (hold.getEnergyStored() < hold.getEnergyCapacity()) {
-                if (input.getEnergyStored() < hold.getEnergyCapacity() - hold.getEnergyStored()) {
-                    hold.addEnergy(input.getEnergyStored());
-                    input.removeEnergy(input.getEnergyStored());
-                    currentDrain += input.getEnergyStored();
-                } else {
-                    long left = hold.getEnergyCapacity() - hold.getEnergyStored();
-                    hold.addEnergy(left);
-                    input.removeEnergy(left);
-                    currentDrain += left;
+                if (hold.getEnergyStored() < hold.getEnergyCapacity()) {
+                    if (input.getEnergyStored() < hold.getEnergyCapacity() - hold.getEnergyStored()) {
+                        hold.addEnergy(input.getEnergyStored());
+                        input.removeEnergy(input.getEnergyStored());
+                    } else {
+                        long left = hold.getEnergyCapacity() - hold.getEnergyStored();
+                        hold.addEnergy(left);
+                        input.removeEnergy(left);
+                    }
                 }
             }
 
-            if (output.getEnergyStored() < output.getEnergyCapacity()) {
-                if (hold.getEnergyStored() < output.getEnergyCapacity() - output.getEnergyStored()) {
-                    output.addEnergy(hold.getEnergyStored());
-                    hold.removeEnergy(hold.getEnergyStored());
-                    currentDrain += hold.getEnergyStored();
-                } else {
-                    long left = output.getEnergyCapacity() - output.getEnergyStored();
-                    output.addEnergy(left);
-                    hold.removeEnergy(left);
-                    currentDrain += left;
-                }
-            }
+            if (hold != null && output != null) {
 
-            if (getTimer() % 20 == 0) {
-                drain = currentDrain / 20;
-                currentDrain = 0;
+                if (output.getEnergyStored() < output.getEnergyCapacity()) {
+                    if (hold.getEnergyStored() < output.getEnergyCapacity() - output.getEnergyStored()) {
+                        output.addEnergy(hold.getEnergyStored());
+                        hold.removeEnergy(hold.getEnergyStored());
+                    } else {
+                        long left = output.getEnergyCapacity() - output.getEnergyStored();
+                        output.addEnergy(left);
+                        hold.removeEnergy(left);
+                    }
+                }
             }
         }
     }
@@ -262,16 +230,20 @@ public class MetaTileEntityLargeBatteryBuffer extends MultiblockWithDisplayBase 
     protected void addDisplayText(List<ITextComponent> textList) {
         super.addDisplayText(textList);
 
-        input.getEnergyCapacity();
-        input.getEnergyStored();
+        if (input != null) {
+            input.getEnergyCapacity();
+            input.getEnergyStored();
+        }
 
-        output.getEnergyCapacity();
-        output.getEnergyStored();
+        if (output != null) {
+            output.getEnergyCapacity();
+            output.getEnergyStored();
+        }
 
         if (this.isStructureFormed()) {
-            textList.add(new TextComponentTranslation("gtr.multiblock.large_battery_buffer.input", input.getInputAmperage(), GTValues.VN[GTUtility.getTierByVoltage(input.getInputVoltage()/input.getInputAmperage())]));
-            textList.add(new TextComponentTranslation("gtr.multiblock.large_battery_buffer.output", output.getOutputAmperage(), GTValues.VN[GTUtility.getTierByVoltage(output.getOutputVoltage()/output.getOutputAmperage())]));
-            textList.add(new TextComponentTranslation("gtr.multiblock.large_battery_buffer.stored", (hold.getEnergyStored()+input.getEnergyStored()+output.getEnergyStored()), (hold.getEnergyCapacity()+input.getEnergyCapacity()+output.getEnergyCapacity())));
+            if (input != null) textList.add(new TextComponentTranslation("gtr.multiblock.large_battery_buffer.input", input.getInputAmperage(), GTValues.VN[GTUtility.getTierByVoltage(input.getInputVoltage()/input.getInputAmperage())]));
+            if (output != null) textList.add(new TextComponentTranslation("gtr.multiblock.large_battery_buffer.output", output.getOutputAmperage(), GTValues.VN[GTUtility.getTierByVoltage(output.getOutputVoltage()/output.getOutputAmperage())]));
+            if (input != null && output != null) textList.add(new TextComponentTranslation("gtr.multiblock.large_battery_buffer.stored", (hold.getEnergyStored()+input.getEnergyStored()+output.getEnergyStored()), (hold.getEnergyCapacity()+input.getEnergyCapacity()+output.getEnergyCapacity())));
         }
     }
 

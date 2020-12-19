@@ -107,7 +107,6 @@ public class TextureArea {
 
     @SideOnly(Side.CLIENT)
     public void drawSubArea(double x, double y, int width, int height, double drawnU, double drawnV, double drawnWidth, double drawnHeight) {
-        //sub area is just different width and height
         double imageU = this.offsetX + (this.imageWidth * drawnU);
         double imageV = this.offsetY + (this.imageHeight * drawnV);
         double imageWidth = this.imageWidth * drawnWidth;
@@ -120,6 +119,23 @@ public class TextureArea {
         bufferbuilder.pos(x + width, y + height, 0.0D).tex(imageU + imageWidth, imageV + imageHeight).endVertex();
         bufferbuilder.pos(x + width, y, 0.0D).tex(imageU + imageWidth, imageV).endVertex();
         bufferbuilder.pos(x, y, 0.0D).tex(imageU, imageV).endVertex();
+        tessellator.draw();
+    }
+
+    @SideOnly(Side.CLIENT)
+    public void drawSubArea(double x, double y, int width, int height, double z) {
+        double imageU = this.offsetX;
+        double imageV = this.offsetY;
+        double imageWidth = this.imageWidth;
+        double imageHeight = this.imageHeight;
+        Minecraft.getMinecraft().renderEngine.bindTexture(imageLocation);
+        Tessellator tessellator = Tessellator.getInstance();
+        BufferBuilder bufferbuilder = tessellator.getBuffer();
+        bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
+        bufferbuilder.pos(x, y + height, z).tex(imageU, imageV + imageHeight).endVertex();
+        bufferbuilder.pos(x + width, y + height, z).tex(imageU + imageWidth, imageV + imageHeight).endVertex();
+        bufferbuilder.pos(x + width, y, z).tex(imageU + imageWidth, imageV).endVertex();
+        bufferbuilder.pos(x, y, z).tex(imageU, imageV).endVertex();
         tessellator.draw();
     }
 }

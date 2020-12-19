@@ -184,5 +184,12 @@ public class CircuitRecipes {
             .fluidInputs(Materials.PolyvinylAcetate.getFluid(20), Materials.SolderingAlloy.getFluid(L * 3), Materials.Acetonitrile.getFluid(L/2))
             .outputs(MetaItems.CIRCUIT_EV.getStackForm())
             .buildAndRegister();
+
+        RecipeMaps.ASSEMBLER_RECIPES.recipeBuilder().duration(400).EUt(2048)
+            .inputs(OreDictUnifier.get(OrePrefix.frameGt, Materials.Steel), MetaItems.CIRCUIT_EV.getStackForm(4),
+                OreDictUnifier.get(OrePrefix.cableGtDouble, Materials.Superconductor, 16), MetaItems.ENERGY_LAPOTRONIC_ORB.getStackForm())
+            .fluidInputs(Materials.SolderingAlloy.getFluid(L * 16), Materials.Technetium.getFluid(L * 2))
+            .outputs(MetaItems.CIRCUIT_ULTIMATE.getStackForm())
+            .buildAndRegister();
     }
 }

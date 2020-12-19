@@ -55,9 +55,10 @@ public class EnergyNet extends PipeNet<WireProperties> {
             for (EnumFacing facing : EnumFacing.VALUES) {
                 currentPos.move(facing);
                 Node<WireProperties> secondNode = getNodeAt(currentPos);
-                if (secondNode != null && !observedSet.contains(currentPos)) {
+                if (secondNode != null && canNodesConnect(firstNode, facing, secondNode, this) && !observedSet.contains(currentPos)) {
                     BlockPos immutablePos = currentPos.toImmutable();
                     observedSet.add(immutablePos);
+                    firstNode = secondNode;
                     moveStack.push(facing.getOpposite());
                     currentPath.path.put(immutablePos, getNodeAt(immutablePos).data);
                     if (secondNode.isActive) {

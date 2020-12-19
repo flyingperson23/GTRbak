@@ -46,7 +46,7 @@ public class WorldSceneRenderer {
     private static final FloatBuffer OBJECT_POS_BUFFER = ByteBuffer.allocateDirect(3 * 4).order(ByteOrder.nativeOrder()).asFloatBuffer();
 
     public final TrackedDummyWorld world = new TrackedDummyWorld();
-    public final List<BlockPos> renderedBlocks = new ArrayList<>();
+    public List<BlockPos> renderedBlocks = new ArrayList<>();
     private SceneRenderCallback renderCallback;
     private Predicate<BlockPos> renderFilter;
     private BlockPos lastHitBlock;

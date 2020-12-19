@@ -9,10 +9,10 @@ public class BlockGranite extends StoneBlock<BlockGranite.GraniteVariant> {
     public BlockGranite() {
         super(Material.ROCK);
         setUnlocalizedName("granite");
-        setHardness(7.0f);
+        setHardness(1.5f);
         setResistance(12.0f);
         setSoundType(SoundType.STONE);
-        setHarvestLevel("pickaxe", 3);
+        setHarvestLevel("pickaxe", 1);
         setDefaultState(withVariant(
             GraniteVariant.BLACK_GRANITE,
             ChiselingVariant.NORMAL));

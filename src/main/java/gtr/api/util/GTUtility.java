@@ -4,12 +4,6 @@ import codechicken.lib.vec.Vector3;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableList.Builder;
 import com.google.common.collect.Lists;
-import gtr.api.items.toolitem.wrenchcompat.WrenchHelper;
-import gtr.api.items.toolitem.wrenchcompat.ICompatBase;
-import gtr.GregTechMod;
-import gtr.api.net.wrenchnet.MessageGetConnections;
-import gtr.api.net.wrenchnet.MessagePlaySound;
-import gtr.api.net.wrenchnet.MessageSwingArm;
 import gtr.api.capability.GregtechCapabilities;
 import gtr.api.capability.IElectricItem;
 import gtr.api.capability.IMultipleTankHandler;
@@ -19,6 +13,9 @@ import gtr.api.items.IToolItem;
 import gtr.api.metatileentity.MetaTileEntity;
 import gtr.api.metatileentity.MetaTileEntityHolder;
 import gtr.common.ConfigHolder;
+import gtr.integration.betterpipes.util.BlockWrapper;
+import gtr.integration.betterpipes.util.Matrix4;
+import gtr.integration.betterpipes.util.Transformation;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRedstoneWire;
 import net.minecraft.block.material.Material;
@@ -48,7 +45,6 @@ import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.IFluidTank;
@@ -66,6 +62,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.*;
 import java.util.Map.Entry;
@@ -75,12 +72,54 @@ import java.util.stream.Collector;
 import java.util.stream.IntStream;
 
 import static gtr.api.GTValues.V;
-import static gtr.common.render.WrenchOverlayHandler.BlockWrapper;
-import static gtr.common.render.WrenchOverlayHandler.Matrix4;
-import static gtr.common.render.WrenchOverlayHandler.Transformation;
 
 
 public class GTUtility {
+
+
+    public static final char[] smallSuffixes = {'m', 'u', 'n', 'p', 'f', 'a', 'z', 'y'};
+    public static final char[] bigSuffixes = {'k', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y'};
+
+    /**
+     * Takes a number and outputs a string formatted in the way used by most of
+     * the mod, 33.5k for example
+     *
+     * @param number
+     * @return string
+     */
+    public static String formatNumberShort(double number) {
+        DecimalFormat format = (DecimalFormat) DecimalFormat.getInstance();
+        format.setMinimumIntegerDigits(1);
+        format.setMaximumFractionDigits(2);
+        format.applyPattern("##0.##E0");
+
+        String[] exploded = format.format(number).split("E");
+        String retval = exploded[0];
+        if (retval.length() > 3) {
+            if (retval.charAt(3) == '.') {
+                retval = retval.substring(0, 3);
+            } else {
+                retval = retval.substring(0, 4);
+            }
+        }
+        if (exploded.length > 1) {
+            int exponent = Integer.parseInt(exploded[1]);
+            int index;
+            if (exponent > 0) {
+                index = exponent / 3 - 1;
+                if (index > bigSuffixes.length -1)
+                    retval = "Infinite M";
+                else
+                    retval += bigSuffixes[index];
+            } else if (exponent < 0) {
+                index = exponent / -3 - 1;
+                retval += smallSuffixes[index];
+            }
+        }
+        return retval;
+    }
+
+
 
     public static Vector3 getPipeTranslation(EnumFacing direction) {
         Vector3 temp = new Vector3(0, 0, 0);
@@ -1212,90 +1251,6 @@ public class GTUtility {
         }
         return arrayList;
     }
-
-    public static ArrayList<EnumFacing> fromGTCEBitmask(int mask) {
-        ArrayList<EnumFacing> list = new ArrayList<>();
-        for (EnumFacing facing : EnumFacing.VALUES) {
-            int current = (int) Math.pow(2, facing.getIndex());
-            if ((mask & current) == current) list.add(facing);
-        }
-        return list;
-    }
-
-    public static boolean isValidWrench(ItemStack item, BlockWrapper b) {
-        return WrenchHelper.enable() && WrenchHelper.isAcceptable(item, b);
-    }
-
-    public static boolean wrenchUse(PlayerInteractEvent event, int compatID) {
-        if (!event.getWorld().isRemote) {
-            ICompatBase compat = GregTechMod.instance.wrenchHandler.COMPAT_LIST.get(compatID);
-            EntityPlayer player = event.getEntityPlayer();
-            World worldIn = event.getWorld();
-            BlockPos setConnection = null;
-            RayTraceResult lookingAt = getBlockLookingAtIgnoreBB(player);
-            if (lookingAt != null) {
-                BlockPos pos = lookingAt.getBlockPos();
-                BlockWrapper block = new BlockWrapper(pos, event.getWorld().getBlockState(pos), event.getWorld());
-                EnumFacing sideToggled = getDirection(lookingAt.sideHit, lookingAt.hitVec);
-                if (sideToggled != null) {
-                    if (compat.isAcceptable(getTE(block))) {
-                        if (compat.getConnections(getTE(block)).contains(sideToggled)) {
-                            compat.disconnect(getTE(block), sideToggled, player);
-                            if (compat.isAcceptable(getTE(block.offset(sideToggled))))
-                                compat.disconnect(getTE(block.offset(sideToggled)), sideToggled.getOpposite(), player);
-                        } else {
-                            compat.connect(getTE(block), sideToggled, player);
-                            if (compat.isAcceptable(getTE(block.offset(sideToggled))))
-                                compat.connect(getTE(block.offset(sideToggled)), sideToggled.getOpposite(), player);
-                        }
-                        setConnection = pos;
-                    }
-                    worldIn.notifyBlockUpdate(pos, worldIn.getBlockState(pos), worldIn.getBlockState(pos), 3);
-                    block.state.getBlock().onNeighborChange(worldIn, block.pos, block.pos.offset(sideToggled, 1));
-                    BlockWrapper connectTo = block.offset(sideToggled);
-                    if (connectTo != null) {
-                        worldIn.notifyBlockUpdate(connectTo.pos, connectTo.state, connectTo.state, 3);
-                        connectTo.state.getBlock().onNeighborChange(worldIn, connectTo.pos, connectTo.pos.offset(sideToggled.getOpposite(), 1));
-                    }
-                }
-                GregTechMod.WRENCH_NET_WRAPPER.sendToServer(new MessageGetConnections(pos, compatID));
-
-            }
-            if (setConnection != null) {
-                double effective_full_volume_range = 2;
-                double effective_partial_volume_range = 4;
-
-                double aabbRange = effective_full_volume_range + effective_partial_volume_range;
-                Vec3d setConnectionVector = new Vec3d(setConnection.getX(), setConnection.getY(), setConnection.getZ()).addVector(0.5, 0.5, 0.5);
-                AxisAlignedBB max_aabb = new AxisAlignedBB(-1*aabbRange, -1*aabbRange, -1*aabbRange, aabbRange, aabbRange, aabbRange).offset(setConnectionVector);
-                List<EntityPlayer> full_play_list = worldIn.getEntitiesWithinAABB(EntityPlayer.class, max_aabb);
-                List<EntityPlayer> partial_sound_play_list = worldIn.getEntitiesWithinAABB(EntityPlayer.class, max_aabb);
-                full_play_list.removeIf((i) -> i.getPositionVector().distanceTo(setConnectionVector) > effective_full_volume_range);
-                partial_sound_play_list.removeIf((i) -> i.getPositionVector().distanceTo(setConnectionVector) > effective_full_volume_range+effective_partial_volume_range);
-                partial_sound_play_list.removeIf(full_play_list::contains);
-
-                for (EntityPlayer full_sound : full_play_list) {
-                    if (full_sound instanceof EntityPlayerMP) {
-                        GregTechMod.WRENCH_NET_WRAPPER.sendTo(new MessagePlaySound(1.0F), (EntityPlayerMP) full_sound);
-                    }
-                }
-
-                for (EntityPlayer partial_sound : partial_sound_play_list) {
-                    if (partial_sound instanceof EntityPlayerMP) {
-                        float volume = 1.0F - (float) ((partial_sound.getPositionVector().distanceTo(new Vec3d(setConnection.getX(), setConnection.getY(), setConnection.getZ()).addVector(0.5, 0.5, 0.5)) - effective_full_volume_range)/effective_partial_volume_range);
-                        GregTechMod.WRENCH_NET_WRAPPER.sendTo(new MessagePlaySound(volume), (EntityPlayerMP) partial_sound);
-                    }
-                }
-                if (player instanceof EntityPlayerMP) {
-                    GregTechMod.WRENCH_NET_WRAPPER.sendTo(new MessageSwingArm(), (EntityPlayerMP) player);
-                }
-            }
-            return setConnection != null;
-        }
-        return false;
-    }
-
-
 
     public static Transformation[] sideRotations = new Transformation[]{//
         new Transformation(new Matrix4(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)) {

@@ -44,7 +44,6 @@ public class BlockMultiblockCasing extends VariantBlock<BlockMultiblockCasing.Mu
 
         ENGINE_INTAKE_CASING("engine_intake"),
         GRATE_CASING("grate"),
-        ASSEMBLER_CASING("assembler"),
         FUSION_CASING("fusion"),
         HIGH_POWER("high_power");
 

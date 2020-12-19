@@ -93,6 +93,8 @@ public class MetaItem2 extends MaterialMetaItem {
         CIRCUIT_HV = addItem(532, "circuit.advanced").setUnificationData(OrePrefix.circuit, MarkerMaterials.Tier.Advanced);
         CIRCUIT_EV = addItem(533, "circuit.elite").setUnificationData(OrePrefix.circuit, MarkerMaterials.Tier.Elite);
 
+        CIRCUIT_ULTIMATE = addItem(534, "circuit.ultimate").setUnificationData(OrePrefix.circuit, Tier.Ultimate);
+
         BOARD_LV = addItem(542, "board.basic").addOreDict("boardBasic");
         BOARD_MV = addItem(543, "board.intermediate").addOreDict("boardIntermediate");
         BOARD_HV = addItem(544, "board.advanced").addOreDict("boardAdvanced");

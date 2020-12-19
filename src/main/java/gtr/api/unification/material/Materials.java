@@ -100,6 +100,8 @@ public class Materials {
     public static IngotMaterial Zinc = new IngotMaterial(80, "zinc", 0xFAF0F0, MaterialIconSet.METALLIC, 1, of(), STD_METAL | GENERATE_ORE | MORTAR_GRINDABLE | GENERATE_FOIL, Element.Zn);
     public static IngotMaterial Zirconium = new IngotMaterial(81, "zirconium", 0xB76A17, MaterialIconSet.SHINY, 3, of(), GENERATE_PLATE, Element.Zr, 10.0F, 4.5F, 680, 1855);
 
+    public static IngotMaterial Technetium = new IngotMaterial(82, "technetium", 0x8a8a8a, MaterialIconSet.DULL, 3, of(), EXT2_METAL, Element.Tc, 12.0F, 6.0F, 1536);
+    public static FluidMaterial Oganesson = new FluidMaterial(83, "oganesson", 0xa80aad, MaterialIconSet.FLUID, of(), STATE_GAS, Element.Og);
 
     /**
      * First Degree Compounds : Fits up to 100-150ID
@@ -232,7 +234,7 @@ public class Materials {
     public static FluidMaterial OilHeavy = new FluidMaterial(303, "oil_heavy", 0x666666, MaterialIconSet.FLUID, of(), GENERATE_FLUID_BLOCK);
     public static FluidMaterial OilMedium = new FluidMaterial(305, "oil_medium", 0x666666, MaterialIconSet.FLUID, of(), GENERATE_FLUID_BLOCK);
     public static FluidMaterial OilLight = new FluidMaterial(304, "oil_light", 0x666666, MaterialIconSet.FLUID, of(), GENERATE_FLUID_BLOCK);
-    public static FluidMaterial NaturalGas = new FluidMaterial(306, "natural_gas", 0xFFFFFF, MaterialIconSet.FLUID, of(), STATE_GAS | GENERATE_FLUID_BLOCK);
+    public static FluidMaterial NaturalGas = new FluidMaterial(306, "natural_gas", 0xFFFFFF, MaterialIconSet.FLUID, of(), GENERATE_FLUID_BLOCK);
     public static FluidMaterial SulfuricGas = new FluidMaterial(307, "sulfuric_gas", 0xFFFFFF, MaterialIconSet.FLUID, of(), STATE_GAS | GENERATE_FLUID_BLOCK);
     public static FluidMaterial Gas = new FluidMaterial(308, "gas", 0xFFFFFF, MaterialIconSet.FLUID, of(), STATE_GAS | GENERATE_FLUID_BLOCK);
     public static FluidMaterial SulfuricNaphtha = new FluidMaterial(309, "sulfuric_naphtha", 0xFFFF00, MaterialIconSet.FLUID, of(), 0);
@@ -320,7 +322,6 @@ public class Materials {
     public static DustMaterial SiliconeRubber = new IngotMaterial(460, "silicon_rubber", 11316396, MaterialIconSet.DULL, 1, of(new MaterialStack(Carbon, 2), new MaterialStack(Hydrogen, 6), new MaterialStack(Oxygen, 1), new MaterialStack(Silicon, 1)), GENERATE_PLATE | GENERATE_GEAR | GENERATE_RING | FLAMMABLE | NO_SMASHING | GENERATE_FOIL);
     public static DustMaterial Polystyrene = new IngotMaterial(461, "polystyrene", 8945785, MaterialIconSet.DULL, 1, of(new MaterialStack(Carbon, 8), new MaterialStack(Hydrogen, 8)), DISABLE_DECOMPOSITION | GENERATE_FOIL);
     public static DustMaterial RawStyreneButadieneRubber = new DustMaterial(462, "raw_styrene_butadiene_rubber", 5192762, MaterialIconSet.SAND, 1, of(new MaterialStack(Carbon, 8), new MaterialStack(Hydrogen, 8), new MaterialStack(Butadiene, 3)), DISABLE_DECOMPOSITION);
-    public static IngotMaterial DuraniumFusedAcrylic = new IngotMaterial(463, "duranium_fused_acrylic", 0xCDCDCD, MaterialIconSet.METALLIC, 4, of(), GENERATE_PLATE);
     public static IngotMaterial AcrylonitrileButadieneStyrene = new IngotMaterial(468, "acrylonitrile_butadiene_styrene", 0xCDCDCD, MaterialIconSet.DULL, 1, of(), GENERATE_PLATE);
     public static FluidMaterial Acrylonitrile = new FluidMaterial(469, "acrylonitrile", 0xC8C8DC, MaterialIconSet.FLUID, of(), 0);
     public static DustMaterial AmmoniumSulfate = new DustMaterial(470, "ammonium_sulfate", 0xC8C8DC, MaterialIconSet.SAND, 1, of(new MaterialStack(Nitrogen, 2), new MaterialStack(Hydrogen, 8), new MaterialStack(Sulfur, 1), new MaterialStack(Oxygen, 4)), SMELT_INTO_FLUID);
@@ -391,13 +392,6 @@ public class Materials {
     public static IngotMaterial NaquadahEnriched = new IngotMaterial(602, "naquadah_enriched", 0x282828, MaterialIconSet.METALLIC, 5, of(), EXT2_METAL | GENERATE_ORE, null, 6.0F, 4.0F, 1280, 4500);
     public static IngotMaterial NaquadahAlloy = new IngotMaterial(603, "naquadah_alloy", 0x282828, MaterialIconSet.METALLIC, 5, of(new MaterialStack(Naquadah, 1), new MaterialStack(Osmiridium, 1)), EXT2_METAL, null, 10.0F, 5.0F, 5120, 7200);
     public static IngotMaterial Adamantine = new IngotMaterial(604, "adamantine", 0xF0E68C, MaterialIconSet.METALLIC, 5, of(), EXT_METAL, 9.0F, 4.5F, 4096);
-
-    //Fantasy alloys
-    public static IngotMaterial Tritanium = new IngotMaterial(605, "tritanium", 0x99FFFF, MaterialIconSet.SHINY, 5, of(), EXT2_METAL | GENERATE_FOIL, 12.0F, 5.5F, 9900);
-    public static IngotMaterial Vibranium = new IngotMaterial(619, "vibranium", 0x28DF28, MaterialIconSet.SHINY, 5, of(), EXT2_METAL, 15.0F, 5.0F, 12800);
-    public static IngotMaterial Duranium = new IngotMaterial(620, "duranium", 0xCDCDCD, MaterialIconSet.SHINY, 5, of(), EXT2_METAL, 12.0F, 6.5F, 16000);
-
-    public static GemMaterial Vinteum = new GemMaterial(621, "vinteum", 0x64C8FF, MaterialIconSet.EMERALD, 2, of(), STD_GEM | NO_SMASHING | NO_SMELTING);
 
     /**
      * Coal and Related Items 671-680ID
@@ -783,7 +777,6 @@ public class Materials {
         Phosphate.addOreByProducts(Phosphorus);
         Phosphorus.addOreByProducts(Phosphate);
         Niter.addOreByProducts(Saltpeter);
-        Vinteum.addOreByProducts(Vinteum);
         Lithium.addOreByProducts(Lithium);
         Silicon.addOreByProducts(SiliconDioxide);
         Salt.addOreByProducts(RockSalt, Borax);
@@ -834,7 +827,6 @@ public class Materials {
 
         //UV (Superconductor material initialized in MetaBlocks.class
         NaquadahEnriched.setCableProperties(GTValues.V[6], 1, 2);
-        Vibranium.setCableProperties(GTValues.V[6], 4, 1);
         Darmstadtium.setCableProperties(GTValues.V[6], 2, 2);
 
         //Fluid Pipes
@@ -846,9 +838,6 @@ public class Materials {
         Titanium.setFluidPipeProperties(200, 5000, true);
         Ultimet.setFluidPipeProperties(300, 4500, true);
         TungstenSteel.setFluidPipeProperties(400, 7500, true);
-        Tritanium.setFluidPipeProperties(650, 8000, true);
-        Vibranium.setFluidPipeProperties(1000, 20000, true);
-
     }
 
 }

@@ -44,7 +44,9 @@ public abstract class WorldPipeNet<NodeDataType, T extends PipeNet<NodeDataType>
         for (EnumFacing facing : EnumFacing.VALUES) {
             BlockPos offsetPos = nodePos.offset(facing);
             T pipeNet = getNetFromPos(offsetPos);
-            if (pipeNet != null && pipeNet.canAttachNode(nodeData)) {
+            Node<NodeDataType> secondNode = pipeNet == null ? null : pipeNet.getAllNodes().get(offsetPos);
+            if (pipeNet != null && pipeNet.canAttachNode(nodeData) &&
+                pipeNet.canNodesConnect(secondNode, facing.getOpposite(), node, null)) {
                 if (myPipeNet == null) {
                     myPipeNet = pipeNet;
                     myPipeNet.addNode(nodePos, node);

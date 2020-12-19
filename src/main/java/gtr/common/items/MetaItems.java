@@ -202,10 +202,7 @@ public final class MetaItems {
     public static MetaItem<?>.MetaValueItem ETCHING_KIT_HV;
     public static MetaItem<?>.MetaValueItem ETCHING_KIT_EV;
 
-
-
-
-
+    public static MetaItem<?>.MetaValueItem CIRCUIT_ULTIMATE;
 
     public static MetaItem<?>.MetaValueItem COMPONENT_GRINDER_DIAMOND;
     public static MetaItem<?>.MetaValueItem COMPONENT_GRINDER_TUNGSTEN;
@@ -299,6 +296,20 @@ public final class MetaItems {
     public static ToolMetaItem<?>.MetaToolValueItem JACKHAMMER;
     public static ToolMetaItem<?>.MetaToolValueItem BUZZSAW;
     public static ToolMetaItem<?>.MetaToolValueItem SCREWDRIVER_LV;
+
+    public static ArmorMetaItem<?>.ArmorMetaValueItem NANO_CHESTPLATE;
+    public static ArmorMetaItem<?>.ArmorMetaValueItem NANO_LEGGINGS;
+    public static ArmorMetaItem<?>.ArmorMetaValueItem NANO_BOOTS;
+    public static ArmorMetaItem<?>.ArmorMetaValueItem NANO_HELMET;
+
+    public static ArmorMetaItem<?>.ArmorMetaValueItem QUANTUM_CHESTPLATE;
+    public static ArmorMetaItem<?>.ArmorMetaValueItem QUANTUM_LEGGINGS;
+    public static ArmorMetaItem<?>.ArmorMetaValueItem QUANTUM_BOOTS;
+    public static ArmorMetaItem<?>.ArmorMetaValueItem QUANTUM_HELMET;
+
+    public static ArmorMetaItem<?>.ArmorMetaValueItem ELECTRIC_JETPACK;
+    public static ArmorMetaItem<?>.ArmorMetaValueItem NANO_SUIT_JETPACK;
+    public static ArmorMetaItem<?>.ArmorMetaValueItem QUANTUM_SUIT_JETPACK;
 
     public static void init() {
         MetaItem1 first = new MetaItem1();

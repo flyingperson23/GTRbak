@@ -2,6 +2,7 @@ package gtr.common.metatileentities;
 
 import gtr.api.GTValues;
 import gtr.api.GregTechAPI;
+import gtr.api.metatileentity.MetaTileEntity;
 import gtr.api.metatileentity.SimpleGeneratorMetaTileEntity;
 import gtr.api.metatileentity.SimpleMachineMetaTileEntity;
 import gtr.api.recipes.RecipeMaps;
@@ -31,8 +32,8 @@ public class MetaTileEntities {
 
     //HULLS
     public static MetaTileEntityHull[] HULL = new MetaTileEntityHull[GTValues.V.length];
-    public static MetaTileEntityTransformer[] TRANSFORMER = new MetaTileEntityTransformer[GTValues.V.length - 1];
-    public static MetaTileEntityBatteryBuffer[][] BATTERY_BUFFER = new MetaTileEntityBatteryBuffer[GTValues.V.length][];
+    public static MetaTileEntityTransformer[] TRANSFORMER = new MetaTileEntityTransformer[3];
+    public static MetaTileEntityBatteryBuffer[][] BATTERY_BUFFER = new MetaTileEntityBatteryBuffer[4][];
     public static MetaTileEntityCharger[] CHARGER = new MetaTileEntityCharger[GTValues.V.length];
 
     //BRONZE MACHINES SECTION
@@ -163,15 +164,16 @@ public class MetaTileEntities {
     //MISC MACHINES SECTION
     public static MetaTileEntityWorkbench WORKBENCH;
     public static MetaTileEntityPump[] PUMP = new MetaTileEntityPump[4];
-    public static MetaTileEntityBlockBreaker[] BLOCK_BREAKER = new MetaTileEntityBlockBreaker[4];
+    public static MetaTileEntityBlockBreaker[] BLOCK_BREAKER = new MetaTileEntityBlockBreaker[3];
     public static MetaTileEntityAirCollector[] AIR_COLLECTOR = new MetaTileEntityAirCollector[4];
     public static MetaTileEntityItemCollector[] ITEM_COLLECTOR = new MetaTileEntityItemCollector[4];
     public static MetaTileEntityTeslaCoil TESLA_COIL;
-    public static MetaTileEntityQuantumChest[] QUANTUM_CHEST = new MetaTileEntityQuantumChest[4];
-    public static MetaTileEntityQuantumTank[] QUANTUM_TANK = new MetaTileEntityQuantumTank[4];
+    public static MetaTileEntityQuantumChest[] QUANTUM_CHEST = new MetaTileEntityQuantumChest[3];
+    public static MetaTileEntityQuantumTank[] QUANTUM_TANK = new MetaTileEntityQuantumTank[3];
     public static MetaTileEntityFisher[] FISHER = new MetaTileEntityFisher[4];
     public static MetaTileEntityCableDiode[][] CABLE_DIODES = new MetaTileEntityCableDiode[5][GTValues.DIODE_AMPS.length];
     public static MetaTileEntityWorldAccelerator[] WORLD_ACCELERATOR = new MetaTileEntityWorldAccelerator[5];
+    public static MetaTileEntityWirelessCharger[] WIRELESS_CHARGER = new MetaTileEntityWirelessCharger[5];
 
     public static void init() {
         GTLog.logger.info("Registering MetaTileEntities");
@@ -453,11 +455,13 @@ public class MetaTileEntities {
                 MetaTileEntityTransformer transformer = new MetaTileEntityTransformer(gtrId("transformer." + GTValues.VN[i].toLowerCase()), i);
                 TRANSFORMER[i - 1] = GregTechAPI.registerMetaTileEntity(600 + (i - 1), transformer);
             }
-            BATTERY_BUFFER[i] = new MetaTileEntityBatteryBuffer[batteryBufferSlots.length];
-            for (int slot = 0; slot < batteryBufferSlots.length; slot++) {
-                String transformerId = "battery_buffer." + GTValues.VN[i].toLowerCase() + "." + batteryBufferSlots[slot];
-                MetaTileEntityBatteryBuffer batteryBuffer = new MetaTileEntityBatteryBuffer(gtrId(transformerId), i, batteryBufferSlots[slot]);
-                BATTERY_BUFFER[i][slot] = GregTechAPI.registerMetaTileEntity(610 + batteryBufferSlots.length * i + slot, batteryBuffer);
+            if (i < BATTERY_BUFFER.length) {
+                BATTERY_BUFFER[i] = new MetaTileEntityBatteryBuffer[batteryBufferSlots.length];
+                for (int slot = 0; slot < batteryBufferSlots.length; slot++) {
+                    String transformerId = "battery_buffer." + GTValues.VN[i].toLowerCase() + "." + batteryBufferSlots[slot];
+                    MetaTileEntityBatteryBuffer batteryBuffer = new MetaTileEntityBatteryBuffer(gtrId(transformerId), i, batteryBufferSlots[slot]);
+                    BATTERY_BUFFER[i][slot] = GregTechAPI.registerMetaTileEntity(610 + batteryBufferSlots.length * i + slot, batteryBuffer);
+                }
             }
             String chargerId = "charger." + GTValues.VN[i].toLowerCase();
             MetaTileEntityCharger charger = new MetaTileEntityCharger(gtrId(chargerId), i, 4);
@@ -541,7 +545,7 @@ public class MetaTileEntities {
         TESLA_COIL = new MetaTileEntityTeslaCoil(gtrId("tesla_coil"));
         GregTechAPI.registerMetaTileEntity(1001, TESLA_COIL);
 
-        for (int i = 2; i < 6; i++) {
+        for (int i = 2; i < 5; i++) {
             String voltageName = GTValues.VN[i].toLowerCase();
             QUANTUM_CHEST[i - 2] = new MetaTileEntityQuantumChest(gtrId("quantum_chest." + voltageName), i, 64 * 64000 * (i - 1));
             QUANTUM_TANK[i - 2] = new MetaTileEntityQuantumTank(gtrId("quantum_tank." + voltageName), i, 1000 * 64000 * (i - 1));
@@ -549,7 +553,7 @@ public class MetaTileEntities {
             GregTechAPI.registerMetaTileEntity(1020 + (i - 2), QUANTUM_TANK[i - 2]);
         }
 
-        for (int i = 1; i < 5; i++) {
+        for (int i = 1; i < 4; i++) {
             String voltageName = GTValues.VN[i].toLowerCase();
             BLOCK_BREAKER[i - 1] = new MetaTileEntityBlockBreaker(gtrId("block_breaker." + voltageName), i);
             GregTechAPI.registerMetaTileEntity(1030 + (i - 1), BLOCK_BREAKER[i - 1]);
@@ -571,6 +575,13 @@ public class MetaTileEntities {
         LARGE_TRANSFORMER = GregTechAPI.registerMetaTileEntity(1205, new MetaTileEntityLargeTransformer(gtrId("large_transformer")));
         LARGE_BATTERY_BUFFER = GregTechAPI.registerMetaTileEntity(1206, new MetaTileEntityLargeBatteryBuffer(gtrId("large_battery_buffer")));
         BATTERY_HOLDER = GregTechAPI.registerMetaTileEntity(1207, new MetaTileEntityBatteryHolder(gtrId("battery_holder")));
+
+        WIRELESS_CHARGER[0] = GregTechAPI.registerMetaTileEntity(1208, new MetaTileEntityWirelessCharger(gtrId("wireless_charger.lv"), GTValues.LV));
+        WIRELESS_CHARGER[1] = GregTechAPI.registerMetaTileEntity(1209, new MetaTileEntityWirelessCharger(gtrId("wireless_charger.mv"), GTValues.MV));
+        WIRELESS_CHARGER[2] = GregTechAPI.registerMetaTileEntity(1210, new MetaTileEntityWirelessCharger(gtrId("wireless_charger.hv"), GTValues.HV));
+        WIRELESS_CHARGER[3] = GregTechAPI.registerMetaTileEntity(1211, new MetaTileEntityWirelessCharger(gtrId("wireless_charger.ev"), GTValues.EV));
+        WIRELESS_CHARGER[4] = GregTechAPI.registerMetaTileEntity(1212, new MetaTileEntityWirelessCharger(gtrId("wireless_charger.iv"), GTValues.IV));
+
     }
 
     private static ResourceLocation gtrId(String name) {

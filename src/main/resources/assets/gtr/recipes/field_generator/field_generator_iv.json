@@ -12,7 +12,7 @@
     },
     "C": {
       "type": "forge:ore_dict",
-      "ore": "circuitElite"
+      "ore": "circuitUltimate"
     },
     "W": {
       "type": "forge:ore_dict",

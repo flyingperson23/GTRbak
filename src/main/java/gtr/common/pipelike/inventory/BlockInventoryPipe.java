@@ -9,6 +9,7 @@ import gtr.common.pipelike.inventory.net.InventoryPipeNet;
 import gtr.common.pipelike.inventory.net.WorldInventoryPipeNet;
 import gtr.common.pipelike.inventory.tile.TileEntityInventoryPipe;
 import gtr.common.pipelike.inventory.tile.TileEntityInventoryPipeTickable;
+import gtr.common.pipelike.inventory.InventoryPipeType;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -20,7 +21,6 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -89,10 +89,5 @@ public class BlockInventoryPipe extends BlockSimplePipe<InventoryPipeType, Empty
     @Override
     protected Pair<TextureAtlasSprite, Integer> getParticleTexture(World world, BlockPos blockPos) {
         return null;
-    }
-
-    @Override
-    public boolean isAcceptable(TileEntity te, EnumFacing direction) {
-        return te.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, direction.getOpposite());
     }
 }

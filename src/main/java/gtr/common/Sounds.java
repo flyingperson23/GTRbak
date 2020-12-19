@@ -6,9 +6,11 @@ import net.minecraft.util.SoundEvent;
 import net.minecraftforge.registries.IForgeRegistry;
 
 public class Sounds {
-    public static final SoundEvent wrench_sound = new SoundEvent(new ResourceLocation(GTValues.MODID, "wrench")).setRegistryName(new ResourceLocation(GTValues.MODID,"wrench"));;
+    public static final SoundEvent WRENCH_SOUND = new SoundEvent(new ResourceLocation(GTValues.MODID, "wrench")).setRegistryName(new ResourceLocation(GTValues.MODID,"wrench"));
+    public static final SoundEvent JET_ENGINE = new SoundEvent(new ResourceLocation(GTValues.MODID, "jet_engine")).setRegistryName(new ResourceLocation(GTValues.MODID, "jet_engine"));
 
     public static void init(IForgeRegistry<SoundEvent> registry) {
-        registry.register(wrench_sound);
+        registry.register(WRENCH_SOUND);
+        registry.register(JET_ENGINE);
     }
 }

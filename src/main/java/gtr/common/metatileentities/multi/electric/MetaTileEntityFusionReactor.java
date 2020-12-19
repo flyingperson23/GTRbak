@@ -119,9 +119,8 @@ public class MetaTileEntityFusionReactor extends RecipeMapMultiblockController i
         GregTechMod.DISPLAY_INFO_WRAPPER.sendToServer(new MessageRequestRecipeMultiblock(getPos()));
 
 
-            ProgressWidget progress = new ProgressWidget(() -> (double) energyContainer.getEnergyStored() / (1.0 * energyContainer.getEnergyCapacity()), 5, 156, 147, 5)
-                .setProgressBar(GuiTextures.ENERGY_EMPTY, GuiTextures.ENERGY_FULL,
-                    ProgressWidget.MoveType.HORIZONTAL);
+        ProgressWidget progress = new ProgressWidget(() -> (double) energyContainer.getEnergyStored() / (1.0 * energyContainer.getEnergyCapacity()), 5, 156, 147, 5)
+            .setProgressBar(GuiTextures.ENERGY_EMPTY, GuiTextures.ENERGY_FULL, ProgressWidget.MoveType.HORIZONTAL);
 
         JeiOpenWidget recipes = new JeiOpenWidget(154, 4, 18, 18, this.recipeMap);
 

@@ -30,6 +30,7 @@ import gtr.integration.jei.recipe.fuel.GTFuelRecipeWrapper;
 import gtr.integration.jei.recipe.primitive.*;
 import gtr.integration.jei.utils.*;
 import gtr.loaders.recipe.CustomItemReturnShapedOreRecipeRecipe;
+import gtr.loaders.recipe.magnetic.MagneticRecipeMaker;
 import mezz.jei.Internal;
 import mezz.jei.api.*;
 import mezz.jei.api.ingredients.IIngredientRegistry;
@@ -89,6 +90,8 @@ public class GTJeiPlugin implements IModPlugin {
 
         registry.handleRecipes(FluidWrapper.class, FluidRecipeWrapper::new, FluidRecipeCategory.NAME);
         registry.addRecipes(FluidWrapper.getAllFluids(), FluidRecipeCategory.NAME);
+        registry.addRecipes(MagneticRecipeMaker.getMagneticRecipes(), VanillaRecipeCategoryUid.CRAFTING);
+
 
         List<OreGenWrapper> l = new ArrayList<>();
         WorldGenRegistry.getOreDeposits().forEach(deposit -> l.add(new OreGenWrapper(deposit)));
@@ -180,6 +183,8 @@ public class GTJeiPlugin implements IModPlugin {
         for (MetaTileEntity machine : MetaTileEntities.CENTRIFUGE)
             registry.addRecipeCatalyst(machine.getStackForm(), oreByProductId);
         for (MetaTileEntity machine : MetaTileEntities.THERMAL_CENTRIFUGE)
+            registry.addRecipeCatalyst(machine.getStackForm(), oreByProductId);
+        for (MetaTileEntity machine : MetaTileEntities.CHEMICAL_BATH)
             registry.addRecipeCatalyst(machine.getStackForm(), oreByProductId);
 
         ingredientRegistry = registry.getIngredientRegistry();

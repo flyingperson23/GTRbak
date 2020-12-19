@@ -6,7 +6,7 @@ import net.minecraft.world.World;
 
 public class WorldFluidPipeNet extends WorldPipeNet<FluidPipeProperties, FluidPipeNet> {
 
-    private static final String DATA_ID = "gtr.fluid_pipe_net";
+    private static final String DATA_ID = "gregtech.fluid_pipe_net";
 
     public static WorldFluidPipeNet getWorldPipeNet(World world) {
         WorldFluidPipeNet netWorldData = (WorldFluidPipeNet) world.loadData(WorldFluidPipeNet.class, DATA_ID);

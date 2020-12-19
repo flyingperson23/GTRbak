@@ -92,17 +92,12 @@ public class MarkerMaterials {
 
 
 
-        //public static Material Primitive = new MarkerMaterial("primitive");
         public static Material Basic = new MarkerMaterial("basic"); //LV
         public static Material Good = new MarkerMaterial("good"); //MV
         public static Material Advanced = new MarkerMaterial("advanced"); //HV
-        //public static Material Extreme = new MarkerMaterial("extreme");
         public static Material Elite = new MarkerMaterial("elite"); //EV
-        //public static Material Master = new MarkerMaterial("master");
-        //public static Material Ultimate = new MarkerMaterial("ultimate");
-        //public static Material Superconductor = new Material(354, "superconductor", 0xFFFFFF, MaterialIconSet.NONE, of(), 0L, null) {
-        //};
-        //public static Material Infinite = new MarkerMaterial("infinite");
+        public static Material Ultimate = new MarkerMaterial("ultimate"); //IV+
+
     }
 
 }

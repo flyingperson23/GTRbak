@@ -26,19 +26,29 @@ import gtr.common.blocks.modelfactories.BlockOreFactory;
 import gtr.common.command.GregTechCommand;
 import gtr.common.covers.CoverBehaviors;
 import gtr.common.covers.filter.FilterTypeRegistry;
+import gtr.common.input.Keybinds;
 import gtr.common.items.MetaItems;
 import gtr.common.metatileentities.MetaTileEntities;
-import gtr.common.render.WrenchOverlayHandler;
 import gtr.common.util.ResourcePackFix;
 import gtr.common.worldgen.LootTableHelper;
 import gtr.common.worldgen.WorldGenAbandonedBase;
 import gtr.common.worldgen.WorldGenRubberTree;
+import gtr.integration.betterpipes.compat.ICompatBase;
+import gtr.integration.betterpipes.compat.gtce.CompatGTCEEnergy;
+import gtr.integration.betterpipes.compat.gtce.CompatGTCEFluid;
+import gtr.integration.betterpipes.compat.gtce.CompatGTCEItem;
+import gtr.integration.betterpipes.compat.wrench.GTCEWrenchProvider;
+import gtr.integration.betterpipes.compat.wrench.IWrenchProvider;
+import gtr.integration.betterpipes.network.MessageGetConnections;
+import gtr.integration.betterpipes.network.MessagePlaySound;
+import gtr.integration.betterpipes.network.MessageReturnConnections;
+import gtr.integration.betterpipes.network.MessageSwingArm;
 import gtr.integration.multi.client.PreviewHandler;
-import gtr.integration.multipart.GTMultipartFactory;
 import gtr.integration.theoneprobe.TheOneProbeCompatibility;
+import gtr.integration.tinkers.TinkersMaterials;
 import gtr.loaders.dungeon.DungeonLootLoader;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.classloading.FMLForgePlugin;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.common.Optional.Method;
@@ -50,10 +60,12 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.logging.log4j.Level;
 
+import java.util.ArrayList;
+
 @Mod(modid = GTValues.MODID,
     name = "GT: Remastered",
     acceptedMinecraftVersions = "[1.12,1.13)",
-    dependencies = "required:forge@[14.23.5.2847,);" + CodeChickenLib.MOD_VERSION_DEP + "after:forestry;required:ctm;after:forgemultipartcbe;after:jei@[4.15.0,);after:crafttweaker;after:ic2;")
+    dependencies = "required:forge@[14.23.5.2847,);" + CodeChickenLib.MOD_VERSION_DEP + "after:forestry;after:tconstruct;required:ctm;after:forgemultipartcbe;after:jei@[4.15.0,);after:crafttweaker;after:ic2;")
 public class GregTechMod {
 
     public int counter = 0;
@@ -75,7 +87,6 @@ public class GregTechMod {
     public static CommonProxy proxy;
 
     public static final SimpleNetworkWrapper WRENCH_NET_WRAPPER = NetworkRegistry.INSTANCE.newSimpleChannel("gtr.wrenchnet");
-    public WrenchOverlayHandler wrenchHandler = new WrenchOverlayHandler();
 
     public static final SimpleNetworkWrapper DISPLAY_INFO_WRAPPER = NetworkRegistry.INSTANCE.newSimpleChannel("gtr.displaynet");
 
@@ -88,6 +99,10 @@ public class GregTechMod {
             ResourcePackFix.fixResourcePackLocation(selfModContainer);
         }
     }
+
+    public ArrayList<ICompatBase> COMPAT_LIST = new ArrayList<>();
+    public ArrayList<IWrenchProvider> WRENCH_PROVIDERS = new ArrayList<>();
+    public ArrayList<BlockPos> wrenchMap = new ArrayList<>();
 
     @Mod.EventHandler
     public void onPreInit(FMLPreInitializationEvent event) {
@@ -121,12 +136,17 @@ public class GregTechMod {
         MetaEntities.init();
 
         proxy.onPreLoad();
+
+        Keybinds.register();
+
+        if (ConfigHolder.GregsConstruct.EnableGregsConstruct && Loader.isModLoaded("tconstruct"))
+            TinkersMaterials.preInit();
+
     }
 
     @Mod.EventHandler
     public void onInit(FMLInitializationEvent event) {
 
-        MinecraftForge.EVENT_BUS.register(new WrenchOverlayHandler());
         proxy.onLoad();
         proxy.init(event);
         if (RecipeMap.isFoundInvalidRecipe()) {
@@ -144,11 +164,6 @@ public class GregTechMod {
             }
         }
 
-        if (GTValues.isModLoaded(GTValues.MODID_FMP)) {
-            GTLog.logger.info("ForgeMultiPart found. Legacy block conversion enabled.");
-            registerForgeMultipartCompat();
-        }
-
         if (GTValues.isModLoaded(GTValues.MODID_TOP)) {
             GTLog.logger.info("TheOneProbe found. Enabling integration...");
             TheOneProbeCompatibility.registerCompatibility();
@@ -164,11 +179,13 @@ public class GregTechMod {
         FilterTypeRegistry.init();
         CoverBehaviors.init();
         DungeonLootLoader.init();
-    }
 
-    @Method(modid = GTValues.MODID_FMP)
-    private void registerForgeMultipartCompat() {
-        GTMultipartFactory.INSTANCE.registerFactory();
+
+        WRENCH_NET_WRAPPER.registerMessage(MessageGetConnections.MessageHandler.class, MessageGetConnections.class, 0, Side.SERVER);
+        WRENCH_NET_WRAPPER.registerMessage(MessageReturnConnections.MessageHandler.class, MessageReturnConnections.class, 1, Side.CLIENT);
+        WRENCH_NET_WRAPPER.registerMessage(MessagePlaySound.MessageHandler.class, MessagePlaySound.class, 2, Side.CLIENT);
+        WRENCH_NET_WRAPPER.registerMessage(MessageSwingArm.MessageHandler.class, MessageSwingArm.class, 3, Side.CLIENT);
+
     }
 
     @Method(modid = GTValues.MODID_CT)
@@ -179,13 +196,17 @@ public class GregTechMod {
     @Mod.EventHandler
     public void onPostInit(FMLPostInitializationEvent event) {
         proxy.onPostLoad();
-        wrenchHandler.postInit();
 
 
         GTLog.logger.log(Level.DEBUG, "Confirming ASM Transformations...");
         CustomClassWriter.customClassLoader = null;
 
         if (event.getSide().isClient()) PreviewHandler.init();
+
+        COMPAT_LIST.add(new CompatGTCEItem());
+        COMPAT_LIST.add(new CompatGTCEFluid());
+        COMPAT_LIST.add(new CompatGTCEEnergy());
+        WRENCH_PROVIDERS.add(new GTCEWrenchProvider());
     }
 
     @Mod.EventHandler

@@ -167,4 +167,51 @@ public class ConfigHolder {
         @Config.RequiresMcRestart
         public int energyConsumption = 64;
     }
+
+    @Config.Comment({"Sets HUD location", "1 - left-upper conrer", "2 - right-upper corner", "3 - left-bottom corner", "4 - right-bottom corner"})
+    public static byte hudLocation = 1;
+    @Config.Comment("Horizontal offset of HUD [0 ~ 100)")
+    public static byte hudOffsetX = 0;
+    @Config.Comment("Vertical ooffset of HUD [0 ~ 100)")
+    public static byte hudOffsetY = 0;
+
+    @Config.Comment("Config options for GregsConstruct features")
+    public static GregsConstruct GregsConstruct = new GregsConstruct();
+
+    public static class GregsConstruct {
+
+        @Config.Comment("Enable/Disable all GregsConstruct features")
+        @Config.Name("Enable Greg's Construct")
+        @Config.RequiresMcRestart
+        public boolean EnableGregsConstruct = true;
+
+        @Config.Comment("Add Tools with GT Metals to Tinkers")
+        @Config.Name("Tinker's metal tools")
+        @Config.RequiresMcRestart
+        public boolean TinkersMetalTools = true;
+
+        @Config.Comment("Add Tools with GT Gems to Tinkers")
+        @Config.Name("Tinker's gem tools")
+        @Config.RequiresMcRestart
+        public boolean TinkersGemTools = true;
+
+        @Config.Comment("Add Smelting for GT Materials to Tinkers Smeltery")
+        @Config.Name("Tinker's material smelting")
+        @Config.RequiresMcRestart
+        public boolean TinkersMaterialsSmelting = true;
+
+        @Config.Comment("Add Alloying of GT Materials to Tinkers Smeltery")
+        @Config.Name("Tinker's material alloying")
+        @Config.RequiresMcRestart
+        public boolean TinkersMaterialAlloying = true;
+
+        @Config.Comment("Enable Glass recipe changes")
+        @Config.Name("Greg's Construct glass processing")
+        @Config.RequiresMcRestart
+        public boolean GregsConstructGlassProcessing = true;
+
+        @Config.Comment("Whether or not to register fluid solidification recipes for parts")
+        @Config.Name("Fluid solidification recipes for parts")
+        public boolean castingRecipes = true;
+    }
 }

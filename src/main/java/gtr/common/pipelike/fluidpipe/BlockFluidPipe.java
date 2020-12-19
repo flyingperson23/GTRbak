@@ -42,7 +42,6 @@ public class BlockFluidPipe extends BlockMaterialPipe<FluidPipeType, FluidPipePr
     private final SortedMap<Material, FluidPipeProperties> enabledMaterials = new TreeMap<>();
 
     public BlockFluidPipe() {
-        super();
         setHarvestLevel("pickaxe", 1);
     }
 
@@ -75,11 +74,6 @@ public class BlockFluidPipe extends BlockMaterialPipe<FluidPipeType, FluidPipePr
     @Override
     protected FluidPipeProperties getFallbackType() {
         return enabledMaterials.values().iterator().next();
-    }
-
-    @Override
-    public boolean isAcceptable(TileEntity te, EnumFacing direction) {
-        return te.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, direction.getOpposite());
     }
 
     @Override

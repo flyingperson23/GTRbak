@@ -61,10 +61,6 @@ public class FuelRecipes {
 
         //plasma turbine
         registerPlasmaFuel(Materials.Helium.getPlasma(1), 2560, GTValues.LV);
-        registerPlasmaFuel(Materials.Nitrogen.getPlasma(1), 4032, GTValues.LV);
-        registerPlasmaFuel(Materials.Oxygen.getPlasma(1), 4096, GTValues.LV);
-        registerPlasmaFuel(Materials.Iron.getPlasma(16), 103219, GTValues.LV);
-        registerPlasmaFuel(Materials.Nickel.getPlasma(16), 106905, GTValues.LV);
 
     }
 

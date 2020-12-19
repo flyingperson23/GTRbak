@@ -8,10 +8,8 @@ import gtr.api.metatileentity.SyncedTileEntityBase;
 import gtr.api.pipenet.WorldPipeNet;
 import gtr.api.pipenet.block.BlockPipe;
 import gtr.api.pipenet.block.IPipeType;
-import gtr.common.pipelike.fluidpipe.ItemBlockFluidPipe;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
@@ -164,21 +162,6 @@ public abstract class TileEntityPipeBase<PipeType extends Enum<PipeType> & IPipe
         }
     }
 
-    public void setConnected(EnumFacing direction, boolean connected) {
-        setConnectionBlocked(AttachmentType.PIPE, direction, connected);
-        //if (world.getBlockState(pos.offset(direction)).getBlock() instanceof BlockPipe) {
-            TileEntityPipeBase<?, ?> p = (TileEntityPipeBase<?, ?>) world.getTileEntity(pos.offset(direction));
-            if (p != null) {
-                p.setConnectionBlocked(AttachmentType.PIPE, direction.getOpposite(), connected);
-                p.recomputeBlockedConnections();
-                p.updateSideBlockedConnection(direction.getOpposite());
-            }
-        //}
-        recomputeBlockedConnections();
-        updateSideBlockedConnection(direction);
-
-    }
-
     private void recomputeBlockedConnections() {
         int resultBlockedConnections = 0;
         for(int blockedConnections : blockedConnectionsMap.values()) {
@@ -301,7 +284,6 @@ public abstract class TileEntityPipeBase<PipeType extends Enum<PipeType> & IPipe
     public void onLoad() {
         super.onLoad();
         this.coverableImplementation.onLoad();
-
     }
 
     protected void writePipeProperties(PacketBuffer buf) {

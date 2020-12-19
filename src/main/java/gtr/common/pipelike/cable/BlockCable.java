@@ -10,6 +10,8 @@ import gtr.api.pipenet.tile.TileEntityPipeBase;
 import gtr.api.unification.material.type.Material;
 import gtr.api.util.GTUtility;
 import gtr.common.ConfigHolder;
+import gtr.common.pipelike.cable.Insulation;
+import gtr.common.pipelike.cable.WireProperties;
 import gtr.common.pipelike.cable.net.EnergyNet;
 import gtr.common.pipelike.cable.net.WorldENet;
 import gtr.common.pipelike.cable.tile.TileEntityCable;
@@ -31,7 +33,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.tuple.Pair;
@@ -46,7 +47,6 @@ public class BlockCable extends BlockMaterialPipe<Insulation, WireProperties, Wo
     private final Map<Material, WireProperties> enabledMaterials = new TreeMap<>();
 
     public BlockCable() {
-        super();
         setHarvestLevel("cutter", 1);
     }
 
@@ -99,9 +99,8 @@ public class BlockCable extends BlockMaterialPipe<Insulation, WireProperties, Wo
             //do not connect to null cables and ignore cables
             if (tileEntity == null || getPipeTileEntity(tileEntity) != null) continue;
             EnumFacing opposite = side.getOpposite();
-            IEnergyContainer energyContainer = tileEntity.getCapability(GregtechCapabilities.CAPABILITY_ENERGY_CONTAINER, opposite);
-            IEnergyStorage energyStorage = tileEntity.getCapability(CapabilityEnergy.ENERGY, opposite);
-            if (energyContainer != null | energyStorage != null) {
+            if (tileEntity.getCapability(GregtechCapabilities.CAPABILITY_ENERGY_CONTAINER, opposite) != null ||
+            tileEntity.getCapability(CapabilityEnergy.ENERGY, opposite) != null || IC2Handler.isAcceptable(tileEntity)) {
                 activeNodeConnections |= 1 << side.getIndex();
             }
         }
@@ -141,12 +140,5 @@ public class BlockCable extends BlockMaterialPipe<Insulation, WireProperties, Wo
     @SideOnly(Side.CLIENT)
     protected Pair<TextureAtlasSprite, Integer> getParticleTexture(World world, BlockPos blockPos) {
         return CableRenderer.INSTANCE.getParticleTexture((TileEntityCable) world.getTileEntity(blockPos));
-    }
-
-    @Override
-    public boolean isAcceptable(TileEntity te, EnumFacing direction) {
-        return te.hasCapability(GregtechCapabilities.CAPABILITY_ENERGY_CONTAINER, direction.getOpposite())
-            || (te.hasCapability(CapabilityEnergy.ENERGY, direction.getOpposite()) && ConfigHolder.rfCompat)
-            || (IC2Handler.isAcceptable(te) && ConfigHolder.euCompat);
     }
 }

@@ -104,8 +104,6 @@ public class MetaBlocks {
     public static BlockGregLeaves LEAVES;
     public static BlockGregSapling SAPLING;
 
-    public static BlockCrusherBlade CRUSHER_BLADE;
-
     public static Map<DustMaterial, BlockCompressed> COMPRESSED = new HashMap<>();
     public static Map<IngotMaterial, BlockSurfaceRockDeprecated> SURFACE_ROCKS = new HashMap<>();
     public static BlockSurfaceRockNew SURFACE_ROCK_NEW;
@@ -160,9 +158,6 @@ public class MetaBlocks {
         LEAVES.setRegistryName("leaves");
         SAPLING = new BlockGregSapling();
         SAPLING.setRegistryName("sapling");
-
-        CRUSHER_BLADE = new BlockCrusherBlade();
-        CRUSHER_BLADE.setRegistryName("crusher_blade");
 
         SURFACE_ROCK_NEW = new BlockSurfaceRockNew();
         SURFACE_ROCK_NEW.setRegistryName("surface_rock_new");
@@ -386,9 +381,7 @@ public class MetaBlocks {
         SURFACE_ROCKS.values().stream().distinct().forEach(block -> modelHandler.addBuiltInBlock(block, "stone"));
 
         modelHandler.addBuiltInBlock(SURFACE_ROCK_NEW, "stone_andesite");
-        modelHandler.addBuiltInBlock(CRUSHER_BLADE, "iron_block");
 
-        Item.getItemFromBlock(CRUSHER_BLADE).setTileEntityItemStackRenderer(new TileEntityRenderBaseItem<>(TileEntityCrusherBlade.class));
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCrusherBlade.class, new TileEntityCrusherBladeRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(MetaTileEntityHolder.class, new MetaTileEntityTESR());
     }

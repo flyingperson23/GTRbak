@@ -1,5 +1,7 @@
 package gtr.api;
 
+import akka.japi.Pair;
+import gtr.api.unification.ore.OrePrefix;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -98,10 +100,10 @@ public class GTValues {
      */
     public static final String MODID = "gtr",
         MODID_FR = "forestry",
-        MODID_FMP = "forgemultipartcbe",
         MODID_CT = "crafttweaker",
         MODID_TOP = "theoneprobe",
-        MODID_CTM = "ctm";
+        MODID_CTM = "ctm",
+        MODID_FMP = "forgemultipartcbe";
 
     //because forge is too fucking retarded to cache results or at least do not create fucking
     //immutable collections every time you retrieve indexed mod list

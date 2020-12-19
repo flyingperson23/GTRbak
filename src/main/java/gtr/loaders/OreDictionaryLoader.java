@@ -10,6 +10,7 @@ import gtr.api.unification.stack.MaterialStack;
 import gtr.api.unification.stack.UnificationEntry;
 import gtr.api.util.GTLog;
 import gtr.common.blocks.BlockConcrete;
+import gtr.common.blocks.BlockMineral;
 import gtr.common.blocks.MetaBlocks;
 import gtr.common.blocks.StoneBlock;
 import net.minecraft.init.Blocks;
@@ -27,6 +28,11 @@ public class OreDictionaryLoader {
 
         OreDictionary.registerOre("fuelCoke", OreDictUnifier.get(OrePrefix.gem, Materials.Coke));
         OreDictionary.registerOre("blockFuelCoke", OreDictUnifier.get(OrePrefix.block, Materials.Coke));
+
+        OreDictUnifier.registerOre(new ItemStack(MetaBlocks.GRANITE, 1, 0), OrePrefix.stone, Materials.GraniteBlack);
+        OreDictUnifier.registerOre(new ItemStack(MetaBlocks.GRANITE, 1, 1), OrePrefix.stone, Materials.GraniteRed);
+        OreDictUnifier.registerOre(MetaBlocks.MINERAL.getItemVariant(BlockMineral.MineralVariant.MARBLE, StoneBlock.ChiselingVariant.NORMAL), OrePrefix.stone, Materials.Marble);
+        OreDictUnifier.registerOre(MetaBlocks.MINERAL.getItemVariant(BlockMineral.MineralVariant.BASALT, StoneBlock.ChiselingVariant.NORMAL), OrePrefix.stone, Materials.Basalt);
 
         OreDictUnifier.registerOre(new ItemStack(Blocks.CLAY), OrePrefix.block, Materials.Clay);
         OreDictUnifier.registerOre(new ItemStack(Blocks.BRICK_BLOCK), OrePrefix.block, Materials.Brick);

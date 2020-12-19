@@ -18,7 +18,7 @@ import net.minecraftforge.items.ItemStackHandler;
 public class SteamAlloySmelter extends SteamMetaTileEntity {
 
     public SteamAlloySmelter(ResourceLocation metaTileEntityId, boolean isHighPressure) {
-        super(metaTileEntityId, RecipeMaps.ALLOY_SMELTER_RECIPES, Textures.ALLOY_SMELTER_OVERLAY, isHighPressure);
+        super(metaTileEntityId, RecipeMaps.ALLOY_SMELTER_RECIPES, Textures.ALLOY_SMELTER_OVERLAY, isHighPressure, 0.2);
     }
 
     @Override

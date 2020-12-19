@@ -15,6 +15,7 @@ import gtr.api.util.ModCompatibility;
 import gtr.common.blocks.*;
 import gtr.common.blocks.surfacerock.BlockSurfaceRockDeprecated;
 import gtr.common.covers.facade.FacadeRenderer;
+import gtr.common.input.Keybinds;
 import gtr.common.items.MetaItems;
 import gtr.common.render.CableRenderer;
 import gtr.common.render.FluidPipeRenderer;
@@ -111,6 +112,7 @@ public class ClientProxy extends CommonProxy {
         StoneRenderer.preInit();
         MetaEntities.initRenderers();
         TextureUtils.addIconRegister(MetaFluids::registerSprites);
+        Keybinds.initBinds();
         MinecraftForge.EVENT_BUS.register(ToolRenderHandler.INSTANCE);
     }
 
@@ -118,6 +120,9 @@ public class ClientProxy extends CommonProxy {
     public void onLoad() {
         super.onLoad();
         registerColors();
+        try {
+            Keybinds.registerClient();
+        } catch (Exception ignored) {}
     }
 
     @Override

@@ -4,6 +4,8 @@ import gtr.api.pipenet.PipeNet;
 import gtr.api.pipenet.WorldPipeNet;
 import gtr.api.pipenet.block.BlockPipe;
 import gtr.api.pipenet.block.IPipeType;
+import gtr.api.pipenet.block.material.IMaterialPipeTile;
+import gtr.api.pipenet.block.material.TileEntityMaterialPipeBase;
 import gtr.api.pipenet.tile.IPipeTile;
 import gtr.api.pipenet.tile.TileEntityPipeBase;
 import gtr.api.unification.material.type.Material;

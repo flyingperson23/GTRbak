@@ -1,6 +1,7 @@
 package gtr.api.recipes.machines;
 
 import gtr.api.recipes.CountableIngredient;
+import gtr.api.recipes.MatchingMode;
 import gtr.api.recipes.Recipe;
 import gtr.api.recipes.RecipeMap;
 import gtr.api.recipes.builders.SimpleRecipeBuilder;
@@ -34,8 +35,8 @@ public class RecipeMapBrewer extends RecipeMap<SimpleRecipeBuilder> {
 
     @Nullable
     @Override
-    public Recipe findRecipe(long voltage, List<ItemStack> inputs, List<FluidStack> fluidInputs, int outputFluidTankCapacity) {
-        Recipe recipe = super.findRecipe(voltage, inputs, fluidInputs, outputFluidTankCapacity);
+    public Recipe findRecipe(long voltage, List<ItemStack> inputs, List<FluidStack> fluidInputs, int outputFluidTankCapacity, MatchingMode m) {
+        Recipe recipe = super.findRecipe(voltage, inputs, fluidInputs, outputFluidTankCapacity, m);
         if (recipe != null ||
             GTUtility.amountOfNonNullElements(fluidInputs) < 1 ||
             GTUtility.amountOfNonEmptyStacks(inputs) < 1) {

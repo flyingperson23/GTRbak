@@ -88,6 +88,7 @@ public class Textures {
     public static OrientedOverlayRenderer MULTIBLOCK_WORKABLE_OVERLAY = new OrientedOverlayRenderer("machines/multiblock_workable", FRONT);
     public static LargeTurbineRenderer LARGE_TURBINE_ROTOR_RENDERER = new LargeTurbineRenderer();
 
+    public static OrientedOverlayRenderer WIRELESS_CHARGER = new OrientedOverlayRenderer("machines/wireless_charger", FRONT, SIDE, BACK);
     public static OrientedOverlayRenderer WORLD_ACCELERATOR = new OrientedOverlayRenderer("machines/accelerator", FRONT, SIDE, BACK);
     public static OrientedOverlayRenderer ALLOY_SMELTER_OVERLAY = new OrientedOverlayRenderer("machines/alloy_smelter", FRONT);
     public static OrientedOverlayRenderer FURNACE_OVERLAY = new OrientedOverlayRenderer("machines/furnace", FRONT);

@@ -29,6 +29,7 @@ public class ArcFurnaceRecipeBuilder extends RecipeBuilder<ArcFurnaceRecipeBuild
 
     @Override
     public void buildAndRegister() {
+
         if (fluidInputs.isEmpty()) {
             fluidInputs(Materials.Oxygen.getFluid(this.duration));
             for (FluidMaterial material : new FluidMaterial[]{Materials.Argon, Materials.Nitrogen}) {

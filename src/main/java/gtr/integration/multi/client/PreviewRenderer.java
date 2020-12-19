@@ -13,6 +13,7 @@ import mezz.jei.api.IRecipeRegistry;
 import mezz.jei.api.recipe.IFocus;
 import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
@@ -20,6 +21,7 @@ import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
@@ -35,11 +37,13 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
+import scala.actors.migration.pattern;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static gtr.integration.multi.client.ClientTickHandler.partialTicks;
 
@@ -79,15 +83,15 @@ public class PreviewRenderer {
         IFocus<ItemStack> focus = rr.createFocus(IFocus.Mode.INPUT, stack);
 
         return rr.getRecipeCategories(focus)
-                .stream()
-                .map(c -> (IRecipeCategory<IRecipeWrapper>) c)
-                .map(c -> rr.getRecipeWrappers(c, focus))
-                .flatMap(List::stream)
-                .filter(MultiblockInfoRecipeWrapper.class::isInstance)
-                .findFirst()
-                .map(MultiblockInfoRecipeWrapper.class::cast)
-                .map(MultiblockInfoRecipeWrapper::getCurrentRenderer)
-                .orElse(null);
+            .stream()
+            .map(c -> (IRecipeCategory<IRecipeWrapper>) c)
+            .map(c -> rr.getRecipeWrappers(c, focus))
+            .flatMap(List::stream)
+            .filter(MultiblockInfoRecipeWrapper.class::isInstance)
+            .findFirst()
+            .map(MultiblockInfoRecipeWrapper.class::cast)
+            .map(MultiblockInfoRecipeWrapper::getCurrentRenderer)
+            .orElse(null);
     }
 
     @SubscribeEvent
@@ -181,26 +185,27 @@ public class PreviewRenderer {
         TargetBlockAccess targetBA = new TargetBlockAccess(world, BlockPos.ORIGIN);
 
         for(BlockPos pos : renderedBlocks) {
-            targetBA.setPos(pos);
+                targetBA.setPos(pos);
 
-            BlockPos tPos = pos.subtract(controllerPos);
-            GlStateManager.pushMatrix();
+                BlockPos tPos = pos.subtract(controllerPos);
+                GlStateManager.pushMatrix();
 
-            GlStateManager.translate(tPos.getX(), tPos.getY(), tPos.getZ());
-            GlStateManager.translate(0.125, 0.125, 0.125);
-            GlStateManager.scale(0.75, 0.75, 0.75);
+                GlStateManager.translate(tPos.getX(), tPos.getY(), tPos.getZ());
+                GlStateManager.translate(0.125, 0.125, 0.125);
+                GlStateManager.scale(0.75, 0.75, 0.75);
 
-            buff.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
-            IBlockState state = world.getBlockState(pos);
-            for (BlockRenderLayer brl : BlockRenderLayer.values()) {
-                if (state.getBlock().canRenderInLayer(state, brl)) {
-                    ForgeHooksClient.setRenderLayer(brl);
-                    brd.renderBlock(state, BlockPos.ORIGIN, targetBA, buff);
+                buff.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
+                IBlockState state = world.getBlockState(pos);
+                for (BlockRenderLayer brl : BlockRenderLayer.values()) {
+                    if (state.getBlock().canRenderInLayer(state, brl)) {
+                        ForgeHooksClient.setRenderLayer(brl);
+                        if (Minecraft.getMinecraft().world.getBlockState(targetPos.subtract(pos).add(controllerPos)).getBlock() == Blocks.AIR) {
+                            brd.renderBlock(state, BlockPos.ORIGIN, targetBA, buff);
+                        }
+                    }
                 }
-            }
-            tes.draw();
-            GlStateManager.popMatrix();
-
+                tes.draw();
+                GlStateManager.popMatrix();
 
         }
 

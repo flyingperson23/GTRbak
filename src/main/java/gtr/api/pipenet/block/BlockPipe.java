@@ -16,21 +16,17 @@ import gtr.api.cover.ICoverable.PrimaryBoxData;
 import gtr.api.cover.IFacadeCover;
 import gtr.api.pipenet.PipeNet;
 import gtr.api.pipenet.WorldPipeNet;
+import gtr.api.pipenet.block.IPipeType;
 import gtr.api.pipenet.tile.AttachmentType;
 import gtr.api.pipenet.tile.IPipeTile;
 import gtr.api.pipenet.tile.TileEntityPipeBase;
-import gtr.api.util.GTUtility;
 import gtr.common.tools.DamageValues;
 import gtr.api.render.IBlockAppearance;
 import gtr.integration.ctm.IFacadeWrapper;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.SoundType;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.properties.PropertyBool;
-import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockFaceShape;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -46,9 +42,6 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.property.ExtendedBlockState;
-import net.minecraftforge.common.property.IExtendedBlockState;
-import net.minecraftforge.common.property.IUnlistedProperty;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -89,8 +82,6 @@ public abstract class BlockPipe<PipeType extends Enum<PipeType> & IPipeType<Node
 
     public abstract PipeType getItemPipeType(ItemStack itemStack);
 
-    public abstract boolean isAcceptable(TileEntity te, EnumFacing direction);
-
     public abstract void setTileEntityData(TileEntityPipeBase<PipeType, NodeDataType> pipeTile, ItemStack itemStack);
 
     @Override
@@ -110,7 +101,6 @@ public abstract class BlockPipe<PipeType extends Enum<PipeType> & IPipeType<Node
 
     @Override
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-        worldIn.notifyBlockUpdate(pos, state, state, 3);
         worldIn.scheduleUpdate(pos, this, 1);
     }
 
@@ -151,7 +141,7 @@ public abstract class BlockPipe<PipeType extends Enum<PipeType> & IPipeType<Node
 
     @Override
     public boolean shouldCheckWeakPower(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
-        return true;
+        return false;
     }
 
     @Override
@@ -218,6 +208,21 @@ public abstract class BlockPipe<PipeType extends Enum<PipeType> & IPipeType<Node
         EnumFacing coverSide = ICoverable.traceCoverSide(hit);
         if (coverSide == null)
             return false;
+
+        if (!(hit.cuboid6.data instanceof CoverSideData)) {
+            IWrenchItem wrenchItem = itemStack.getCapability(GregtechCapabilities.CAPABILITY_WRENCH, null);
+            if (wrenchItem != null) {
+                if (wrenchItem.damageItem(DamageValues.DAMAGE_FOR_WRENCH, true)) {
+                    if (!entityPlayer.world.isRemote) {
+                        boolean isBlocked = pipeTile.isConnectionBlocked(AttachmentType.PIPE, coverSide);
+                        pipeTile.setConnectionBlocked(AttachmentType.PIPE, coverSide, !isBlocked);
+                        wrenchItem.damageItem(DamageValues.DAMAGE_FOR_WRENCH, false);
+                    }
+                    return true;
+                }
+                return false;
+            }
+        }
 
         CoverBehavior coverBehavior = pipeTile.getCoverableImplementation().getCoverAtSide(coverSide);
         if (coverBehavior == null)
@@ -324,7 +329,35 @@ public abstract class BlockPipe<PipeType extends Enum<PipeType> & IPipeType<Node
      * @return 0 - not a pipe; 1 - pipe but blocked; 2,3 - accessible
      */
     protected final int isPipeAccessibleAtSide(IBlockAccess world, IPipeTile<PipeType, NodeDataType> selfTile, EnumFacing side) {
-        return GTUtility.fromGTCEBitmask(selfTile.getBlockedConnections()).contains(side) ? 1 : 2;
+        IPipeTile<PipeType, NodeDataType> tileEntityPipe = getPipeTileEntity(world, selfTile.getPipePos().offset(side));
+        return isPipeAccessibleAtSideInternal(selfTile, tileEntityPipe, side);
+    }
+
+    protected final int isPipeAccessibleAtSideInternal(IPipeTile<PipeType, NodeDataType> selfTile, IPipeTile<PipeType, NodeDataType> tileEntityPipe, EnumFacing side) {
+        if (tileEntityPipe == null) {
+            return 0; //not a cable pipe entity
+        }
+        if ((tileEntityPipe.getBlockedConnections() & 1 << side.getOpposite().getIndex()) > 0 ||
+            (selfTile.getBlockedConnections() & 1 << side.getIndex()) > 0) {
+            return 1; //connection is blocked on this facing
+        }
+
+        int insulationColor = selfTile.getInsulationColor();
+        if (insulationColor != IPipeTile.DEFAULT_INSULATION_COLOR &&
+            tileEntityPipe.getInsulationColor() != IPipeTile.DEFAULT_INSULATION_COLOR &&
+            insulationColor != tileEntityPipe.getInsulationColor()) {
+            return 1; //color doesn't match; unable to connect
+        }
+
+        if (!canPipesConnect(selfTile, side, tileEntityPipe)) {
+            return 1; //custom connection predicate didn't match
+        }
+        PipeType otherPipeType = tileEntityPipe.getPipeType();
+        PipeType myPipeType = selfTile.getPipeType();
+        if (otherPipeType == null || myPipeType == null) {
+            return 0;
+        }
+        return myPipeType.getThickness() > otherPipeType.getThickness() ? 3 : 2;
     }
 
     protected boolean canPipesConnect(IPipeTile<PipeType, NodeDataType> selfTile, EnumFacing side, IPipeTile<PipeType, NodeDataType> sideTile) {

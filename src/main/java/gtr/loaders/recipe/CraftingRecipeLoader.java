@@ -18,6 +18,7 @@ import gtr.common.crafting.FacadeRecipe;
 import gtr.common.items.MetaItems;
 import gtr.common.metatileentities.MetaTileEntities;
 import gtr.loaders.oreprocessing.ToolRecipeHandler;
+import gtr.loaders.recipe.magnetic.RecipeMagnetic;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockColored;
 import net.minecraft.block.BlockPlanks.EnumType;
@@ -25,10 +26,13 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreIngredient;
+import net.minecraftforge.oredict.RecipeSorter;
 
 import static gtr.api.util.DyeUtil.*;
 
@@ -39,6 +43,11 @@ public class CraftingRecipeLoader {
     }
 
     private static void loadCraftingRecipes() {
+        RecipeSorter.register("gtr:magnetic", RecipeMagnetic.class, RecipeSorter.Category.SHAPELESS,
+            "after:minecraft:shapeless");
+        GameRegistry.findRegistry(IRecipe.class).register(new RecipeMagnetic().setRegistryName("gtr:magnetic"));
+
+
         registerFacadeRecipe(Materials.Aluminium, 5);
         registerFacadeRecipe(Materials.WroughtIron, 3);
         registerFacadeRecipe(Materials.Iron, 2);
@@ -55,7 +64,6 @@ public class CraftingRecipeLoader {
         ModHandler.addShapelessRecipe("gravel_to_flint", new ItemStack(Items.FLINT, 1), 'm', Blocks.GRAVEL);
         ModHandler.addShapelessRecipe("bone_to_bone_meal", new ItemStack(Items.DYE, 4, 15), 'm', Items.BONE);
         ModHandler.addShapelessRecipe("blaze_rod_to_powder", new ItemStack(Items.BLAZE_POWDER, 3), 'm', Items.BLAZE_ROD);
-        ModHandler.addShapelessRecipe("integrated_circuit", IntCircuitIngredient.getIntegratedCircuit(0), new UnificationEntry(OrePrefix.circuit, Tier.Basic));
 
         ModHandler.addShapedRecipe("item_filter", MetaItems.ITEM_FILTER.getStackForm(), "XXX", "XYX", "XXX", 'X', new UnificationEntry(OrePrefix.foil, Materials.Zinc), 'Y', new UnificationEntry(OrePrefix.plate, Materials.Steel));
         ModHandler.addShapedRecipe("fluid_filter", MetaItems.FLUID_FILTER.getStackForm(), "XXX", "XYX", "XXX", 'X', new UnificationEntry(OrePrefix.foil, Materials.Zinc), 'Y', new UnificationEntry(OrePrefix.plate, Materials.Lapis));

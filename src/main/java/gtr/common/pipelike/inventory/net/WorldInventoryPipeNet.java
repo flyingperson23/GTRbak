@@ -6,7 +6,7 @@ import net.minecraft.world.World;
 
 public class WorldInventoryPipeNet extends TickableWorldPipeNet<EmptyNodeData, InventoryPipeNet> {
 
-    private static final String DATA_ID = "gtr.inventory_pipe_net";
+    private static final String DATA_ID = "gregtech.inventory_pipe_net";
 
     public static WorldInventoryPipeNet getWorldPipeNet(World world) {
         WorldInventoryPipeNet netWorldData = (WorldInventoryPipeNet) world.loadData(WorldInventoryPipeNet.class, DATA_ID);
