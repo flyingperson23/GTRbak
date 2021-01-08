@@ -111,6 +111,8 @@ public class MetaBlocks {
     public static Collection<BlockOre> ORES = new HashSet<>();
     public static Collection<BlockFluidBase> FLUID_BLOCKS = new HashSet<>();
 
+    public static BlockMagnetInhibitor MAGNET_INHIBITOR;
+
     public static void init() {
         GregTechAPI.MACHINE = MACHINE = new BlockMachine();
         MACHINE.setRegistryName("machine");
@@ -138,6 +140,9 @@ public class MetaBlocks {
         GRANITE.setRegistryName("granite");
         MINERAL = new BlockMineral();
         MINERAL.setRegistryName("mineral");
+
+        MAGNET_INHIBITOR = new BlockMagnetInhibitor();
+        MAGNET_INHIBITOR.setRegistryName("magnet_inhibitor");
 
 
         CONCRETE = new BlockConcrete();
@@ -297,6 +302,7 @@ public class MetaBlocks {
         registerItemModelWithOverride(LOG, ImmutableMap.of(BlockGregLog.LOG_AXIS, EnumAxis.Y));
         registerItemModel(LEAVES);
         registerItemModel(SAPLING);
+        registerItemModel(MAGNET_INHIBITOR);
 
         COMPRESSED.values().stream().distinct().forEach(MetaBlocks::registerItemModel);
         FRAMES.values().forEach(MetaBlocks::registerItemModelWithFilteredProperties);

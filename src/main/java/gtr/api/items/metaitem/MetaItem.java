@@ -79,7 +79,7 @@ public abstract class MetaItem<T extends MetaItem<?>.MetaValueItem> extends Item
     }
 
     protected TShortObjectMap<T> metaItems = new TShortObjectHashMap<>();
-    private Map<String, T> names = new HashMap<>();
+    private final Map<String, T> names = new HashMap<>();
     protected TShortObjectMap<ModelResourceLocation> metaItemsModels = new TShortObjectHashMap<>();
     protected TShortObjectHashMap<ModelResourceLocation[]> specialItemsModels = new TShortObjectHashMap<>();
     private static final ModelResourceLocation MISSING_LOCATION = new ModelResourceLocation("builtin/missing", "inventory");
@@ -299,6 +299,7 @@ public abstract class MetaItem<T extends MetaItem<?>.MetaValueItem> extends Item
         if (useManager != null) {
             return useManager.getUseAction(stack);
         }
+
         return EnumAction.NONE;
     }
 
@@ -326,7 +327,7 @@ public abstract class MetaItem<T extends MetaItem<?>.MetaValueItem> extends Item
         if (player instanceof EntityPlayer) {
             IItemUseManager useManager = getUseManager(stack);
             if (useManager != null) {
-                useManager.onPlayerStoppedItemUsing(stack, (EntityPlayer) player, timeLeft);
+                useManager.onPlayerStoppedItemUsing(stack, (EntityPlayer) player, timeLeft, world);
             }
         }
     }
@@ -374,6 +375,7 @@ public abstract class MetaItem<T extends MetaItem<?>.MetaValueItem> extends Item
         }
         return ActionResult.newResult(EnumActionResult.PASS, itemStack);
     }
+
 
     @Override
     public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {

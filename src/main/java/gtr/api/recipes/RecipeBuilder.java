@@ -230,10 +230,10 @@ public abstract class RecipeBuilder<R extends RecipeBuilder<R>> {
     public abstract ValidationResult<Recipe> build();
 
     protected EnumValidationResult validate() {
-        if (EUt == 0) {
-            GTLog.logger.error("EU/t cannot be equal to 0", new IllegalArgumentException());
-            recipeStatus = EnumValidationResult.INVALID;
-        }
+        //if (EUt == 0) {
+        //    GTLog.logger.error("EU/t cannot be equal to 0", new IllegalArgumentException());
+        //    recipeStatus = EnumValidationResult.INVALID;
+        //}
         if (duration <= 0) {
             GTLog.logger.error("Duration cannot be less or equal to 0", new IllegalArgumentException());
             recipeStatus = EnumValidationResult.INVALID;

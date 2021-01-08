@@ -1,5 +1,6 @@
 package gtr.api.items.metaitem;
 
+import gtr.api.GTValues;
 import gtr.api.capability.GregtechCapabilities;
 import gtr.api.capability.IElectricItem;
 import gtr.api.capability.impl.ElectricItem;
@@ -7,10 +8,12 @@ import gtr.api.items.metaitem.stats.IItemBehaviour;
 import gtr.api.items.metaitem.stats.IItemCapabilityProvider;
 import gtr.api.items.metaitem.stats.IItemMaxStackSizeProvider;
 import gtr.api.items.metaitem.stats.IItemComponent;
+import gtr.api.util.BaublesHelper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
@@ -19,6 +22,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.fml.common.Loader;
 
 import java.util.List;
 
@@ -31,12 +35,18 @@ public class ElectricStats implements IItemComponent, IItemCapabilityProvider, I
 
     public final boolean chargeable;
     public final boolean dischargeable;
+    private boolean creative = false;
 
     public ElectricStats(long maxCharge, long tier, boolean chargeable, boolean dischargeable) {
         this.maxCharge = maxCharge;
         this.tier = (int) tier;
         this.chargeable = chargeable;
         this.dischargeable = dischargeable;
+    }
+
+    public ElectricStats() {
+        this(Integer.MAX_VALUE, GTValues.UV, false, true);
+        this.creative = true;
     }
 
     @Override
@@ -75,6 +85,22 @@ public class ElectricStats implements IItemComponent, IItemCapabilityProvider, I
                     if(chargedAmount > 0L) {
                         transferLimit -= chargedAmount;
                         if(transferLimit == 0L) break;
+                    }
+                }
+            }
+
+            if (Loader.isModLoaded("baubles")) {
+                IInventory inv = BaublesHelper.getInventory(entityPlayer);
+                for(int i = 0; i < inv.getSizeInventory(); i++) {
+                    ItemStack itemInSlot = inv.getStackInSlot(i);
+                    IElectricItem slotElectricItem = itemInSlot.getCapability(GregtechCapabilities.CAPABILITY_ELECTRIC_ITEM, null);
+                    if(slotElectricItem != null && !slotElectricItem.canProvideChargeExternally()) {
+
+                        long chargedAmount = chargeElectricItem(transferLimit, electricItem, slotElectricItem);
+                        if(chargedAmount > 0L) {
+                            transferLimit -= chargedAmount;
+                            if(transferLimit == 0L) break;
+                        }
                     }
                 }
             }
@@ -135,7 +161,9 @@ public class ElectricStats implements IItemComponent, IItemCapabilityProvider, I
 
     @Override
     public ICapabilityProvider createProvider(ItemStack itemStack) {
-        return new ElectricItem(itemStack, maxCharge, tier, chargeable, dischargeable);
+        ElectricItem i = new ElectricItem(itemStack, maxCharge, tier, chargeable, dischargeable);
+        if (creative) i.setInfiniteCharge(true);
+        return i;
     }
 
     public static ElectricStats createElectricItem(long maxCharge, long tier) {
@@ -143,10 +171,14 @@ public class ElectricStats implements IItemComponent, IItemCapabilityProvider, I
     }
 
     public static ElectricStats createRechargeableBattery(long maxCharge, int tier) {
-        return new ElectricStats(maxCharge, tier, true, true);
+        return createBattery(maxCharge, tier, true);
     }
 
     public static ElectricStats createBattery(long maxCharge, int tier, boolean rechargeable) {
         return new ElectricStats(maxCharge, tier, rechargeable, true);
+    }
+
+    public static ElectricStats createCreativeBattery() {
+        return new ElectricStats();
     }
 }

@@ -1,7 +1,5 @@
 package gtr.api;
 
-import akka.japi.Pair;
-import gtr.api.unification.ore.OrePrefix;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.oredict.OreDictionary;
 

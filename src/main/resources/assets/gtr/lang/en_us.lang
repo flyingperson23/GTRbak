@@ -45,9 +45,11 @@ metaitem.power_unit.mv.name=Power Unit (MV)
 metaitem.power_unit.hv.name=Power Unit (HV)
 metaitem.jackhammer_base.name=JackHammer Base (HV)
 metaitem.nano_saber.name=Nano Saber
+metaitem.nano_bow.name=Nano Bow
 metaitem.nano_saber.tooltip=Ryujin no ken wo kurae!
 metaitem.energy_field_projector.name=Energy Field Projector
-metaitem.energy_field_projector.tooltip=Repels objects in close proximity to wearer
+metaitem.energy_field_projector.tooltip=Repels projectiles in close proximity to wearer
+metaitem.electromagnet.name=Electromagnet
 
 metaitem.shape.mold.plate.tooltip=Mold for making Plates
 metaitem.shape.mold.casing.name=Mold (Casing)
@@ -421,6 +423,8 @@ tile.warning_sign.acid_hazard.name=Acid Hazard Sign Block
 tile.warning_sign.magic_hazard.name=Magic Hazard Sign Block
 tile.warning_sign.frost_hazard.name=Frost Hazard Sign Block
 tile.warning_sign.noise_hazard.name=Noise Hazard Sign Block
+
+tile.gt.magnetinhibitor.name=Electromagnetic Inhibitor
 
 
 tile.machine_casing.bronze_hull.tooltip=For your first Steam Machines
@@ -1153,9 +1157,6 @@ gtr.machine.large_boiler.steel.name=Large Steel Boiler
 gtr.machine.large_boiler.titanium.name=Large Titanium Boiler
 gtr.machine.large_boiler.tungstensteel.name=Large Tungstensteel Boiler
 
-# Multiblock Tooltips
-gtr.machine.primitive_blast_furnace.bronze.tooltip=Structure: 3x3x4 (WxLxH) The entire structure is made out of Primitive Bricks (32 in total)./nFirst Layer is a 3x3 square./nSecond, third, and fourth layers are hollow, without the middle block./nThis block goes on the middle of any side in the second layer./nThe sides of Blast Furnaces can be shared, if the side does not have a controller./n
-
 # Multiblock machine parts
 gtr.machine.item_bus.import.tooltip=Item Input for Multiblocks
 
@@ -1708,7 +1709,7 @@ metaitem.glass_tube.name=Glass Tube
 metaitem.vacuum_tube.name=Vacuum Tube LV Circuit
 
 metaitem.board.basic.name=Silicon Dioxide PCB
-metaitem.board.intermediate.name=Plastic PCB
+metaitem.board.intermediate.name=Phenolic PCB
 metaitem.board.advanced.name=Epoxid PCB
 metaitem.board.elite.name=PCTFE PCB
 
@@ -2637,7 +2638,7 @@ material.taconite=Taconite
 material.vibranium=Vibranium
 material.vibranium.name=Vibranium
 material.polyacrylonitrile=Polyacrylonitrile
-material.carbon_fibre_reinforced_polymer=Carbon-Fibre Reinforced Polymer
+material.carbon_fiber_reinforced_polymer=Carbon-Fiber Reinforced Polymer
 material.bedrock=Bedrock
 material.null=Oops
 material.nitrogen_tetroxide=Nitrogen Tetroxide
@@ -2745,6 +2746,7 @@ material.wheat=Wheat
 
 material.technetium=Technetium
 material.oganesson=Oganesson
+material.pahoehoe=Pahoehoe Lava
 
 item.gunpowder.dustTiny=Tiny Pile of Gunpowder
 item.gunpowder.dustSmall=Small Pile of Gunpowder
@@ -2894,6 +2896,7 @@ item.wheat.dustTiny=Tiny Pile of Flour
 item.wheat.dustSmall=Small Pile of Flour
 item.wheat.dust=Flour
 
+recipemap.lhe.name=Large Heat Exchanger
 recipemap.ore_washer.name=Ore Washer
 recipemap.thermal_centrifuge.name=Thermal Centrifuge
 recipemap.extractor.name=Extractor
@@ -2986,6 +2989,7 @@ tile.casing.luv=LuV Machine Casing
 tile.casing.uv=UV Machine Casing
 
 fluid.distilled_water=Distilled Water
+fluid.pahoehoe=Pahoehoe Lava
 fluid.slurry=Dirty %s Slurry
 fluid.cleanslurry=Clean %s Slurry
 
@@ -3485,6 +3489,9 @@ gtr.machine.battery_holder.name=Battery Holder
 gtr.multiblock.large_battery_buffer.input=Input Total: %s Amps %s
 gtr.multiblock.large_battery_buffer.output=Output Total: %s Amps %s
 
+gtr.multiblock.lhe.description=Cools down hot liquids to make steam
+gtr.machine.lhe.name=Large Heat Exchanger
+
 gtr.tooltip.energyi=Energy Input Buffer
 gtr.tooltip.energyo=Energy Output Buffer
 gtr.tooltip.energye=Energy Storage
@@ -3573,8 +3580,8 @@ gtr.machine.energy_hatch.output.uv.4.name=UV Energy Output Hatch (4A)
 gtr.machine.energy_hatch.output.uv.8.name=UV Energy Output Hatch (8A)
 gtr.machine.energy_hatch.output.uv.16.name=UV Energy Output Hatch (16A)
 
-metaitem.zpm.name=Zero Point Module
-metaitem.zpm2.name=Ultimate Battery
+metaitem.energy.infused_lapotronicorb.name=Ultimate Battery
+metaitem.battery.creative.name=Cursed Orb of Infinite Energy
 
 
 
@@ -3600,6 +3607,8 @@ metaarmor.qts.nightvision.disabled=Quantum Suit: NightVision disabled
 
 metaarmor.jetpack.hover.enable=Jetpack: hover mode enabled
 metaarmor.jetpack.hover.disable=Jetpack: hover mode disabled
+
+metaitem.electric_jetpack.name=Electric Jetpack
 
 metaarmor.hud.status.enabled=§aON
 metaarmor.hud.status.disabled=§cOFF

@@ -6,11 +6,14 @@ import ic2.api.energy.tile.IEnergySink;
 import ic2.api.energy.tile.IEnergySource;
 import ic2.api.item.ElectricItem;
 import ic2.api.item.IElectricItem;
+import ic2.core.Ic2Fluid;
 import ic2.core.block.TileEntityBlock;
 import ic2.core.block.comp.Energy;
+import ic2.core.block.comp.Fluids;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraftforge.fluids.FluidStack;
 
 // This class is for all the shit that should only work if IC2 is enabled but I can't put it anywhere else
 // because the import would crash it and I have no clue how to use @Optional

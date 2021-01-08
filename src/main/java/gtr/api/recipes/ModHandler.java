@@ -66,6 +66,10 @@ public class ModHandler {
         return new FluidStack(MetaFluids.DISTILLED_WATER, amount);
     }
 
+    public static FluidStack getPahoehoe(int amount) {
+        return new FluidStack(MetaFluids.PAHOEHOE, amount);
+    }
+
     /**
      * Returns if that Liquid is Lava
      */

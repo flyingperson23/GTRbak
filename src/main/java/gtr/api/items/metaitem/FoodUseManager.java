@@ -6,6 +6,7 @@ import gtr.api.items.metaitem.stats.IItemUseManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 
 import java.util.List;
 
@@ -45,7 +46,7 @@ public class FoodUseManager implements IItemBehaviour, IItemUseManager {
     }
 
     @Override
-    public void onPlayerStoppedItemUsing(ItemStack stack, EntityPlayer player, int timeLeft) {
+    public void onPlayerStoppedItemUsing(ItemStack stack, EntityPlayer player, int timeLeft, World w) {
     }
 
     @Override

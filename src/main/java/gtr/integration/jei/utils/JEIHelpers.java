@@ -13,7 +13,7 @@ public class JEIHelpers {
                 return GTValues.VN[i];
             }
         }
-        return "";
+        return "UV";
     }
 
 }

@@ -30,8 +30,8 @@ public class LargeBatteryBufferInfo extends MultiblockInfoPage {
             .where('C', MetaBlocks.MULTIBLOCK_CASING.getState(BlockMultiblockCasing.MultiblockCasingType.HIGH_POWER))
             .where('H', MetaTileEntities.BATTERY_HOLDER, EnumFacing.WEST)
             .where('A', Blocks.AIR.getDefaultState())
-            .where('I', MetaTileEntities.ENERGY_INPUT_HATCH[GTValues.IV][0], EnumFacing.SOUTH)
-            .where('O', MetaTileEntities.ENERGY_OUTPUT_HATCH[GTValues.IV][0], EnumFacing.SOUTH)
+            .where('I', MetaTileEntities.ENERGY_INPUT_HATCH[GTValues.IV], EnumFacing.SOUTH)
+            .where('O', MetaTileEntities.ENERGY_OUTPUT_HATCH[GTValues.IV], EnumFacing.SOUTH)
             .where('S', MetaTileEntities.LARGE_BATTERY_BUFFER, EnumFacing.SOUTH)
             .build();
         return Lists.newArrayList(shapeInfo);

@@ -3,7 +3,6 @@ package gtr.loaders.recipe;
 import gtr.api.GTValues;
 import gtr.api.items.metaitem.MetaItem.MetaValueItem;
 import gtr.api.recipes.ModHandler;
-import gtr.api.recipes.ingredients.IntCircuitIngredient;
 import gtr.api.unification.OreDictUnifier;
 import gtr.api.unification.material.MarkerMaterials.Tier;
 import gtr.api.unification.material.Materials;
@@ -12,6 +11,8 @@ import gtr.api.unification.ore.OrePrefix;
 import gtr.api.unification.stack.UnificationEntry;
 import gtr.api.util.GTLog;
 import gtr.common.ConfigHolder;
+import gtr.common.blocks.BlockMultiblockCasing;
+import gtr.common.blocks.BlockWireCoil;
 import gtr.common.blocks.MetaBlocks;
 import gtr.common.blocks.wood.BlockGregLog.LogVariant;
 import gtr.common.crafting.FacadeRecipe;
@@ -47,6 +48,33 @@ public class CraftingRecipeLoader {
             "after:minecraft:shapeless");
         GameRegistry.findRegistry(IRecipe.class).register(new RecipeMagnetic().setRegistryName("gtr:magnetic"));
 
+        ModHandler.addShapedRecipe("nano_helm", MetaItems.NANO_HELMET.getChargedStack(0), "CCC", "CEC", "   ", 'C', OreDictUnifier.get(OrePrefix.plate, Materials.CarbonFiberReinforcedPolymer), 'E', MetaItems.ENERGY_CRYSTAL);
+        ModHandler.addShapedRecipe("nano_chest", MetaItems.NANO_CHESTPLATE.getChargedStack(0), "CEC", "CCC", "CCC", 'C', OreDictUnifier.get(OrePrefix.plate, Materials.CarbonFiberReinforcedPolymer), 'E', MetaItems.ENERGY_CRYSTAL);
+        ModHandler.addShapedRecipe("nano_legs", MetaItems.NANO_LEGGINGS.getChargedStack(0), "CCC", "CEC", "C C", 'C', OreDictUnifier.get(OrePrefix.plate, Materials.CarbonFiberReinforcedPolymer), 'E', MetaItems.ENERGY_CRYSTAL);
+        ModHandler.addShapedRecipe("nano_boots", MetaItems.NANO_BOOTS.getChargedStack(0), "   ", "CEC", "C C", 'C', OreDictUnifier.get(OrePrefix.plate, Materials.CarbonFiberReinforcedPolymer), 'E', MetaItems.ENERGY_CRYSTAL);
+
+        ModHandler.addShapedRecipe("quantum_helm", MetaItems.QUANTUM_HELMET.getChargedStack(0), "INI", "IEI", "   ", 'I', MetaItems.PLATE_IRIDIUM_ALLOY.getStackForm(), 'N', MetaItems.NANO_HELMET.getStackForm(), 'E', MetaItems.LAPOTRON_CRYSTAL);
+        ModHandler.addShapedRecipe("quantum_chest", MetaItems.QUANTUM_CHESTPLATE.getChargedStack(0), "IEI", "INI", "III", 'I', MetaItems.PLATE_IRIDIUM_ALLOY.getStackForm(), 'N', MetaItems.NANO_CHESTPLATE.getStackForm(), 'E', MetaItems.LAPOTRON_CRYSTAL);
+        ModHandler.addShapedRecipe("quantum_legs", MetaItems.QUANTUM_LEGGINGS.getChargedStack(0), "INI", "IEI", "I I", 'I', MetaItems.PLATE_IRIDIUM_ALLOY.getStackForm(), 'N', MetaItems.NANO_LEGGINGS.getStackForm(), 'E', MetaItems.LAPOTRON_CRYSTAL);
+        ModHandler.addShapedRecipe("quantum_boots", MetaItems.QUANTUM_BOOTS.getChargedStack(0), "   ", "IEI", "INI", 'I', MetaItems.PLATE_IRIDIUM_ALLOY.getStackForm(), 'N', MetaItems.NANO_BOOTS.getStackForm(), 'E', MetaItems.LAPOTRON_CRYSTAL);
+
+        ModHandler.addShapedRecipe("nano_jetpack", MetaItems.NANO_SUIT_JETPACK.getChargedStack(0), "IJI", "MCM", "R R", 'I', OreDictUnifier.get(OrePrefix.plate, Materials.CarbonFiberReinforcedPolymer), 'J', MetaItems.ELECTRIC_JETPACK.getStackForm(), 'M', MetaItems.ELECTRIC_MOTOR_HV.getStackForm(), 'C', MetaItems.NANO_CHESTPLATE, 'R', OreDictUnifier.get(OrePrefix.rotor, Materials.Chrome));
+        ModHandler.addShapedRecipe("quantum_jetpack", MetaItems.QUANTUM_SUIT_JETPACK.getChargedStack(0), "IJI", "MCM", "R R", 'I', MetaItems.PLATE_IRIDIUM_ALLOY.getStackForm(), 'J', MetaItems.ELECTRIC_JETPACK, 'M', MetaItems.ELECTRIC_MOTOR_EV, 'C', MetaItems.QUANTUM_CHESTPLATE.getStackForm(), 'R', OreDictUnifier.get(OrePrefix.rotor, Materials.TungstenSteel));
+        ModHandler.addShapedRecipe("electric_jetpck", MetaItems.ELECTRIC_JETPACK.getChargedStack(0), "SES", "MSM", "R R", 'S', OreDictUnifier.get(OrePrefix.plate, Materials.Steel), 'E', MetaItems.BATTERY_RE_MV_CADMIUM.getStackForm(), 'M', MetaItems.ELECTRIC_MOTOR_MV, 'R', OreDictUnifier.get(OrePrefix.rotor, Materials.Bronze));
+
+        ModHandler.addShapedRecipe("nano_sword", MetaItems.NANO_SABER.getChargedStack(0), " P ", " C ", "CEC", 'P', OreDictUnifier.get(OrePrefix.toolHeadSword, Materials.Platinum), 'C', OreDictUnifier.get(OrePrefix.plate, Materials.CarbonFiberReinforcedPolymer), 'E', MetaItems.ENERGY_CRYSTAL);
+        ModHandler.addShapedRecipe("nano_bow", MetaItems.NANO_BOW.getChargedStack(0), " CS", "E S", " CS", 'C', OreDictUnifier.get(OrePrefix.plate, Materials.CarbonFiberReinforcedPolymer), 'E', MetaItems.ENERGY_CRYSTAL, 'S', Items.STRING);
+        ModHandler.addShapedRecipe("magnet", MetaItems.ELECTROMAGNET.getChargedStack(0), "M M", "SBS", "SSS", 'M', OreDictUnifier.get(OrePrefix.plate, Materials.SteelMagnetic), 'S', OreDictUnifier.get(OrePrefix.plate, Materials.Steel), 'B', MetaItems.BATTERY_RE_LV_CADMIUM);
+
+        ModHandler.addShapedRecipe("battery_holder", MetaTileEntities.BATTERY_HOLDER.getStackForm(), "BCB", "IEO", "BCB", 'B', MetaTileEntities.BATTERY_BUFFER[GTValues.EV][2].getStackForm(), 'C', MetaBlocks.MULTIBLOCK_CASING.getItemVariant(BlockMultiblockCasing.MultiblockCasingType.HIGH_POWER), 'I', MetaTileEntities.ENERGY_INPUT_HATCH[GTValues.EV].getStackForm(), 'E', MetaItems.CIRCUIT_EV, 'O', MetaTileEntities.ENERGY_OUTPUT_HATCH[GTValues.EV].getStackForm());
+        ModHandler.addShapedRecipe("large_batbuf", MetaTileEntities.LARGE_BATTERY_BUFFER.getStackForm(), "CMC", "MSM", "CMC", 'C', MetaItems.CIRCUIT_EV, 'M', MetaBlocks.MULTIBLOCK_CASING.getItemVariant(BlockMultiblockCasing.MultiblockCasingType.HIGH_POWER), 'S', OreDictUnifier.get(OrePrefix.cableGtOctal, Materials.Superconductor));
+
+        ModHandler.addShapedRecipe("fusion_coil", MetaBlocks.WIRE_COIL.getItemVariant(BlockWireCoil.CoilType.FUSION_COIL), "POP", "OFO", "POP", 'P', OreDictUnifier.get(OrePrefix.plate, Materials.Polyacrylonitrile), 'O', OreDictUnifier.get(OrePrefix.plate, Materials.AcrylonitrileButadieneStyrene), 'F', MetaBlocks.WIRE_COIL.getItemVariant(BlockWireCoil.CoilType.SUPERCONDUCTOR));
+
+        ModHandler.addShapedRecipe("jachammer_base", MetaItems.JACKHAMMER_BASE.getChargedStack(0), " P ", "PCP", "SBS", 'P', MetaItems.ELECTRIC_PISTON_HV, 'C', MetaItems.CIRCUIT_LV, 'S', OreDictUnifier.get(OrePrefix.plate, Materials.Steel), 'B', MetaItems.BATTERY_RE_HV_LITHIUM);
+        ModHandler.addShapedRecipe("rebreather", MetaItems.REBREATHER.getChargedStack(0), "GGG", "GEG", "BBB", 'G', Blocks.GLASS_PANE, 'E', MetaTileEntities.ELECTROLYZER[GTValues.LV].getStackForm(), 'B', MetaItems.BATTERY_RE_LV_CADMIUM);
+
+        ModHandler.addShapedRecipe("fusion_core", MetaTileEntities.FUSION_REACTOR.getStackForm(), "COC", "OAO", "COC", 'C', MetaItems.CIRCUIT_EV, 'O', MetaItems.ENERGY_LAPOTRONIC_ORB, 'A', MetaBlocks.MULTIBLOCK_CASING.getItemVariant(BlockMultiblockCasing.MultiblockCasingType.FUSION_CASING));
 
         registerFacadeRecipe(Materials.Aluminium, 5);
         registerFacadeRecipe(Materials.WroughtIron, 3);

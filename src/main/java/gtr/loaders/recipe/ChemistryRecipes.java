@@ -240,22 +240,22 @@ public class ChemistryRecipes {
         RecipeMaps.CHEMICAL_RECIPES.recipeBuilder().duration(200).EUt(22).fluidInputs(Materials.Toluene.getFluid(B), Materials.Oxygen.getFluid(B * 2)).outputs(OreDictUnifier.get(OrePrefix.dust, Materials.Ash, 2)).fluidOutputs(Materials.Phenol.getFluid(B), Materials.Water.getFluid(B)).buildAndRegister();
 
         //Preparations for various plastics
-        RecipeMaps.CHEMICAL_RECIPES.recipeBuilder().duration(120).EUt(44).fluidInputs(Materials.EthyleneDichloride.getFluid(B), Materials.Steam.getFluid(B/10)).fluidOutputs(Materials.VinylChloride.getFluid(B), Materials.HydrochloricAcid.getFluid(B)).buildAndRegister();
+        //RecipeMaps.CHEMICAL_RECIPES.recipeBuilder().duration(120).EUt(44).fluidInputs(Materials.EthyleneDichloride.getFluid(B), Materials.Steam.getFluid(B/10)).fluidOutputs(Materials.VinylChloride.getFluid(B), Materials.HydrochloricAcid.getFluid(B)).buildAndRegister();
 
         RecipeMaps.MIXER_RECIPES.recipeBuilder().duration(200).EUt(24).input(OrePrefix.dustTiny, Materials.Zinc, 4).fluidInputs(Materials.AceticAcid.getFluid(B)).fluidOutputs(Materials.VinylAcetate.getFluid(B)).buildAndRegister();
         RecipeMaps.CHEMICAL_RECIPES.recipeBuilder().duration(90).EUt(42).input(OrePrefix.dustTiny, Materials.Palladium).fluidInputs(Materials.AceticAcid.getFluid(B * 2), Materials.Oxygen.getFluid(B), Materials.Ethylene.getFluid(B * 2)).fluidOutputs(Materials.VinylAcetate.getFluid(B * 5)).buildAndRegister();
         RecipeMaps.FLUID_HEATER_RECIPES.recipeBuilder().duration(110).EUt(24).fluidInputs(Materials.PolyvinylAcetate.getFluid(L), Materials.Acetone.getFluid(B * 3)).fluidOutputs(Materials.Glue.getFluid(B * 4)).buildAndRegister();
         RecipeMaps.FLUID_HEATER_RECIPES.recipeBuilder().duration(110).EUt(24).fluidInputs(Materials.PolyvinylAcetate.getFluid(L), Materials.MethylAcetate.getFluid(B * 3)).fluidOutputs(Materials.Glue.getFluid(B * 4)).buildAndRegister();
 
-        RecipeMaps.CHEMICAL_RECIPES.recipeBuilder().duration(200).EUt(120).input(OrePrefix.dust, Materials.Barite).input(OrePrefix.gem, Materials.Coke, 2).outputs(OreDictUnifier.get(OrePrefix.dust, Materials.BariumSulfide)).fluidOutputs(Materials.CarbonDioxide.getFluid(B * 2)).buildAndRegister();
+        RecipeMaps.CHEMICAL_RECIPES.recipeBuilder().duration(200).EUt(32).input(OrePrefix.dust, Materials.Barite).input(OrePrefix.gem, Materials.Coke, 2).outputs(OreDictUnifier.get(OrePrefix.dust, Materials.BariumSulfide)).fluidOutputs(Materials.CarbonDioxide.getFluid(B * 2)).buildAndRegister();
+
+        RecipeMaps.CHEMICAL_RECIPES.recipeBuilder().duration(200).EUt(512).input(OrePrefix.dust, Materials.Epoxid).input(OrePrefix.dust, Materials.Carbon, 16).fluidInputs(Materials.Acetonitrile.getFluid(L / 2)).fluidOutputs(Materials.CarbonFiberReinforcedPolymer.getFluid(L)).buildAndRegister();
 
 
 
 
 
-
-
-       // RecipeMaps.FLUID_HEATER_RECIPES.recipeBuilder().duration(400).EUt(2).fluidInputs(Materials.CarbonDioxide.getFluid(B)).input(OrePrefix.dust, Materials.BariumSulfide).fluidOutputs(Materials.Witherite.getFluid(B)).buildAndRegister();
+        //RecipeMaps.FLUID_HEATER_RECIPES.recipeBuilder().duration(400).EUt(2).fluidInputs(Materials.CarbonDioxide.getFluid(B)).input(OrePrefix.dust, Materials.BariumSulfide).fluidOutputs(Materials.Witherite.getFluid(B)).buildAndRegister();
 
         RecipeMaps.CHEMICAL_RECIPES.recipeBuilder().duration(160).EUt(30).fluidInputs(Materials.HydrochloricAcid.getFluid(1000), Materials.Acetone.getFluid(1000), Materials.Phenol.getFluid(2000)).fluidOutputs(Materials.BisphenolA.getFluid(1000), Materials.Water.getFluid(1000)).buildAndRegister();
 
@@ -266,9 +266,6 @@ public class ChemistryRecipes {
 
         RecipeMaps.CHEMICAL_RECIPES.recipeBuilder().duration(200).EUt(14).fluidInputs(Materials.SulfuricAcid.getFluid(B), Materials.Ammonia.getFluid(B * 2)).outputs(OreDictUnifier.get(OrePrefix.dust, Materials.AmmoniumSulfate)).buildAndRegister();
         RecipeMaps.ELECTROLYZER_RECIPES.recipeBuilder().duration(700).EUt(55).fluidInputs(Materials.SulfuricAcid.getFluid(B)).input(OrePrefix.dust, Materials.AmmoniumSulfate).outputs(OreDictUnifier.get(OrePrefix.dust, Materials.AmmoniumPersulfate)).buildAndRegister();
-
-        RecipeMaps.CHEMICAL_RECIPES.recipeBuilder().duration(100).EUt(320).fluidInputs(Materials.Chloroform.getFluid(B), Materials.HydrofluoricAcid.getFluid(B * 2)).fluidOutputs(Materials.Chlorodifluoromethane.getFluid(B), Materials.HydrochloricAcid.getFluid(B * 2)).buildAndRegister();
-        RecipeMaps.PYROLYSE_RECIPES.recipeBuilder().notConsumable(new IntCircuitIngredient(1)).inputs(OreDictUnifier.get(OrePrefix.log, Materials.Wood, 4)).fluidInputs(Materials.Chlorodifluoromethane.getFluid(B * 2)).outputs(new ItemStack(Items.COAL, 5, 1)).fluidOutputs(Materials.Tetrafluoroethylene.getFluid(B)).duration(320).EUt(96).buildAndRegister();
 
         RecipeMaps.CHEMICAL_RECIPES.recipeBuilder().duration(200).EUt(120).fluidInputs(Materials.Chlorine.getFluid(B * 6)).input(OrePrefix.dust, Materials.Iron, 2).outputs(OreDictUnifier.get(OrePrefix.dust, Materials.FerricChloride, 2)).buildAndRegister();
         RecipeMaps.CHEMICAL_RECIPES.recipeBuilder().duration(200).EUt(150).fluidInputs(Materials.HydrochloricAcid.getFluid(B * 2)).input(OrePrefix.dust, Materials.Iron, 2).outputs(OreDictUnifier.get(OrePrefix.dust, Materials.FerrousChloride)).fluidOutputs(Materials.Hydrogen.getFluid(B * 2)).buildAndRegister();
@@ -326,19 +323,19 @@ public class ChemistryRecipes {
         RecipeMaps.CHEMICAL_RECIPES.recipeBuilder().duration(80).EUt(30).notConsumable(new IntCircuitIngredient(3)).fluidInputs(Materials.Chlorine.getFluid(B * 2), Materials.Methane.getFluid(B)).fluidOutputs(Materials.HydrochloricAcid.getFluid(B), Materials.Chloromethane.getFluid(B)).buildAndRegister();
         RecipeMaps.CHEMICAL_RECIPES.recipeBuilder().duration(120).EUt(30).fluidInputs(Materials.Chlorine.getFluid(B * 2), Materials.Benzene.getFluid(500)).fluidOutputs(Materials.HydrochloricAcid.getFluid(B), Materials.Dichlorobenzene.getFluid(500)).buildAndRegister();
         RecipeMaps.CHEMICAL_RECIPES.recipeBuilder().duration(160).EUt(30).fluidInputs(Materials.Propene.getFluid(B), Materials.Chlorine.getFluid(B * 2)).fluidOutputs(Materials.HydrochloricAcid.getFluid(B), Materials.AllylChloride.getFluid(B)).buildAndRegister();
-        RecipeMaps.CHEMICAL_RECIPES.recipeBuilder().duration(160).EUt(30).fluidInputs(Materials.Chlorine.getFluid(B * 2), Materials.Ethylene.getFluid(B)).fluidOutputs(Materials.VinylChloride.getFluid(B), Materials.HydrochloricAcid.getFluid(B)).buildAndRegister();
+        //RecipeMaps.CHEMICAL_RECIPES.recipeBuilder().duration(160).EUt(30).fluidInputs(Materials.Chlorine.getFluid(B * 2), Materials.Ethylene.getFluid(B)).fluidOutputs(Materials.VinylChloride.getFluid(B), Materials.HydrochloricAcid.getFluid(B)).buildAndRegister();
         RecipeMaps.CHEMICAL_RECIPES.recipeBuilder().duration(320).EUt(30).input(OrePrefix.dust, Materials.Apatite).fluidInputs(Materials.Water.getFluid(B * 10), Materials.SulfuricAcid.getFluid(B * 5)).fluidOutputs(Materials.HydrochloricAcid.getFluid(B), Materials.PhosphoricAcid.getFluid(B * 3)).buildAndRegister();
         RecipeMaps.CHEMICAL_RECIPES.recipeBuilder().duration(200).EUt(30).fluidInputs(Materials.SulfurDioxide.getFluid(B), Materials.Oxygen.getFluid(B)).fluidOutputs(Materials.SulfurTrioxide.getFluid(B)).buildAndRegister();
         RecipeMaps.CHEMICAL_RECIPES.recipeBuilder().duration(280).EUt(30).input(OrePrefix.dust, Materials.Sulfur).notConsumable(new IntCircuitIngredient(3)).fluidInputs(Materials.Oxygen.getFluid(B * 3)).fluidOutputs(Materials.SulfurTrioxide.getFluid(B)).buildAndRegister();
         RecipeMaps.CHEMICAL_RECIPES.recipeBuilder().duration(240).EUt(256).fluidInputs(Materials.Chloroform.getFluid(B), Materials.HydrofluoricAcid.getFluid(B * 2)).fluidOutputs(Materials.DilutedHydrochloricAcid.getFluid(B * 3), Materials.Tetrafluoroethylene.getFluid(B / 20)).buildAndRegister();
         RecipeMaps.ELECTROLYZER_RECIPES.recipeBuilder().duration(720).EUt(30).fluidInputs(Materials.SaltWater.getFluid(B * 2)).outputs(OreDictUnifier.get(OrePrefix.dust, Materials.SodiumHydroxide)).fluidOutputs(Materials.Chlorine.getFluid(B), Materials.Hydrogen.getFluid(B)).buildAndRegister();
         RecipeMaps.CHEMICAL_RECIPES.recipeBuilder().duration(40).EUt(8).input(OrePrefix.dust, Materials.Sodium).fluidInputs(Materials.Water.getFluid(B)).outputs(OreDictUnifier.get(OrePrefix.dust, Materials.SodiumHydroxide)).fluidOutputs(Materials.Hydrogen.getFluid(B)).buildAndRegister();
-        RecipeMaps.CHEMICAL_RECIPES.recipeBuilder().duration(160).EUt(30).notConsumable(new IntCircuitIngredient(0)).fluidInputs(Materials.Air.getFluid(B), Materials.Styrene.getFluid(L)).fluidOutputs(Materials.Polystyrene.getFluid(L)).buildAndRegister();
-        RecipeMaps.CHEMICAL_RECIPES.recipeBuilder().duration(160).EUt(30).notConsumable(new IntCircuitIngredient(0)).fluidInputs(Materials.Oxygen.getFluid(B / 2), Materials.Styrene.getFluid(L)).fluidOutputs(Materials.Polystyrene.getFluid(L  + (L / 2))).buildAndRegister();
-        RecipeMaps.CHEMICAL_RECIPES.recipeBuilder().duration(800).EUt(30).notConsumable(new IntCircuitIngredient(1)).fluidInputs(Materials.Air.getFluid(B * 4), Materials.Styrene.getFluid(L * 5), Materials.TitaniumTetrachloride.getFluid(B / 10)).fluidOutputs(Materials.Polystyrene.getFluid(L * 9)).buildAndRegister();
-        RecipeMaps.CHEMICAL_RECIPES.recipeBuilder().duration(800).EUt(30).notConsumable(new IntCircuitIngredient(1)).fluidInputs(Materials.Oxygen.getFluid(B * 2), Materials.Styrene.getFluid(L * 5), Materials.TitaniumTetrachloride.getFluid(B / 10)).fluidOutputs(Materials.Polystyrene.getFluid(L * 7)).buildAndRegister();
+        //RecipeMaps.CHEMICAL_RECIPES.recipeBuilder().duration(160).EUt(30).notConsumable(new IntCircuitIngredient(0)).fluidInputs(Materials.Air.getFluid(B), Materials.Styrene.getFluid(L)).fluidOutputs(Materials.Polystyrene.getFluid(L)).buildAndRegister();
+        //RecipeMaps.CHEMICAL_RECIPES.recipeBuilder().duration(160).EUt(30).notConsumable(new IntCircuitIngredient(0)).fluidInputs(Materials.Oxygen.getFluid(B / 2), Materials.Styrene.getFluid(L)).fluidOutputs(Materials.Polystyrene.getFluid(L  + (L / 2))).buildAndRegister();
+        //RecipeMaps.CHEMICAL_RECIPES.recipeBuilder().duration(800).EUt(30).notConsumable(new IntCircuitIngredient(1)).fluidInputs(Materials.Air.getFluid(B * 4), Materials.Styrene.getFluid(L * 5), Materials.TitaniumTetrachloride.getFluid(B / 10)).fluidOutputs(Materials.Polystyrene.getFluid(L * 9)).buildAndRegister();
+        //RecipeMaps.CHEMICAL_RECIPES.recipeBuilder().duration(800).EUt(30).notConsumable(new IntCircuitIngredient(1)).fluidInputs(Materials.Oxygen.getFluid(B * 2), Materials.Styrene.getFluid(L * 5), Materials.TitaniumTetrachloride.getFluid(B / 10)).fluidOutputs(Materials.Polystyrene.getFluid(L * 7)).buildAndRegister();
 
-        RecipeMaps.CHEMICAL_RECIPES.recipeBuilder().duration(160).EUt(30).notConsumable(new IntCircuitIngredient(3)).fluidInputs(Materials.Oxygen.getFluid(B), Materials.HydrochloricAcid.getFluid(B), Materials.Ethylene.getFluid(B)).fluidOutputs(Materials.Water.getFluid(B), Materials.VinylChloride.getFluid(B)).buildAndRegister();
+        //RecipeMaps.CHEMICAL_RECIPES.recipeBuilder().duration(160).EUt(30).notConsumable(new IntCircuitIngredient(3)).fluidInputs(Materials.Oxygen.getFluid(B), Materials.HydrochloricAcid.getFluid(B), Materials.Ethylene.getFluid(B)).fluidOutputs(Materials.Water.getFluid(B), Materials.VinylChloride.getFluid(B)).buildAndRegister();
         RecipeMaps.CHEMICAL_RECIPES.recipeBuilder().duration(160).EUt(30).fluidInputs(Materials.Oxygen.getFluid(B), Materials.Cumene.getFluid(B)).fluidOutputs(Materials.Phenol.getFluid(B), Materials.Acetone.getFluid(B)).buildAndRegister();
         RecipeMaps.MIXER_RECIPES.recipeBuilder().duration(1200).EUt(2).input(OrePrefix.dust, Materials.Wood, 4).fluidInputs(Materials.SulfuricAcid.getFluid(B)).outputs(new ItemStack(Items.COAL, 1, 1)).fluidOutputs(Materials.DilutedSulfuricAcid.getFluid(B)).buildAndRegister();
         RecipeMaps.MIXER_RECIPES.recipeBuilder().duration(1200).EUt(2).inputs(new ItemStack(Items.SUGAR, 4)).fluidInputs(Materials.SulfuricAcid.getFluid(B)).outputs(new ItemStack(Items.COAL, 1, 1)).fluidOutputs(Materials.DilutedSulfuricAcid.getFluid(B)).buildAndRegister();

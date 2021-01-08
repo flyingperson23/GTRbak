@@ -32,7 +32,7 @@ public class QuantumSuitJetpack extends QuantumSuit {
     private int cachedSlotId = -1;
 
     public QuantumSuitJetpack() {
-        super(EntityEquipmentSlot.CHEST, 10000, 100000000, GTValues.IV);
+        super(EntityEquipmentSlot.CHEST, 2048, 100000000, GTValues.IV);
     }
 
     @Override
@@ -113,6 +113,14 @@ public class QuantumSuitJetpack extends QuantumSuit {
         // Fly mechanics
         if (flyEnabled && cont.canUse(energyPerUse)) {
             if (hoverMode && !player.onGround) {
+
+
+
+                //render(player);
+
+
+
+
                 if (!ArmorUtils.isKeyDown(player, EnumKey.JUMP) || !ArmorUtils.isKeyDown(player, EnumKey.SHIFT)) {
                     if (player.motionY > 0.1D) {
                         player.motionY -= 0.1D;
@@ -137,9 +145,11 @@ public class QuantumSuitJetpack extends QuantumSuit {
                     }
                 }
 
+                if (!ArmorUtils.isKeyDown(player, EnumKey.JUMP) && !ArmorUtils.isKeyDown(player, EnumKey.SHIFT)) player.motionY *= 0.5;
+
                 if (ArmorUtils.isKeyDown(player, EnumKey.FORWARD)) {
                     if (ArmorUtils.isKeyDown(player, EnumKey.BOOST)) {
-                        player.moveRelative(0.0F, 0.0F, 3.0F, 0.2F);
+                        player.moveRelative(0.0F, 0.0F, 5.0F, 0.2F);
                     }
                     else {
                         player.moveRelative(0.0F, 0.0F, 0.5F, 0.2F);
@@ -174,6 +184,17 @@ public class QuantumSuitJetpack extends QuantumSuit {
                 result = true;
             } else {
                 if (ArmorUtils.isKeyDown(player, EnumKey.JUMP)) {
+
+
+
+
+                    //render(player);
+
+
+
+
+
+
                     if (ArmorUtils.isKeyDown(player, EnumKey.BOOST) && !ArmorUtils.isKeyDown(player, EnumKey.FORWARD)) {
                         if (player.motionY <= 1.6D) player.motionY += 0.4D;
                         energyUsageMultiplier = 1.5F;
@@ -326,4 +347,6 @@ public class QuantumSuitJetpack extends QuantumSuit {
     public double getDamageAbsorption() {
         return 1.5D;
     }
+
+
 }

@@ -2,6 +2,7 @@ package gtr.integration.jei.multiblock;
 
 import gtr.api.GTValues;
 import gtr.common.metatileentities.MetaTileEntities;
+import gtr.common.metatileentities.multi.electric.MetaTileEntityLargeHeatExchanger;
 import gtr.integration.jei.multiblock.infos.*;
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.IModRegistry;
@@ -48,6 +49,7 @@ public class MultiblockInfoCategory implements IRecipeCategory<MultiblockInfoRec
         put("fusion_reactor", new MultiblockInfoRecipeWrapper(new FusionInfo()));
         put("large_transformer", new MultiblockInfoRecipeWrapper(new LargeTransformerInfo()));
         put("large_battery_buffer", new MultiblockInfoRecipeWrapper(new LargeBatteryBufferInfo()));
+        put("lhe", new MultiblockInfoRecipeWrapper(new LHEInfo(MetaTileEntities.LHE)));
     }};
 
     public static void registerRecipes(IModRegistry registry) {

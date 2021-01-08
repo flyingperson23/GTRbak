@@ -38,7 +38,7 @@ public class ToggleEnergyConsumerBehavior implements IItemBehaviour {
         return ActionResult.newResult(EnumActionResult.PASS, itemStack);
     }
 
-    private boolean drainActivationEnergy(IElectricItem electricItem, boolean simulate) {
+    public boolean drainActivationEnergy(IElectricItem electricItem, boolean simulate) {
         return electricItem.discharge(energyUsagePerTick, electricItem.getTier(), true, false, simulate) >= energyUsagePerTick;
     }
 

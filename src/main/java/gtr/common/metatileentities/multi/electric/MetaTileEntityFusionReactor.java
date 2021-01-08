@@ -170,11 +170,11 @@ public class MetaTileEntityFusionReactor extends RecipeMapMultiblockController i
             .where('C', statePredicate(getCasingState()))
             .where('c', statePredicate(getCoilState()))
             .where('O', statePredicate(getCasingState())
-                .or(tilePredicate((state, tile) -> tile.metaTileEntityId.equals(MetaTileEntities.FUSION_MATERIAL_EXTRACTOR.metaTileEntityId))))
+                .or((abilityPartPredicate(MultiblockAbility.EXPORT_FLUIDS))))
             .where('E', statePredicate(getCasingState())
-                .or(tilePredicate((state, tile) -> tile.metaTileEntityId.equals(MetaTileEntities.FUSION_ENERGY_INJECTOR.metaTileEntityId))))
+                .or(abilityPartPredicate(MultiblockAbility.INPUT_ENERGY)))
             .where('I', statePredicate(getCasingState())
-                .or(tilePredicate((state, tile) -> tile.metaTileEntityId.equals(MetaTileEntities.FUSION_MATERIAL_INJECTOR.metaTileEntityId))))
+                .or(abilityPartPredicate(MultiblockAbility.IMPORT_FLUIDS)))
             .where('#', (tile) -> true).build();
     }
 
@@ -187,7 +187,7 @@ public class MetaTileEntityFusionReactor extends RecipeMapMultiblockController i
     }
 
     private long getMaxEU() {
-        return 160000000;
+        return 480000000;
     }
 
 

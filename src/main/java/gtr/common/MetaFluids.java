@@ -35,6 +35,10 @@ public class MetaFluids {
         new ResourceLocation("blocks/water_still"),
         new ResourceLocation("blocks/water_flow"));
 
+    public static final Fluid PAHOEHOE = new Fluid("pahoehoe",
+        new ResourceLocation(GTValues.MODID, "blocks/fluids/fluid.pahoehoe"),
+        new ResourceLocation(GTValues.MODID, "blocks/fluids/fluid.pahoehoe"));
+
     public enum FluidType {
         NORMAL("", material -> material.hasFlag(MatFlags.STATE_GAS) ? FluidState.GAS : FluidState.LIQUID),
         PLASMA("plasma.", material -> FluidState.PLASMA);
@@ -79,6 +83,10 @@ public class MetaFluids {
 
         FluidRegistry.registerFluid(DISTILLED_WATER);
         Materials.DistilledWater.setMaterialFluid(DISTILLED_WATER);
+
+        FluidRegistry.registerFluid(PAHOEHOE);
+        Materials.Pahoehoe.setMaterialFluid(PAHOEHOE);
+
         fluidSprites.add(AUTO_GENERATED_FLUID_TEXTURE);
 
         //alternative names for forestry fluids
@@ -92,8 +100,8 @@ public class MetaFluids {
         setDefaultTexture(Materials.Deuterium, FluidType.NORMAL);
         setDefaultTexture(Materials.Tritium, FluidType.NORMAL);
         setDefaultTexture(Materials.Helium, FluidType.NORMAL);
-        setDefaultTexture(Materials.Argon, FluidType.NORMAL);
         setDefaultTexture(Materials.Radon, FluidType.NORMAL);
+        setDefaultTexture(Materials.Pahoehoe, FluidType.NORMAL);
         setDefaultTexture(Materials.Fluorine, FluidType.NORMAL);
         setDefaultTexture(Materials.TitaniumTetrachloride, FluidType.NORMAL);
         setDefaultTexture(Materials.Helium3, FluidType.NORMAL);

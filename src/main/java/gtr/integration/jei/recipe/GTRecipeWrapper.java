@@ -112,9 +112,12 @@ public class GTRecipeWrapper implements IRecipeWrapper {
     @Override
     public void drawInfo(Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
         int yPosition = recipeHeight - getPropertyListHeight();
-        minecraft.fontRenderer.drawString(I18n.format("gtr.recipe.total", Math.abs((long) recipe.getEUt()) * recipe.getDuration()), 0, yPosition, 0x111111);
-        minecraft.fontRenderer.drawString(I18n.format(recipe.getEUt() >= 0 ? "gtr.recipe.eu" : "gtr.recipe.eu_inverted", Math.abs(recipe.getEUt()), JEIHelpers.getMinTierForVoltage(recipe.getEUt())), 0, yPosition += lineHeight, 0x111111);
+        if (recipe.getEUt() > 0) {
+            minecraft.fontRenderer.drawString(I18n.format("gtr.recipe.total", Math.abs((long) recipe.getEUt()) * recipe.getDuration()), 0, yPosition, 0x111111);
+            minecraft.fontRenderer.drawString(I18n.format(recipe.getEUt() >= 0 ? "gtr.recipe.eu" : "gtr.recipe.eu_inverted", Math.abs(recipe.getEUt()), JEIHelpers.getMinTierForVoltage(recipe.getEUt())), 0, yPosition += lineHeight, 0x111111);
+        }
         minecraft.fontRenderer.drawString(I18n.format("gtr.recipe.duration", recipe.getDuration() / 20f), 0, yPosition += lineHeight, 0x111111);
+
         for (String propertyKey : recipe.getPropertyKeys()) {
             minecraft.fontRenderer.drawString(I18n.format("gtr.recipe." + propertyKey,
                 recipe.<Object>getProperty(propertyKey)), 0, yPosition += lineHeight, 0x111111);

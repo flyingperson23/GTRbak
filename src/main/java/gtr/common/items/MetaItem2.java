@@ -2,6 +2,8 @@ package gtr.common.items;
 
 import gtr.api.GTValues;
 import gtr.api.items.materialitem.MaterialMetaItem;
+import gtr.api.items.metaitem.BaubleStats;
+import gtr.api.items.metaitem.BowUseManager;
 import gtr.api.items.metaitem.ElectricStats;
 import gtr.api.items.metaitem.FoodStats;
 import gtr.api.items.metaitem.stats.IItemContainerItemProvider;
@@ -13,18 +15,13 @@ import gtr.api.unification.material.MarkerMaterials.Tier;
 import gtr.api.unification.material.Materials;
 import gtr.api.unification.ore.OrePrefix;
 import gtr.api.util.RandomPotionEffect;
-import gtr.common.ConfigHolder;
-import gtr.common.items.behaviors.FacadeItem;
-import gtr.common.items.behaviors.ScannerBehavior;
-import gtr.common.items.behaviors.NanoSaberBehavior;
-import gtr.common.items.behaviors.TurbineRotorBehavior;
+import gtr.common.items.behaviors.*;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 
-import static gtr.api.util.DyeUtil.getOrdictColorName;
 import static gtr.common.items.MetaItems.*;
 
 public class MetaItem2 extends MaterialMetaItem {
@@ -57,12 +54,6 @@ public class MetaItem2 extends MaterialMetaItem {
         ENERGY_CRYSTAL = addItem(212, "energy_crystal").addComponents(ElectricStats.createRechargeableBattery(4000000L, GTValues.HV)).setModelAmount(8).setMaxStackSize(1);
         LAPOTRON_CRYSTAL = addItem(213, "lapotron_crystal").addComponents(ElectricStats.createRechargeableBattery(10000000L, GTValues.EV)).setModelAmount(8).setMaxStackSize(1);
 
-        DYE_INDIGO = addItem(410, "dye.indigo").addOreDict("dyeBlue").setInvisible();
-        for (int i = 0; i < EnumDyeColor.values().length; i++) {
-            EnumDyeColor dyeColor = EnumDyeColor.values()[i];
-            DYE_ONLY_ITEMS[i] = addItem(414 + i, "dye." + dyeColor.getName()).addOreDict(getOrdictColorName(dyeColor));
-        }
-
         PLANT_BALL = addItem(570, "plant_ball").setBurnValue(75);
         ENERGIUM_DUST = addItem(572, "energium_dust");
 
@@ -72,8 +63,11 @@ public class MetaItem2 extends MaterialMetaItem {
         JACKHAMMER_BASE = addItem(576, "jackhammer_base").addComponents(ElectricStats.createElectricItem(1600000L, GTValues.HV)).setMaxStackSize(4);
 
         NANO_SABER = addItem(577, "nano_saber").addComponents(ElectricStats.createElectricItem(4000000L, GTValues.HV)).addComponents(new NanoSaberBehavior()).setMaxStackSize(1);
-        ENERGY_FIELD_PROJECTOR = addItem(578, "energy_field_projector").addComponents(ElectricStats.createElectricItem(16000000L, GTValues.EV)).setMaxStackSize(1);
+        NANO_BOW = addItem(513, "nano_bow").addComponents(ElectricStats.createElectricItem(4000000L, GTValues.HV)).addComponents(new BowUseManager()).setMaxStackSize(1);
+        ENERGY_FIELD_PROJECTOR = addItem(578, "energy_field_projector").addComponents(ElectricStats.createElectricItem(16000000L, GTValues.EV), new BaubleStats()).setMaxStackSize(1);
         SCANNER = addItem(579, "scanner").addComponents(ElectricStats.createElectricItem(200_000L, GTValues.LV), new ScannerBehavior(50));
+
+        ELECTROMAGNET = addItem(514, "electromagnet").addComponents(ElectricStats.createElectricItem(128000, GTValues.LV), new MagnetBehaviour(), new BaubleStats()).setMaxStackSize(1);
 
         INGOT_MIXED_METAL = addItem(432, "ingot.mixed_metal");
         ADVANCED_ALLOY_PLATE = addItem(433, "plate.advanced_alloy");

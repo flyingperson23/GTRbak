@@ -3,9 +3,9 @@ package gtr.common.items;
 import gtr.api.GTValues;
 import gtr.api.items.OreDictNames;
 import gtr.api.items.materialitem.MaterialMetaItem;
+import gtr.api.items.metaitem.BaubleStats;
 import gtr.api.items.metaitem.ElectricStats;
 import gtr.api.items.metaitem.FluidStats;
-import gtr.api.items.metaitem.FoodStats;
 import gtr.api.recipes.RecipeMaps;
 import gtr.api.unification.OreDictUnifier;
 import gtr.api.unification.material.MarkerMaterials;
@@ -15,7 +15,6 @@ import gtr.api.unification.material.type.SolidMaterial;
 import gtr.api.unification.ore.OrePrefix;
 import gtr.api.unification.stack.ItemMaterialInfo;
 import gtr.api.unification.stack.MaterialStack;
-import gtr.api.util.RandomPotionEffect;
 import gtr.common.items.behaviors.*;
 import net.minecraft.block.BlockCauldron;
 import net.minecraft.block.state.IBlockState;
@@ -23,7 +22,6 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Items;
-import net.minecraft.init.MobEffects;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -127,32 +125,34 @@ public class MetaItem1 extends MaterialMetaItem {
         BATTERY_HULL_MV = addItem(501, "battery.hull.hv").setMaterialInfo(new ItemMaterialInfo(new MaterialStack(Materials.BatteryAlloy, OrePrefix.plate.materialAmount * 3L)));
         BATTERY_HULL_HV = addItem(502, "battery.hull.mv").setMaterialInfo(new ItemMaterialInfo(new MaterialStack(Materials.BatteryAlloy, OrePrefix.plate.materialAmount * 9L)));
 
-        BATTERY_SU_LV_SULFURIC_ACID = addItem(510, "battery.su.lv.sulfuricacid").addComponents(ElectricStats.createBattery(18000, GTValues.LV, false)).setModelAmount(8);
-        BATTERY_SU_LV_MERCURY = addItem(511, "battery.su.lv.mercury").addComponents(ElectricStats.createBattery(32000, GTValues.LV, false)).setModelAmount(8);
+        BATTERY_SU_LV_SULFURIC_ACID = addItem(510, "battery.su.lv.sulfuricacid").addComponents(new BaubleStats(), ElectricStats.createBattery(18000, GTValues.LV, false)).setModelAmount(8);
+        BATTERY_SU_LV_MERCURY = addItem(511, "battery.su.lv.mercury").addComponents(new BaubleStats(), ElectricStats.createBattery(32000, GTValues.LV, false)).setModelAmount(8);
 
-        BATTERY_RE_LV_CADMIUM = addItem(517, "battery.re.lv.cadmium").addComponents(ElectricStats.createRechargeableBattery(120000, GTValues.LV)).setModelAmount(8);
-        BATTERY_RE_LV_LITHIUM = addItem(518, "battery.re.lv.lithium").addComponents(ElectricStats.createRechargeableBattery(100000, GTValues.LV)).setModelAmount(8);
-        BATTERY_RE_LV_SODIUM = addItem(519, "battery.re.lv.sodium").addComponents(ElectricStats.createRechargeableBattery(80000, GTValues.LV)).setModelAmount(8);
 
-        BATTERY_SU_MV_SULFURIC_ACID = addItem(520, "battery.su.mv.sulfuricacid").addComponents(ElectricStats.createBattery(72000, GTValues.MV, false)).setModelAmount(8);
-        BATTERY_SU_MV_MERCURY = addItem(521, "battery.su.mv.mercury").addComponents(ElectricStats.createBattery(128000, GTValues.MV, false)).setModelAmount(8);
+        BATTERY_RE_LV_CADMIUM = addItem(517, "battery.re.lv.cadmium").addComponents(new BaubleStats(), ElectricStats.createRechargeableBattery(120000, GTValues.LV)).setModelAmount(8);
+        BATTERY_RE_LV_LITHIUM = addItem(518, "battery.re.lv.lithium").addComponents(new BaubleStats(), ElectricStats.createRechargeableBattery(100000, GTValues.LV)).setModelAmount(8);
+        BATTERY_RE_LV_SODIUM = addItem(519, "battery.re.lv.sodium").addComponents(new BaubleStats(), ElectricStats.createRechargeableBattery(80000, GTValues.LV)).setModelAmount(8);
 
-        BATTERY_RE_MV_CADMIUM = addItem(527, "battery.re.mv.cadmium").addComponents(ElectricStats.createRechargeableBattery(420000, GTValues.MV)).setModelAmount(8);
-        BATTERY_RE_MV_LITHIUM = addItem(528, "battery.re.mv.lithium").addComponents(ElectricStats.createRechargeableBattery(400000, GTValues.MV)).setModelAmount(8);
-        BATTERY_RE_MV_SODIUM = addItem(529, "battery.re.mv.sodium").addComponents(ElectricStats.createRechargeableBattery(360000, GTValues.MV)).setModelAmount(8);
+        BATTERY_SU_MV_SULFURIC_ACID = addItem(520, "battery.su.mv.sulfuricacid").addComponents(new BaubleStats(), ElectricStats.createBattery(72000, GTValues.MV, false)).setModelAmount(8);
+        BATTERY_SU_MV_MERCURY = addItem(521, "battery.su.mv.mercury").addComponents(new BaubleStats(), ElectricStats.createBattery(128000, GTValues.MV, false)).setModelAmount(8);
 
-        BATTERY_SU_HV_SULFURIC_ACID = addItem(530, "battery.su.hv.sulfuricacid").addComponents(ElectricStats.createBattery(288000, GTValues.HV, false)).setModelAmount(8);
-        BATTERY_SU_HV_MERCURY = addItem(531, "battery.su.hv.mercury").addComponents(ElectricStats.createBattery(512000, GTValues.HV, false)).setModelAmount(8);
+        CREATIVE_BATTERY = addItem(512, "battery.creative").addComponents(new BaubleStats(), ElectricStats.createCreativeBattery());
 
-        BATTERY_RE_HV_CADMIUM = addItem(537, "battery.re.hv.cadmium").addComponents(ElectricStats.createRechargeableBattery(1800000, GTValues.HV)).setModelAmount(8);
-        BATTERY_RE_HV_LITHIUM = addItem(538, "battery.re.hv.lithium").addComponents(ElectricStats.createRechargeableBattery(1600000, GTValues.HV)).setModelAmount(8);
-        BATTERY_RE_HV_SODIUM = addItem(539, "battery.re.hv.sodium").addComponents(ElectricStats.createRechargeableBattery(1200000, GTValues.HV)).setModelAmount(8);
+        BATTERY_RE_MV_CADMIUM = addItem(527, "battery.re.mv.cadmium").addComponents(new BaubleStats(), ElectricStats.createRechargeableBattery(420000, GTValues.MV)).setModelAmount(8);
+        BATTERY_RE_MV_LITHIUM = addItem(528, "battery.re.mv.lithium").addComponents(new BaubleStats(), ElectricStats.createRechargeableBattery(400000, GTValues.MV)).setModelAmount(8);
+        BATTERY_RE_MV_SODIUM = addItem(529, "battery.re.mv.sodium").addComponents(new BaubleStats(), ElectricStats.createRechargeableBattery(360000, GTValues.MV)).setModelAmount(8);
 
-        ENERGY_LAPOTRONIC_ORB = addItem(597, "energy.lapotronicorb").addComponents(ElectricStats.createRechargeableBattery(100000000, GTValues.IV)).setUnificationData(OrePrefix.battery, MarkerMaterials.Tier.Elite).setModelAmount(8);
-        ENERGY_LAPOTRONIC_ORB2 = addItem(598, "energy.lapotronicorb2").addComponents(ElectricStats.createRechargeableBattery(1000000000, GTValues.LuV)).setUnificationData(OrePrefix.battery, MarkerMaterials.Tier.Ultimate).setModelAmount(8);
+        BATTERY_SU_HV_SULFURIC_ACID = addItem(530, "battery.su.hv.sulfuricacid").addComponents(new BaubleStats(), ElectricStats.createBattery(288000, GTValues.HV, false)).setModelAmount(8);
+        BATTERY_SU_HV_MERCURY = addItem(531, "battery.su.hv.mercury").addComponents(new BaubleStats(), ElectricStats.createBattery(512000, GTValues.HV, false)).setModelAmount(8);
 
-        ZPM = addItem(599, "zpm").addComponents(ElectricStats.createBattery(2000000000000L, GTValues.LuV, false)).setModelAmount(8);
-        ZPM2 = addItem(605, "zpm2").addComponents(ElectricStats.createRechargeableBattery(Long.MAX_VALUE, GTValues.UV)).setModelAmount(8);
+        BATTERY_RE_HV_CADMIUM = addItem(537, "battery.re.hv.cadmium").addComponents(new BaubleStats(), ElectricStats.createRechargeableBattery(1800000, GTValues.HV)).setModelAmount(8);
+        BATTERY_RE_HV_LITHIUM = addItem(538, "battery.re.hv.lithium").addComponents(new BaubleStats(), ElectricStats.createRechargeableBattery(1600000, GTValues.HV)).setModelAmount(8);
+        BATTERY_RE_HV_SODIUM = addItem(539, "battery.re.hv.sodium").addComponents(new BaubleStats(), ElectricStats.createRechargeableBattery(1200000, GTValues.HV)).setModelAmount(8);
+
+        ENERGY_LAPOTRONIC_ORB = addItem(597, "energy.lapotronicorb").addComponents(new BaubleStats(), ElectricStats.createRechargeableBattery(100000000, GTValues.IV)).setUnificationData(OrePrefix.battery, MarkerMaterials.Tier.Elite).setModelAmount(8);
+        ENERGY_LAPOTRONIC_ORB2 = addItem(598, "energy.lapotronicorb2").addComponents(new BaubleStats(), ElectricStats.createRechargeableBattery(1000000000, GTValues.LuV)).setUnificationData(OrePrefix.battery, MarkerMaterials.Tier.Ultimate).setModelAmount(8);
+
+        ENERGY_INFUSED_LAPOTRONIC_ORB = addItem(605, "energy.infused_lapotronicorb").addComponents(new BaubleStats(), ElectricStats.createRechargeableBattery(Long.MAX_VALUE, GTValues.UV)).setModelAmount(8);
 
         ELECTRIC_MOTOR_LV = addItem(600, "electric.motor.lv");
         ELECTRIC_MOTOR_MV = addItem(601, "electric.motor.mv");
@@ -208,15 +208,12 @@ public class MetaItem1 extends MaterialMetaItem {
         SENSOR_EV = addItem(693, "sensor.ev");
         SENSOR_IV = addItem(694, "sensor.iv");
 
-        TOOL_DATA_STICK = addItem(708, "tool.datastick");
-        TOOL_DATA_ORB = addItem(707, "tool.dataorb");
 
         COMPONENT_GRINDER_DIAMOND = addItem(722, "component.grinder.diamond").addOreDict(OreDictNames.craftingGrinder);
         COMPONENT_GRINDER_TUNGSTEN = addItem(723, "component.grinder.tungsten").addOreDict(OreDictNames.craftingGrinder);
 
         QUANTUM_EYE = addItem(724, "quantumeye");
         QUANTUM_STAR = addItem(725, "quantumstar");
-        GRAVI_STAR = addItem(726, "gravistar");
 
         ITEM_FILTER = addItem(729, "item_filter");
         ORE_DICTIONARY_FILTER = addItem(102, "ore_dictionary_filter");

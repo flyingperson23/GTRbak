@@ -29,7 +29,7 @@ public class NanoSuitJetpack extends NanoSuit {
 
 
     public NanoSuitJetpack() {
-        super(EntityEquipmentSlot.CHEST, 5000, 11400000);
+        super(EntityEquipmentSlot.CHEST, 512, 11400000);
     }
 
     @Override

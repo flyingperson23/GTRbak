@@ -673,10 +673,12 @@ public class RecipeMaps {
     @ZenProperty
     public static final FuelRecipeMap DIESEL_GENERATOR_FUELS = new FuelRecipeMap("diesel_generator");
 
+    @ZenProperty
+    public static final RecipeMap<SimpleRecipeBuilder> LARGE_HEAT_EXCHANGER_FUELS = new RecipeMap<>("lhe", 0, 0, 0, 0, 2, 2, 2, 2, new SimpleRecipeBuilder())
+        .setProgressBar(GuiTextures.PROGRESS_BAR_ARROW, MoveType.HORIZONTAL);
 
     @ZenProperty
     public static final FuelRecipeMap GAS_TURBINE_FUELS = new FuelRecipeMap("gas_turbine");
-
 
     @ZenProperty
     public static final FuelRecipeMap STEAM_TURBINE_FUELS = new FuelRecipeMap("steam_turbine");

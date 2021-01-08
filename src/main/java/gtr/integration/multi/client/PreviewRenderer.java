@@ -199,9 +199,9 @@ public class PreviewRenderer {
                 for (BlockRenderLayer brl : BlockRenderLayer.values()) {
                     if (state.getBlock().canRenderInLayer(state, brl)) {
                         ForgeHooksClient.setRenderLayer(brl);
-                        if (Minecraft.getMinecraft().world.getBlockState(targetPos.subtract(pos).add(controllerPos)).getBlock() == Blocks.AIR) {
+                        //if (Minecraft.getMinecraft().world.getBlockState(targetPos.subtract(pos).add(controllerPos)).getBlock() == Blocks.AIR) {
                             brd.renderBlock(state, BlockPos.ORIGIN, targetBA, buff);
-                        }
+                        //}
                     }
                 }
                 tes.draw();

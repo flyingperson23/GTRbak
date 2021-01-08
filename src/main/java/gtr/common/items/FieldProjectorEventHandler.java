@@ -3,6 +3,7 @@ package gtr.common.items;
 import gtr.api.GTValues;
 import gtr.api.capability.GregtechCapabilities;
 import gtr.api.capability.IElectricItem;
+import gtr.api.util.BaublesHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IProjectile;
@@ -21,6 +22,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.IThrowableEntity;
@@ -68,6 +70,13 @@ public class FieldProjectorEventHandler {
                 ItemStack itemStack = inventory.getStackInSlot(i);
                 if(tryDrainProjector(itemStack, simulate)) return true;
             }
+            if (Loader.isModLoaded("baubles")) {
+                IInventory inv = BaublesHelper.getInventory((EntityPlayer) entity);
+                for (int i = 0; i < inv.getSizeInventory(); i++) {
+                    if (tryDrainProjector(inv.getStackInSlot(i), simulate)) return true;
+                }
+            }
+
         } else {
             for(EntityEquipmentSlot equipmentSlot : EntityEquipmentSlot.values()) {
                 ItemStack itemStack = entity.getItemStackFromSlot(equipmentSlot);

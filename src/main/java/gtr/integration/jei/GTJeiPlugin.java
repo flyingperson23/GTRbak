@@ -9,6 +9,7 @@ import gtr.api.capability.impl.FuelRecipeLogic;
 import gtr.api.gui.impl.ModularUIGuiHandler;
 import gtr.api.items.metaitem.MetaItem;
 import gtr.api.metatileentity.MetaTileEntity;
+import gtr.api.recipes.Recipe;
 import gtr.api.recipes.RecipeMap;
 import gtr.api.recipes.RecipeMaps;
 import gtr.api.recipes.ingredients.IntCircuitIngredient;
@@ -153,6 +154,8 @@ public class GTJeiPlugin implements IModPlugin {
         registry.addRecipeCatalyst(MetaTileEntities.LARGE_STEEL_BOILER.getStackForm(), semiFluidMapId);
         registry.addRecipeCatalyst(MetaTileEntities.LARGE_TITANIUM_BOILER.getStackForm(), semiFluidMapId);
         registry.addRecipeCatalyst(MetaTileEntities.LARGE_TUNGSTENSTEEL_BOILER.getStackForm(), semiFluidMapId);
+
+        registry.addRecipeCatalyst(MetaTileEntities.LHE.getStackForm(), GTValues.MODID + ":" + RecipeMaps.LARGE_HEAT_EXCHANGER_FUELS.getUnlocalizedName());
 
         registry.addIngredientInfo(Objects.requireNonNull(Materials.Air.getFluid(1000)), VanillaTypes.FLUID, I18n.format("gtr.machine.air_collector.jei_description"));
 

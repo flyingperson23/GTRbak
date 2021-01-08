@@ -1,6 +1,5 @@
 package gtr.common.metatileentities.multi.electric;
 
-import gtr.GregTechMod;
 import gtr.api.gui.IUIHolder;
 import gtr.api.gui.ModularUI;
 import gtr.api.gui.resources.TextureArea;
@@ -14,7 +13,6 @@ import gtr.api.multiblock.BlockPattern;
 import gtr.api.multiblock.BlockWorldState;
 import gtr.api.multiblock.FactoryBlockPattern;
 import gtr.api.multiblock.PatternMatchContext;
-import gtr.api.net.displayrecipes.MessageRequestFuelDieselEngine;
 import gtr.api.recipes.Recipe;
 import gtr.api.recipes.RecipeMaps;
 import gtr.api.render.ICubeRenderer;
@@ -23,7 +21,6 @@ import gtr.common.blocks.BlockMetalCasing.MetalCasingType;
 import gtr.common.blocks.BlockWireCoil;
 import gtr.common.blocks.BlockWireCoil.CoilType;
 import gtr.common.blocks.MetaBlocks;
-import gtr.common.blocks.VariantBlock;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -31,7 +28,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
 import javax.annotation.Nonnull;

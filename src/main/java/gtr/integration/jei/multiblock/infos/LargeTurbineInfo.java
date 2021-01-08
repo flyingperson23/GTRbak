@@ -50,7 +50,7 @@ public class LargeTurbineInfo extends MultiblockInfoPage {
             .where('S', turbine, EnumFacing.SOUTH)
             .where('C', turbine.turbineType.casingState)
             .where('R', new BlockInfo(MetaBlocks.MACHINE.getDefaultState(), holder))
-            .where('D', MetaTileEntities.ENERGY_OUTPUT_HATCH[GTValues.EV][0], EnumFacing.EAST)
+            .where('D', MetaTileEntities.ENERGY_OUTPUT_HATCH[GTValues.EV], EnumFacing.EAST)
             .where('#', Blocks.AIR.getDefaultState())
             .where('I', MetaTileEntities.FLUID_IMPORT_HATCH[GTValues.HV], EnumFacing.NORTH);
         if (turbine.turbineType.hasOutputHatch) {

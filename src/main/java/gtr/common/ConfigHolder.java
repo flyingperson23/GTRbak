@@ -53,26 +53,12 @@ public class ConfigHolder {
     @Config.Comment("Chance with which flint and steel will create fire. Default: 50")
     public static int flintChanceToCreateFire = 50;
 
-    @Config.Comment("Recipes for machine hulls use more materials. Default: false")
-    @Config.RequiresMcRestart
-    public static boolean harderMachineHulls = false;
-
     @Config.Comment("If true, insufficient energy supply will reset recipe progress to zero. If false, progress will decrease to zero with 2x speed. Default: false")
     @Config.RequiresWorldRestart
     public static boolean insufficientEnergySupplyWipesRecipeProgress = false;
 
-    @Config.Comment("Should GT6-style pipes be enabled?")
-    @Config.RequiresWorldRestart
-    public static boolean gt6Pipes = true;
-
     @Config.Comment("RF per GTEU")
     public static int rfPerEU = 4;
-
-    @Config.Comment("RF Compat")
-    public static boolean rfCompat = true;
-
-    @Config.Comment("EU Compat")
-    public static boolean euCompat = true;
 
     @Config.Comment("Whether to use modPriorities setting in config for prioritizing ore dictionary item registrations. " +
         "By default, GTR will sort ore dictionary registrations alphabetically comparing their owner ModIDs. Default: false")
@@ -83,7 +69,7 @@ public class ConfigHolder {
         "Unspecified ModIDs follow standard sorting, but always have lower priority than last specified ModID." +
         "\nFor this to work \"useCustomModPriorities\" has to be set to true.")
     @Config.RequiresMcRestart
-    public static String[] modPriorities = new String[0];
+    public static String[] modPriorities = {"gtr"};
 
     @Config.Comment("Setting this to true makes GTCE ignore error and invalid recipes that would otherwise cause crash. Default: true")
     @Config.RequiresMcRestart
@@ -103,6 +89,9 @@ public class ConfigHolder {
     @Config.Comment("Category that contains configs for the NanoSaber")
     public static NanoSaberConfiguration nanoSaberConfiguration = new NanoSaberConfiguration();
 
+    @Config.Comment("Category that contains configs for the NanoBow")
+    public static NanoBowConfiguration nanoBowConfiguration = new NanoBowConfiguration();
+
     @Config.Comment("Sets the bonus EU output of Steam Turbines. Default: 6144")
     @Config.RequiresMcRestart
     public static int steamTurbineBonusOutput = 6144;
@@ -111,12 +100,21 @@ public class ConfigHolder {
     @Config.RequiresMcRestart
     public static int plasmaTurbineBonusOutput = 6144;
 
-    @Config.Comment("Sets the bonus EU output of Gas Turbines. Default 6144")
+    @Config.Comment("Sets the bonus EU output of Gas Turbines. Default: 6144")
     @Config.RequiresMcRestart
     public static int gasTurbineBonusOutput = 6144;
 
     @Config.Comment("If true, powered zero loss wires will damage the player. Default: false")
     public static boolean doLosslessWiresDamage = false;
+
+    @Config.Comment("Radius for magnet inhibitor. Default: 3")
+    public static int magnetInhibitorRange = 3;
+
+    @Config.Comment("Radius for electromagnet. Default: 8")
+    public static int magnetRange = 8;
+
+    @Config.Comment("EU used for each magnet item pickup event. Default: 256")
+    public static int euPerMagnetPickup = 256;
 
     public static class VanillaRecipes {
 
@@ -149,15 +147,15 @@ public class ConfigHolder {
 
     public static class NanoSaberConfiguration {
 
-        @Config.RangeDouble(min = 0, max = 100)
-        @Config.Comment("The additional damage added when the NanoSaber is powered. Default: 20.0")
+        @Config.RangeDouble(min = 0, max = Integer.MAX_VALUE)
+        @Config.Comment("The multiplier to the damage when sword is powered. Default: 3.0")
         @Config.RequiresMcRestart
-        public double nanoSaberDamageBoost = 20;
+        public double nanoSaberDamageMultiplier = 3;
 
-        @Config.RangeDouble(min = 0, max = 100)
-        @Config.Comment("The base damage of the NanoSaber. Default: 5.0")
+        @Config.RangeDouble(min = 0, max = Integer.MAX_VALUE)
+        @Config.Comment("The base damage of the NanoSaber. Default: 8.0")
         @Config.RequiresMcRestart
-        public double nanoSaberBaseDamage = 5;
+        public double nanoSaberBaseDamage = 8;
 
         @Config.Comment("Should Zombies spawn with charged, active NanoSabers on hard difficulty? Default: true")
         public boolean zombieSpawnWithSabers = true;
@@ -167,6 +165,22 @@ public class ConfigHolder {
         @Config.RequiresMcRestart
         public int energyConsumption = 64;
     }
+
+
+
+    public static class NanoBowConfiguration {
+
+        @Config.RangeDouble(min = 0, max = Integer.MAX_VALUE)
+        @Config.Comment("The base damage of the NanoBow arrows. Default: 24.0")
+        @Config.RequiresMcRestart
+        public double nanoBowBaseDamage = 24;
+
+        @Config.RangeInt(min = 1, max = 16384)
+        @Config.Comment("The EU/shot consumption of the NanoBow. Default: 64")
+        @Config.RequiresMcRestart
+        public int energyConsumption = 6400;
+    }
+
 
     @Config.Comment({"Sets HUD location", "1 - left-upper conrer", "2 - right-upper corner", "3 - left-bottom corner", "4 - right-bottom corner"})
     public static byte hudLocation = 1;

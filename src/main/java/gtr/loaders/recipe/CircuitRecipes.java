@@ -32,13 +32,12 @@ public class CircuitRecipes {
             .outputs(MetaItems.BOARD_LV.getStackForm())
             .buildAndRegister();
 
-        RecipeMaps.FORMING_PRESS_RECIPES.recipeBuilder().duration(250).EUt(12)
-            .input(OrePrefix.plate, Materials.Polyethylene)
-            .input(OrePrefix.ring, Materials.Brass, 2)
-            .input(OrePrefix.dustTiny, Materials.Silicon, 10)
-            .input(OrePrefix.dust, Materials.FerrousChloride)
+        RecipeMaps.CHEMICAL_BATH_RECIPES.recipeBuilder().duration(250).EUt(12)
+            .inputs(MetaItems.BOARD_LV.getStackForm())
+            .fluidInputs(Materials.Phenol.getFluid(L / 2))
             .outputs(MetaItems.BOARD_MV.getStackForm())
             .buildAndRegister();
+
 
         RecipeMaps.FORMING_PRESS_RECIPES.recipeBuilder().duration(270).EUt(12)
             .input(OrePrefix.plate, Materials.Epoxid)
@@ -159,7 +158,7 @@ public class CircuitRecipes {
             .outputs(MetaItems.CIRCUIT_MV.getStackForm())
             .buildAndRegister();
 
-        RecipeMaps.ASSEMBLER_RECIPES.recipeBuilder().duration(400).EUt(24)
+        RecipeMaps.ASSEMBLER_RECIPES.recipeBuilder().duration(400).EUt(96)
             .inputs(MetaItems.BOARD_HV.getStackForm(), MetaItems.SOC_HV.getStackForm(),
                 MetaItems.WIRING_HV.getStackForm(2), OreDictUnifier.get(OrePrefix.dust, Materials.AmmoniumPersulfate, 2), MetaItems.ETCHING_KIT_HV.getStackForm(),
                 OreDictUnifier.get(OrePrefix.dust, Materials.Gold, 2))
@@ -167,25 +166,17 @@ public class CircuitRecipes {
             .outputs(MetaItems.CIRCUIT_HV.getStackForm())
             .buildAndRegister();
 
-        RecipeMaps.ASSEMBLER_RECIPES.recipeBuilder().duration(400).EUt(24)
+        RecipeMaps.ASSEMBLER_RECIPES.recipeBuilder().duration(400).EUt(384)
             .inputs(MetaItems.BOARD_EV.getStackForm(), MetaItems.SOC_EV.getStackForm(), MetaItems.ETCHING_KIT_EV.getStackForm(),
                 MetaItems.WIRING_EV.getStackForm(2), OreDictUnifier.get(OrePrefix.dust, Materials.AmmoniumPersulfate, 4),
                 OreDictUnifier.get(OrePrefix.dustSmall, Materials.AcrylonitrileButadieneStyrene, 6),
                 OreDictUnifier.get(OrePrefix.dust, Materials.Gold, 2))
-            .fluidInputs(Materials.BisphenolA.getFluid(200), Materials.SolderingAlloy.getFluid(L * 3), Materials.Acetonitrile.getFluid(L/2))
+            .fluidInputs(Materials.Acrylic.getFluid(200), Materials.SolderingAlloy.getFluid(L * 3), Materials.Acetonitrile.getFluid(L/2))
             .outputs(MetaItems.CIRCUIT_EV.getStackForm())
             .buildAndRegister();
 
-        RecipeMaps.ASSEMBLER_RECIPES.recipeBuilder().duration(400).EUt(24)
-            .inputs(MetaItems.BOARD_EV.getStackForm(), MetaItems.SOC_EV.getStackForm(), MetaItems.ETCHING_KIT_EV.getStackForm(),
-                MetaItems.WIRING_EV.getStackForm(2), OreDictUnifier.get(OrePrefix.dust, Materials.AmmoniumPersulfate, 4),
-                OreDictUnifier.get(OrePrefix.dustSmall, Materials.AcrylonitrileButadieneStyrene, 6),
-                OreDictUnifier.get(OrePrefix.dust, Materials.Gold, 2))
-            .fluidInputs(Materials.PolyvinylAcetate.getFluid(20), Materials.SolderingAlloy.getFluid(L * 3), Materials.Acetonitrile.getFluid(L/2))
-            .outputs(MetaItems.CIRCUIT_EV.getStackForm())
-            .buildAndRegister();
 
-        RecipeMaps.ASSEMBLER_RECIPES.recipeBuilder().duration(400).EUt(2048)
+        RecipeMaps.ASSEMBLER_RECIPES.recipeBuilder().duration(400).EUt(1536)
             .inputs(OreDictUnifier.get(OrePrefix.frameGt, Materials.Steel), MetaItems.CIRCUIT_EV.getStackForm(4),
                 OreDictUnifier.get(OrePrefix.cableGtDouble, Materials.Superconductor, 16), MetaItems.ENERGY_LAPOTRONIC_ORB.getStackForm())
             .fluidInputs(Materials.SolderingAlloy.getFluid(L * 16), Materials.Technetium.getFluid(L * 2))

@@ -21,8 +21,8 @@ public class LargeTransformerInfo extends MultiblockInfoPage {
         MultiblockShapeInfo shapeInfo = MultiblockShapeInfo.builder()
             .aisle("ISO")
             .where('S', MetaTileEntities.LARGE_TRANSFORMER, EnumFacing.SOUTH)
-            .where('O', MetaTileEntities.ENERGY_OUTPUT_HATCH[0][0], EnumFacing.EAST)
-            .where('I', MetaTileEntities.ENERGY_INPUT_HATCH[0][0], EnumFacing.WEST)
+            .where('O', MetaTileEntities.ENERGY_OUTPUT_HATCH[0], EnumFacing.EAST)
+            .where('I', MetaTileEntities.ENERGY_INPUT_HATCH[0], EnumFacing.WEST)
             .build();
         return Lists.newArrayList(shapeInfo);
     }

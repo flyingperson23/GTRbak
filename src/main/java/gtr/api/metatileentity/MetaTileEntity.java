@@ -9,6 +9,7 @@ import codechicken.lib.texture.TextureUtils;
 import codechicken.lib.vec.Cuboid6;
 import codechicken.lib.vec.Matrix4;
 import com.google.common.base.Preconditions;
+import gtr.GregTechMod;
 import gtr.api.GregTechAPI;
 import gtr.api.capability.GregtechTileCapabilities;
 import gtr.api.capability.IEnergyContainer;
@@ -124,7 +125,7 @@ public abstract class MetaTileEntity implements ICoverable {
     }
 
     public long getTimer() {
-        return holder == null ? 0L : holder.getTimer();
+        return GregTechMod.instance.counter;
     }
 
     public void writeCustomData(int discriminator, Consumer<PacketBuffer> dataWriter) {

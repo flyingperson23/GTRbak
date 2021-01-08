@@ -1,14 +1,17 @@
 package gtr.common;
 
+import akka.japi.Pair;
 import gtr.GregTechMod;
 import gtr.api.GTValues;
 import gtr.api.capability.GregtechCapabilities;
 import gtr.api.capability.IElectricItem;
 import gtr.api.capability.IEnergyContainer;
 import gtr.api.items.armor.ArmorMetaItem;
+import gtr.api.items.metaitem.MetaItem;
 import gtr.api.items.toolitem.ItemCatcher;
 import gtr.api.net.KeysPacket;
 import gtr.api.pipenet.Node;
+import gtr.api.util.BaublesHelper;
 import gtr.common.armor.ArmorLogicSuite;
 import gtr.common.armor.ArmorUtils;
 import gtr.common.input.Key;
@@ -29,10 +32,14 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.ConfigManager;
@@ -40,11 +47,13 @@ import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.EnderTeleportEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -52,6 +61,8 @@ import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.Random;
 
 @Mod.EventBusSubscriber
 public class EventHandlers {
@@ -88,6 +99,11 @@ public class EventHandlers {
         }
     }
 
+    private static int c1;
+    private static int c2;
+    private static boolean c3;
+    private static final Random rand = new Random();
+
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public static void onToolTooltip(ItemTooltipEvent event) {
@@ -98,6 +114,31 @@ public class EventHandlers {
                 TextFormatting.YELLOW + "" + TextFormatting.ITALIC + I18n.format("tooltip.magnetic"));
         }
 
+        if (event.getEntityPlayer() != null && stack.getItem() instanceof MetaItem<?>) {
+            MetaItem<?>.MetaValueItem i = ((MetaItem<?>) stack.getItem()).getItem(stack);
+            if (i == MetaItems.CREATIVE_BATTERY) {
+                event.getToolTip().add(TextFormatting.RED + "Do you really want to use this?");
+                event.getToolTip().add((rand.nextDouble() < 0.001D ? TextFormatting.DARK_PURPLE : TextFormatting.DARK_GRAY)+"This demonic object harnesses infinite energy through an unstable rift in spacetime");
+                if (rand.nextDouble() < 0.001 && c1 == 0) c1 = 1;
+                if (c1 > 0) {
+                    c1++;
+                    event.getToolTip().add((rand.nextDouble() < 0.3D ? TextFormatting.YELLOW : TextFormatting.RED)+"May summon demonic eldritch horrors");
+                }
+                if (c1 > 15) c1 = 0;
+
+                if (rand.nextDouble() < 0.00001 && c2 == 0) {
+                    c2 = 1;
+                    c3 = false;
+                }
+                if (c2 > 0) {
+                    c2++;
+                    event.getToolTip().add(TextFormatting.RED+"THEY'RE WATCHING YOU");
+                    if (rand.nextDouble() < 0.3D) c3 = true;
+                    if (c3) event.getToolTip().add(TextFormatting.DARK_RED+"Our bLOod is ON YOur haNDS");
+                }
+                if (c2 > 10) c2 = 0;
+            }
+        }
         if (event.getEntityPlayer() != null && stack.getItem() instanceof ArmorMetaItem<?>) {
             ArmorMetaItem<?>.ArmorMetaValueItem armorMetaValue = ((ArmorMetaItem<?>) stack.getItem()).getItem(stack);
             
@@ -277,6 +318,8 @@ public class EventHandlers {
                         chestplateElectric.discharge((long) damagePerArmorPiece * ((ArmorLogicSuite) chestplate.getArmorLogic()).getEnergyPerUse(), chestplateElectric.getTier(), true, false, false);
                         leggingsElectric.discharge((long) damagePerArmorPiece * ((ArmorLogicSuite) leggings.getArmorLogic()).getEnergyPerUse(), leggingsElectric.getTier(), true, false, false);
                         bootsElectric.discharge((long) damagePerArmorPiece * ((ArmorLogicSuite) boots.getArmorLogic()).getEnergyPerUse(), bootsElectric.getTier(), true, false, false);
+                        ((WorldServer) entity.world).spawnParticle(EnumParticleTypes.SPELL_WITCH, false,
+                            entity.posX, entity.posY, entity.posZ, 4, 0.0, 0.0, 0.0, 0.1);
                         event.setCanceled(true);
 
                     }
@@ -311,16 +354,13 @@ public class EventHandlers {
             if (GregTechMod.instance.counter % 3 == 0) {
                 eu = 0;
                 maxeu = 0;
-                for (ItemStack s : Minecraft.getMinecraft().player.getEquipmentAndArmor()) {
-                    if (s.hasCapability(GregtechCapabilities.CAPABILITY_ENERGY_CONTAINER, null)) {
-                        IEnergyContainer c = s.getCapability(GregtechCapabilities.CAPABILITY_ENERGY_CONTAINER, null);
-                        eu += c.getEnergyStored();
-                        maxeu += c.getEnergyCapacity();
-                    } else if (s.hasCapability(GregtechCapabilities.CAPABILITY_ELECTRIC_ITEM, null)) {
-                        IElectricItem c = s.getCapability(GregtechCapabilities.CAPABILITY_ELECTRIC_ITEM, null);
-                        eu += c.getCharge();
-                        maxeu += c.getMaxCharge();
-                    }
+                countItems(Minecraft.getMinecraft().player.inventory.armorInventory);
+                countItems(Minecraft.getMinecraft().player.inventory.mainInventory);
+                countItems(Minecraft.getMinecraft().player.inventory.offHandInventory);
+                if (Loader.isModLoaded("baubles")) {
+                    Pair<Long, Long> i = BaublesHelper.getStuff(Minecraft.getMinecraft().player);
+                    eu += i.first();
+                    maxeu += i.second();
                 }
             }
             if (maxeu != 0) {
@@ -328,6 +368,38 @@ public class EventHandlers {
             }
         }
 
+
     }
 
+    private static void countItems(NonNullList<ItemStack> items) {
+        if (items != null) {
+            for (ItemStack s : items) {
+                if (s.hasCapability(GregtechCapabilities.CAPABILITY_ENERGY_CONTAINER, null)) {
+                    IEnergyContainer c = s.getCapability(GregtechCapabilities.CAPABILITY_ENERGY_CONTAINER, null);
+                    eu += c.getEnergyStored();
+                    maxeu += c.getEnergyCapacity();
+                } else if (s.hasCapability(GregtechCapabilities.CAPABILITY_ELECTRIC_ITEM, null)) {
+                    IElectricItem c = s.getCapability(GregtechCapabilities.CAPABILITY_ELECTRIC_ITEM, null);
+                    eu += c.getCharge();
+                    maxeu += c.getMaxCharge();
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onBossKilled(LivingDeathEvent event) {
+        if (event.getSource().getTrueSource() instanceof EntityPlayer) {
+            EntityPlayer player = (EntityPlayer) event.getSource().getTrueSource();
+            if (player.getHeldItemMainhand().getItem() instanceof MetaItem<?>) {
+                MetaItem.MetaValueItem item = ((MetaItem) player.getHeldItemMainhand().getItem()).getItem(player.getHeldItemMainhand());
+                if ((item == MetaItems.NANO_SABER || item == MetaItems.NANO_BOW) && !event.getEntity().isNonBoss()) {
+                    ItemStack heldItem = player.getHeldItemMainhand();
+                    if (!heldItem.hasTagCompound()) heldItem.setTagCompound(new NBTTagCompound());
+                    if (!heldItem.getTagCompound().hasKey("BossKills")) heldItem.getTagCompound().setInteger("BossKills", 0);
+                    heldItem.getTagCompound().setInteger("BossKills", 1 + heldItem.getTagCompound().getInteger("BossKills"));
+                }
+            }
+        }
+    }
 }

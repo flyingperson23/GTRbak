@@ -116,8 +116,8 @@ public final class MetaItems {
 
     public static MetaItem<?>.MetaValueItem ENERGY_LAPOTRONIC_ORB;
     public static MetaItem<?>.MetaValueItem ENERGY_LAPOTRONIC_ORB2;
-    public static MetaItem<?>.MetaValueItem ZPM;
-    public static MetaItem<?>.MetaValueItem ZPM2;
+    public static MetaItem<?>.MetaValueItem ENERGY_INFUSED_LAPOTRONIC_ORB;
+    public static MetaItem<?>.MetaValueItem CREATIVE_BATTERY;
 
     public static MetaItem<?>.MetaValueItem ELECTRIC_MOTOR_LV;
     public static MetaItem<?>.MetaValueItem ELECTRIC_MOTOR_MV;
@@ -171,9 +171,6 @@ public final class MetaItems {
     public static MetaItem<?>.MetaValueItem SENSOR_EV;
     public static MetaItem<?>.MetaValueItem SENSOR_IV;
 
-    public static MetaItem<?>.MetaValueItem TOOL_DATA_STICK;
-    public static MetaItem<?>.MetaValueItem TOOL_DATA_ORB;
-
     public static MetaItem<?>.MetaValueItem WIRING_LV;
     public static MetaItem<?>.MetaValueItem WIRING_MV;
     public static MetaItem<?>.MetaValueItem WIRING_HV;
@@ -209,7 +206,6 @@ public final class MetaItems {
 
     public static MetaItem<?>.MetaValueItem QUANTUM_EYE;
     public static MetaItem<?>.MetaValueItem QUANTUM_STAR;
-    public static MetaItem<?>.MetaValueItem GRAVI_STAR;
 
     public static MetaItem<?>.MetaValueItem ITEM_FILTER;
     public static MetaItem<?>.MetaValueItem ORE_DICTIONARY_FILTER;
@@ -242,7 +238,6 @@ public final class MetaItems {
 
     public static MetaItem<?>.MetaValueItem BOTTLE_PURPLE_DRINK;
 
-    public static MetaItem<?>.MetaValueItem DYE_INDIGO;
     public static MetaItem<?>.MetaValueItem PLANT_BALL;
     public static MetaItem<?>.MetaValueItem RUBBER_DROP;
     public static MetaItem<?>.MetaValueItem ENERGIUM_DUST;
@@ -253,10 +248,12 @@ public final class MetaItems {
     public static MetaItem<?>.MetaValueItem JACKHAMMER_BASE;
 
     public static MetaItem<?>.MetaValueItem NANO_SABER;
+    public static MetaItem<?>.MetaValueItem NANO_BOW;
     public static MetaItem<?>.MetaValueItem ENERGY_FIELD_PROJECTOR;
     public static MetaItem<?>.MetaValueItem SCANNER;
 
-    public static MetaItem<?>.MetaValueItem[] DYE_ONLY_ITEMS = new MetaItem.MetaValueItem[EnumDyeColor.values().length];
+    public static MetaItem<?>.MetaValueItem ELECTROMAGNET;
+
     public static MetaItem<?>.MetaValueItem[] SPRAY_CAN_DYES = new MetaItem.MetaValueItem[EnumDyeColor.values().length];
 
     public static MetaItem<?>.MetaValueItem TURBINE_ROTOR;
