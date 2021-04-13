@@ -81,13 +81,13 @@ public abstract class MetaTileEntity implements ICoverable {
     protected EnumFacing frontFacing = EnumFacing.NORTH;
     protected int paintingColor = DEFAULT_PAINTING_COLOR;
 
-    private int[] sidedRedstoneOutput = new int[6];
-    private int[] sidedRedstoneInput = new int[6];
+    private final int[] sidedRedstoneOutput = new int[6];
+    private final int[] sidedRedstoneInput = new int[6];
     private int cachedComparatorValue;
     private int cachedLightValue;
     protected boolean isFragile = false;
 
-    private CoverBehavior[] coverBehaviors = new CoverBehavior[6];
+    private final CoverBehavior[] coverBehaviors = new CoverBehavior[6];
 
     public MetaTileEntity(ResourceLocation metaTileEntityId) {
         this.metaTileEntityId = metaTileEntityId;

@@ -37,7 +37,7 @@ import net.minecraftforge.fml.common.asm.transformers.deobf.FMLDeobfuscatingRema
 public class ObfMapping extends Remapper {
     
 	//Use when unit testing is a thing.
-    private static boolean isUnitTest = Boolean.getBoolean("ccl.unit_testing");
+    private static final boolean isUnitTest = Boolean.getBoolean("ccl.unit_testing");
     public static ObfRemapper obfMapper = new ObfRemapper();
     public static Remapper mcpMapper = null;
     public static final boolean obfuscated;

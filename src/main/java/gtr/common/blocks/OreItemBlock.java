@@ -11,7 +11,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class OreItemBlock extends ItemBlock {
 
-    private BlockOre oreBlock;
+    private final BlockOre oreBlock;
 
     public OreItemBlock(BlockOre oreBlock) {
         super(oreBlock);
@@ -29,7 +29,6 @@ public class OreItemBlock extends ItemBlock {
         return new CreativeTabs[] {CreativeTabs.SEARCH, GregTechAPI.TAB_GREGTECH_ORES};
     }
 
-    @SuppressWarnings("deprecation")
     protected IBlockState getBlockState(ItemStack stack) {
         return oreBlock.getStateFromMeta(getMetadata(stack.getItemDamage()));
     }

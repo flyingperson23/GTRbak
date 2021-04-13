@@ -1,18 +1,23 @@
 package gtr.common.tools;
 
+import gtr.api.capability.GregtechCapabilities;
 import gtr.api.items.toolitem.IToolStats;
+import gtr.api.items.toolitem.ToolHooks;
 import gtr.api.items.toolitem.ToolMetaItem;
 import gtr.api.items.toolitem.ToolMetaItem.MetaToolValueItem;
 import gtr.api.unification.OreDictUnifier;
 import gtr.api.unification.material.type.SolidMaterial;
 import gtr.api.util.function.Task;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.util.math.Vec3i;
@@ -114,12 +119,35 @@ public class TreeChopTask implements Task {
             BlockPos woodPos = woodBlockPos.get(currentWoodBlockIndex++);
             IBlockState blockState = this.world.getBlockState(woodPos);
             if(isLogBlock(blockState) == 1) {
-                this.world.destroyBlock(woodPos, true);
+                destroyBlock(woodPos, itemStack.hasCapability(GregtechCapabilities.CAPABILITY_ELECTRIC_ITEM, null));
                 return true;
             }
             return true;
         }
         return false;
+    }
+
+    public boolean destroyBlock(BlockPos pos, boolean inInv) {
+        IBlockState iblockstate = this.world.getBlockState(pos);
+        Block block = iblockstate.getBlock();
+
+        if (block.isAir(iblockstate, this.world, pos)) {
+            return false;
+        } else {
+            this.world.playEvent(2001, pos, Block.getStateId(iblockstate));
+
+            if (inInv) {
+                NonNullList<ItemStack> drops = NonNullList.create();
+                block.getDrops(drops, world, pos, iblockstate, 0);
+                for (ItemStack s : drops) {
+                    ToolHooks.giveItemToPlayerSilent(player, s, -1);
+                }
+            } else {
+                block.dropBlockAsItem(this.world, pos, iblockstate, 0);
+            }
+
+            return this.world.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
+        }
     }
 
     private boolean attemptSearchWoodBlocks() {

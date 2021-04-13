@@ -106,7 +106,7 @@ public class MetaTool extends ToolMetaItem<ToolMetaItem<?>.MetaToolValueItem> {
             .setFullRepairCost(4.5)
             .addOreDict(ToolDictNames.craftingToolBlade);
 
-        SENSE = addItem(19, "tool.sense").setToolStats(new ToolSense())
+        SCYTHE = addItem(19, "tool.scythe").setToolStats(new ToolScythe())
             .setFullRepairCost(3)
             .addOreDict(ToolDictNames.craftingToolBlade);
 

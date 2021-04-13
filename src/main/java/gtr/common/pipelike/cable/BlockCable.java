@@ -33,6 +33,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.tuple.Pair;
@@ -100,7 +101,7 @@ public class BlockCable extends BlockMaterialPipe<Insulation, WireProperties, Wo
             if (tileEntity == null || getPipeTileEntity(tileEntity) != null) continue;
             EnumFacing opposite = side.getOpposite();
             if (tileEntity.getCapability(GregtechCapabilities.CAPABILITY_ENERGY_CONTAINER, opposite) != null ||
-            tileEntity.getCapability(CapabilityEnergy.ENERGY, opposite) != null || IC2Handler.isAcceptable(tileEntity)) {
+            tileEntity.getCapability(CapabilityEnergy.ENERGY, opposite) != null || (Loader.isModLoaded("ic2") && IC2Handler.isAcceptable(tileEntity))) {
                 activeNodeConnections |= 1 << side.getIndex();
             }
         }

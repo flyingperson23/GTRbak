@@ -182,8 +182,6 @@ public class ScannerBehavior implements IItemBehaviour, IItemUseManager {
                 long amps = WorldENet.getWorldENet(world).getNetFromPos(pos).currentAmperageCounter.get(world);
                 long volts = WorldENet.getWorldENet(world).getNetFromPos(pos).currentMaxVoltageCounter.get(world);
 
-                System.out.println(amps+" "+WorldENet.getWorldENet(world).getNetFromPos(pos).getLastAmperage());
-
                 list.add(ChatFormatting.RED + "Last Amperage: " + ChatFormatting.RESET + amps + "A");
                 list.add(ChatFormatting.RED + "Last Voltage: " + ChatFormatting.RESET + volts + "V");
             }

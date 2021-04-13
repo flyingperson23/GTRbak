@@ -133,6 +133,10 @@ public class MetaItem1 extends MaterialMetaItem {
         BATTERY_RE_LV_LITHIUM = addItem(518, "battery.re.lv.lithium").addComponents(new BaubleStats(), ElectricStats.createRechargeableBattery(100000, GTValues.LV)).setModelAmount(8);
         BATTERY_RE_LV_SODIUM = addItem(519, "battery.re.lv.sodium").addComponents(new BaubleStats(), ElectricStats.createRechargeableBattery(80000, GTValues.LV)).setModelAmount(8);
 
+        BATTERY_RE_LV_CADMIUM.addOreDict("reBattery");
+        BATTERY_RE_LV_LITHIUM.addOreDict("reBattery");
+        BATTERY_RE_LV_SODIUM.addOreDict("reBattery");
+
         BATTERY_SU_MV_SULFURIC_ACID = addItem(520, "battery.su.mv.sulfuricacid").addComponents(new BaubleStats(), ElectricStats.createBattery(72000, GTValues.MV, false)).setModelAmount(8);
         BATTERY_SU_MV_MERCURY = addItem(521, "battery.su.mv.mercury").addComponents(new BaubleStats(), ElectricStats.createBattery(128000, GTValues.MV, false)).setModelAmount(8);
 

@@ -33,7 +33,7 @@ public class TargetClassVisitor extends ClassVisitor {
         MethodVisitor visitor = super.visitMethod(access, name, desc, signature, exceptions);
         String methodKey = name + desc;
         if (this.methodKey.matches(name, desc)) {
-            FMLLog.log("GTCETransformer", Level.INFO, "Patched method %s in %s successfully", methodKey, className);
+            FMLLog.log("GTRTransformer", Level.INFO, "Patched method %s in %s successfully", methodKey, className);
             this.foundMethod = true;
             return visitorCreator.apply(visitor);
         }

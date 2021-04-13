@@ -9,6 +9,7 @@ import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
 
+
 buildscript {
     repositories {
         jcenter()
@@ -87,6 +88,10 @@ repositories {
         setUrl("modmaven.k-4u.nl")
     }
     maven {
+        name = "Curse Maven"
+        setUrl("https://www.cursemaven.com")
+    }
+    maven {
         name = "tterrag maven"
         setUrl("http://maven.tterrag.com/")
     }
@@ -98,15 +103,25 @@ repositories {
         name = "CoFH Maven"
         setUrl("http://maven.covers1624.net")
     }
-    maven {
-        name = "tehnut maven"
-        setUrl("http://tehnut.info/maven/")
-    }
+    //maven {
+    //    name = "tehnut maven"
+    //    setUrl("http://tehnut.info/maven/")
+    //}
     maven {
         name = "CraftTweaker Maven"
         setUrl("https://maven.blamejared.com/")
     }
+    maven {
+        name = "Modmaven for Applied Energistics 2"
+        setUrl("https://modmaven.dev/")
+    }
+
 }
+
+
+
+val GCBuild = "261"
+val GCVersion = "1.12.2-4.0.2.${GCBuild}"
 
 dependencies {
     "deobfCompile"("net.sengir.forestry:forestry_$mcVersion:$forestryVersion") {
@@ -119,6 +134,9 @@ dependencies {
     "deobfCompile"("mezz.jei:jei_$mcVersion:$jeiVersion")
     "deobfCompile"("mcjty.theoneprobe:TheOneProbe-$shortVersion:$shortVersion-$topVersion")
     "deobfCompile"("team.chisel.ctm:CTM:MC$mcVersion-$ctmVersion")
+    "deobfCompile"("appeng:appliedenergistics2:rv6-stable-7")
+    "deobfCompile"("curse.maven:industrial-craft-242638:2746893")
+
 }
 
 configure<JavaPluginConvention> {
@@ -151,7 +169,7 @@ val jar: Jar by tasks
 jar.apply {
     manifest {
         attributes(mapOf("FMLAT" to "gregtech_at.cfg",
-            "FMLCorePlugin" to "gtr.common.asm.GTCELoadingPlugin",
+            "FMLCorePlugin" to "gtr.common.asm.GTRLoadingPlugin",
             "FMLCorePluginContainsFMLMod" to "true"))
     }
 }

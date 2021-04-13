@@ -95,7 +95,7 @@ public enum OrePrefix {
     toolHeadUniversalSpade("Universal Spade Heads", M, null, MaterialIconType.toolHeadUniversalSpade, ENABLE_UNIFICATION, isToolMaterial), // made of 1 Ingots.
     toolHeadAxe("Axe Heads", M * 3, null, MaterialIconType.toolHeadAxe, ENABLE_UNIFICATION, isToolMaterial), // made of 3 Ingots.
     toolHeadHoe("Hoe Heads", M * 2, null, MaterialIconType.toolHeadHoe, ENABLE_UNIFICATION, isToolMaterial), // made of 2 Ingots.
-    toolHeadSense("Sense Blades", M * 3, null, MaterialIconType.toolHeadSense, ENABLE_UNIFICATION, isToolMaterial), // made of 3 Ingots.
+    toolHeadScythe("scythe Blades", M * 3, null, MaterialIconType.toolHeadScythe, ENABLE_UNIFICATION, isToolMaterial), // made of 3 Ingots.
     toolHeadFile("File Heads", M * 2, null, MaterialIconType.toolHeadFile, ENABLE_UNIFICATION, isToolMaterial), // made of 2 Ingots.
     toolHeadHammer("Hammer Heads", M * 6, null, MaterialIconType.toolHeadHammer, ENABLE_UNIFICATION, isToolMaterial), // made of 6 Ingots.
     toolHeadSaw("Saw Blades", M * 2, null, MaterialIconType.toolHeadSaw, ENABLE_UNIFICATION, isToolMaterial), // made of 2 Ingots.
@@ -183,7 +183,7 @@ public enum OrePrefix {
         toolHeadUniversalSpade.maxStackSize = 16;
         toolHeadAxe.maxStackSize = 16;
         toolHeadHoe.maxStackSize = 16;
-        toolHeadSense.maxStackSize = 16;
+        toolHeadScythe.maxStackSize = 16;
         toolHeadFile.maxStackSize = 16;
         toolHeadHammer.maxStackSize = 16;
         toolHeadSaw.maxStackSize = 16;

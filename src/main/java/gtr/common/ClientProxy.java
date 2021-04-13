@@ -1,10 +1,16 @@
 package gtr.common;
 
+import appeng.api.util.AEColor;
+import appeng.client.render.StaticItemColor;
 import codechicken.lib.texture.TextureUtils;
 import codechicken.lib.util.ResourceUtils;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture.Type;
 import com.mojang.realmsclient.gui.ChatFormatting;
+import gtr.GregTechMod;
 import gtr.api.GTValues;
+import gtr.api.net.KeysPacket;
+import gtr.api.net.KeysUpdateHandler;
+import gtr.api.net.displayrecipes.*;
 import gtr.api.render.MetaTileEntityRenderer;
 import gtr.api.render.ToolRenderHandler;
 import gtr.api.unification.OreDictUnifier;
@@ -20,6 +26,8 @@ import gtr.common.items.MetaItems;
 import gtr.common.render.CableRenderer;
 import gtr.common.render.FluidPipeRenderer;
 import gtr.common.render.StoneRenderer;
+import gtr.integration.energistics.items.AEItems;
+import gtr.integration.energistics.render.Textures;
 import net.minecraft.block.BlockColored;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -38,8 +46,11 @@ import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -114,12 +125,18 @@ public class ClientProxy extends CommonProxy {
         TextureUtils.addIconRegister(MetaFluids::registerSprites);
         Keybinds.initBinds();
         MinecraftForge.EVENT_BUS.register(ToolRenderHandler.INSTANCE);
+        if (Loader.isModLoaded("appliedenergistics2")) TextureUtils.addIconRegister(Textures::register);
+
     }
 
     @Override
     public void onLoad() {
         super.onLoad();
         registerColors();
+        if (Loader.isModLoaded("appliedenergistics2")) {
+            Minecraft.getMinecraft().getItemColors().registerItemColorHandler(new StaticItemColor(AEColor.TRANSPARENT),
+                AEItems.metaItem1);
+        }
         try {
             Keybinds.registerClient();
         } catch (Exception ignored) {}

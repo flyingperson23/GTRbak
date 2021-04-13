@@ -279,7 +279,7 @@ public final class MetaItems {
     public static ToolMetaItem<?>.MetaToolValueItem UNIVERSAL_SPADE;
     public static ToolMetaItem<?>.MetaToolValueItem KNIFE;
     public static ToolMetaItem<?>.MetaToolValueItem BUTCHERY_KNIFE;
-    public static ToolMetaItem<?>.MetaToolValueItem SENSE;
+    public static ToolMetaItem<?>.MetaToolValueItem SCYTHE;
     public static ToolMetaItem<?>.MetaToolValueItem PLUNGER;
     public static ToolMetaItem<?>.MetaToolValueItem DRILL_LV;
     public static ToolMetaItem<?>.MetaToolValueItem DRILL_MV;

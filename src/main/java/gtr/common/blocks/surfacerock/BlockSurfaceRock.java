@@ -35,6 +35,13 @@ public abstract class BlockSurfaceRock extends Block {
         setLightOpacity(1);
     }
 
+    @Override
+    public boolean isPassable(IBlockAccess worldIn, BlockPos pos)
+    {
+        return true;
+    }
+
+
     public abstract Material getStoneMaterial(IBlockAccess blockAccess, BlockPos pos, IBlockState blockState);
 
     @Override

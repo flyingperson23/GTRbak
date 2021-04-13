@@ -47,6 +47,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.ItemHandlerHelper;
@@ -696,44 +697,46 @@ public abstract class MetaItem<T extends MetaItem<?>.MetaValueItem> extends Item
 
         protected void addItemComponentsInternal(IMetaItemStats... stats) {
             for (IMetaItemStats itemComponent : stats) {
-                if (itemComponent instanceof IItemNameProvider) {
-                    this.nameProvider = (IItemNameProvider) itemComponent;
-                }
-                if (itemComponent instanceof IItemMaxStackSizeProvider) {
-                    this.stackSizeProvider = (IItemMaxStackSizeProvider) itemComponent;
-                }
-                if (itemComponent instanceof ISubItemHandler) {
-                    this.subItemHandler = (ISubItemHandler) itemComponent;
-                }
-                if (itemComponent instanceof IItemContainerItemProvider) {
-                    this.containerItemProvider = (IItemContainerItemProvider) itemComponent;
-                }
-                if (itemComponent instanceof IItemDurabilityManager) {
-                    this.durabilityManager = (IItemDurabilityManager) itemComponent;
-                }
-                if (itemComponent instanceof IItemUseManager) {
-                    this.useManager = (IItemUseManager) itemComponent;
-                }
-                if (itemComponent instanceof IFoodBehavior) {
-                    this.useManager = new FoodUseManager((IFoodBehavior) itemComponent);
-                }
-                if (itemComponent instanceof ItemUIFactory)
-                    this.uiManager = (ItemUIFactory) itemComponent;
+                if (!(itemComponent instanceof BaubleStats && !Loader.isModLoaded("baubles"))) {
+                    if (itemComponent instanceof IItemNameProvider) {
+                        this.nameProvider = (IItemNameProvider) itemComponent;
+                    }
+                    if (itemComponent instanceof IItemMaxStackSizeProvider) {
+                        this.stackSizeProvider = (IItemMaxStackSizeProvider) itemComponent;
+                    }
+                    if (itemComponent instanceof ISubItemHandler) {
+                        this.subItemHandler = (ISubItemHandler) itemComponent;
+                    }
+                    if (itemComponent instanceof IItemContainerItemProvider) {
+                        this.containerItemProvider = (IItemContainerItemProvider) itemComponent;
+                    }
+                    if (itemComponent instanceof IItemDurabilityManager) {
+                        this.durabilityManager = (IItemDurabilityManager) itemComponent;
+                    }
+                    if (itemComponent instanceof IItemUseManager) {
+                        this.useManager = (IItemUseManager) itemComponent;
+                    }
+                    if (itemComponent instanceof IFoodBehavior) {
+                        this.useManager = new FoodUseManager((IFoodBehavior) itemComponent);
+                    }
+                    if (itemComponent instanceof ItemUIFactory)
+                        this.uiManager = (ItemUIFactory) itemComponent;
 
-                if (itemComponent instanceof IItemColorProvider) {
-                    this.colorProvider = (IItemColorProvider) itemComponent;
+                    if (itemComponent instanceof IItemColorProvider) {
+                        this.colorProvider = (IItemColorProvider) itemComponent;
+                    }
+                    if (itemComponent instanceof IItemModelIndexProvider) {
+                        this.modelIndexProvider = (IItemModelIndexProvider) itemComponent;
+                    }
+                    if (itemComponent instanceof IItemBehaviour) {
+                        this.behaviours.add((IItemBehaviour) itemComponent);
+                        ((IItemBehaviour) itemComponent).onAddedToItem(this);
+                    }
+                    if (itemComponent instanceof IEnchantabilityHelper) {
+                        this.enchantabilityHelper = (IEnchantabilityHelper) itemComponent;
+                    }
+                    this.allStats.add(itemComponent);
                 }
-                if (itemComponent instanceof IItemModelIndexProvider) {
-                    this.modelIndexProvider = (IItemModelIndexProvider) itemComponent;
-                }
-                if (itemComponent instanceof IItemBehaviour) {
-                    this.behaviours.add((IItemBehaviour) itemComponent);
-                    ((IItemBehaviour) itemComponent).onAddedToItem(this);
-                }
-                if(itemComponent instanceof IEnchantabilityHelper) {
-                    this.enchantabilityHelper = (IEnchantabilityHelper) itemComponent;
-                }
-                this.allStats.add(itemComponent);
             }
         }
 

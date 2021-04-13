@@ -53,6 +53,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import static gtr.api.util.InventoryUtils.simulateItemStackMerge;
+
 public class MetaTileEntityPrimitiveBlastFurnace extends MultiblockControllerBase {
 
     private static final List<OrePrefix> FUEL_DISPLAY_PREFIXES = ImmutableList.of(
@@ -133,8 +135,11 @@ public class MetaTileEntityPrimitiveBlastFurnace extends MultiblockControllerBas
     }
 
     private boolean setupRecipe(ItemStack inputStack, int fuelAmount, PrimitiveBlastFurnaceRecipe recipe) {
+        List<ItemStack> outputs = new ArrayList<>();
+        outputs.add(recipe.getOutput());
+        outputs.add(getAshForRecipeFuelConsumption(recipe.getFuelAmount()));
         return inputStack.getCount() >= recipe.getInput().getCount() && fuelAmount >= recipe.getFuelAmount() &&
-            ItemHandlerHelper.insertItemStacked(exportItems, recipe.getOutput(), true).isEmpty();
+            simulateItemStackMerge(outputs, exportItems);
     }
 
     private boolean tryPickNewRecipe() {

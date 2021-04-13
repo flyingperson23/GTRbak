@@ -8,7 +8,10 @@ import gtr.api.cover.CoverBehaviorUIFactory;
 import gtr.api.items.gui.PlayerInventoryUIFactory;
 import gtr.api.metatileentity.MetaTileEntityUIFactory;
 import gtr.api.model.ResourcePackHook;
+import gtr.api.net.KeysPacket;
+import gtr.api.net.KeysUpdateHandler;
 import gtr.api.net.NetworkHandler;
+import gtr.api.net.displayrecipes.*;
 import gtr.api.recipes.RecipeMap;
 import gtr.api.unification.OreDictUnifier;
 import gtr.api.unification.material.Materials;
@@ -19,6 +22,7 @@ import gtr.api.util.NBTUtil;
 import gtr.api.worldgen.config.WorldGenRegistry;
 import gtr.common.*;
 import gtr.common.asm.CustomClassWriter;
+import gtr.common.asm.confirmer.ServerConfirmer;
 import gtr.common.blocks.MetaBlocks;
 import gtr.common.blocks.modelfactories.BlockCompressedFactory;
 import gtr.common.blocks.modelfactories.BlockFrameFactory;
@@ -43,6 +47,10 @@ import gtr.integration.betterpipes.network.MessageGetConnections;
 import gtr.integration.betterpipes.network.MessagePlaySound;
 import gtr.integration.betterpipes.network.MessageReturnConnections;
 import gtr.integration.betterpipes.network.MessageSwingArm;
+import gtr.integration.energistics.covers.AECoverBehaviors;
+import gtr.integration.energistics.gui.GuiProxy;
+import gtr.integration.energistics.items.AEItems;
+import gtr.integration.energistics.networking.PacketCompressedNBT;
 import gtr.integration.multi.client.PreviewHandler;
 import gtr.integration.theoneprobe.TheOneProbeCompatibility;
 import gtr.integration.tinkers.TinkersMaterials;
@@ -65,7 +73,7 @@ import java.util.ArrayList;
 @Mod(modid = GTValues.MODID,
     name = "GT: Remastered",
     acceptedMinecraftVersions = "[1.12,1.13)",
-    dependencies = "required:forge@[14.23.5.2847,);" + CodeChickenLib.MOD_VERSION_DEP + "after:forestry;after:tconstruct;required:ctm;after:forgemultipartcbe;after:jei@[4.15.0,);after:crafttweaker;after:ic2;")
+    dependencies = "required:forge@[14.23.5.2847,);" + CodeChickenLib.MOD_VERSION_DEP + "after:forestry;after:appliedenergistics2;after:tconstruct;required:ctm;after:forgemultipartcbe;after:jei@[4.15.0,);after:crafttweaker;after:ic2;")
 public class GregTechMod {
 
     public int counter = 0;
@@ -85,6 +93,9 @@ public class GregTechMod {
 
     @SidedProxy(modId = GTValues.MODID, clientSide = "gtr.common.ClientProxy", serverSide = "gtr.common.CommonProxy")
     public static CommonProxy proxy;
+
+    @SidedProxy(clientSide = "gtr.common.asm.confirmer.ClientConfirmer", serverSide = "gtr.common.asm.confirmer.ServerConfirmer")
+    public static ServerConfirmer asmConfirmer;
 
     public static final SimpleNetworkWrapper WRENCH_NET_WRAPPER = NetworkRegistry.INSTANCE.newSimpleChannel("gtr.wrenchnet");
 
@@ -137,18 +148,31 @@ public class GregTechMod {
 
         proxy.onPreLoad();
 
+        if (Loader.isModLoaded("appliedenergistics2")) AEItems.preInit();
+
         Keybinds.register();
 
         if (ConfigHolder.GregsConstruct.EnableGregsConstruct && Loader.isModLoaded("tconstruct"))
             TinkersMaterials.preInit();
-
     }
 
     @Mod.EventHandler
     public void onInit(FMLInitializationEvent event) {
-
         proxy.onLoad();
-        proxy.init(event);
+
+        GregTechMod.DISPLAY_INFO_WRAPPER.registerMessage(MessageSetFuelDieselEngine.MessageHandler.class, MessageSetFuelDieselEngine.class, 0, Side.CLIENT);
+        GregTechMod.DISPLAY_INFO_WRAPPER.registerMessage(MessageRequestFuelDieselEngine.MessageHandler.class, MessageRequestFuelDieselEngine.class, 1, Side.SERVER);
+        GregTechMod.DISPLAY_INFO_WRAPPER.registerMessage(MessageSetFuelLargeTurbine.MessageHandler.class, MessageSetFuelLargeTurbine.class, 2, Side.CLIENT);
+        GregTechMod.DISPLAY_INFO_WRAPPER.registerMessage(MessageRequestFuelLargeTurbine.MessageHandler.class, MessageRequestFuelLargeTurbine.class, 3, Side.SERVER);
+        GregTechMod.DISPLAY_INFO_WRAPPER.registerMessage(MessageSetRecipeMultiblock.MessageHandler.class, MessageSetRecipeMultiblock.class, 4, Side.CLIENT);
+        GregTechMod.DISPLAY_INFO_WRAPPER.registerMessage(MessageRequestRecipeMultiblock.MessageHandler.class, MessageRequestRecipeMultiblock.class, 5, Side.SERVER);
+        GregTechMod.DISPLAY_INFO_WRAPPER.registerMessage(KeysUpdateHandler.class, KeysPacket.class, 6, Side.SERVER);
+        if (Loader.isModLoaded("appliedenergistics2")) {
+            NetworkRegistry.INSTANCE.registerGuiHandler(GregTechMod.instance, new GuiProxy());
+            AECoverBehaviors.init();
+            GregTechMod.DISPLAY_INFO_WRAPPER.registerMessage(PacketCompressedNBT.TerminalHandler.class, PacketCompressedNBT.class, 7, Side.CLIENT);
+        }
+
         if (RecipeMap.isFoundInvalidRecipe()) {
             GTLog.logger.fatal("Seems like invalid recipe was found.");
             //crash if config setting is set to false, or we are in deobfuscated environment
@@ -197,6 +221,7 @@ public class GregTechMod {
     public void onPostInit(FMLPostInitializationEvent event) {
         proxy.onPostLoad();
 
+        asmConfirmer.confirm();
 
         GTLog.logger.log(Level.DEBUG, "Confirming ASM Transformations...");
         CustomClassWriter.customClassLoader = null;

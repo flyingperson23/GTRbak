@@ -51,7 +51,7 @@ public class MCPNames
 
 	public static boolean mcp()
 	{
-		return GTCELoadingPlugin.IN_MCP;
+		return GTRLoadingPlugin.IN_MCP;
 	}
 
 	public static String field(String srgName)

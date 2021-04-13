@@ -86,19 +86,6 @@ public class MetaTileEntityLargeHeatExchanger extends RecipeMapMultiblockControl
     }
 
     @Override
-    protected void addDisplayText(List<ITextComponent> textList) {
-        super.addDisplayText(textList);
-        if (isStructureFormed()) {
-            if (recipeMapWorkable.isActive()) {
-                if (recipeMapWorkable.previousRecipe != null) {
-                    System.out.println(recipeMapWorkable.previousRecipe.getDuration());
-                }
-            }
-            //textList.add(new TextComponentTranslation("gtr.multiblock.large_boiler.steam_output", recipeMapWorkable.rec, 16000));
-        }
-    }
-
-    @Override
     public int getLightValueForPart(IMultiblockPart sourcePart) {
         return sourcePart == null ? 0 : (recipeMapWorkable.isActive() ? 15 : 0);
     }

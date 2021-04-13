@@ -30,7 +30,7 @@ public class MetaItem2 extends MaterialMetaItem {
         super(OrePrefix.toolHeadSword, OrePrefix.toolHeadPickaxe, OrePrefix.toolHeadShovel, OrePrefix.toolHeadAxe,
             OrePrefix.toolHeadHoe, OrePrefix.toolHeadHammer, OrePrefix.toolHeadFile, OrePrefix.toolHeadSaw,
             OrePrefix.toolHeadDrill, OrePrefix.toolHeadChainsaw, OrePrefix.toolHeadWrench, OrePrefix.toolHeadUniversalSpade,
-            OrePrefix.toolHeadSense, null, OrePrefix.toolHeadBuzzSaw, OrePrefix.turbineBlade,
+            OrePrefix.toolHeadScythe, null, OrePrefix.toolHeadBuzzSaw, OrePrefix.turbineBlade,
             OrePrefix.wireFine, OrePrefix.gearSmall, OrePrefix.rotor, OrePrefix.stickLong, OrePrefix.springSmall, OrePrefix.spring,
             OrePrefix.gemChipped, OrePrefix.gemFlawed, OrePrefix.gemFlawless, OrePrefix.gemExquisite, OrePrefix.gear,
             null, null, null, null, null);
@@ -53,6 +53,9 @@ public class MetaItem2 extends MaterialMetaItem {
 
         ENERGY_CRYSTAL = addItem(212, "energy_crystal").addComponents(ElectricStats.createRechargeableBattery(4000000L, GTValues.HV)).setModelAmount(8).setMaxStackSize(1);
         LAPOTRON_CRYSTAL = addItem(213, "lapotron_crystal").addComponents(ElectricStats.createRechargeableBattery(10000000L, GTValues.EV)).setModelAmount(8).setMaxStackSize(1);
+
+        ENERGY_CRYSTAL.addOreDict("energyCrystal");
+        LAPOTRON_CRYSTAL.addOreDict("lapotronCrystal");
 
         PLANT_BALL = addItem(570, "plant_ball").setBurnValue(75);
         ENERGIUM_DUST = addItem(572, "energium_dust");

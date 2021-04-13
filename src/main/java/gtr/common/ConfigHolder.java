@@ -153,9 +153,9 @@ public class ConfigHolder {
         public double nanoSaberDamageMultiplier = 3;
 
         @Config.RangeDouble(min = 0, max = Integer.MAX_VALUE)
-        @Config.Comment("The base damage of the NanoSaber. Default: 8.0")
+        @Config.Comment("The base damage of the NanoSaber. Default: 16.0")
         @Config.RequiresMcRestart
-        public double nanoSaberBaseDamage = 8;
+        public double nanoSaberBaseDamage = 16;
 
         @Config.Comment("Should Zombies spawn with charged, active NanoSabers on hard difficulty? Default: true")
         public boolean zombieSpawnWithSabers = true;

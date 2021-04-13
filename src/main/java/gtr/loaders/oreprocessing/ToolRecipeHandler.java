@@ -41,7 +41,7 @@ public class ToolRecipeHandler {
         OrePrefix.toolHeadChainsaw.addProcessingHandler(SolidMaterial.class, ToolRecipeHandler::processChainSawHead);
         OrePrefix.toolHeadDrill.addProcessingHandler(SolidMaterial.class, ToolRecipeHandler::processDrillHead);
 
-        OrePrefix.toolHeadSense.addProcessingHandler(SolidMaterial.class, ToolRecipeHandler::processSenseHead);
+        OrePrefix.toolHeadScythe.addProcessingHandler(SolidMaterial.class, ToolRecipeHandler::processScytheHead);
         OrePrefix.toolHeadWrench.addProcessingHandler(SolidMaterial.class, ToolRecipeHandler::processWrenchHead);
         OrePrefix.toolHeadBuzzSaw.addProcessingHandler(SolidMaterial.class, ToolRecipeHandler::processBuzzSawHead);
         OrePrefix.toolHeadFile.addProcessingHandler(SolidMaterial.class, ToolRecipeHandler::processFileHead);
@@ -376,8 +376,8 @@ public class ToolRecipeHandler {
             .buildAndRegister();
     }
 
-    public static void processSenseHead(OrePrefix toolPrefix, SolidMaterial solidMaterial) {
-        processSimpleToolHead(toolPrefix, solidMaterial, MetaItems.SENSE, "PPI", "hf ");
+    public static void processScytheHead(OrePrefix toolPrefix, SolidMaterial solidMaterial) {
+        processSimpleToolHead(toolPrefix, solidMaterial, MetaItems.SCYTHE, "PPI", "hf ");
     }
 
     public static void processShovelHead(OrePrefix toolPrefix, SolidMaterial solidMaterial) {

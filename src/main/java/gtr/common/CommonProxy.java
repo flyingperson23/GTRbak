@@ -1,9 +1,5 @@
 package gtr.common;
 
-import gtr.GregTechMod;
-import gtr.api.net.KeysPacket;
-import gtr.api.net.KeysUpdateHandler;
-import gtr.api.net.displayrecipes.*;
 import gtr.api.GTValues;
 import gtr.api.block.machines.MachineItemBlock;
 import gtr.api.enchants.EnchantmentEnderDamage;
@@ -20,6 +16,7 @@ import gtr.common.items.MetaItems;
 import gtr.common.items.potions.PotionFluids;
 import gtr.common.pipelike.cable.ItemBlockCable;
 import gtr.common.pipelike.fluidpipe.ItemBlockFluidPipe;
+import gtr.integration.energistics.items.AEItems;
 import gtr.loaders.MaterialInfoLoader;
 import gtr.loaders.OreDictionaryLoader;
 import gtr.loaders.oreprocessing.DecompositionRecipeHandler;
@@ -40,11 +37,11 @@ import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.registries.IForgeRegistry;
 
 import java.util.function.Function;
@@ -54,8 +51,13 @@ import static gtr.common.blocks.MetaBlocks.*;
 @Mod.EventBusSubscriber(modid = GTValues.MODID)
 public class CommonProxy {
 
-
     public void init(FMLInitializationEvent e) {
+        /*
+        System.out.println("WHAT IN THE KENTUCKY FRIED FUCK JAVA:");
+        for (int i = 0; i < 100; i++) {
+            System.out.println("asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf");
+            GTLog.logger.log(Level.INFO, "ASDFASEDFASDFASDFFDSAADSFADFSADFS");
+        }
         GregTechMod.DISPLAY_INFO_WRAPPER.registerMessage(MessageSetFuelDieselEngine.MessageHandler.class, MessageSetFuelDieselEngine.class, 0, Side.CLIENT);
         GregTechMod.DISPLAY_INFO_WRAPPER.registerMessage(MessageRequestFuelDieselEngine.MessageHandler.class, MessageRequestFuelDieselEngine.class, 1, Side.SERVER);
         GregTechMod.DISPLAY_INFO_WRAPPER.registerMessage(MessageSetFuelLargeTurbine.MessageHandler.class, MessageSetFuelLargeTurbine.class, 2, Side.CLIENT);
@@ -63,6 +65,11 @@ public class CommonProxy {
         GregTechMod.DISPLAY_INFO_WRAPPER.registerMessage(MessageSetRecipeMultiblock.MessageHandler.class, MessageSetRecipeMultiblock.class, 4, Side.CLIENT);
         GregTechMod.DISPLAY_INFO_WRAPPER.registerMessage(MessageRequestRecipeMultiblock.MessageHandler.class, MessageRequestRecipeMultiblock.class, 5, Side.SERVER);
         GregTechMod.DISPLAY_INFO_WRAPPER.registerMessage(KeysUpdateHandler.class, KeysPacket.class, 6, Side.SERVER);
+        //if (Loader.isModLoaded("appliedenergistics2")) {
+        //    NetworkRegistry.INSTANCE.registerGuiHandler(GregTechMod.instance, new GuiProxy());
+        //    CoverBehaviors.init();
+        //    GregTechMod.DISPLAY_INFO_WRAPPER.registerMessage(PacketCompressedNBT.TerminalHandler.class, PacketCompressedNBT.class, 7, Side.CLIENT);
+        //}*/
     }
 
     @SubscribeEvent
@@ -178,6 +185,8 @@ public class CommonProxy {
         MetaTileEntityLoader.init();
         RecipeHandlerList.register();
         CircuitRecipes.init();
+
+        if (Loader.isModLoaded("appliedenergistics2")) AEItems.registerRecipes();
     }
 
     //this is called almost last, to make sure all mods registered their ore dictionary
@@ -260,6 +269,7 @@ public class CommonProxy {
     }
 
     public void onPostLoad() {
+        WoodMachineRecipes.postInit();
     }
 
 

@@ -31,6 +31,7 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
+import net.minecraftforge.fml.common.Loader;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -95,7 +96,7 @@ public class MetaTileEntityWirelessCharger extends TieredMetaTileEntity {
                                 long temp1 = i.receiveEnergy((int) powerToDeliver * 4, false) / 4;
                                 energyContainer.removeEnergy(temp1);
                             }
-                        } else if (IC2Handler.canItemReceiveEU(s)) {
+                        } else if (Loader.isModLoaded("ic2") && IC2Handler.canItemReceiveEU(s)) {
                             IC2Handler.insertEnergyToItem(s, energyContainer, getTier());
                         }
                     }
@@ -110,7 +111,7 @@ public class MetaTileEntityWirelessCharger extends TieredMetaTileEntity {
             ArrayList<ItemStack> items = new ArrayList<>();
             for (ItemStack s : p.inventoryContainer.getInventory()) {
                 if (s.hasCapability(GregtechCapabilities.CAPABILITY_ENERGY_CONTAINER, null) || s.hasCapability(GregtechCapabilities.CAPABILITY_ELECTRIC_ITEM, null)
-                || s.hasCapability(CapabilityEnergy.ENERGY, null) || IC2Handler.canItemReceiveEU(s)) {
+                || s.hasCapability(CapabilityEnergy.ENERGY, null) || (Loader.isModLoaded("ic2") && IC2Handler.canItemReceiveEU(s))) {
                     items.add(s);
                 }
             }

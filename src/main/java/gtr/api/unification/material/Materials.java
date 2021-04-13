@@ -774,6 +774,7 @@ public class Materials {
         Platinum.setCableProperties(GTValues.V[4], 2, 1);
         TungstenSteel.setCableProperties(GTValues.V[4], 3, 2);
         Tungsten.setCableProperties(GTValues.V[4], 2, 2);
+        Naquadah.setCableProperties(GTValues.V[4], 2, 3);
 
         //LuV
         HSSG.setCableProperties(GTValues.V[5], 4, 2);

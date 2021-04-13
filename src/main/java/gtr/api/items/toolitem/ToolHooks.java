@@ -22,7 +22,7 @@ import javax.annotation.Nonnull;
 public class ToolHooks {
     static PlayerInteractionManager interactionManager;
 
-    public static void preHarvest(PlayerInteractionManager manager) {
+    public static void gtPreHarvest(PlayerInteractionManager manager) {
         ItemStack tool = manager.player.getHeldItemMainhand();
 
         if (tool.getItem() instanceof IToolItem) {
@@ -40,7 +40,7 @@ public class ToolHooks {
 
     }
 
-    public static void postHarvest() {
+    public static void gtPostHarvest() {
 
         if (ItemCatcher.isCatching() && interactionManager != null) {
             EntityPlayer player = interactionManager.player;
@@ -60,9 +60,6 @@ public class ToolHooks {
             interactionManager = null;
         }
     }
-
-
-
 
     public static void giveItemToPlayerSilent(EntityPlayer player, @Nonnull ItemStack stack, int preferredSlot) {
 

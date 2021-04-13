@@ -16,6 +16,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockPos.PooledMutableBlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.fml.common.Loader;
 
 import java.lang.ref.WeakReference;
 import java.util.Collections;
@@ -98,7 +99,7 @@ public class CableEnergyContainer implements IEnergyContainer {
                 rfToSend *= ConfigHolder.rfPerEU;
                 amperesUsed += (tileEntity.getCapability(CapabilityEnergy.ENERGY, facing.getOpposite()).receiveEnergy(rfToSend, false) / ConfigHolder.rfPerEU) / voltage;
             }
-            if (IC2Handler.isAcceptable(tileEntity)) {
+            if (Loader.isModLoaded("ic2") && IC2Handler.isAcceptable(tileEntity)) {
                 amperesUsed += IC2Handler.receiveEnergy(tileEntity, voltage,  amperage - amperesUsed, facing.getOpposite()) / voltage;
             }
             if (amperesUsed == amperage)

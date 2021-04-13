@@ -15,6 +15,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.fml.common.Loader;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -28,7 +29,7 @@ public class CompatGTCEEnergy extends CompatBaseTE {
         if (te2 != null) {
             return te2.hasCapability(GregtechCapabilities.CAPABILITY_ENERGY_CONTAINER, direction.getOpposite()) || te2 instanceof TileEntityCable
                 || te2.hasCapability(CapabilityEnergy.ENERGY, direction.getOpposite())
-                || IC2Handler.isAcceptable(te2);
+                || (Loader.isModLoaded("ic2") && IC2Handler.isAcceptable(te2));
         }
         return false;
     }

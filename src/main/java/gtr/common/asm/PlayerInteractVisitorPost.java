@@ -10,41 +10,16 @@ import org.objectweb.asm.tree.*;
 
 public class PlayerInteractVisitorPost extends MethodVisitor implements Opcodes {
 
-
-    public static final String TARGET_CLASS_NAME = "net/minecraft/server/management/PlayerInteractionManager";
-
-    private static final String ARMOR_HOOKS_OWNER = "gtr/api/items/toolitem/ToolHooks";
-    private static final String ARMOR_HOOKS_SIGNATURE = "()V";
-    private static final String ARMOR_HOOKS_METHOD_NAME = "postHarvest";
-
     public PlayerInteractVisitorPost(MethodVisitor mv) {
         super(Opcodes.ASM5, mv);
     }
-
-
-    @Override
-    public void visitInsn(int opcode) {
-        if (opcode == Opcodes.RETURN) {
-            super.visitVarInsn(ALOAD, 0);
-            super.visitVarInsn(ALOAD, 1);
-            for (int i = 0; i < 7; i++) super.visitVarInsn(FLOAD, 2 + i);
-            super.visitVarInsn(ALOAD, 9);
-            super.visitMethodInsn(INVOKESTATIC, ARMOR_HOOKS_OWNER, ARMOR_HOOKS_METHOD_NAME, ARMOR_HOOKS_SIGNATURE, false);
-        }
-        super.visitInsn(opcode);
-    }
-
-
-
-
-
 
     public static byte[] patchPlayerInteractionManager(byte[] basicClass)
     {
         ClassNode classNode = new ClassNode();
         ClassReader classReader = new ClassReader(basicClass);
         classReader.accept(classNode, 0);
-        GTLog.logger.log(Level.INFO, "Found PlayerInteractionManager Class: " + classNode.name);
+        GTLog.logger.log(Level.DEBUG, "Found PlayerInteractionManager Class: " + classNode.name);
 
         MethodNode tryHarvestBlock = null;
 
@@ -58,11 +33,11 @@ public class PlayerInteractVisitorPost extends MethodVisitor implements Opcodes 
 
         if (tryHarvestBlock != null)
         {
-            GTLog.logger.log(Level.INFO, " - Found tryHarvestBlock");
+            GTLog.logger.log(Level.DEBUG, " - Found tryHarvestBlock");
 
             InsnList startInsert = new InsnList();
             startInsert.add(new VarInsnNode(ALOAD, 0));
-            startInsert.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "gtr/api/items/toolitem/ToolHooks", "preHarvest", "(Lnet/minecraft/server/management/PlayerInteractionManager;)V", false));
+            startInsert.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "gtr/api/items/toolitem/ToolHooks", "gtPreHarvest", "(Lnet/minecraft/server/management/PlayerInteractionManager;)V", false));
 
             tryHarvestBlock.instructions.insert(startInsert);
 
@@ -73,7 +48,7 @@ public class PlayerInteractVisitorPost extends MethodVisitor implements Opcodes 
                 if (ain.getOpcode() == Opcodes.IRETURN)
                 {
                     InsnList endInsert = new InsnList();
-                    endInsert.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "gtr/api/items/toolitem/ToolHooks", "postHarvest", "()V", false));
+                    endInsert.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "gtr/api/items/toolitem/ToolHooks", "gtPostHarvest", "()V", false));
 
                     tryHarvestBlock.instructions.insertBefore(ain, endInsert);
                     i += 1;
@@ -81,15 +56,10 @@ public class PlayerInteractVisitorPost extends MethodVisitor implements Opcodes 
             }
         }
 
-        ClassWriter writer = new ClassWriter(ClassWriter.COMPUTE_MAXS | ClassWriter.COMPUTE_FRAMES);
+        CustomClassWriter writer = new CustomClassWriter(ClassWriter.COMPUTE_MAXS | ClassWriter.COMPUTE_FRAMES);
         classNode.accept(writer);
 
         return writer.toByteArray();
     }
-
-
-
-
-
 
 }
