@@ -93,7 +93,7 @@ public interface ICoverable {
                     } else {
                         REVERSE_HORIZONTAL_ROTATION.apply(backTranslation);
                     }
-                    backTranslation.translate(-sideFacing.getFrontOffsetX(), -sideFacing.getFrontOffsetY(), -sideFacing.getFrontOffsetZ());
+                    backTranslation.translate(-sideFacing.getXOffset(), -sideFacing.getYOffset(), -sideFacing.getZOffset());
                     coverBehavior.renderCover(renderState, backTranslation, coverPipeline, plateBox, layer);
                 }
             }
@@ -114,6 +114,9 @@ public interface ICoverable {
     }
 
     static boolean doesCoverCollide(EnumFacing side, List<IndexedCuboid6> collisionBox, double plateThickness) {
+        if (side == null) {
+            return false;
+        }
         if (plateThickness > 0.0) {
             Cuboid6 coverPlateBox = getCoverPlateBox(side, plateThickness);
             for (Cuboid6 collisionCuboid : collisionBox) {

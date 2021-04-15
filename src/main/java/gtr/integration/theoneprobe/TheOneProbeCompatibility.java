@@ -1,9 +1,6 @@
 package gtr.integration.theoneprobe;
 
-import gtr.integration.theoneprobe.provider.ControllableInfoProvider;
-import gtr.integration.theoneprobe.provider.DebugPipeNetInfoProvider;
-import gtr.integration.theoneprobe.provider.ElectricContainerInfoProvider;
-import gtr.integration.theoneprobe.provider.WorkableInfoProvider;
+import gtr.integration.theoneprobe.provider.*;
 import mcjty.theoneprobe.TheOneProbe;
 import mcjty.theoneprobe.api.ITheOneProbe;
 
@@ -15,6 +12,8 @@ public class TheOneProbeCompatibility {
         oneProbe.registerProvider(new WorkableInfoProvider());
         oneProbe.registerProvider(new ControllableInfoProvider());
         oneProbe.registerProvider(new DebugPipeNetInfoProvider());
+        oneProbe.registerProvider(new TransformerInfoProvider());
+        oneProbe.registerProvider(new FuelableInfoProvider());
     }
 
 }

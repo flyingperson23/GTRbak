@@ -53,8 +53,8 @@ public class MultiblockRegistry {
     @ZenMethod
     public static CustomMultiblock get(@Nonnull String location) {
         ResourceLocation loc = new ResourceLocation(location);
-        if(loc.getResourceDomain().equals("minecraft")) {
-            loc = new ResourceLocation(GTValues.MODID, loc.getResourcePath());
+        if(loc.getNamespace().equals("minecraft")) {
+            loc = new ResourceLocation(GTValues.MODID, loc.getPath());
         }
         return get(loc);
     }

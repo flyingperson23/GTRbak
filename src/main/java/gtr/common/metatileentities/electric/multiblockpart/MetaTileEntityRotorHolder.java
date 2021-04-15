@@ -15,6 +15,7 @@ import gtr.api.render.Textures;
 import gtr.api.unification.material.type.IngotMaterial;
 import gtr.common.items.behaviors.TurbineRotorBehavior;
 import gtr.common.metatileentities.multi.electric.generator.MetaTileEntityLargeTurbine;
+import gtr.common.metatileentities.multi.electric.generator.RotorHolderMultiblockController;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -76,14 +77,25 @@ public class MetaTileEntityRotorHolder extends MetaTileEntityMultiblockPart impl
             this.frontFaceFree = checkTurbineFaceFree();
         }
 
-        MetaTileEntityLargeTurbine controller = (MetaTileEntityLargeTurbine) getController();
-        boolean isControllerActive = controller != null && controller.isActive();
+        RotorHolderMultiblockController controller = (RotorHolderMultiblockController) getController();
 
-        if (currentRotorSpeed < maxRotorSpeed && isControllerActive) {
-            incrementSpeed(1);
-        } else if (currentRotorSpeed > 0 && !isControllerActive) {
-            incrementSpeed(-3);
+        if (!isHasRotor()) {
+            resetRotorSpeed();
+        } else if (controller != null) {
+            boolean isControllerActive = controller.isActive();
+
+            if (isControllerActive && currentRotorSpeed < maxRotorSpeed) {
+                incrementSpeed(controller.getRotorSpeedIncrement());
+            } else if (!isControllerActive && currentRotorSpeed > 0) {
+                incrementSpeed(controller.getRotorSpeedDecrement());
+            }
         }
+    }
+
+
+    public void resetRotorSpeed() {
+        currentRotorSpeed = 0;
+        markDirty();
     }
 
     /**
@@ -284,7 +296,7 @@ public class MetaTileEntityRotorHolder extends MetaTileEntityMultiblockPart impl
 
     @Override
     public MultiblockAbility<MetaTileEntityRotorHolder> getAbility() {
-        return MetaTileEntityLargeTurbine.ABILITY_ROTOR_HOLDER;
+        return RotorHolderMultiblockController.ABILITY_ROTOR_HOLDER;
     }
 
     @Override

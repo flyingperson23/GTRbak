@@ -39,9 +39,8 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 
 import java.util.List;
 
-public class MetaTileEntityLargeTurbine extends FueledMultiblockController implements IUIHolder {
+public class MetaTileEntityLargeTurbine extends RotorHolderMultiblockController implements IUIHolder {
 
-    public static final MultiblockAbility<MetaTileEntityRotorHolder> ABILITY_ROTOR_HOLDER = new MultiblockAbility<>();
     private static final int MIN_DURABILITY_TO_WARN = 10;
 
     @Override
@@ -108,13 +107,6 @@ public class MetaTileEntityLargeTurbine extends FueledMultiblockController imple
     }
 
     @Override
-    protected void updateFormedValid() {
-        if (isTurbineFaceFree()) {
-            super.updateFormedValid();
-        }
-    }
-
-    @Override
     protected void formStructure(PatternMatchContext context) {
         super.formStructure(context);
         this.exportFluidHandler = new FluidTankList(true, getAbilities(MultiblockAbility.EXPORT_FLUIDS));
@@ -126,19 +118,19 @@ public class MetaTileEntityLargeTurbine extends FueledMultiblockController imple
         this.exportFluidHandler = null;
     }
 
-    /**
-     * @return true if structure formed, workable is active and front face is free
-     */
-    public boolean isActive() {
-        return isTurbineFaceFree() && workableHandler.isActive() && workableHandler.isWorkingEnabled();
+    @Override
+    public int getRotorSpeedIncrement() {
+        return 1;
     }
 
-    /**
-     * @return true if turbine is formed and it's face is free and contains
-     * only air blocks in front of rotor holder
-     */
+    @Override
+    public int getRotorSpeedDecrement() {
+        return -3;
+    }
+
+    @Deprecated
     public boolean isTurbineFaceFree() {
-        return isStructureFormed() && getAbilities(ABILITY_ROTOR_HOLDER).get(0).isFrontFaceFree();
+        return isRotorFaceFree();
     }
 
     @Override
@@ -178,7 +170,7 @@ public class MetaTileEntityLargeTurbine extends FueledMultiblockController imple
         super.addDisplayText(textList);
 
         if (isStructureFormed()) {
-            MetaTileEntityRotorHolder rotorHolder = getAbilities(ABILITY_ROTOR_HOLDER).get(0);
+            MetaTileEntityRotorHolder rotorHolder = getRotorHolder();
             FluidStack fuelStack = ((LargeTurbineWorkableHandler) workableHandler).getFuelStack();
             int fuelAmount = fuelStack == null ? 0 : fuelStack.amount;
 

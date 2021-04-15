@@ -1,5 +1,9 @@
 package gtr.common.metatileentities.steam.boiler;
 
+import gtr.api.capability.GregtechCapabilities;
+import gtr.api.capability.IFuelInfo;
+import gtr.api.capability.IFuelable;
+import gtr.api.capability.impl.ItemFuelInfo;
 import gtr.api.gui.ModularUI;
 import gtr.api.gui.widgets.ProgressWidget;
 import gtr.api.gui.widgets.ProgressWidget.MoveType;
@@ -11,13 +15,17 @@ import gtr.api.render.Textures;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityFurnace;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nonnull;
+import java.util.Collection;
+import java.util.Collections;
 
-public class SteamCoalBoiler extends SteamBoiler {
+public class SteamCoalBoiler extends SteamBoiler implements IFuelable {
 
     public SteamCoalBoiler(ResourceLocation metaTileEntityId, boolean isHighPressure) {
         super(metaTileEntityId, isHighPressure, Textures.COAL_BOILER_OVERLAY, 150);
@@ -41,6 +49,29 @@ public class SteamCoalBoiler extends SteamBoiler {
         }
         setFuelMaxBurnTime(burnTime);
     }
+
+
+    public <T> T getCapability(Capability<T> capability, EnumFacing side) {
+        T result = super.getCapability(capability, side);
+        if (result != null)
+            return result;
+        if (capability == GregtechCapabilities.CAPABILITY_FUELABLE) {
+            return GregtechCapabilities.CAPABILITY_FUELABLE.cast(this);
+        }
+        return null;
+    }
+
+    @Override
+    public Collection<IFuelInfo> getFuels() {
+        ItemStack fuelInSlot = importItems.extractItem(0, Integer.MAX_VALUE, true);
+        if (fuelInSlot.isEmpty())
+            return Collections.emptySet();
+        final int fuelRemaining = fuelInSlot.getCount();
+        final int fuelCapacity = importItems.getSlotLimit(0);
+        final int burnTime = fuelRemaining * TileEntityFurnace.getItemBurnTime(fuelInSlot);
+        return Collections.singleton(new ItemFuelInfo(fuelInSlot, fuelRemaining, fuelCapacity, 1, burnTime));
+    }
+
 
     @Override
     public IItemHandlerModifiable createExportItemHandler() {

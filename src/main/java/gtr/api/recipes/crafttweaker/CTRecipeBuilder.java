@@ -7,6 +7,7 @@ import crafttweaker.api.liquid.ILiquidStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import gtr.api.recipes.CountableIngredient;
 import gtr.api.recipes.RecipeBuilder;
+import gtr.api.recipes.ingredients.IntCircuitIngredient;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import stanhebben.zenscript.annotations.ZenClass;
@@ -35,6 +36,12 @@ public class CTRecipeBuilder {
     @ZenMethod
     public CTRecipeBuilder EUt(int EUt) {
         this.backingBuilder.EUt(EUt);
+        return this;
+    }
+
+    @ZenMethod
+    public CTRecipeBuilder circuit(int num) {
+        this.backingBuilder.notConsumable(CraftTweakerIngredientWrapper.fromStacks(IntCircuitIngredient.getIntegratedCircuit(num)));
         return this;
     }
 

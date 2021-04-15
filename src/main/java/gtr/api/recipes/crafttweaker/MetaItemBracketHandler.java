@@ -6,8 +6,11 @@ import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.mc1120.item.MCItemStack;
 import crafttweaker.zenscript.IBracketHandler;
+import gtr.api.items.materialitem.MaterialMetaItem;
 import gtr.api.items.metaitem.MetaItem;
 import gtr.api.items.metaitem.MetaItem.MetaValueItem;
+import gtr.api.unification.OreDictUnifier;
+import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.compiler.IEnvironmentGlobal;
 import stanhebben.zenscript.expression.ExpressionCallStatic;
 import stanhebben.zenscript.expression.ExpressionString;
@@ -15,11 +18,14 @@ import stanhebben.zenscript.parser.Token;
 import stanhebben.zenscript.symbols.IZenSymbol;
 import stanhebben.zenscript.type.natives.IJavaMethod;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @BracketHandler
 @ZenRegister
 public class MetaItemBracketHandler implements IBracketHandler {
+    private static final Map<String, ItemStack> metaItemNames = new HashMap<>();
 
     private final IJavaMethod method;
 
@@ -28,12 +34,30 @@ public class MetaItemBracketHandler implements IBracketHandler {
     }
 
     public static IItemStack getMetaItem(String name) {
-        MetaValueItem targetItem = MetaItem.getMetaItems().stream()
-            .flatMap(item -> item.getAllItems().stream())
-            .map(item -> (MetaValueItem) item)
-            .filter(item -> item.unlocalizedName.equals(name))
-            .findFirst().orElse(null);
-        return targetItem == null ? null : new MCItemStack(targetItem.getStackForm());
+        ItemStack item = metaItemNames.get(name);
+        if(item != null) {
+            return new MCItemStack(item);
+        } else {
+            return null;
+        }
+    }
+
+
+    @SuppressWarnings("unchecked")
+    public static void rebuildComponentRegistry() {
+        metaItemNames.clear();
+        for (MetaItem<?> item : MetaItem.getMetaItems()) {
+            if (item instanceof MaterialMetaItem) {
+                for(ItemStack entry : ((MaterialMetaItem) item).getEntries()) {
+                    metaItemNames.put(OreDictUnifier.getPrefix(entry).name() + OreDictUnifier.getMaterial(entry).material.toCamelCaseString(), entry);
+                }
+            }
+            for(MetaValueItem entry : item.getAllItems()) {
+                if (!entry.unlocalizedName.equals("meta_item")) {
+                    metaItemNames.put(entry.unlocalizedName, entry.getStackForm());
+                }
+            }
+        }
     }
 
     @Override

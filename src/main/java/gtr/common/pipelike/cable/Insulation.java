@@ -2,6 +2,7 @@ package gtr.common.pipelike.cable;
 
 import gtr.api.pipenet.block.material.IMaterialPipeType;
 import gtr.api.unification.ore.OrePrefix;
+import gtr.common.ConfigHolder;
 
 public enum Insulation implements IMaterialPipeType<WireProperties> {
 
@@ -51,9 +52,12 @@ public enum Insulation implements IMaterialPipeType<WireProperties> {
 
     @Override
     public WireProperties modifyProperties(WireProperties baseProperties) {
-        return new WireProperties(baseProperties.voltage,
-            baseProperties.amperage * amperage,
-            baseProperties.lossPerBlock * lossMultiplier);
+        int lossPerBlock;
+        if (ConfigHolder.doLosslessWiresMakeLossyCables && baseProperties.lossPerBlock == 0)
+            lossPerBlock = (int)(0.75 * lossMultiplier);
+        else lossPerBlock = baseProperties.lossPerBlock * lossMultiplier;
+
+        return new WireProperties(baseProperties.voltage, baseProperties.amperage * amperage, lossPerBlock);
     }
 
     @Override

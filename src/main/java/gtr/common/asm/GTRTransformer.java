@@ -33,12 +33,14 @@ public class GTRTransformer implements IClassTransformer, Opcodes {
         if (transformedName.equals("net.minecraft.server.management.PlayerInteractionManager")) {
             return PlayerInteractVisitorPost.patchPlayerInteractionManager(basicClass);
         }
-        //if (transformedName.equals("ic2.core.block.generator.tileentity.TileEntityBaseGenerator")) {
-        //    ClassReader classReader = new ClassReader(basicClass);
-        //    ClassWriter classWriter = new ClassWriter(ClassWriter.COMPUTE_FRAMES | ClassWriter.COMPUTE_MAXS);
-        //    classReader.accept(new TargetClassVisitor(classWriter, IC2GeneratorVisitor.TARGET_METHOD, IC2GeneratorVisitor::new), 0);
-        //    return classWriter.toByteArray();
-        //}
+
+        if (internalName.equals(JEIVisitor.TARGET_CLASS_NAME)) {
+            ClassReader classReader = new ClassReader(basicClass);
+            ClassWriter classWriter = new ClassWriter(0);
+            classReader.accept(new TargetClassVisitor(classWriter, JEIVisitor.TARGET_METHOD, JEIVisitor::new), 0);
+            return classWriter.toByteArray();
+        }
+
         return basicClass;
     }
 

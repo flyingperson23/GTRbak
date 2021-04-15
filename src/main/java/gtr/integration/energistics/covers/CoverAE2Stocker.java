@@ -539,11 +539,11 @@ public class CoverAE2Stocker extends CoverBehavior
 
 
         NBTTagCompound remainingItems = serializeRemainingInputItems();
-        if(!remainingItems.hasNoTags())
+        if(!remainingItems.isEmpty())
             tagCompound.setTag("RemainingItems", remainingItems);
 
         NBTTagCompound remainingInputFluids = serializeRemainingInputFluids();
-        if(!remainingItems.hasNoTags())
+        if(!remainingItems.isEmpty())
             tagCompound.setTag("RemainingFluids", remainingInputFluids);
 
         node.saveToNBT("node", tagCompound);
@@ -1221,9 +1221,9 @@ public class CoverAE2Stocker extends CoverBehavior
 
     public String getHolderName() {
         if (isHolderMultiblock() && controller != null)
-            return controller.getStackForm().getUnlocalizedName();
+            return controller.getStackForm().getTranslationKey();
 
-        return this.coverHolder.getStackForm().getUnlocalizedName();
+        return this.coverHolder.getStackForm().getTranslationKey();
     }
 
     public IItemHandler getPatternHandler() {

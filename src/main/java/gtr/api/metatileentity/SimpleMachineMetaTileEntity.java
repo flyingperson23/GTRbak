@@ -4,17 +4,15 @@ import codechicken.lib.raytracer.CuboidRayTraceResult;
 import codechicken.lib.render.CCRenderState;
 import codechicken.lib.render.pipeline.IVertexOperation;
 import codechicken.lib.vec.Matrix4;
-import gtr.api.capability.impl.EnergyContainerHandler;
-import gtr.api.capability.impl.FluidHandlerProxy;
-import gtr.api.capability.impl.FluidTankList;
-import gtr.api.capability.impl.ItemHandlerProxy;
+import gtr.api.capability.GregtechTileCapabilities;
+import gtr.api.capability.IActiveOutputSide;
+import gtr.api.capability.impl.*;
+import gtr.api.cover.CoverBehavior;
 import gtr.api.cover.CoverDefinition;
+import gtr.api.cover.ICoverable;
 import gtr.api.gui.GuiTextures;
 import gtr.api.gui.ModularUI;
-import gtr.api.gui.widgets.DischargerSlotWidget;
-import gtr.api.gui.widgets.ImageWidget;
-import gtr.api.gui.widgets.LabelWidget;
-import gtr.api.gui.widgets.ToggleButtonWidget;
+import gtr.api.gui.widgets.*;
 import gtr.api.recipes.RecipeMap;
 import gtr.api.render.OrientedOverlayRenderer;
 import gtr.api.render.Textures;
@@ -36,7 +34,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
-public class SimpleMachineMetaTileEntity extends WorkableTieredMetaTileEntity {
+public class SimpleMachineMetaTileEntity extends WorkableTieredMetaTileEntity implements IActiveOutputSide {
 
     private boolean hasFrontFacing;
 
@@ -67,9 +65,12 @@ public class SimpleMachineMetaTileEntity extends WorkableTieredMetaTileEntity {
 
     @Override
     public boolean placeCoverOnSide(EnumFacing side, ItemStack itemStack, CoverDefinition coverDefinition) {
-        boolean coverPlaced = super.placeCoverOnSide(side,itemStack,coverDefinition);
-        if (coverPlaced && getOutputFacing() == side && getCoverAtSide(side).shouldCoverInteractWithOutputside()) {
-            setAllowInputFromOutputSide(true);
+        boolean coverPlaced = super.placeCoverOnSide(side, itemStack, coverDefinition);
+        if (coverPlaced && getOutputFacing() == side) {
+            CoverBehavior cover = getCoverAtSide(side);
+            if (cover != null && cover.shouldCoverInteractWithOutputside()) {
+                setAllowInputFromOutputSide(true);
+            }
         }
         return coverPlaced;
     }
@@ -112,10 +113,10 @@ public class SimpleMachineMetaTileEntity extends WorkableTieredMetaTileEntity {
         super.renderMetaTileEntity(renderState, translation, pipeline);
         if (outputFacing != null) {
             Textures.PIPE_OUT_OVERLAY.renderSided(outputFacing, renderState, translation, pipeline);
-            if (autoOutputItems) {
+            if (isAutoOutputItems()) {
                 Textures.ITEM_OUTPUT_OVERLAY.renderSided(outputFacing, renderState, translation, pipeline);
             }
-            if (autoOutputFluids) {
+            if (isAutoOutputFluids()) {
                 Textures.FLUID_OUTPUT_OVERLAY.renderSided(outputFacing, renderState, translation, pipeline);
             }
         }
@@ -140,9 +141,10 @@ public class SimpleMachineMetaTileEntity extends WorkableTieredMetaTileEntity {
 
     @Override
     public boolean onScrewdriverClick(EntityPlayer playerIn, EnumHand hand, EnumFacing facing, CuboidRayTraceResult hitResult) {
-        if(facing == getOutputFacing()) {
-            if(!getWorld().isRemote) {
-                if(allowInputFromOutputSide) {
+        EnumFacing hitFacing = ICoverable.determineGridSideHit(hitResult);
+        if (facing == getOutputFacing() || (hitFacing == getOutputFacing() && playerIn.isSneaking())) {
+            if (!getWorld().isRemote) {
+                if (isAllowInputFromOutputSide()) {
                     setAllowInputFromOutputSide(false);
                     playerIn.sendMessage(new TextComponentTranslation("gtr.machine.basic.input_from_output_side.disallow"));
                 } else {
@@ -169,8 +171,21 @@ public class SimpleMachineMetaTileEntity extends WorkableTieredMetaTileEntity {
                 return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(itemHandler);
             }
             return null;
+        } else if (capability == GregtechTileCapabilities.CAPABILITY_ACTIVE_OUTPUT_SIDE) {
+            if (side == getOutputFacing()) {
+                return GregtechTileCapabilities.CAPABILITY_ACTIVE_OUTPUT_SIDE.cast(this);
+            }
+            return null;
         }
+
         return super.getCapability(capability, side);
+    }
+
+    @Override
+    protected RecipeLogicEnergy createWorkable(RecipeMap<?> recipeMap) {
+        final RecipeLogicEnergy result = super.createWorkable(recipeMap);
+        result.enableOverclockVoltage();
+        return result;
     }
 
     @Override
@@ -305,7 +320,7 @@ public class SimpleMachineMetaTileEntity extends WorkableTieredMetaTileEntity {
             .bindPlayerInventory(player.inventory);
 
         int leftButtonStartX = 7;
-        int rightButtonStartX = 176 - 7 - 20;
+        int rightButtonStartX = 176 - 7 - 24;
         if(workable.recipeMap instanceof RecipeMapWithConfigButton) {
             leftButtonStartX += ((RecipeMapWithConfigButton) workable.recipeMap).getLeftButtonOffset();
             rightButtonStartX -= ((RecipeMapWithConfigButton) workable.recipeMap).getRightButtonOffset();
@@ -323,9 +338,9 @@ public class SimpleMachineMetaTileEntity extends WorkableTieredMetaTileEntity {
             		.setTooltipText("gtr.gui.fluid_auto_output.tooltip"));
         }
 
-        builder.widget(new ToggleButtonWidget(rightButtonStartX, 60, 20, 20,
-            GuiTextures.BUTTON_OVERCLOCK, workable::isAllowOverclocking, workable::setAllowOverclocking)
-            .setTooltipText("gtr.gui.overclock"));
+        builder.widget(new CycleButtonWidget(rightButtonStartX, 60, 24, 20,
+            workable.getAvailableOverclockingTiers(), workable::getOverclockTier, workable::setOverclockTier)
+            .setTooltipHoverString("gregtech.gui.overclock.description"));
 
         return builder;
     }

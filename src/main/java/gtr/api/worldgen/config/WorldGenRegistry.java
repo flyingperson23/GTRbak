@@ -1,10 +1,13 @@
 package gtr.api.worldgen.config;
 
 import com.google.common.collect.Lists;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import crafttweaker.annotations.ZenRegister;
 import gtr.api.GTValues;
+import gtr.api.util.FileUtility;
 import gtr.api.util.GTLog;
 import gtr.api.worldgen.filler.BlacklistedBlockFiller;
 import gtr.api.worldgen.filler.BlockFiller;
@@ -50,6 +53,7 @@ public class WorldGenRegistry {
     private final Map<String, Supplier<ShapeGenerator>> shapeGeneratorRegistry = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     private final Map<String, Supplier<BlockFiller>> blockFillerRegistry = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     private final Map<String, Supplier<IVeinPopulator>> veinPopulatorRegistry = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+    private final Map<String, Integer> namedDimensions = new HashMap<>();
 
     private final List<OreDepositDefinition> registeredDefinitions = new ArrayList<>();
     private final Map<WorldProvider, WorldOreVeinCache> oreVeinCache = new WeakHashMap<>();
@@ -106,42 +110,53 @@ public class WorldGenRegistry {
         }
     }
 
+
     public void reinitializeRegisteredVeins() throws IOException {
         GTLog.logger.info("Reloading ore generation files from config...");
         registeredDefinitions.clear();
         oreVeinCache.clear();
         Path configPath = Loader.instance().getConfigDir().toPath().resolve(GTValues.MODID);
+        Path dimensionsFile = configPath.resolve("dimensions.json");
         Path worldgenRootPath = configPath.resolve("worldgen");
         Path jarFileExtractLockOld = configPath.resolve(".worldgen_extracted");
         Path jarFileExtractLock = configPath.resolve("worldgen_extracted");
         if (!Files.exists(worldgenRootPath)) {
             Files.createDirectories(worldgenRootPath);
         }
+
+        if(!Files.exists(dimensionsFile)) {
+            Files.createFile(dimensionsFile);
+            extractJarVeinDefinitions(configPath, dimensionsFile);
+        }
+
         //attempt extraction if file extraction lock is absent or worldgen root directory is empty
         if ((!Files.exists(jarFileExtractLock) && !Files.exists(jarFileExtractLockOld)) || !Files.list(worldgenRootPath).findFirst().isPresent()) {
             if (!Files.exists(jarFileExtractLock)) {
                 //create extraction lock only if it doesn't exist
                 Files.createFile(jarFileExtractLock);
             }
-            extractJarVeinDefinitions(worldgenRootPath);
+            extractJarVeinDefinitions(configPath, worldgenRootPath);
         }
+
+        gatherNamedDimensions(dimensionsFile);
+
         List<Path> worldgenFiles = Files.walk(worldgenRootPath)
             .filter(path -> path.toString().endsWith(".json"))
-            .filter(Files::isRegularFile)
+            .filter(path -> Files.isRegularFile(path))
             .collect(Collectors.toList());
 
         for (Path worldgenDefinition : worldgenFiles) {
+            JsonObject element = FileUtility.tryExtractFromFile(worldgenDefinition);
+            if(element == null){
+                break;
+            }
+
             String depositName = worldgenRootPath.relativize(worldgenDefinition).toString();
+
             try {
-                try (InputStream fileStream = Files.newInputStream(worldgenDefinition)) {
-                    InputStreamReader streamReader = new InputStreamReader(fileStream);
-                    JsonObject element = jsonParser.parse(streamReader).getAsJsonObject();
-                    OreDepositDefinition deposit = new OreDepositDefinition(depositName);
-                    deposit.initializeFromConfig(element);
-                    registeredDefinitions.add(deposit);
-                }
-            } catch (IOException exception) {
-                GTLog.logger.error("Failed to load worldgen definition file on path {}", worldgenDefinition, exception);
+                OreDepositDefinition deposit = new OreDepositDefinition(depositName);
+                deposit.initializeFromConfig(element);
+                registeredDefinitions.add(deposit);
             } catch (RuntimeException exception) {
                 GTLog.logger.error("Failed to parse worldgen definition {} on path {}", depositName, worldgenDefinition, exception);
             }
@@ -149,7 +164,9 @@ public class WorldGenRegistry {
         GTLog.logger.info("Loaded {} worldgen definitions", registeredDefinitions.size());
     }
 
-    private static void extractJarVeinDefinitions(Path worldgenRootPath) throws IOException {
+    private static void extractJarVeinDefinitions(Path configPath, Path targetPath) throws IOException {
+        Path worldgenRootPath = configPath.resolve("worldgen");
+        Path dimensionsRootPath = configPath.resolve("dimensions.json");
         FileSystem zipFileSystem = null;
         try {
             URI sampleUri = WorldGenRegistry.class.getResource("/assets/gtr/.gtassetsroot").toURI();
@@ -162,17 +179,32 @@ public class WorldGenRegistry {
             } else {
                 throw new IllegalStateException("Unable to locate absolute path to worldgen root directory: " + sampleUri);
             }
-            GTLog.logger.info("Attempting extraction of standard worldgen definitions from {} to {}",
-                worldgenJarRootPath, worldgenRootPath);
-            List<Path> jarFiles = Files.walk(worldgenJarRootPath)
-                .filter(Files::isRegularFile)
-                .collect(Collectors.toList());
-            for (Path jarFile : jarFiles) {
-                Path worldgenPath = worldgenRootPath.resolve(worldgenJarRootPath.relativize(jarFile).toString());
-                Files.createDirectories(worldgenPath.getParent());
-                Files.copy(jarFile, worldgenPath, StandardCopyOption.REPLACE_EXISTING);
+
+            if(targetPath.compareTo(worldgenRootPath) == 0) {
+                GTLog.logger.info("Attempting extraction of standard worldgen definitions from {} to {}",
+                    worldgenJarRootPath, worldgenRootPath);
+                List<Path> jarFiles = Files.walk(worldgenJarRootPath)
+                    .filter(jarFile -> Files.isRegularFile(jarFile))
+                    .filter(jarPath -> !(jarPath.compareTo(worldgenJarRootPath.resolve("dimensions.json")) == 0))
+                    .collect(Collectors.toList());
+                for (Path jarFile : jarFiles) {
+                    Path worldgenPath = worldgenRootPath.resolve(worldgenJarRootPath.relativize(jarFile).toString());
+                    Files.createDirectories(worldgenPath.getParent());
+                    Files.copy(jarFile, worldgenPath, StandardCopyOption.REPLACE_EXISTING);
+                }
+                GTLog.logger.info("Extracted {} builtin worldgen definitions into worldgen folder", jarFiles.size());
             }
-            GTLog.logger.info("Extracted {} builtin worldgen definitions into worldgen folder", jarFiles.size());
+            else if(targetPath.compareTo(dimensionsRootPath) == 0) {
+                GTLog.logger.info("Attempting extraction of standard dimension definitions from {} to {}",
+                    worldgenJarRootPath, dimensionsRootPath);
+
+                Path dimensionFile = worldgenJarRootPath.resolve("dimensions.json");
+
+                Path worldgenPath = dimensionsRootPath.resolve(worldgenJarRootPath.relativize(worldgenJarRootPath).toString());
+                Files.copy(dimensionFile, worldgenPath, StandardCopyOption.REPLACE_EXISTING);
+
+                GTLog.logger.info("Extracted builtin dimension definitions into worldgen folder");
+            }
         } catch (URISyntaxException impossible) {
             //this is impossible, since getResource always returns valid URI
             throw new RuntimeException(impossible);
@@ -182,6 +214,27 @@ public class WorldGenRegistry {
                 IOUtils.closeQuietly(zipFileSystem);
             }
         }
+    }
+
+
+    private void gatherNamedDimensions(Path dimensionsFile) {
+        JsonObject element = FileUtility.tryExtractFromFile(dimensionsFile);
+        if(element == null){
+            return;
+        }
+
+        try {
+            JsonArray dims = element.getAsJsonArray("dims");
+            for(JsonElement dim : dims) {
+                namedDimensions.put(dim.getAsJsonObject().get("dimName").getAsString(), dim.getAsJsonObject().get("dimID").getAsInt());
+            }
+        } catch (RuntimeException exception){
+            GTLog.logger.error("Failed to parse named dimensions", exception);
+        }
+    }
+
+    public static Map<String, Integer> getNamedDimensions() {
+        return INSTANCE.namedDimensions;
     }
 
     public void registerShapeGenerator(String identifier, Supplier<ShapeGenerator> shapeGeneratorSupplier) {

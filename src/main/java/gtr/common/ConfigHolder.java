@@ -116,6 +116,10 @@ public class ConfigHolder {
     @Config.Comment("EU used for each magnet item pickup event. Default: 256")
     public static int euPerMagnetPickup = 256;
 
+    @Config.Comment("If true, lossless cables will have lossy wires. Default: false")
+    @Config.RequiresMcRestart
+    public static boolean doLosslessWiresMakeLossyCables = false;
+
     public static class VanillaRecipes {
 
         @Config.Comment("Whether to nerf the paper crafting recipe. Default: true")

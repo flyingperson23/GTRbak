@@ -22,7 +22,7 @@ public class FuelRecipeMapCategory implements IRecipeCategory<GTFuelRecipeWrappe
 
     @Override
     public String getUid() {
-        return GTValues.MODID + ":" + recipeMap.getUnlocalizedName();
+        return GTValues.MODID + ":" + recipeMap.getTranslationKey();
     }
 
     @Override

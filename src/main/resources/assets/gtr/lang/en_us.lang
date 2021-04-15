@@ -25,6 +25,17 @@ metaitem.credit.naquadah.tooltip=32768 Credits
 metaitem.credit.darmstadtium.name=Darmstadtium Credit
 metaitem.credit.darmstadtium.tooltip=262144 Credits
 
+gtr.top.fuel_info=/%,d for %,d secs
+gtr.top.fuel_none=No fuel
+
+ore.spawnlocation.name=Ore Spawn Information
+gtr.jei.ore.surface_rock_1=Surface Rocks with this material denote vein spawn locations.
+gtr.jei.ore.surface_rock_2=They can be broken for 3 Tiny Piles of the dust, with Fortune giving a bonus.
+gtr.jei.ore.biome_weighting=%s Weight: %d
+gtr.jei.ore.biome_weighting_no_spawn=%s Weight: Cannot Spawn
+
+cover.machine_controller.inverted.description=§eNormal§r - in this mode, the cover will require a signal weaker than the set redstone level to run/n§eInverted§r - in this mode, the cover will require a signal stronger than the set redstone level to run
+
 metaitem.coin.gold.ancient.name=Ancient Gold Coin
 metaitem.coin.gold.ancient.tooltip=Found in ancient Ruins
 metaitem.coin.doge.name=Doge Coin
@@ -128,7 +139,10 @@ metaitem.fluid_cell.empty=Empty
 metaitem.large_fluid_cell.steel.name=%s Steel Cell
 metaitem.large_fluid_cell.tungstensteel.name=%s Tungstensteel Cell
 
-
+gtr.top.transform_up=§cStep Up§r
+gtr.top.transform_down=§aStep Down§r
+gtr.top.transform_input=§6Input:§r
+gtr.top.transform_output=§9Output:§r
 
 metaitem.tool.matches.name=Match
 metaitem.tool.matchbox.name=Match Box
@@ -391,7 +405,7 @@ recipemap.forming_press.name=Forming Press
 behaviour.hoe=Can till dirt
 behaviour.soft_hammer=Use on machine to allow/disallow it to work
 behaviour.lighter.tooltip=Can light things on fire
-behaviour.lighter.uses=Remaining uses: %d
+behaviour.lighter.uses=Remaining uses: %,d
 behavior.plunger.description=Use to clear 1000 mb out of a machine's output tank./nUse while sneaking to clear 1000 mb out of a machine's input tank./nInput tank clearing works only on GTR machines!
 behavior.toggle_energy_consumer.tooltip=Use to toggle mode
 
@@ -527,8 +541,8 @@ gtr.machine.block_breaker.mv.name=Intermediate Block Breaker
 gtr.machine.block_breaker.hv.name=Advanced Block Breaker
 gtr.machine.block_breaker.ev.name=Elite Block Breaker
 gtr.machine.block_breaker.tooltip=Mines block on front face and collects its drops
-gtr.machine.block_breaker.consumption=Consumes §e%d EU§7 per operation
-gtr.machine.block_breaker.speed_bonus=Speed Bonus: §e%d%%
+gtr.machine.block_breaker.consumption=Consumes §e%,d EU§7 per operation
+gtr.machine.block_breaker.speed_bonus=Speed Bonus: §e%,d%%
 
 gtr.machine.amplifab.lv.name=Basic Amplifabricator
 gtr.machine.amplifab.mv.name=Intermediate Amplifabricator
@@ -663,7 +677,7 @@ gtr.machine.item_collector.mv.name=Intermediate Item Collector
 gtr.machine.item_collector.hv.name=Advanced Item Collector
 gtr.machine.item_collector.ev.name=Elite Item Collector
 
-gtr.machine.item_collector.collect_range=Collection Area: %dx%d
+gtr.machine.item_collector.collect_range=Collection Area: %,dx%,d
 gtr.machine.item_collector.gui.collect_range=Collect in %s blocks
 
 #Quantum chests
@@ -674,7 +688,7 @@ gtr.machine.quantum_chest.tooltip=Better than JABBA.
 gtr.machine.quantum_tank.tooltip=Compact place to store all your fluids.
 
 gtr.machine.air_collector.tooltip=Collects air from adjacent blocks at the expense of energy
-gtr.machine.air_collector.collection_speed=Produces %d mb of Air every %d ticks
+gtr.machine.air_collector.collection_speed=Produces %,d mb of Air every %,d ticks
 gtr.machine.air_collector.jei_description=The Air Collector collects air from adjacent blocks for a little bit of EU
 
 #Tesla Coil
@@ -687,8 +701,8 @@ gtr.machine.fisher.mv.name=Intermediate Fisher
 gtr.machine.fisher.hv.name=Advanced Fisher
 gtr.machine.fisher.ev.name=Elite Fisher
 gtr.machine.fisher.tooltip=Costs string to fish. Consumes one string each time.
-gtr.machine.fisher.speed=Catches something every %d ticks
-gtr.machine.fisher.requirement=Requires a square of water with size of %d blocks directly below.
+gtr.machine.fisher.speed=Catches something every %,d ticks
+gtr.machine.fisher.requirement=Requires a square of water with size of %,d blocks directly below.
 
 # General machinery
 gtr.machine.basic.input_from_output_side.allow=Allow Input from Output Side
@@ -1131,7 +1145,7 @@ behaviour.paintspray.brown.tooltip=Can paint things in Brown
 behaviour.paintspray.green.tooltip=Can paint things in Green
 behaviour.paintspray.red.tooltip=Can paint things in Red
 behaviour.paintspray.black.tooltip=Can paint things in Black
-behaviour.paintspray.uses=Remaining Uses: %d
+behaviour.paintspray.uses=Remaining Uses: %,d
 behaviour.prospecting=Usable for Prospecting
 
 # Multiblock machine controllers
@@ -1247,30 +1261,29 @@ gtr.machine.rotor_holder.zpm.name=Rotor Holder (ZPM)
 gtr.machine.rotor_holder.uv.name=Rotor Holder (UV)
 gtr.machine.rotor_holder.max.name=Rotor Holder (MAX)
 
-gtr.machine.fluid_tank.max_multiblock=Max Multiblock Size: %dx%dx%d
+gtr.machine.fluid_tank.max_multiblock=Max Multiblock Size: %,dx%,dx%,d
 gtr.machine.fluid_tank.fluid=Contains %s mb of %s
 
 # Universal tooltips
-gtr.universal.tooltip.voltage_in=Voltage IN: §a%d §7(§a%s§7)
-gtr.universal.tooltip.voltage_out=Voltage OUT: §a%d §7(§a%s§7)
-gtr.universal.tooltip.energy_storage_capacity=Internal Energy Capacity: §9%d
-gtr.universal.tooltip.amperage_in=Amperage IN: §e%d
-gtr.universal.tooltip.amperage_in_till=Amperage IN up to: §e%d
-gtr.universal.tooltip.amperage_out=Amperage OUT: §e%d
-gtr.universal.tooltip.amperage=Amperage: §e%d
-gtr.universal.tooltip.amperage_out_till=Amperage OUT up to: §e%d
-gtr.universal.tooltip.item_storage_capacity=Item Slots: %d
-gtr.universal.tooltip.fluid_storage_capacity=Fluid Capacity: %d mb
+gtr.universal.tooltip.voltage_in=Voltage IN: §a%,d §7(§a%s§7)
+gtr.universal.tooltip.voltage_out=Voltage OUT: §a%,d §7(§a%s§7)
+gtr.universal.tooltip.energy_storage_capacity=Internal Energy Capacity: §9%,d
+gtr.universal.tooltip.amperage_in=Amperage IN: §e%,d
+gtr.universal.tooltip.amperage_in_till=Amperage IN up to: §e%,d
+gtr.universal.tooltip.amperage_out=Amperage OUT: §e%,d
+gtr.universal.tooltip.amperage_out_till=Amperage OUT up to: §e%,d
+gtr.universal.tooltip.item_storage_capacity=Item Slots: %,d
+gtr.universal.tooltip.fluid_storage_capacity=Fluid Capacity: %,d mb
 
-gtr.recipe.total=Total: %d EU
-gtr.recipe.eu=Usage: %d EU/t (%s)
-gtr.recipe.eu_inverted=Generation: %d EU/t
-gtr.recipe.duration=Duration: %.1f secs
-gtr.recipe.amperage=Amperage: %d
+gtr.recipe.total=Total: %,d EU
+gtr.recipe.eu=Usage: %,d EU/t (%s)
+gtr.recipe.eu_inverted=Generation: %,d EU/t
+gtr.recipe.duration=Duration: %,.1f secs
+gtr.recipe.amperage=Amperage: %,d
 gtr.recipe.not_consumed=Not consumed in process
 gtr.recipe.chance=Chance: %s%% +%s%%/tier
-gtr.recipe.blast_furnace_temperature=Temperature: %dK
-gtr.recipe.eu_to_start=Energy To Start: %dEU
+gtr.recipe.blast_furnace_temperature=Temperature: %,dK
+gtr.recipe.eu_to_start=Energy To Start: %,dEU
 
 gtr.fluid.click_to_fill=§7Click with a empty fluid container to fill it from tank.
 gtr.fluid.click_to_fill.shift=§7(Shift-clicking will fill all containers in your hand)
@@ -1281,7 +1294,7 @@ gtr.fluid.click_to_empty.shift=§7(Shift-clicking will empty all containers in y
 gtr.fluid.plasma=%s Plasma
 gtr.fluid.empty=Empty
 gtr.fluid.amount=§7%,d/%,d
-gtr.fluid.temperature=§7Temperature: %dK
+gtr.fluid.temperature=§7Temperature: %,dK
 gtr.fluid.state_gas=§7State: Gaseous
 gtr.fluid.state_liquid=§7State: Liquid
 gtr.gui.fuel_amount=Fuel Amount:
@@ -1303,13 +1316,18 @@ gtr.jei.ore_by_product_not_obtainable=Byproduct not obtainable
 gtr.item_filter.empty_item=Empty (No Item)
 gtr.item_filter.footer=§eClick with item to override
 
-gtr.cable.voltage=Voltage: §a%d §7(§a%s§7)
-gtr.cable.amperage=Amperage: §e%d
-gtr.cable.loss_per_block=Loss per block: §c%d
+gtr.cable.voltage=Voltage: §a%,d §7(§a%s§7)
+gtr.cable.amperage=Amperage: §e%,d
+gtr.cable.loss_per_block=Loss per block: §c%,d
 
-gtr.fluid_pipe.throughput=Transfer: §e%d mb/t
-gtr.fluid_pipe.max_temperature=Max Temperature: §c%dK
+gtr.fluid_pipe.throughput=Transfer: §e%,d mb/t
+gtr.fluid_pipe.max_temperature=Max Temperature: §c%,dK
 gtr.fluid_pipe.non_gas_proof=Can't transfer gases.
+
+gtr.top.fuel_burn=for
+gtr.top.fuel_time=secs
+gtr.top.fuel_min_consume=needs
+gtr.top.fuel_name=Fuel:
 
 gtr.multiblock.work_paused=Work Paused
 gtr.multiblock.running=Running perfectly
@@ -1378,7 +1396,7 @@ death.attack.crusher=%s was ground to death.
 cover.machine_controller.name=Machine Controller Settings
 cover.machine_controller.normal=Normal
 cover.machine_controller.inverted=Inverted
-cover.machine_controller.redstone=Min Redstone Strength: %d
+cover.machine_controller.redstone=Min Redstone Strength: %,d
 cover.machine_controller.mode.machine=Control Machine
 cover.machine_controller.mode.cover_up=Control Cover (Top)
 cover.machine_controller.mode.cover_down=Control Cover (Bottom)
@@ -1393,8 +1411,8 @@ cover.item_filter.ignore_nbt.enabled=Ignore NBT
 cover.item_filter.ignore_nbt.disabled=Respect NBT
 
 gtr.machine.item_controller.tooltip.redstone=Requires Redstone Input To Work
-gtr.machine.item_controller.tooltip.consumption=While working, constantly consumes %d EU/t
-gtr.universal.tooltip.max_voltage_in=Max Voltage IN: §a%d §7(§a%s§7)
+gtr.machine.item_controller.tooltip.consumption=While working, constantly consumes %,d EU/t
+gtr.universal.tooltip.max_voltage_in=Max Voltage IN: §a%,d §7(§a%s§7)
 
 gtr.top.energy_stored=Energy:
 gtr.top.progress=Progress:
@@ -1414,10 +1432,10 @@ gtr.multiblock.multi_smelter.description=The Multi Smelter is multiblock structu
 gtr.multiblock.large_boiler.description=Large Boilers are multiblocks that generate steam from energy source and water. Usually either solid fuel or some high-density fluid acts like energy source for large boiler. Tiers differ only by amount of steam outputted.
 gtr.multiblock.large_turbine.description=Large Turbines are multiblocks that generate power from steam, gases and plasma by them spinning turbine's rotor. Energy output is based on rotor efficiency and current speed of turbine.
 metaitem.dust.tooltip.purify=Throw into Cauldron to get clean Dust
-metaitem.generic.fluid_container.tooltip=%d/%dL %s
+metaitem.generic.fluid_container.tooltip=%,d/%,dL %s
 metaitem.generic.fluid_container.tooltip_empty=Empty
-metaitem.generic.electric_item.tooltip=%d/%d EU - Tier §e%d (%d)
-metaitem.int_circuit.configuration=Configuration: %d
+metaitem.generic.electric_item.tooltip=%,d/%,d EU - Tier §e%d (%d)
+metaitem.int_circuit.configuration=Configuration: %,d
 item.invalid.name=Invalid item
 fluid.empty=Empty
 gtr.tooltip.multi_structure=§aShift Right-Click on controller to show structure
@@ -1427,6 +1445,9 @@ metaitem.shape.empty.name=Empty Shape Plate
 
 metaitem.dynamite.name=Dynamite
 
+gtr.gui.overclock.description=Recipes can overclock to this tier./nOFF means no overclocking is performed.
+gtr.gui.overclock.off=OFF
+
 metaitem.shape.mold.plate.name=Mold (Plate)
 metaitem.shape.mold.gear.name=Mold (Gear)
 metaitem.shape.mold.bottle.name=Mold (Bottle)
@@ -1435,6 +1456,8 @@ metaitem.shape.mold.ball.name=Mold (Ball)
 metaitem.shape.mold.block.name=Mold (Block)
 metaitem.shape.mold.nugget.name=Mold (Nuggets)
 metaitem.shape.mold.gear.small.name=Mold (Small Gear)
+metaitem.shape.mold.rotor.name=Mold (Rotor)
+metaitem.shape.mold.rotor.tooltip=Mold for making Rotors
 
 metaitem.shape.extruder.plate.name=Extruder Shape (Plate)
 metaitem.shape.extruder.rod.name=Extruder Shape (Rod)
@@ -1792,10 +1815,10 @@ metaitem.turbine_rotor.tooltip=Turbine Rotors for your Power Station
 metaitem.magnifying_glass.name=%s Magnifying Glass
 
 metaitem.tool.tooltip.primary_material=Primary material: %s (Level %s)
-metaitem.tool.tooltip.attack_damage=Attack damage: %d
-metaitem.tool.tooltip.mining_speed=Mining speed: %d
-metaitem.tool.tooltip.durability=Durability: %d/%d
-metaitem.tool.tooltip.rotor.efficiency=Rotor Efficiency: %d%%
+metaitem.tool.tooltip.attack_damage=Attack damage: %,.1f
+metaitem.tool.tooltip.mining_speed=Mining speed: %,.1f
+metaitem.tool.tooltip.durability=Durability: %,d/%,d
+metaitem.tool.tooltip.rotor.efficiency=Rotor Efficiency: %,d%%
 metaitem.tool.tooltip.hammer.extra_drop=Has a chance to drop double crushed ores
 
 cover.ore_dictionary_filter.title=Ore Dictionary Filter
@@ -2995,10 +3018,10 @@ fluid.cleanslurry=Clean %s Slurry
 
 # Wire coil blocks
 tile.wire_coil.tooltip_ebf=When used in §aElectric Blast Furnace§7:
-tile.wire_coil.tooltip_heat=  Base Heating Capacity: §e%dK
+tile.wire_coil.tooltip_heat=  Base Heating Capacity: §e%,dK
 tile.wire_coil.tooltip_smelter=When used in §aMulti Smelter§7:
-tile.wire_coil.tooltip_level=  Level: §e%d
-tile.wire_coil.tooltip_discount=  Energy Discount: §a%dx
+tile.wire_coil.tooltip_level=  Level: §e%,d
+tile.wire_coil.tooltip_discount=  Energy Discount: §a%,dx
 
 tile.wire_coil.cupronickel.name=Cupronickel Coil Block
 tile.wire_coil.kanthal.name=Kanthal Coil Block
@@ -3095,7 +3118,7 @@ tile.concrete.dark_bricks.mossy.name=Mossy Dark Concrete Bricks
 tile.concrete.dark_bricks.chiseled.name=Chiseled Dark Concrete Bricks
 
 # Steam machines
-gtr.machine.steam_boiler.tooltip_produces=Produces %dMB of Steam in %d ticks
+gtr.machine.steam_boiler.tooltip_produces=Produces %,dmb of steam in %,d ticks
 
 gtr.machine.steam_boiler_coal_bronze.name=Small Steam Coal Boiler
 gtr.machine.steam_boiler_coal_steel.name=High Pressure Steam Coal Boiler
@@ -3399,9 +3422,9 @@ gtr.machine.battery_buffer.ev.16.name=Extreme Voltage Battery Buffer
 
 # Transformers
 gtr.machine.transformer.tooltip_transform_down=Transform Down:
-gtr.machine.transformer.message_transform_down=Transforming Down, In: %dV %d Amp, Out: %dV %d Amp
+gtr.machine.transformer.message_transform_down=Transforming Down, In: %,dV %,d Amp, Out: %,dV %,d Amp
 gtr.machine.transformer.tooltip_transform_up=Transform Up:
-gtr.machine.transformer.message_transform_up=Transforming Up, In: %dV %d Amp, Out: %dV %d Amp
+gtr.machine.transformer.message_transform_up=Transforming Up, In: %,dV %,d Amp, Out: %,dV %,d Amp
 
 gtr.machine.transformer.lv.name=Low Voltage Transformer
 gtr.machine.transformer.mv.name=Medium Voltage Transformer
@@ -3416,8 +3439,8 @@ gtr.machine.charger.hv.name=High Voltage Battery Charger
 gtr.machine.charger.ev.name=Extreme Voltage Battery Charger
 
 # Pumps
-gtr.machine.pump.tooltip_range=Pumping Area: %dx%d
-gtr.machine.pump.tooltip_speed=Pumps Fluid every %d ticks
+gtr.machine.pump.tooltip_range=Pumping Area: %,dx%,d
+gtr.machine.pump.tooltip_speed=Pumps Fluid every %,d ticks
 
 gtr.machine.pump.lv.name=Basic Pump
 gtr.machine.pump.mv.name=Intermediate Pump
@@ -3426,8 +3449,8 @@ gtr.machine.pump.ev.name=Elite Pump
 gtr.machine.pump.iv.name=Master Pump
 
 #Quantum chests
-gtr.machine.quantum_chest.capacity=Item Capacity: %d items
-gtr.machine.quantum_chest.items_stored=Current Item Amount:
+gtr.machine.quantum_chest.capacity=Item Capacity: %,d items
+gtr.item_list.item_stored=§7Stored: %,d
 
 gtr.machine.quantum_chest.mv.name=Quantum Chest
 gtr.machine.quantum_chest.hv.name=Master Quantum Chest
@@ -3435,7 +3458,7 @@ gtr.machine.quantum_chest.ev.name=Expert Quantum Chest
 gtr.machine.quantum_chest.iv.name=Black Hole Chest
 
 #Quantum tanks
-gtr.machine.quantum_tank.capacity=Fluid Capacity: %dMB
+gtr.machine.quantum_tank.capacity=Fluid Capacity: %,d mb
 
 gtr.machine.quantum_tank.mv.name=Quantum Tank
 gtr.machine.quantum_tank.hv.name=Master Quantum Tank

@@ -1,6 +1,7 @@
 package gtr.common.metatileentities.storage;
 
 import gtr.api.util.DummyContainer;
+import gtr.api.util.InventoryUtils;
 import gtr.api.util.ItemStackKey;
 import gtr.common.inventory.IItemList.InsertMode;
 import gtr.common.inventory.itemsource.ItemSourceList;
@@ -41,8 +42,8 @@ public class CachedRecipeData {
             return false;
         }
         ForgeHooks.setCraftingPlayer(player);
-        NonNullList<ItemStack> remainingItems = recipe.getRemainingItems(inventory);
-        ForgeHooks.setCraftingPlayer(null);
+        InventoryCrafting deepCopy = InventoryUtils.deepCopyInventoryCrafting(inventory);
+        NonNullList<ItemStack> remainingItems = recipe.getRemainingItems(deepCopy);        ForgeHooks.setCraftingPlayer(null);
         for (ItemStack itemStack : remainingItems) {
             itemStack = itemStack.copy();
             ItemStackKey stackKey = new ItemStackKey(itemStack);

@@ -37,7 +37,7 @@ public final class MetaItems {
 
     public static MetaItem<?>.MetaValueItem SHAPE_EMPTY;
 
-    public static MetaItem<?>.MetaValueItem[] SHAPE_MOLDS = new MetaValueItem[11];
+    public static MetaItem<?>.MetaValueItem[] SHAPE_MOLDS = new MetaValueItem[12];
     public static MetaItem<?>.MetaValueItem SHAPE_MOLD_PLATE;
     public static MetaItem<?>.MetaValueItem SHAPE_MOLD_GEAR;
     public static MetaItem<?>.MetaValueItem SHAPE_MOLD_BOTTLE;
@@ -49,6 +49,7 @@ public final class MetaItems {
     public static MetaItem<?>.MetaValueItem SHAPE_MOLD_ANVIL;
     public static MetaItem<?>.MetaValueItem SHAPE_MOLD_NAME;
     public static MetaItem<?>.MetaValueItem SHAPE_MOLD_GEAR_SMALL;
+    public static MetaItem<?>.MetaValueItem SHAPE_MOLD_ROTOR;
 
     public static MetaItem<?>.MetaValueItem[] SHAPE_EXTRUDERS = new MetaValueItem[22];
     public static MetaItem<?>.MetaValueItem SHAPE_EXTRUDER_PLATE;

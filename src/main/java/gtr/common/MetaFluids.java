@@ -5,6 +5,7 @@ import gtr.api.unification.material.Materials;
 import gtr.api.unification.material.type.FluidMaterial;
 import gtr.api.unification.material.type.FluidMaterial.MatFlags;
 import gtr.api.unification.material.type.Material;
+import gtr.api.util.FluidTooltipUtil;
 import gtr.api.util.GTUtility;
 import gtr.common.blocks.MetaBlocks;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -84,6 +85,9 @@ public class MetaFluids {
         FluidRegistry.registerFluid(DISTILLED_WATER);
         Materials.DistilledWater.setMaterialFluid(DISTILLED_WATER);
 
+        FluidTooltipUtil.registerTooltip(FluidRegistry.WATER, FluidTooltipUtil.getWaterTooltip());
+        FluidTooltipUtil.registerTooltip(DISTILLED_WATER, FluidTooltipUtil.getWaterTooltip());
+
         FluidRegistry.registerFluid(PAHOEHOE);
         Materials.Pahoehoe.setMaterialFluid(PAHOEHOE);
 
@@ -146,10 +150,14 @@ public class MetaFluids {
                     int temperature = fluidMaterial.getFluidTemperature();
                     Fluid fluid = registerFluid(fluidMaterial, FluidType.NORMAL, temperature);
                     fluidMaterial.setMaterialFluid(fluid);
+                    FluidTooltipUtil.registerTooltip(fluid, fluidMaterial.chemicalFormula);
+
                 }
                 if(fluidMaterial.shouldGeneratePlasma() && fluidMaterial.getMaterialPlasma() == null) {
                     Fluid fluid = registerFluid(fluidMaterial, FluidType.PLASMA, 30000);
                     fluidMaterial.setMaterialPlasma(fluid);
+                    FluidTooltipUtil.registerTooltip(fluid, fluidMaterial.chemicalFormula);
+
                 }
             }
         }
@@ -192,7 +200,7 @@ public class MetaFluids {
 
         FluidRegistry.addBucketForFluid(fluid);
 
-        if (material.hasFlag(MatFlags.GENERATE_FLUID_BLOCK) && fluid.getBlock() == null) {
+        if (material.hasFlag(MatFlags.GENERATE_FLUID_BLOCK) && fluid.getBlock() == null && fluidType != FluidType.PLASMA) {
             BlockFluidBase fluidBlock = new BlockFluidClassic(fluid, net.minecraft.block.material.Material.WATER);
             fluidBlock.setRegistryName("fluid." + materialName);
             MetaBlocks.FLUID_BLOCKS.add(fluidBlock);
@@ -239,7 +247,7 @@ public class MetaFluids {
 
         @Override
         public String getUnlocalizedName() {
-            return material.getUnlocalizedName();
+            return material.getTranslationKey();
         }
 
         @Override

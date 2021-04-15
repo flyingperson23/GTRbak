@@ -91,7 +91,7 @@ public class FuelRecipeMap {
     }
 
     @ZenGetter("unlocalizedName")
-    public String getUnlocalizedName() {
+    public String getTranslationKey() {
         return unlocalizedName;
     }
 

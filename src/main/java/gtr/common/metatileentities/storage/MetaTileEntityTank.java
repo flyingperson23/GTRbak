@@ -1,5 +1,6 @@
 package gtr.common.metatileentities.storage;
 
+import codechicken.lib.colour.ColourRGBA;
 import codechicken.lib.raytracer.CuboidRayTraceResult;
 import codechicken.lib.render.CCRenderState;
 import codechicken.lib.render.pipeline.ColourMultiplier;
@@ -20,6 +21,7 @@ import gtr.api.render.Textures;
 import gtr.api.unification.material.type.Material.MatFlags;
 import gtr.api.unification.material.type.SolidMaterial;
 import gtr.api.util.ByteBufUtils;
+import gtr.api.util.FluidTooltipUtil;
 import gtr.api.util.GTUtility;
 import gtr.api.util.WatchedFluidTank;
 import gtr.common.ConfigHolder;
@@ -41,6 +43,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3i;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.Constants.NBT;
@@ -58,6 +61,8 @@ import org.apache.commons.lang3.tuple.Pair;
 import javax.annotation.Nullable;
 import java.lang.ref.WeakReference;
 import java.util.*;
+
+import static gtr.api.util.GTUtility.convertOpaqueRGBA_CLtoRGB;
 
 public class MetaTileEntityTank extends MetaTileEntity implements IFastRenderMetaTileEntity {
 
@@ -610,11 +615,12 @@ public class MetaTileEntityTank extends MetaTileEntity implements IFastRenderMet
 
     @SideOnly(Side.CLIENT)
     private int getActualPaintingColor() {
-        int paintingColor = getPaintingColorForRendering();
-        if (paintingColor == DEFAULT_PAINTING_COLOR) {
-            return material.materialRGB;
-        }
-        return paintingColor;
+        int color = ColourRGBA.multiply(
+            GTUtility.convertRGBtoOpaqueRGBA_CL(material.materialRGB),
+            GTUtility.convertRGBtoOpaqueRGBA_CL(getPaintingColorForRendering())
+        );
+        color = convertOpaqueRGBA_CLtoRGB(color);
+        return color;
     }
 
     @Override
@@ -676,6 +682,9 @@ public class MetaTileEntityTank extends MetaTileEntity implements IFastRenderMet
             if (fluidStack != null) {
                 tooltip.add(I18n.format("gtr.machine.fluid_tank.fluid", fluidStack.amount, fluidStack.getLocalizedName()));
             }
+            String formula = FluidTooltipUtil.getFluidTooltip(fluidStack);
+            if (formula != null)
+                tooltip.add(TextFormatting.GRAY + formula);
         }
     }
 

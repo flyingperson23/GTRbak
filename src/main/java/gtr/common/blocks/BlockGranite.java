@@ -8,7 +8,7 @@ public class BlockGranite extends StoneBlock<BlockGranite.GraniteVariant> {
 
     public BlockGranite() {
         super(Material.ROCK);
-        setUnlocalizedName("granite");
+        setTranslationKey("granite");
         setHardness(1.5f);
         setResistance(12.0f);
         setSoundType(SoundType.STONE);

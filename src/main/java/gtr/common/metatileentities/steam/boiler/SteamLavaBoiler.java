@@ -1,6 +1,10 @@
 package gtr.common.metatileentities.steam.boiler;
 
+import gtr.api.capability.GregtechCapabilities;
+import gtr.api.capability.IFuelInfo;
+import gtr.api.capability.IFuelable;
 import gtr.api.capability.impl.FilteredFluidHandler;
+import gtr.api.capability.impl.FluidFuelInfo;
 import gtr.api.capability.impl.FluidTankList;
 import gtr.api.gui.ModularUI;
 import gtr.api.gui.widgets.TankWidget;
@@ -9,10 +13,16 @@ import gtr.api.metatileentity.MetaTileEntityHolder;
 import gtr.api.recipes.ModHandler;
 import gtr.api.render.Textures;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 
-public class SteamLavaBoiler extends SteamBoiler {
+import java.util.Collection;
+import java.util.Collections;
+
+public class SteamLavaBoiler extends SteamBoiler implements IFuelable {
 
     private FluidTank lavaFluidTank;
 
@@ -32,6 +42,27 @@ public class SteamLavaBoiler extends SteamBoiler {
             .setFillPredicate(ModHandler::isLava);
         return new FluidTankList(false, superHandler, lavaFluidTank);
 
+    }
+
+    public <T> T getCapability(Capability<T> capability, EnumFacing side) {
+        T result = super.getCapability(capability, side);
+        if (result != null)
+            return result;
+        if (capability == GregtechCapabilities.CAPABILITY_FUELABLE) {
+            return GregtechCapabilities.CAPABILITY_FUELABLE.cast(this);
+        }
+        return null;
+    }
+
+    @Override
+    public Collection<IFuelInfo> getFuels() {
+        FluidStack lava = lavaFluidTank.drain(Integer.MAX_VALUE, false);
+        if (lava == null || lava.amount == 0)
+            return Collections.emptySet();
+        final int fuelRemaining = lava.amount;
+        final int fuelCapacity = lavaFluidTank.getCapacity();
+        final int burnTime = fuelRemaining; // 100 mb lasts 100 ticks
+        return Collections.singleton(new FluidFuelInfo(lava, fuelRemaining, fuelCapacity, LAVA_PER_OPERATION, burnTime));
     }
 
     public static final int LAVA_PER_OPERATION = 100;

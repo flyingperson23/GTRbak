@@ -35,13 +35,13 @@ public class BlockSurfaceRockNew extends BlockSurfaceRock implements ITileEntity
             return Collections.emptyList();
         }
         List<Material> materials = tileEntity.getUndergroundMaterials();
-        ITextComponent materialComponent = new TextComponentTranslation(tileEntity.getMaterial().getUnlocalizedName());
+        ITextComponent materialComponent = new TextComponentTranslation(tileEntity.getMaterial().getTranslationKey());
         materialComponent.getStyle().setColor(TextFormatting.GREEN);
         ITextComponent baseComponent = new TextComponentString("");
         ITextComponent separator = new TextComponentString(", ");
         separator.getStyle().setColor(TextFormatting.GRAY);
         for (int i = 0; i < materials.size(); i++) {
-            ITextComponent extraComponent = new TextComponentTranslation(materials.get(i).getUnlocalizedName());
+            ITextComponent extraComponent = new TextComponentTranslation(materials.get(i).getTranslationKey());
             extraComponent.getStyle().setColor(TextFormatting.YELLOW);
             baseComponent.appendSibling(extraComponent);
             if (i + 1 != materials.size()) baseComponent.appendSibling(separator);

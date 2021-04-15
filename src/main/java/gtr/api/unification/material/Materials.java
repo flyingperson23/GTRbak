@@ -7,6 +7,7 @@ import gtr.api.unification.ore.OrePrefix;
 import gtr.api.unification.stack.MaterialStack;
 
 import static com.google.common.collect.ImmutableList.of;
+import static gtr.api.unification.material.MaterialIconSet.FLUID;
 import static gtr.api.unification.material.type.DustMaterial.MatFlags.*;
 import static gtr.api.unification.material.type.FluidMaterial.MatFlags.*;
 import static gtr.api.unification.material.type.GemMaterial.MatFlags.*;
@@ -50,7 +51,7 @@ public class Materials {
     public static IngotMaterial Chrome = new IngotMaterial(16, "chrome", 0xFFAAAB, MaterialIconSet.SHINY, 4, of(), EXT2_METAL | GENERATE_RING | GENERATE_ROTOR, Element.Cr, 11.0F, 3.5F, 1960, 1700);
     public static IngotMaterial Cobalt = new IngotMaterial(17, "cobalt", 0x2929BC, MaterialIconSet.METALLIC, 2, of(), EXT2_METAL | GENERATE_RING | GENERATE_ROTOR | GENERATE_ORE, Element.Co, 8.0F, 4.0F, 1440);
     public static IngotMaterial Copper = new IngotMaterial(18, "copper", 0xFF8000, MaterialIconSet.SHINY, 1, of(), EXT2_METAL | GENERATE_ORE | MORTAR_GRINDABLE | GENERATE_RING, Element.Cu, 5.0F, 1.2F, 120);
-    public static FluidMaterial Deuterium = new FluidMaterial(19, "deuterium", 0xEEEE00, MaterialIconSet.FLUID, of(), STATE_GAS, Element.D);
+    public static FluidMaterial Deuterium = new FluidMaterial(19, "deuterium", 0xEEEE00, FLUID, of(), STATE_GAS, Element.D);
     public static FluidMaterial Fluorine = new FluidMaterial(23, "fluorine", 0xFFFFAA, MaterialIconSet.GAS, of(), STATE_GAS, Element.F);
     public static IngotMaterial Gallium = new IngotMaterial(25, "gallium", 0xEEEEFF, MaterialIconSet.SHINY, 2, of(), GENERATE_PLATE, Element.Ga);
     public static IngotMaterial Gold = new IngotMaterial(26, "gold", 0xFFFF00, MaterialIconSet.SHINY, 2, of(), EXT2_METAL | GENERATE_ORE | MORTAR_GRINDABLE, Element.Au, 14.0F, 3.0F, 64);
@@ -65,15 +66,15 @@ public class Materials {
     public static IngotMaterial Lithium = new IngotMaterial(36, "lithium", 0xCBCBCB, MaterialIconSet.METALLIC, 2, of(), STD_METAL | GENERATE_ORE, Element.Li);
     public static IngotMaterial Magnesium = new IngotMaterial(38, "magnesium", 0xFFBBBB, MaterialIconSet.METALLIC, 2, of(), 0, Element.Mg);
     public static IngotMaterial Manganese = new IngotMaterial(39, "manganese", 0xEEEEEE, MaterialIconSet.SHINY, 2, of(), GENERATE_ORE, Element.Mn);
-    public static FluidMaterial Mercury = new FluidMaterial(40, "mercury", 0xFFDDDD, MaterialIconSet.FLUID, of(), SMELT_INTO_FLUID, Element.Hg);
+    public static FluidMaterial Mercury = new FluidMaterial(40, "mercury", 0xFFDDDD, FLUID, of(), SMELT_INTO_FLUID, Element.Hg);
     public static IngotMaterial Molybdenum = new IngotMaterial(41, "molybdenum", 0xAAAADD, MaterialIconSet.METALLIC, 2, of(), GENERATE_DENSE | GENERATE_ORE, Element.Mo);
     public static IngotMaterial Neodymium = new IngotMaterial(42, "neodymium", 0x777777, MaterialIconSet.METALLIC, 2, of(), STD_METAL | GENERATE_ROD | GENERATE_ORE, Element.Nd, 1297);
     public static IngotMaterial Darmstadtium = new IngotMaterial(43, "darmstadtium", 0xAAAAAA, MaterialIconSet.METALLIC, 6, of(), EXT2_METAL | GENERATE_RING | GENERATE_ROTOR | GENERATE_SMALL_GEAR | GENERATE_FRAME, Element.Ds, 24.0F, 8.0F, 155360);
     public static IngotMaterial Nickel = new IngotMaterial(44, "nickel", 0xAAAAFF, MaterialIconSet.METALLIC, 2, of(), STD_METAL | GENERATE_ORE | MORTAR_GRINDABLE | GENERATE_PLASMA, Element.Ni);
     public static IngotMaterial Niobium = new IngotMaterial(45, "niobium", 0x9486AA, MaterialIconSet.METALLIC, 2, of(), STD_METAL | GENERATE_ORE, Element.Nb, 2750);
-    public static FluidMaterial Nitrogen = new FluidMaterial(46, "nitrogen", 0x7090AF, MaterialIconSet.FLUID, of(), STATE_GAS | GENERATE_PLASMA, Element.N);
+    public static FluidMaterial Nitrogen = new FluidMaterial(46, "nitrogen", 0x7090AF, FLUID, of(), STATE_GAS | GENERATE_PLASMA, Element.N);
     public static IngotMaterial Osmium = new IngotMaterial(47, "osmium", 0x5050FF, MaterialIconSet.METALLIC, 4, of(), GENERATE_ORE | EXT2_METAL | GENERATE_RING | GENERATE_ROTOR, Element.Os, 16.0F, 7.0F, 2459, 3306);
-    public static FluidMaterial Oxygen = new FluidMaterial(48, "oxygen", 0x90AAEE, MaterialIconSet.FLUID, of(), STATE_GAS | GENERATE_PLASMA, Element.O);
+    public static FluidMaterial Oxygen = new FluidMaterial(48, "oxygen", 0x90AAEE, FLUID, of(), STATE_GAS | GENERATE_PLASMA, Element.O);
     public static IngotMaterial Palladium = new IngotMaterial(49, "palladium", 0xCED0DD, MaterialIconSet.METALLIC, 4, of(), EXT2_METAL | GENERATE_ORE, Element.Pd, 8.0F, 6.0F, 480, 985);
     public static DustMaterial Phosphorus = new DustMaterial(50, "phosphorus", 0xC8C800, MaterialIconSet.SAND, 2, of(), 0, Element.P);
     public static IngotMaterial Platinum = new IngotMaterial(51, "platinum", 0xFFFF99, MaterialIconSet.SHINY, 4, of(), EXT2_METAL | GENERATE_ORE, Element.Pt, 12.0F, 6.0F, 480);
@@ -81,7 +82,7 @@ public class Materials {
     public static IngotMaterial Plutonium239 = new IngotMaterial(53, "plutonium239", 0xFA4646, MaterialIconSet.SHINY, 3, of(), EXT_METAL | GENERATE_ORE, Element.Pu_239, 8.0F, 5.0F, 1048);
     public static IngotMaterial Potassium = new IngotMaterial(54, "potassium", 0xCECECE, MaterialIconSet.METALLIC, 1, of(), 0, Element.K);
     //public static IngotMaterial Praseodymium = new IngotMaterial(55, "praseodymium", 0xCECECE, MaterialIconSet.METALLIC, 2, of(), 0, Element.Pr, 1208);
-    public static FluidMaterial Radon = new FluidMaterial(57, "radon", 0xFF00FF, MaterialIconSet.FLUID, of(), STATE_GAS | DECOMPOSITION_BY_CENTRIFUGING, Element.Rn);
+    public static FluidMaterial Radon = new FluidMaterial(57, "radon", 0xFF00FF, FLUID, of(), STATE_GAS | DECOMPOSITION_BY_CENTRIFUGING, Element.Rn);
     public static IngotMaterial Silicon = new IngotMaterial(61, "silicon", 0x3C3C50, MaterialIconSet.METALLIC, 2, of(), STD_METAL | GENERATE_FOIL, Element.Si, 1687);
     public static IngotMaterial Silver = new IngotMaterial(62, "silver", 0xDCDCFF, MaterialIconSet.SHINY, 2, of(), EXT2_METAL | GENERATE_ORE | MORTAR_GRINDABLE, Element.Ag, 10.0F, 3.0F, 64);
     public static IngotMaterial Sodium = new IngotMaterial(63, "sodium", 0x000096, MaterialIconSet.METALLIC, 2, of(), 0, Element.Na);
@@ -100,7 +101,7 @@ public class Materials {
     public static IngotMaterial Zirconium = new IngotMaterial(81, "zirconium", 0xB76A17, MaterialIconSet.SHINY, 3, of(), GENERATE_PLATE, Element.Zr, 10.0F, 4.5F, 680, 1855);
 
     public static IngotMaterial Technetium = new IngotMaterial(82, "technetium", 0x8a8a8a, MaterialIconSet.DULL, 3, of(), EXT2_METAL, Element.Tc, 12.0F, 6.0F, 1536);
-    public static FluidMaterial Oganesson = new FluidMaterial(83, "oganesson", 0xa80aad, MaterialIconSet.FLUID, of(), STATE_GAS, Element.Og);
+    public static FluidMaterial Oganesson = new FluidMaterial(83, "oganesson", 0xa80aad, FLUID, of(), STATE_GAS, Element.Og);
 
     /**
      * First Degree Compounds : Fits up to 100-150ID
@@ -108,18 +109,18 @@ public class Materials {
     public static DustMaterial YellowLimonite = new DustMaterial(199, "yellow_limonite", 0xC8C800, MaterialIconSet.METALLIC, 2, of(new MaterialStack(Iron, 1), new MaterialStack(Hydrogen, 1), new MaterialStack(Oxygen, 2)), GENERATE_ORE | INDUCTION_SMELTING_LOW_OUTPUT);
 
     public static DustMaterial BrownLimonite = new DustMaterial(96, "brown_limonite", 0xC86400, MaterialIconSet.METALLIC, 1, of(new MaterialStack(Iron, 1), new MaterialStack(Hydrogen, 1), new MaterialStack(Oxygen, 2)), GENERATE_ORE);
-    public static FluidMaterial Methane = new FluidMaterial(100, "methane", 0xFFFFFF, MaterialIconSet.FLUID, of(new MaterialStack(Carbon, 1), new MaterialStack(Hydrogen, 4)), 0);
-    public static FluidMaterial CarbonDioxide = new FluidMaterial(101, "carbon_dioxide", 0xA9D0F5, MaterialIconSet.FLUID, of(new MaterialStack(Carbon, 1), new MaterialStack(Oxygen, 2)), 0);
-    public static FluidMaterial CarbonMonoxide = new FluidMaterial(102, "carbon_monoxide", 0xA9D0F5, MaterialIconSet.FLUID, of(new MaterialStack(Carbon, 1), new MaterialStack(Oxygen, 1)), 0);
-    public static FluidMaterial Air = new FluidMaterial(104, "air", 0xA9D0F5, MaterialIconSet.FLUID, of(new MaterialStack(Nitrogen, 40), new MaterialStack(Oxygen, 11)), STATE_GAS | DISABLE_DECOMPOSITION);
-    public static FluidMaterial LiquidAir = new FluidMaterial(105, "liquid_air", 0xA9D0F5, MaterialIconSet.FLUID, of(new MaterialStack(Nitrogen, 40), new MaterialStack(Oxygen, 11)), STATE_GAS | DISABLE_DECOMPOSITION);
+    public static FluidMaterial Methane = new FluidMaterial(100, "methane", 0xFFFFFF, FLUID, of(new MaterialStack(Carbon, 1), new MaterialStack(Hydrogen, 4)), 0);
+    public static FluidMaterial CarbonDioxide = new FluidMaterial(101, "carbon_dioxide", 0xA9D0F5, FLUID, of(new MaterialStack(Carbon, 1), new MaterialStack(Oxygen, 2)), 0);
+    public static FluidMaterial CarbonMonoxide = new FluidMaterial(102, "carbon_monoxide", 0xA9D0F5, FLUID, of(new MaterialStack(Carbon, 1), new MaterialStack(Oxygen, 1)), 0);
+    public static FluidMaterial Air = new FluidMaterial(104, "air", 0xA9D0F5, FLUID, of(new MaterialStack(Nitrogen, 40), new MaterialStack(Oxygen, 11)), STATE_GAS | DISABLE_DECOMPOSITION);
+    public static FluidMaterial LiquidAir = new FluidMaterial(105, "liquid_air", 0xA9D0F5, FLUID, of(new MaterialStack(Nitrogen, 40), new MaterialStack(Oxygen, 11)), STATE_GAS | DISABLE_DECOMPOSITION);
     public static DustMaterial DarkAsh = new DustMaterial(107, "dark_ash", 0x323232, MaterialIconSet.SAND, 1, of(new MaterialStack(Carbon, 1)), DISABLE_DECOMPOSITION);
-    public static FluidMaterial Glyceryl = new FluidMaterial(106, "glyceryl", 0x009696, MaterialIconSet.FLUID, of(new MaterialStack(Carbon, 3), new MaterialStack(Hydrogen, 5), new MaterialStack(Nitrogen, 3), new MaterialStack(Oxygen, 9)), FLAMMABLE | EXPLOSIVE | NO_SMELTING | NO_SMASHING);
-    public static FluidMaterial DistilledWater = new FluidMaterial(109, "distilled_water", 0x0000FF, MaterialIconSet.FLUID, of(new MaterialStack(Hydrogen, 2), new MaterialStack(Oxygen, 1)), NO_RECYCLING | DISABLE_DECOMPOSITION);
-    public static FluidMaterial Pahoehoe = new FluidMaterial(110, "pahoehoe", 0x0000FF, MaterialIconSet.FLUID, of(), NO_RECYCLING | DISABLE_DECOMPOSITION);
-    public static FluidMaterial TitaniumTetrachloride = new FluidMaterial(108, "titanium_tetrachloride", 0xD40D5C, MaterialIconSet.FLUID, of(new MaterialStack(Titanium, 1), new MaterialStack(Carbon, 2), new MaterialStack(Chlorine, 2)), DISABLE_DECOMPOSITION);
+    public static FluidMaterial Glyceryl = new FluidMaterial(106, "glyceryl", 0x009696, FLUID, of(new MaterialStack(Carbon, 3), new MaterialStack(Hydrogen, 5), new MaterialStack(Nitrogen, 3), new MaterialStack(Oxygen, 9)), FLAMMABLE | EXPLOSIVE | NO_SMELTING | NO_SMASHING);
+    public static FluidMaterial DistilledWater = new FluidMaterial(109, "distilled_water", 0x0000FF, FLUID, of(new MaterialStack(Hydrogen, 2), new MaterialStack(Oxygen, 1)), NO_RECYCLING | DISABLE_DECOMPOSITION);
+    public static FluidMaterial Pahoehoe = new FluidMaterial(110, "pahoehoe", 0x0000FF, FLUID, of(), NO_RECYCLING | DISABLE_DECOMPOSITION);
+    public static FluidMaterial TitaniumTetrachloride = new FluidMaterial(108, "titanium_tetrachloride", 0xD40D5C, FLUID, of(new MaterialStack(Titanium, 1), new MaterialStack(Carbon, 2), new MaterialStack(Chlorine, 2)), DISABLE_DECOMPOSITION);
     public static DustMaterial MagnesiumChloride = new DustMaterial(111, "magnesium_chloride", 0xD40D5C, MaterialIconSet.ROUGH, 2, of(new MaterialStack(Magnesium, 1), new MaterialStack(Chlorine, 2)), 0);
-    public static FluidMaterial NitrogenDioxide = new FluidMaterial(113, "nitrogen_dioxide", 0x64AFFF, MaterialIconSet.FLUID, of(new MaterialStack(Nitrogen, 1), new MaterialStack(Oxygen, 2)), 0);
+    public static FluidMaterial NitrogenDioxide = new FluidMaterial(113, "nitrogen_dioxide", 0x64AFFF, FLUID, of(new MaterialStack(Nitrogen, 1), new MaterialStack(Oxygen, 2)), 0);
     public static DustMaterial Phosphate = new DustMaterial(115, "phosphate", 0xFFFF00, MaterialIconSet.ROUGH, 1, of(new MaterialStack(Phosphorus, 1), new MaterialStack(Oxygen, 4)), GENERATE_ORE | NO_SMASHING | NO_SMELTING | FLAMMABLE | EXPLOSIVE);
     public static IngotMaterial Polyethylene = new IngotMaterial(116, "polyethylene", 0xC8C8C8, MaterialIconSet.DULL, 1, of(new MaterialStack(Carbon, 1), new MaterialStack(Hydrogen, 2)), GENERATE_PLATE | FLAMMABLE | NO_SMASHING | SMELT_INTO_FLUID);
     public static IngotMaterial Epoxid = new IngotMaterial(117, "epoxid", 0xC88C14, MaterialIconSet.DULL, 1, of(new MaterialStack(Carbon, 2), new MaterialStack(Hydrogen, 4), new MaterialStack(Oxygen, 1)), EXT2_METAL);
@@ -128,10 +129,10 @@ public class Materials {
     public static IngotMaterial Polytetrafluoroethylene = new IngotMaterial(120, "polytetrafluoroethylene", 0x646464, MaterialIconSet.DULL, 1, of(new MaterialStack(Carbon, 2), new MaterialStack(Fluorine, 4)), GENERATE_PLATE | SMELT_INTO_FLUID | NO_WORKING, 5.0F, 2.0F, 512);
     public static IngotMaterial Rubber = new IngotMaterial(121, "rubber", 0x151515, MaterialIconSet.DULL, 0, of(new MaterialStack(Carbon, 5), new MaterialStack(Hydrogen, 8)), GENERATE_PLATE | GENERATE_GEAR | GENERATE_RING | FLAMMABLE | NO_SMASHING | GENERATE_RING | NO_WORKING, 4.0F, 2.0F, 256);
     public static DustMaterial RawRubber = new DustMaterial(122, "raw_rubber", 0xCCC789, MaterialIconSet.SAND, 0, of(new MaterialStack(Carbon, 5), new MaterialStack(Hydrogen, 8)), 0);
-    public static FluidMaterial SodiumPersulfate = new FluidMaterial(123, "sodium_persulfate", 0xFFFFFF, MaterialIconSet.FLUID, of(new MaterialStack(Sodium, 1), new MaterialStack(Sulfur, 1), new MaterialStack(Oxygen, 4)), 0);
-    public static FluidMaterial HydrogenSulfide = new FluidMaterial(125, "hydrogen_sulfide", 0xFFFFFF, MaterialIconSet.FLUID, of(new MaterialStack(Hydrogen, 2), new MaterialStack(Sulfur, 1)), 0);
+    public static FluidMaterial SodiumPersulfate = new FluidMaterial(123, "sodium_persulfate", 0xFFFFFF, FLUID, of(new MaterialStack(Sodium, 1), new MaterialStack(Sulfur, 1), new MaterialStack(Oxygen, 4)), 0);
+    public static FluidMaterial HydrogenSulfide = new FluidMaterial(125, "hydrogen_sulfide", 0xFFFFFF, FLUID, of(new MaterialStack(Hydrogen, 2), new MaterialStack(Sulfur, 1)), 0);
     public static FluidMaterial Steam = new FluidMaterial(126, "steam", 0xFFFFFF, MaterialIconSet.GAS, of(new MaterialStack(Hydrogen, 2), new MaterialStack(Oxygen, 1)), NO_RECYCLING | GENERATE_FLUID_BLOCK | DISABLE_DECOMPOSITION);
-    public static FluidMaterial Epichlorhydrin = new FluidMaterial(127, "epichlorhydrin", 0xFFFFFF, MaterialIconSet.FLUID, of(new MaterialStack(Carbon, 3), new MaterialStack(Hydrogen, 5), new MaterialStack(Chlorine, 1), new MaterialStack(Oxygen, 1)), 0);
+    public static FluidMaterial Epichlorhydrin = new FluidMaterial(127, "epichlorhydrin", 0xFFFFFF, FLUID, of(new MaterialStack(Carbon, 3), new MaterialStack(Hydrogen, 5), new MaterialStack(Chlorine, 1), new MaterialStack(Oxygen, 1)), 0);
 
     /**
      * Vanilla Materials : Fits 151-199ID
@@ -140,7 +141,7 @@ public class Materials {
     public static DustMaterial SiliconDioxide = new DustMaterial(151, "silicon_dioxide", 0xC8C8C8, MaterialIconSet.QUARTZ, 1, of(new MaterialStack(Silicon, 1), new MaterialStack(Oxygen, 2)), NO_SMASHING | NO_SMELTING | CRYSTALLISABLE | EXCLUDE_BLOCK_CRAFTING_RECIPES);
     public static DustMaterial Stone = new DustMaterial(152, "stone", 0xCDCDCD, MaterialIconSet.ROUGH, 1, of(), MORTAR_GRINDABLE | GENERATE_GEAR | GENERATE_PLATE | NO_SMASHING | NO_RECYCLING);
     public static DustMaterial Obsidian = new DustMaterial(153, "obsidian", 0x503264, MaterialIconSet.DULL, 3, of(new MaterialStack(Magnesium, 1), new MaterialStack(Iron, 1), new MaterialStack(Silicon, 2), new MaterialStack(Oxygen, 8)), NO_SMASHING | EXCLUDE_BLOCK_CRAFTING_RECIPES);
-    public static FluidMaterial Lava = new FluidMaterial(155, "lava", 0xFF4000, MaterialIconSet.FLUID, of(), 0);
+    public static FluidMaterial Lava = new FluidMaterial(155, "lava", 0xFF4000, FLUID, of(), 0);
     public static DustMaterial Glowstone = new DustMaterial(156, "glowstone", 0xFFFF00, MaterialIconSet.SHINY, 1, of(new MaterialStack(Phosphorus, 2)), NO_SMASHING | SMELT_INTO_FLUID | GENERATE_PLATE | EXCLUDE_PLATE_COMPRESSOR_RECIPE);
     public static DustMaterial Ice = new DustMaterial(157, "ice", 0xC8C8FF, MaterialIconSet.ROUGH, 0, of(new MaterialStack(Hydrogen, 2), new MaterialStack(Oxygen, 1)), NO_SMASHING | NO_RECYCLING | SMELT_INTO_FLUID | EXCLUDE_BLOCK_CRAFTING_RECIPES | DISABLE_DECOMPOSITION);
     public static GemMaterial NetherStar = new GemMaterial(158, "nether_star", 0xFFFFFF, MaterialIconSet.NETHERSTAR, 4, of(), GENERATE_PLATE | GENERATE_ROD | GENERATE_LENSE | NO_SMASHING | NO_SMELTING, null, 7.0F, 5.0F, 5120);
@@ -155,7 +156,7 @@ public class Materials {
     public static DustMaterial Glass = new DustMaterial(167, "glass", 0xFFFFFF, MaterialIconSet.GLASS, 0, of(new MaterialStack(SiliconDioxide, 1)), GENERATE_PLATE | GENERATE_LENSE | NO_SMASHING | NO_RECYCLING | SMELT_INTO_FLUID | EXCLUDE_BLOCK_CRAFTING_RECIPES);
     public static DustMaterial Gunpowder = new DustMaterial(168, "gunpowder", 0x808080, MaterialIconSet.SAND, 0, of(), FLAMMABLE | EXPLOSIVE | NO_SMELTING | NO_SMASHING);
     public static RoughSolidMaterial Paper = new RoughSolidMaterial(169, "paper", 0xFFFFFF, MaterialIconSet.PAPER, 0, of(), GENERATE_PLATE | FLAMMABLE | NO_SMELTING | NO_SMASHING | MORTAR_GRINDABLE | GENERATE_RING | EXCLUDE_PLATE_COMPRESSOR_RECIPE, () -> OrePrefix.plate);
-    public static FluidMaterial Water = new FluidMaterial(170, "water", 0x0000FF, MaterialIconSet.FLUID, of(new MaterialStack(Hydrogen, 2), new MaterialStack(Oxygen, 1)), NO_RECYCLING | DISABLE_DECOMPOSITION);
+    public static FluidMaterial Water = new FluidMaterial(170, "water", 0x0000FF, FLUID, of(new MaterialStack(Hydrogen, 2), new MaterialStack(Oxygen, 1)), NO_RECYCLING | DISABLE_DECOMPOSITION);
     public static DustMaterial Bone = new DustMaterial(172, "bone", 0xFFFFFF, MaterialIconSet.ROUGH, 1, of(new MaterialStack(Calcium, 1)), EXCLUDE_BLOCK_CRAFTING_RECIPES);
     public static DustMaterial Clay = new DustMaterial(173, "clay", 0xC8C8DC, MaterialIconSet.ROUGH, 1, of(new MaterialStack(Sodium, 2), new MaterialStack(Lithium, 1), new MaterialStack(Aluminium, 2), new MaterialStack(Silicon, 2), new MaterialStack(Water, 6)), MORTAR_GRINDABLE | EXCLUDE_BLOCK_CRAFTING_RECIPES);
     public static DustMaterial Brick = new DustMaterial(174, "brick", 0xB75A40, MaterialIconSet.FINE, 1, of(new MaterialStack(Clay, 1)), EXCLUDE_BLOCK_CRAFTING_RECIPES | DECOMPOSITION_BY_CENTRIFUGING);
@@ -229,29 +230,29 @@ public class Materials {
     /**
      * Fuels/Oils : 301-350ID
      */
-    public static FluidMaterial Oil = new FluidMaterial(301, "oil", 0x666666, MaterialIconSet.FLUID, of(), 0);
+    public static FluidMaterial Oil = new FluidMaterial(301, "oil", 0x666666, FLUID, of(), 0);
     public static DustMaterial Oilsands = new DustMaterial(302, "oilsands", 0x0A0A0A, MaterialIconSet.SAND, 1, of(new MaterialStack(Oil, 1L)), GENERATE_ORE);
-    public static FluidMaterial OilHeavy = new FluidMaterial(303, "oil_heavy", 0x666666, MaterialIconSet.FLUID, of(), GENERATE_FLUID_BLOCK);
-    public static FluidMaterial OilMedium = new FluidMaterial(305, "oil_medium", 0x666666, MaterialIconSet.FLUID, of(), GENERATE_FLUID_BLOCK);
-    public static FluidMaterial OilLight = new FluidMaterial(304, "oil_light", 0x666666, MaterialIconSet.FLUID, of(), GENERATE_FLUID_BLOCK);
-    public static FluidMaterial NaturalGas = new FluidMaterial(306, "natural_gas", 0xFFFFFF, MaterialIconSet.FLUID, of(), GENERATE_FLUID_BLOCK);
-    public static FluidMaterial SulfuricGas = new FluidMaterial(307, "sulfuric_gas", 0xFFFFFF, MaterialIconSet.FLUID, of(), STATE_GAS | GENERATE_FLUID_BLOCK);
-    public static FluidMaterial Gas = new FluidMaterial(308, "gas", 0xFFFFFF, MaterialIconSet.FLUID, of(), STATE_GAS | GENERATE_FLUID_BLOCK);
-    public static FluidMaterial SulfuricNaphtha = new FluidMaterial(309, "sulfuric_naphtha", 0xFFFF00, MaterialIconSet.FLUID, of(), 0);
-    public static FluidMaterial BioFuel = new FluidMaterial(310, "bio_fuel", 0xFF8000, MaterialIconSet.FLUID, of(), 0);
-    public static FluidMaterial Biomass = new FluidMaterial(312, "biomass", 0x00FF00, MaterialIconSet.FLUID, of(), 0);
-    public static FluidMaterial Creosote = new FluidMaterial(313, "creosote", 0x804000, MaterialIconSet.FLUID, of(), 0);
-    public static FluidMaterial Ethanol = new FluidMaterial(314, "ethanol", 0xFF8000, MaterialIconSet.FLUID, of(), 0);
-    public static FluidMaterial Fuel = new FluidMaterial(315, "fuel", 0xFFFF00, MaterialIconSet.FLUID, of(), 0);
-    public static FluidMaterial SulfuricLightFuel = new FluidMaterial(311, "sulfuric_light_fuel", 0xFFFF00, MaterialIconSet.FLUID, of(), 0);
-    public static FluidMaterial SulfuricHeavyFuel = new FluidMaterial(316, "sulfuric_heavy_fuel", 0xFFFF00, MaterialIconSet.FLUID, of(), 0);
-    public static FluidMaterial Naphtha = new FluidMaterial(317, "naphtha", 0xFFFF00, MaterialIconSet.FLUID, of(), 0);
-    public static FluidMaterial LightFuel = new FluidMaterial(318, "light_fuel", 0xFFFF00, MaterialIconSet.FLUID, of(), 0);
-    public static FluidMaterial HeavyFuel = new FluidMaterial(319, "heavy_fuel", 0xFFFF00, MaterialIconSet.FLUID, of(), 0);
-    public static FluidMaterial LPG = new FluidMaterial(320, "lpg", 0xFFFF00, MaterialIconSet.FLUID, of(), 0);
-    public static FluidMaterial Toluene = new FluidMaterial(321, "toluene", 0xFFFFFF, MaterialIconSet.FLUID, of(), 0);
-    public static FluidMaterial NitroFuel = new FluidMaterial(322, "nitro_fuel", 0xC8FF00, MaterialIconSet.FLUID, of(new MaterialStack(Glyceryl, 1), new MaterialStack(Fuel, 4)), FLAMMABLE | EXPLOSIVE | NO_SMELTING | NO_SMASHING);
-    public static FluidMaterial SeedOil = new FluidMaterial(323, "seed_oil", 0xC4FF00, MaterialIconSet.FLUID, of(), 0);
+    public static FluidMaterial OilHeavy = new FluidMaterial(303, "oil_heavy", 0x666666, FLUID, of(), GENERATE_FLUID_BLOCK);
+    public static FluidMaterial OilMedium = new FluidMaterial(305, "oil_medium", 0x666666, FLUID, of(), GENERATE_FLUID_BLOCK);
+    public static FluidMaterial OilLight = new FluidMaterial(304, "oil_light", 0x666666, FLUID, of(), GENERATE_FLUID_BLOCK);
+    public static FluidMaterial NaturalGas = new FluidMaterial(306, "natural_gas", 0xFFFFFF, FLUID, of(), GENERATE_FLUID_BLOCK);
+    public static FluidMaterial SulfuricGas = new FluidMaterial(307, "sulfuric_gas", 0xFFFFFF, FLUID, of(), STATE_GAS | GENERATE_FLUID_BLOCK);
+    public static FluidMaterial Gas = new FluidMaterial(308, "gas", 0xFFFFFF, FLUID, of(), STATE_GAS | GENERATE_FLUID_BLOCK);
+    public static FluidMaterial SulfuricNaphtha = new FluidMaterial(309, "sulfuric_naphtha", 0xFFFF00, FLUID, of(), 0);
+    public static FluidMaterial BioFuel = new FluidMaterial(310, "bio_fuel", 0xFF8000, FLUID, of(), 0);
+    public static FluidMaterial Biomass = new FluidMaterial(312, "biomass", 0x00FF00, FLUID, of(), 0);
+    public static FluidMaterial Creosote = new FluidMaterial(313, "creosote", 0x804000, FLUID, of(), 0);
+    public static FluidMaterial Ethanol = new FluidMaterial(317, "ethanol", 0xFF8000, FLUID, of(new MaterialStack(Carbon, 2), new MaterialStack(Hydrogen, 6), new MaterialStack(Oxygen, 1)), DISABLE_DECOMPOSITION);
+    public static FluidMaterial Fuel = new FluidMaterial(315, "fuel", 0xFFFF00, FLUID, of(), 0);
+    public static FluidMaterial SulfuricLightFuel = new FluidMaterial(311, "sulfuric_light_fuel", 0xFFFF00, FLUID, of(), 0);
+    public static FluidMaterial SulfuricHeavyFuel = new FluidMaterial(316, "sulfuric_heavy_fuel", 0xFFFF00, FLUID, of(), 0);
+    public static FluidMaterial Naphtha = new FluidMaterial(317, "naphtha", 0xFFFF00, FLUID, of(), 0);
+    public static FluidMaterial LightFuel = new FluidMaterial(318, "light_fuel", 0xFFFF00, FLUID, of(), 0);
+    public static FluidMaterial HeavyFuel = new FluidMaterial(319, "heavy_fuel", 0xFFFF00, FLUID, of(), 0);
+    public static FluidMaterial LPG = new FluidMaterial(320, "lpg", 0xFFFF00, FLUID, of(), 0);
+    public static FluidMaterial Toluene = new FluidMaterial(350, "toluene", 0xFFFFFF, FLUID, of(new MaterialStack(Carbon, 7), new MaterialStack(Hydrogen, 8)), DISABLE_DECOMPOSITION);
+    public static FluidMaterial NitroFuel = new FluidMaterial(322, "nitro_fuel", 0xC8FF00, FLUID, of(new MaterialStack(Glyceryl, 1), new MaterialStack(Fuel, 4)), FLAMMABLE | EXPLOSIVE | NO_SMELTING | NO_SMASHING);
+    public static FluidMaterial SeedOil = new FluidMaterial(323, "seed_oil", 0xC4FF00, FLUID, of(), 0);
     public static FluidMaterial Propane = new FluidMaterial(326, "propane", 12890952, MaterialIconSet.GAS, of(new MaterialStack(Carbon, 3), new MaterialStack(Hydrogen, 8)), STATE_GAS | DECOMPOSITION_BY_ELECTROLYZING);
     public static FluidMaterial Propene = new FluidMaterial(327, "propene", 12954956, MaterialIconSet.GAS, of(new MaterialStack(Carbon, 3), new MaterialStack(Hydrogen, 6)), STATE_GAS | DECOMPOSITION_BY_ELECTROLYZING);
     public static FluidMaterial Ethane = new FluidMaterial(328, "ethane", 10329540, MaterialIconSet.GAS, of(new MaterialStack(Carbon, 2), new MaterialStack(Hydrogen, 6)), STATE_GAS | DECOMPOSITION_BY_ELECTROLYZING);
@@ -309,7 +310,7 @@ public class Materials {
     /**
      * Second Degree Compounds : 451-500ID
      */
-    public static FluidMaterial Styrene = new FluidMaterial(466, "styrene", 10722453, MaterialIconSet.FLUID, of(new MaterialStack(Carbon, 8), new MaterialStack(Hydrogen, 8)), GENERATE_FLUID_BLOCK | DECOMPOSITION_BY_ELECTROLYZING);
+    public static FluidMaterial Styrene = new FluidMaterial(466, "styrene", 10722453, FLUID, of(new MaterialStack(Carbon, 8), new MaterialStack(Hydrogen, 8)), GENERATE_FLUID_BLOCK | DECOMPOSITION_BY_ELECTROLYZING);
     public static FluidMaterial Butadiene = new FluidMaterial(467, "butadiene", 11885072, MaterialIconSet.GAS, of(new MaterialStack(Carbon, 4), new MaterialStack(Hydrogen, 6)), GENERATE_FLUID_BLOCK | DECOMPOSITION_BY_ELECTROLYZING);
     public static DustMaterial Concrete = new DustMaterial(456, "concrete", 0x646464, MaterialIconSet.ROUGH, 1, of(new MaterialStack(Stone, 1)), NO_SMASHING | SMELT_INTO_FLUID);
     public static IngotMaterial Graphene = new IngotMaterial(453, "graphene", 0x808080, MaterialIconSet.SHINY, 2, of(), GENERATE_PLATE | GENERATE_FOIL);
@@ -321,19 +322,19 @@ public class Materials {
     //public static DustMaterial Polystyrene = new IngotMaterial(461, "polystyrene", 8945785, MaterialIconSet.DULL, 1, of(new MaterialStack(Carbon, 8), new MaterialStack(Hydrogen, 8)), DISABLE_DECOMPOSITION | GENERATE_FOIL);
     public static DustMaterial RawStyreneButadieneRubber = new DustMaterial(462, "raw_styrene_butadiene_rubber", 5192762, MaterialIconSet.SAND, 1, of(new MaterialStack(Carbon, 8), new MaterialStack(Hydrogen, 8), new MaterialStack(Butadiene, 3)), DISABLE_DECOMPOSITION);
     public static IngotMaterial AcrylonitrileButadieneStyrene = new IngotMaterial(468, "acrylonitrile_butadiene_styrene", 0xCDCDCD, MaterialIconSet.DULL, 1, of(), GENERATE_PLATE);
-    public static FluidMaterial Acrylonitrile = new FluidMaterial(469, "acrylonitrile", 0xC8C8DC, MaterialIconSet.FLUID, of(), 0);
+    public static FluidMaterial Acrylonitrile = new FluidMaterial(469, "acrylonitrile", 0xC8C8DC, FLUID, of(), 0);
     public static DustMaterial AmmoniumSulfate = new DustMaterial(470, "ammonium_sulfate", 0xC8C8DC, MaterialIconSet.SAND, 1, of(new MaterialStack(Nitrogen, 2), new MaterialStack(Hydrogen, 8), new MaterialStack(Sulfur, 1), new MaterialStack(Oxygen, 4)), SMELT_INTO_FLUID);
     public static DustMaterial AmmoniumPersulfate = new DustMaterial(471, "ammonium_persulfate", 0xC8C8DC, MaterialIconSet.SAND, 1, of(new MaterialStack(Nitrogen, 2), new MaterialStack(Hydrogen, 8), new MaterialStack(Sulfur, 2), new MaterialStack(Oxygen, 8)), SMELT_INTO_FLUID);
-    public static FluidMaterial SOHIOMixture = new FluidMaterial(472, "sohio_mixture", 0x928073, MaterialIconSet.FLUID, of(), 0);
-    public static FluidMaterial Acetonitrile = new FluidMaterial(473, "acetonitrile", 0xFADCE1, MaterialIconSet.FLUID, of(), 0);
+    public static FluidMaterial SOHIOMixture = new FluidMaterial(472, "sohio_mixture", 0x928073, FLUID, of(), 0);
+    public static FluidMaterial Acetonitrile = new FluidMaterial(473, "acetonitrile", 0xFADCE1, FLUID, of(), 0);
     //public static FluidMaterial Chlorodifluoromethane = new FluidMaterial(474, "chlorodifluoromethane", 0x647D7D, MaterialIconSet.GAS, of(), 0);
     public static FluidMaterial DichloroTrifluoroethane = new FluidMaterial(475, "2_2-dichloro-1_1_1-trifluoroethane", 0xFADCE1, MaterialIconSet.GAS, of(), 0);
-    public static FluidMaterial Tetrachloroethylene = new FluidMaterial(476, "tetrachloroethylene", 0xFADCE1, MaterialIconSet.FLUID, of(), 0);
-    public static FluidMaterial EthyleneDichloride = new FluidMaterial(477, "ethylene_dichloride", 0xFADCE1, MaterialIconSet.FLUID, of(), 0);
+    public static FluidMaterial Tetrachloroethylene = new FluidMaterial(476, "tetrachloroethylene", 0xFADCE1, FLUID, of(), 0);
+    public static FluidMaterial EthyleneDichloride = new FluidMaterial(477, "ethylene_dichloride", 0xFADCE1, FLUID, of(), 0);
     public static DustMaterial FerrousChloride = new DustMaterial(478, "ferrous_chloride", 0x68F442, MaterialIconSet.SAND, 1, of(new MaterialStack(Iron, 1), new MaterialStack(Chlorine, 2)), SMELT_INTO_FLUID);
     public static DustMaterial FerricChloride = new DustMaterial(479, "ferric_chloride", 0xFCE700, MaterialIconSet.SAND, 1, of(new MaterialStack(Iron, 1), new MaterialStack(Chlorine, 3)), SMELT_INTO_FLUID);
-    public static FluidMaterial Trichlorotrifluoroethane = new FluidMaterial(480, "trichlorotrifluoroethane", 0x505050, MaterialIconSet.FLUID, of(), 0);
-    public static FluidMaterial Chlorotrifluoroethylene = new FluidMaterial(481, "chlorotrifluoroethylene", 0xCDCEF6, MaterialIconSet.FLUID, of(), 0);
+    public static FluidMaterial Trichlorotrifluoroethane = new FluidMaterial(480, "trichlorotrifluoroethane", 0x505050, FLUID, of(), 0);
+    public static FluidMaterial Chlorotrifluoroethylene = new FluidMaterial(481, "chlorotrifluoroethylene", 0xCDCEF6, FLUID, of(), 0);
     public static IngotMaterial Polychlorotrifluoroethylene = new IngotMaterial(482, "polychlorotrifluoroethylene", 0xCDCEF6, MaterialIconSet.SHINY, 1, of(new MaterialStack(Carbon, 1), new MaterialStack(Fluorine, 2), new MaterialStack(Carbon, 1), new MaterialStack(Chlorine, 1), new MaterialStack(Fluorine, 1)), GENERATE_PLATE | SMELT_INTO_FLUID);
     public static DustMaterial BariumSulfide = new DustMaterial(483, "barium_sulfide", 11885072, MaterialIconSet.SAND, 1, of(new MaterialStack(Barium, 1), new MaterialStack(Sulfur, 3)), SMELT_INTO_FLUID);
     public static DustMaterial BariumOxide = new DustMaterial(485, "barium_oxide", 0x647E7D, MaterialIconSet.SAND, 1, of(new MaterialStack(Barium, 1), new MaterialStack(Oxygen, 1)), SMELT_INTO_FLUID);
@@ -404,96 +405,96 @@ public class Materials {
      */
     public static FluidMaterial Milk = new FluidMaterial(681, "milk", 0xFEFEFE, MaterialIconSet.FINE, of(), 0);
     public static DustMaterial Wheat = new DustMaterial(682, "wheat", 0xFFFFC4, MaterialIconSet.FINE, 0, of(), 0);
-    public static FluidMaterial Honey = new FluidMaterial(683, "honey", 0xD2C800, MaterialIconSet.FLUID, of(), 0);
+    public static FluidMaterial Honey = new FluidMaterial(683, "honey", 0xD2C800, FLUID, of(), 0);
     public static DustMaterial Cocoa = new DustMaterial(685, "cocoa", 0xBE5F00, MaterialIconSet.ROUGH, 0, of(), 0);
     public static DustMaterial Sugar = new DustMaterial(686, "sugar", 0xFAFAFA, MaterialIconSet.SAND, 0, of(new MaterialStack(Carbon, 2), new MaterialStack(Water, 5), new MaterialStack(Oxygen, 25)), EXCLUDE_BLOCK_CRAFTING_RECIPES);
 
     /**
      * Acids 701-750ID
      */
-    public static FluidMaterial SulfuricAcid = new FluidMaterial(701, "sulfuric_acid", 0xFF8000, MaterialIconSet.FLUID, of(new MaterialStack(Hydrogen, 2), new MaterialStack(Sulfur, 1), new MaterialStack(Oxygen, 4)), GENERATE_FLUID_BLOCK);
-    public static FluidMaterial HypochlorousAcid = new FluidMaterial(704, "hypochlorous_acid", 6123637, MaterialIconSet.FLUID, of(new MaterialStack(Hydrogen, 1), new MaterialStack(Chlorine, 1), new MaterialStack(Oxygen, 1)), 0);
-    public static FluidMaterial NitricAcid = new FluidMaterial(702, "nitric_acid", 0xCCCC00, MaterialIconSet.FLUID, of(new MaterialStack(Hydrogen, 1), new MaterialStack(Nitrogen, 1), new MaterialStack(Oxygen, 3)), 0);
-    public static FluidMaterial PhosphoricAcid = new FluidMaterial(703, "phosphoric_acid", 11447824, MaterialIconSet.FLUID, of(new MaterialStack(Hydrogen, 3), new MaterialStack(Phosphorus, 4)), 0);
-    public static FluidMaterial HydrochloricAcid = new FluidMaterial(707, "hydrochloric_acid", 9477273, MaterialIconSet.FLUID, of(new MaterialStack(Hydrogen, 1), new MaterialStack(Chlorine, 1)), 0);
-    public static FluidMaterial AceticAcid = new FluidMaterial(708, "acetic_acid", 10260096, MaterialIconSet.FLUID, of(new MaterialStack(Carbon, 2), new MaterialStack(Hydrogen, 4), new MaterialStack(Oxygen, 2)), 0);
-    public static FluidMaterial DilutedSulfuricAcid = new FluidMaterial(705, "diluted_sulfuric_acid", 9987366, MaterialIconSet.FLUID, of(new MaterialStack(Hydrogen, 2), new MaterialStack(Sulfur, 1), new MaterialStack(Oxygen, 4)), 0);
-    public static FluidMaterial DilutedHydrochloricAcid = new FluidMaterial(706, "diluted_hydrochloric_acid", 8160900, MaterialIconSet.FLUID, of(new MaterialStack(Hydrogen, 1), new MaterialStack(Chlorine, 1)), 0);
-    public static FluidMaterial HydrofluoricAcid = new FluidMaterial(709, "hydrofluoric_acid", 946055, MaterialIconSet.FLUID, of(new MaterialStack(Hydrogen, 1), new MaterialStack(Fluorine, 1)), 0);
-    public static FluidMaterial HydrocyanicAcid = new FluidMaterial(710, "hydrocyanic_acid", 946055, MaterialIconSet.FLUID, of(new MaterialStack(Hydrogen, 1), new MaterialStack(Carbon, 1), new MaterialStack(Nitrogen, 1)), 0);
+    public static FluidMaterial SulfuricAcid = new FluidMaterial(701, "sulfuric_acid", 0xFF8000, FLUID, of(new MaterialStack(Hydrogen, 2), new MaterialStack(Sulfur, 1), new MaterialStack(Oxygen, 4)), GENERATE_FLUID_BLOCK);
+    public static FluidMaterial HypochlorousAcid = new FluidMaterial(704, "hypochlorous_acid", 6123637, FLUID, of(new MaterialStack(Hydrogen, 1), new MaterialStack(Chlorine, 1), new MaterialStack(Oxygen, 1)), 0);
+    public static FluidMaterial NitricAcid = new FluidMaterial(702, "nitric_acid", 0xCCCC00, FLUID, of(new MaterialStack(Hydrogen, 1), new MaterialStack(Nitrogen, 1), new MaterialStack(Oxygen, 3)), 0);
+    public static FluidMaterial PhosphoricAcid = new FluidMaterial(703, "phosphoric_acid", 11447824, FLUID, of(new MaterialStack(Hydrogen, 3), new MaterialStack(Phosphorus, 4)), 0);
+    public static FluidMaterial HydrochloricAcid = new FluidMaterial(707, "hydrochloric_acid", 9477273, FLUID, of(new MaterialStack(Hydrogen, 1), new MaterialStack(Chlorine, 1)), 0);
+    public static FluidMaterial AceticAcid = new FluidMaterial(708, "acetic_acid", 10260096, FLUID, of(new MaterialStack(Carbon, 2), new MaterialStack(Hydrogen, 4), new MaterialStack(Oxygen, 2)), 0);
+    public static FluidMaterial DilutedSulfuricAcid = new FluidMaterial(705, "diluted_sulfuric_acid", 9987366, FLUID, of(new MaterialStack(Hydrogen, 2), new MaterialStack(Sulfur, 1), new MaterialStack(Oxygen, 4)), 0);
+    public static FluidMaterial DilutedHydrochloricAcid = new FluidMaterial(706, "diluted_hydrochloric_acid", 8160900, FLUID, of(new MaterialStack(Hydrogen, 1), new MaterialStack(Chlorine, 1)), 0);
+    public static FluidMaterial HydrofluoricAcid = new FluidMaterial(709, "hydrofluoric_acid", 946055, FLUID, of(new MaterialStack(Hydrogen, 1), new MaterialStack(Fluorine, 1)), 0);
+    public static FluidMaterial HydrocyanicAcid = new FluidMaterial(710, "hydrocyanic_acid", 946055, FLUID, of(new MaterialStack(Hydrogen, 1), new MaterialStack(Carbon, 1), new MaterialStack(Nitrogen, 1)), 0);
 
     /**
      * General Fluids 751-900ID
      */
-    public static FluidMaterial Lubricant = new FluidMaterial(751, "lubricant", 0xFFC400, MaterialIconSet.FLUID, of(), 0);
-    public static FluidMaterial Glue = new FluidMaterial(753, "glue", 0xC8C400, MaterialIconSet.FLUID, of(), 0);
-    public static FluidMaterial ConstructionFoam = new FluidMaterial(754, "construction_foam", 0x333333, MaterialIconSet.FLUID, of(), 0);
-    public static FluidMaterial IndiumConcentrate = new FluidMaterial(757, "indium_concentrate", 205130, MaterialIconSet.FLUID, of(), GENERATE_FLUID_BLOCK | DISABLE_DECOMPOSITION);
-    public static FluidMaterial LeadZincSolution = new FluidMaterial(756, "lead_zinc_solution", 3213570, MaterialIconSet.FLUID, of(new MaterialStack(Lead, 1), new MaterialStack(Silver, 1), new MaterialStack(Zinc, 1), new MaterialStack(Sulfur, 3), new MaterialStack(Water, 1)), GENERATE_FLUID_BLOCK | DECOMPOSITION_BY_ELECTROLYZING);
+    public static FluidMaterial Lubricant = new FluidMaterial(751, "lubricant", 0xFFC400, FLUID, of(), 0);
+    public static FluidMaterial Glue = new FluidMaterial(753, "glue", 0xC8C400, FLUID, of(), 0);
+    public static FluidMaterial ConstructionFoam = new FluidMaterial(754, "construction_foam", 0x333333, FLUID, of(), 0);
+    public static FluidMaterial IndiumConcentrate = new FluidMaterial(757, "indium_concentrate", 205130, FLUID, of(), GENERATE_FLUID_BLOCK | DISABLE_DECOMPOSITION);
+    public static FluidMaterial LeadZincSolution = new FluidMaterial(756, "lead_zinc_solution", 3213570, FLUID, of(new MaterialStack(Lead, 1), new MaterialStack(Silver, 1), new MaterialStack(Zinc, 1), new MaterialStack(Sulfur, 3), new MaterialStack(Water, 1)), GENERATE_FLUID_BLOCK | DECOMPOSITION_BY_ELECTROLYZING);
     public static FluidMaterial Tetrafluoroethylene = new FluidMaterial(758, "tetrafluoroethylene", 6776679, MaterialIconSet.GAS, of(new MaterialStack(Carbon, 2), new MaterialStack(Fluorine, 4)), STATE_GAS | DECOMPOSITION_BY_ELECTROLYZING);
-    public static FluidMaterial SaltWater = new FluidMaterial(755, "salt_water", 255, MaterialIconSet.FLUID, of(), GENERATE_FLUID_BLOCK);
-    public static FluidMaterial Benzene = new FluidMaterial(760, "benzene", 2039583, MaterialIconSet.FLUID, of(new MaterialStack(Carbon, 6), new MaterialStack(Hydrogen, 6)), GENERATE_FLUID_BLOCK | DECOMPOSITION_BY_ELECTROLYZING);
-    public static FluidMaterial Chloroform = new FluidMaterial(759, "chloroform", 7351936, MaterialIconSet.FLUID, of(new MaterialStack(Carbon, 1), new MaterialStack(Hydrogen, 1), new MaterialStack(Chlorine, 3)), GENERATE_FLUID_BLOCK | DECOMPOSITION_BY_ELECTROLYZING);
-    public static FluidMaterial Dimethylhydrazine = new FluidMaterial(761, "dimethylhidrazine", 1052748, MaterialIconSet.FLUID, of(new MaterialStack(Carbon, 2), new MaterialStack(Hydrogen, 8), new MaterialStack(Nitrogen, 2)), GENERATE_FLUID_BLOCK | DISABLE_DECOMPOSITION);
-    public static FluidMaterial Tetranitromethane = new FluidMaterial(763, "tetranitromethane", 1715244, MaterialIconSet.FLUID, of(new MaterialStack(Carbon, 1), new MaterialStack(Nitrogen, 4), new MaterialStack(Oxygen, 8)), GENERATE_FLUID_BLOCK | DECOMPOSITION_BY_ELECTROLYZING);
-    public static FluidMaterial VinylAcetate = new FluidMaterial(764, "vinyl_acetate", 13144428, MaterialIconSet.FLUID, of(new MaterialStack(Carbon, 4), new MaterialStack(Hydrogen, 6), new MaterialStack(Oxygen, 2)), GENERATE_FLUID_BLOCK | DECOMPOSITION_BY_ELECTROLYZING);
+    public static FluidMaterial SaltWater = new FluidMaterial(428, "salt_water", 255, FLUID, of(new MaterialStack(Salt, 1), new MaterialStack(Water, 1)), DISABLE_DECOMPOSITION);
+    public static FluidMaterial Benzene = new FluidMaterial(760, "benzene", 2039583, FLUID, of(new MaterialStack(Carbon, 6), new MaterialStack(Hydrogen, 6)), GENERATE_FLUID_BLOCK | DECOMPOSITION_BY_ELECTROLYZING);
+    public static FluidMaterial Chloroform = new FluidMaterial(759, "chloroform", 7351936, FLUID, of(new MaterialStack(Carbon, 1), new MaterialStack(Hydrogen, 1), new MaterialStack(Chlorine, 3)), GENERATE_FLUID_BLOCK | DECOMPOSITION_BY_ELECTROLYZING);
+    public static FluidMaterial Dimethylhydrazine = new FluidMaterial(761, "dimethylhidrazine", 1052748, FLUID, of(new MaterialStack(Carbon, 2), new MaterialStack(Hydrogen, 8), new MaterialStack(Nitrogen, 2)), GENERATE_FLUID_BLOCK | DISABLE_DECOMPOSITION);
+    public static FluidMaterial Tetranitromethane = new FluidMaterial(763, "tetranitromethane", 1715244, FLUID, of(new MaterialStack(Carbon, 1), new MaterialStack(Nitrogen, 4), new MaterialStack(Oxygen, 8)), GENERATE_FLUID_BLOCK | DECOMPOSITION_BY_ELECTROLYZING);
+    public static FluidMaterial VinylAcetate = new FluidMaterial(764, "vinyl_acetate", 13144428, FLUID, of(new MaterialStack(Carbon, 4), new MaterialStack(Hydrogen, 6), new MaterialStack(Oxygen, 2)), GENERATE_FLUID_BLOCK | DECOMPOSITION_BY_ELECTROLYZING);
     public static FluidMaterial Chloromethane = new FluidMaterial(765, "chloromethane", 10301057, MaterialIconSet.GAS, of(new MaterialStack(Carbon, 1), new MaterialStack(Hydrogen, 3), new MaterialStack(Chlorine, 1)), STATE_GAS | DECOMPOSITION_BY_ELECTROLYZING);
-    public static FluidMaterial Phenol = new FluidMaterial(767, "phenol", 6635559, MaterialIconSet.FLUID, of(new MaterialStack(Carbon, 6), new MaterialStack(Hydrogen, 6), new MaterialStack(Oxygen, 1)), GENERATE_FLUID_BLOCK | DECOMPOSITION_BY_ELECTROLYZING);
+    public static FluidMaterial Phenol = new FluidMaterial(767, "phenol", 6635559, FLUID, of(new MaterialStack(Carbon, 6), new MaterialStack(Hydrogen, 6), new MaterialStack(Oxygen, 1)), GENERATE_FLUID_BLOCK | DECOMPOSITION_BY_ELECTROLYZING);
     //public static FluidMaterial VinylChloride = new FluidMaterial(768, "vinyl_chloride", 11582395, MaterialIconSet.GAS, of(new MaterialStack(Carbon, 2), new MaterialStack(Hydrogen, 3), new MaterialStack(Chlorine, 1)), STATE_GAS | DECOMPOSITION_BY_ELECTROLYZING);
-    public static FluidMaterial Cumene = new FluidMaterial(769, "cumene", 4924684, MaterialIconSet.FLUID, of(new MaterialStack(Carbon, 9), new MaterialStack(Hydrogen, 12)), GENERATE_FLUID_BLOCK | DECOMPOSITION_BY_ELECTROLYZING);
+    public static FluidMaterial Cumene = new FluidMaterial(769, "cumene", 4924684, FLUID, of(new MaterialStack(Carbon, 9), new MaterialStack(Hydrogen, 12)), GENERATE_FLUID_BLOCK | DECOMPOSITION_BY_ELECTROLYZING);
     public static FluidMaterial Ammonia = new FluidMaterial(770, "ammonia", 4011371, MaterialIconSet.GAS, of(new MaterialStack(Nitrogen, 1), new MaterialStack(Hydrogen, 3)), STATE_GAS | DECOMPOSITION_BY_ELECTROLYZING);
     public static FluidMaterial NitricOxide = new FluidMaterial(711, "nitric_oxide", 6790328, MaterialIconSet.GAS, of(new MaterialStack(Nitrogen, 1), new MaterialStack(Oxygen, 1)), STATE_GAS | DECOMPOSITION_BY_ELECTROLYZING);
     public static FluidMaterial Dimethylamine = new FluidMaterial(712, "dimethylamine", 4931417, MaterialIconSet.GAS, of(new MaterialStack(Carbon, 2), new MaterialStack(Hydrogen, 7), new MaterialStack(Nitrogen, 1)), STATE_GAS | DECOMPOSITION_BY_ELECTROLYZING);
-    public static FluidMaterial Methanol = new FluidMaterial(713, "methanol", 8941584, MaterialIconSet.FLUID, of(new MaterialStack(Carbon, 1), new MaterialStack(Hydrogen, 4), new MaterialStack(Oxygen, 1)), GENERATE_FLUID_BLOCK | DECOMPOSITION_BY_ELECTROLYZING);
+    public static FluidMaterial Methanol = new FluidMaterial(713, "methanol", 8941584, FLUID, of(new MaterialStack(Carbon, 1), new MaterialStack(Hydrogen, 4), new MaterialStack(Oxygen, 1)), GENERATE_FLUID_BLOCK | DECOMPOSITION_BY_ELECTROLYZING);
     public static FluidMaterial Chloramine = new FluidMaterial(715, "chloramine", 4031340, MaterialIconSet.GAS, of(new MaterialStack(Nitrogen, 1), new MaterialStack(Hydrogen, 2), new MaterialStack(Chlorine, 1)), STATE_GAS | DECOMPOSITION_BY_ELECTROLYZING);
-    public static FluidMaterial FermentedBiomass = new FluidMaterial(719, "fermented_biomass", 4147981, MaterialIconSet.FLUID, of(), GENERATE_FLUID_BLOCK | DISABLE_DECOMPOSITION);
-    public static FluidMaterial WoodVinegar = new FluidMaterial(718, "wood_vinegar", 10832655, MaterialIconSet.FLUID, of(), GENERATE_FLUID_BLOCK | DISABLE_DECOMPOSITION);
-    public static FluidMaterial WoodTar = new FluidMaterial(717, "wood_tar", 2957592, MaterialIconSet.FLUID, of(), GENERATE_FLUID_BLOCK | DISABLE_DECOMPOSITION);
-    public static FluidMaterial BioDiesel = new FluidMaterial(720, "bio_diesel", 12806415, MaterialIconSet.FLUID, of(), GENERATE_FLUID_BLOCK | DISABLE_DECOMPOSITION);
-    public static FluidMaterial Acetone = new FluidMaterial(721, "acetone", 9342606, MaterialIconSet.FLUID, of(new MaterialStack(Carbon, 3), new MaterialStack(Hydrogen, 6), new MaterialStack(Oxygen, 1)), GENERATE_FLUID_BLOCK | DECOMPOSITION_BY_ELECTROLYZING);
+    public static FluidMaterial FermentedBiomass = new FluidMaterial(719, "fermented_biomass", 4147981, FLUID, of(), GENERATE_FLUID_BLOCK | DISABLE_DECOMPOSITION);
+    public static FluidMaterial WoodVinegar = new FluidMaterial(718, "wood_vinegar", 10832655, FLUID, of(), GENERATE_FLUID_BLOCK | DISABLE_DECOMPOSITION);
+    public static FluidMaterial WoodTar = new FluidMaterial(717, "wood_tar", 2957592, FLUID, of(), GENERATE_FLUID_BLOCK | DISABLE_DECOMPOSITION);
+    public static FluidMaterial BioDiesel = new FluidMaterial(720, "bio_diesel", 12806415, FLUID, of(), GENERATE_FLUID_BLOCK | DISABLE_DECOMPOSITION);
+    public static FluidMaterial Acetone = new FluidMaterial(721, "acetone", 9342606, FLUID, of(new MaterialStack(Carbon, 3), new MaterialStack(Hydrogen, 6), new MaterialStack(Oxygen, 1)), GENERATE_FLUID_BLOCK | DECOMPOSITION_BY_ELECTROLYZING);
     public static FluidMaterial SulfurTrioxide = new FluidMaterial(714, "sulfur_trioxide", 8618781, MaterialIconSet.GAS, of(new MaterialStack(Sulfur, 1), new MaterialStack(Oxygen, 3)), GENERATE_FLUID_BLOCK | STATE_GAS | DECOMPOSITION_BY_ELECTROLYZING);
     public static FluidMaterial SulfurDioxide = new FluidMaterial(725, "sulfur_dioxide", 10263584, MaterialIconSet.GAS, of(new MaterialStack(Sulfur, 1), new MaterialStack(Oxygen, 2)), STATE_GAS | DECOMPOSITION_BY_ELECTROLYZING);
-    public static FluidMaterial Glycerol = new FluidMaterial(726, "glycerol", 7384944, MaterialIconSet.FLUID, of(new MaterialStack(Carbon, 3), new MaterialStack(Hydrogen, 8), new MaterialStack(Oxygen, 3)), GENERATE_FLUID_BLOCK | DECOMPOSITION_BY_ELECTROLYZING);
+    public static FluidMaterial Glycerol = new FluidMaterial(726, "glycerol", 7384944, FLUID, of(new MaterialStack(Carbon, 3), new MaterialStack(Hydrogen, 8), new MaterialStack(Oxygen, 3)), GENERATE_FLUID_BLOCK | DECOMPOSITION_BY_ELECTROLYZING);
     public static FluidMaterial Ethylene = new FluidMaterial(729, "ethylene", 11382189, MaterialIconSet.GAS, of(new MaterialStack(Carbon, 2), new MaterialStack(Hydrogen, 4)), STATE_GAS | DECOMPOSITION_BY_ELECTROLYZING);
-    public static FluidMaterial MethylAcetate = new FluidMaterial(723, "methyl_acetate", 12427150, MaterialIconSet.FLUID, of(new MaterialStack(Carbon, 3), new MaterialStack(Hydrogen, 6), new MaterialStack(Oxygen, 2)), GENERATE_FLUID_BLOCK | DECOMPOSITION_BY_ELECTROLYZING);
-    public static FluidMaterial CalciumAcetate = new FluidMaterial(728, "calcium_acetate", 11444113, MaterialIconSet.FLUID, of(new MaterialStack(Calcium, 1), new MaterialStack(Carbon, 2), new MaterialStack(Oxygen, 4), new MaterialStack(Hydrogen, 6)), GENERATE_FLUID_BLOCK | DECOMPOSITION_BY_ELECTROLYZING);
-    public static FluidMaterial Ethenone = new FluidMaterial(724, "ethenone", 1776449, MaterialIconSet.FLUID, of(new MaterialStack(Carbon, 2), new MaterialStack(Hydrogen, 2), new MaterialStack(Oxygen, 1)), GENERATE_FLUID_BLOCK | DECOMPOSITION_BY_ELECTROLYZING);
-    public static FluidMaterial BisphenolA = new FluidMaterial(731, "bisphenol_a", 10848014, MaterialIconSet.FLUID, of(new MaterialStack(Carbon, 15), new MaterialStack(Hydrogen, 16), new MaterialStack(Oxygen, 2)), GENERATE_FLUID_BLOCK | DECOMPOSITION_BY_ELECTROLYZING);
-    public static FluidMaterial AllylChloride = new FluidMaterial(732, "allyl_chloride", 7450250, MaterialIconSet.FLUID, of(new MaterialStack(Carbon, 3), new MaterialStack(Hydrogen, 5), new MaterialStack(Chlorine, 1)), GENERATE_FLUID_BLOCK | DECOMPOSITION_BY_ELECTROLYZING);
-    public static FluidMaterial SodiumCyanide = new FluidMaterial(733, "sodium_cyanide", 16316671, MaterialIconSet.FLUID, of(new MaterialStack(Sodium, 1), new MaterialStack(Carbon, 1), new MaterialStack(Nitrogen, 1)), GENERATE_FLUID_BLOCK | DISABLE_DECOMPOSITION);
-    public static FluidMaterial AcetoneCyanohydrin = new FluidMaterial(734, "acetone_cyanohydrin", 12092939, MaterialIconSet.FLUID, of(new MaterialStack(Oxygen, 1), new MaterialStack(Nitrogen, 1), new MaterialStack(Carbon, 4), new MaterialStack(Hydrogen, 7)), GENERATE_FLUID_BLOCK | DISABLE_DECOMPOSITION);
-    public static FluidMaterial MethylMethacrylate = new FluidMaterial(735, "methyl_methacrylate", 16777215, MaterialIconSet.FLUID, of(new MaterialStack(Oxygen, 2), new MaterialStack(Carbon, 5), new MaterialStack(Hydrogen, 8)), GENERATE_FLUID_BLOCK | DISABLE_DECOMPOSITION);
-    public static FluidMaterial Dimethyldichlorosilane = new FluidMaterial(736, "dimethyldichlorosilane", 4070471, MaterialIconSet.FLUID, of(new MaterialStack(Carbon, 2), new MaterialStack(Hydrogen, 6), new MaterialStack(Chlorine, 2), new MaterialStack(Silicon, 1)), GENERATE_FLUID_BLOCK | DECOMPOSITION_BY_ELECTROLYZING);
-    public static FluidMaterial Dichlorobenzene = new FluidMaterial(737, "dichlorobenzene", 868171, MaterialIconSet.FLUID, of(new MaterialStack(Carbon, 6), new MaterialStack(Hydrogen, 4), new MaterialStack(Chlorine, 2)),GENERATE_FLUID_BLOCK | DECOMPOSITION_BY_ELECTROLYZING);
-    public static FluidMaterial Isoprene = new FluidMaterial(748, "isoprene", 1907997, MaterialIconSet.FLUID, of(new MaterialStack(Carbon, 5), new MaterialStack(Hydrogen, 8)),GENERATE_FLUID_BLOCK | DECOMPOSITION_BY_ELECTROLYZING);
-    public static FluidMaterial NickelSulfateSolution = new FluidMaterial(749, "nickel_sulfate_water_solution", 4109888, MaterialIconSet.FLUID, of(),GENERATE_FLUID_BLOCK | DISABLE_DECOMPOSITION);
-    public static FluidMaterial BlueVitriolSolution = new FluidMaterial(730, "blue_vitriol_water_solution", 4761024, MaterialIconSet.FLUID, of(),GENERATE_FLUID_BLOCK | DISABLE_DECOMPOSITION);
+    public static FluidMaterial MethylAcetate = new FluidMaterial(723, "methyl_acetate", 12427150, FLUID, of(new MaterialStack(Carbon, 3), new MaterialStack(Hydrogen, 6), new MaterialStack(Oxygen, 2)), GENERATE_FLUID_BLOCK | DECOMPOSITION_BY_ELECTROLYZING);
+    public static FluidMaterial CalciumAcetate = new FluidMaterial(728, "calcium_acetate", 11444113, FLUID, of(new MaterialStack(Calcium, 1), new MaterialStack(Carbon, 2), new MaterialStack(Oxygen, 4), new MaterialStack(Hydrogen, 6)), GENERATE_FLUID_BLOCK | DECOMPOSITION_BY_ELECTROLYZING);
+    public static FluidMaterial Ethenone = new FluidMaterial(724, "ethenone", 1776449, FLUID, of(new MaterialStack(Carbon, 2), new MaterialStack(Hydrogen, 2), new MaterialStack(Oxygen, 1)), GENERATE_FLUID_BLOCK | DECOMPOSITION_BY_ELECTROLYZING);
+    public static FluidMaterial BisphenolA = new FluidMaterial(731, "bisphenol_a", 10848014, FLUID, of(new MaterialStack(Carbon, 15), new MaterialStack(Hydrogen, 16), new MaterialStack(Oxygen, 2)), GENERATE_FLUID_BLOCK | DECOMPOSITION_BY_ELECTROLYZING);
+    public static FluidMaterial AllylChloride = new FluidMaterial(732, "allyl_chloride", 7450250, FLUID, of(new MaterialStack(Carbon, 3), new MaterialStack(Hydrogen, 5), new MaterialStack(Chlorine, 1)), GENERATE_FLUID_BLOCK | DECOMPOSITION_BY_ELECTROLYZING);
+    public static FluidMaterial SodiumCyanide = new FluidMaterial(733, "sodium_cyanide", 16316671, FLUID, of(new MaterialStack(Sodium, 1), new MaterialStack(Carbon, 1), new MaterialStack(Nitrogen, 1)), GENERATE_FLUID_BLOCK | DISABLE_DECOMPOSITION);
+    public static FluidMaterial AcetoneCyanohydrin = new FluidMaterial(734, "acetone_cyanohydrin", 12092939, FLUID, of(new MaterialStack(Oxygen, 1), new MaterialStack(Nitrogen, 1), new MaterialStack(Carbon, 4), new MaterialStack(Hydrogen, 7)), GENERATE_FLUID_BLOCK | DISABLE_DECOMPOSITION);
+    public static FluidMaterial MethylMethacrylate = new FluidMaterial(735, "methyl_methacrylate", 16777215, FLUID, of(new MaterialStack(Oxygen, 2), new MaterialStack(Carbon, 5), new MaterialStack(Hydrogen, 8)), GENERATE_FLUID_BLOCK | DISABLE_DECOMPOSITION);
+    public static FluidMaterial Dimethyldichlorosilane = new FluidMaterial(736, "dimethyldichlorosilane", 4070471, FLUID, of(new MaterialStack(Carbon, 2), new MaterialStack(Hydrogen, 6), new MaterialStack(Chlorine, 2), new MaterialStack(Silicon, 1)), GENERATE_FLUID_BLOCK | DECOMPOSITION_BY_ELECTROLYZING);
+    public static FluidMaterial Dichlorobenzene = new FluidMaterial(737, "dichlorobenzene", 868171, FLUID, of(new MaterialStack(Carbon, 6), new MaterialStack(Hydrogen, 4), new MaterialStack(Chlorine, 2)),GENERATE_FLUID_BLOCK | DECOMPOSITION_BY_ELECTROLYZING);
+    public static FluidMaterial Isoprene = new FluidMaterial(748, "isoprene", 1907997, FLUID, of(new MaterialStack(Carbon, 5), new MaterialStack(Hydrogen, 8)),GENERATE_FLUID_BLOCK | DECOMPOSITION_BY_ELECTROLYZING);
+    public static FluidMaterial NickelSulfateSolution = new FluidMaterial(749, "nickel_sulfate_water_solution", 4109888, FLUID, of(),GENERATE_FLUID_BLOCK | DISABLE_DECOMPOSITION);
+    public static FluidMaterial BlueVitriolSolution = new FluidMaterial(730, "blue_vitriol_water_solution", 4761024, FLUID, of(),GENERATE_FLUID_BLOCK | DISABLE_DECOMPOSITION);
 
     /**
      * Cracked Fluids
      */
-    public static FluidMaterial HydroCrackedEthane = new FluidMaterial(916, "hydrocracked_ethane", 9868988, MaterialIconSet.FLUID, of(), GENERATE_FLUID_BLOCK);
+    public static FluidMaterial HydroCrackedEthane = new FluidMaterial(916, "hydrocracked_ethane", 9868988, FLUID, of(), GENERATE_FLUID_BLOCK);
     public static FluidMaterial HydroCrackedEthylene = new FluidMaterial(915, "hydrocracked_ethylene", 10724256, MaterialIconSet.GAS, of(), STATE_GAS);
-    public static FluidMaterial HydroCrackedPropene = new FluidMaterial(914, "hydrocracked_propene", 12494144, MaterialIconSet.FLUID, of(), GENERATE_FLUID_BLOCK);
-    public static FluidMaterial HydroCrackedPropane = new FluidMaterial(913, "hydrocracked_propane", 12494144, MaterialIconSet.FLUID, of(), GENERATE_FLUID_BLOCK);
-    public static FluidMaterial HydroCrackedLightFuel = new FluidMaterial(912, "hydrocracked_light_fuel", 12037896, MaterialIconSet.FLUID, of(), GENERATE_FLUID_BLOCK);
-    public static FluidMaterial HydroCrackedButane = new FluidMaterial(911, "hydrocracked_butane", 8727576, MaterialIconSet.FLUID, of(), GENERATE_FLUID_BLOCK);
-    public static FluidMaterial HydroCrackedNaphtha = new FluidMaterial(910, "hydrocracked_naphtha", 12563976, MaterialIconSet.FLUID, of(), GENERATE_FLUID_BLOCK);
-    public static FluidMaterial HydroCrackedHeavyFuel = new FluidMaterial(909, "hydrocracked_heavy_fuel", 16776960, MaterialIconSet.FLUID, of(), GENERATE_FLUID_BLOCK);
-    public static FluidMaterial HydroCrackedGas = new FluidMaterial(908, "hydrocracked_gas", 11842740, MaterialIconSet.FLUID, of(), GENERATE_FLUID_BLOCK);
-    public static FluidMaterial HydroCrackedButene = new FluidMaterial(907, "hydrocracked_butene", 10042885, MaterialIconSet.FLUID, of(), GENERATE_FLUID_BLOCK);
-    public static FluidMaterial HydroCrackedButadiene = new FluidMaterial(906, "hydrocracked_butadiene", 11358723, MaterialIconSet.FLUID, of(), GENERATE_FLUID_BLOCK);
-    public static FluidMaterial SteamCrackedEthane = new FluidMaterial(905, "steamcracked_ethane", 9868988, MaterialIconSet.FLUID, of(), GENERATE_FLUID_BLOCK);
+    public static FluidMaterial HydroCrackedPropene = new FluidMaterial(914, "hydrocracked_propene", 12494144, FLUID, of(), GENERATE_FLUID_BLOCK);
+    public static FluidMaterial HydroCrackedPropane = new FluidMaterial(913, "hydrocracked_propane", 12494144, FLUID, of(), GENERATE_FLUID_BLOCK);
+    public static FluidMaterial HydroCrackedLightFuel = new FluidMaterial(912, "hydrocracked_light_fuel", 12037896, FLUID, of(), GENERATE_FLUID_BLOCK);
+    public static FluidMaterial HydroCrackedButane = new FluidMaterial(911, "hydrocracked_butane", 8727576, FLUID, of(), GENERATE_FLUID_BLOCK);
+    public static FluidMaterial HydroCrackedNaphtha = new FluidMaterial(910, "hydrocracked_naphtha", 12563976, FLUID, of(), GENERATE_FLUID_BLOCK);
+    public static FluidMaterial HydroCrackedHeavyFuel = new FluidMaterial(909, "hydrocracked_heavy_fuel", 16776960, FLUID, of(), GENERATE_FLUID_BLOCK);
+    public static FluidMaterial HydroCrackedGas = new FluidMaterial(908, "hydrocracked_gas", 11842740, FLUID, of(), GENERATE_FLUID_BLOCK);
+    public static FluidMaterial HydroCrackedButene = new FluidMaterial(907, "hydrocracked_butene", 10042885, FLUID, of(), GENERATE_FLUID_BLOCK);
+    public static FluidMaterial HydroCrackedButadiene = new FluidMaterial(906, "hydrocracked_butadiene", 11358723, FLUID, of(), GENERATE_FLUID_BLOCK);
+    public static FluidMaterial SteamCrackedEthane = new FluidMaterial(905, "steamcracked_ethane", 9868988, FLUID, of(), GENERATE_FLUID_BLOCK);
     public static FluidMaterial SteamCrackedEthylene = new FluidMaterial(904, "steamcracked_ethylene", 10724256, MaterialIconSet.GAS, of(), STATE_GAS);
-    public static FluidMaterial SteamCrackedPropene = new FluidMaterial(903, "steamcracked_propene", 12494144, MaterialIconSet.FLUID, of(), GENERATE_FLUID_BLOCK);
-    public static FluidMaterial SteamCrackedPropane = new FluidMaterial(902, "steamcracked_propane", 12494144, MaterialIconSet.FLUID, of(), GENERATE_FLUID_BLOCK);
-    public static FluidMaterial SteamCrackedButane = new FluidMaterial(901, "steamcracked_butane", 8727576, MaterialIconSet.FLUID, of(), GENERATE_FLUID_BLOCK);
-    public static FluidMaterial SteamCrackedNaphtha = new FluidMaterial(917, "steamcracked_naphtha", 12563976, MaterialIconSet.FLUID, of(), GENERATE_FLUID_BLOCK);
-    public static FluidMaterial SteamCrackedGas = new FluidMaterial(918, "steamcracked_gas", 11842740, MaterialIconSet.FLUID, of(), GENERATE_FLUID_BLOCK);
-    public static FluidMaterial SteamCrackedButene = new FluidMaterial(919, "steamcracked_butene", 10042885, MaterialIconSet.FLUID, of(), GENERATE_FLUID_BLOCK);
-    public static FluidMaterial SteamCrackedButadiene = new FluidMaterial(920, "steamcracked_butadiene", 11358723, MaterialIconSet.FLUID, of(), GENERATE_FLUID_BLOCK);
-    public static FluidMaterial SteamCrackedLightFuel = new FluidMaterial(921, "steamcracked_light_fuel", 0xFFFF00, MaterialIconSet.FLUID, of(), 0);
-    public static FluidMaterial SteamCrackedHeavyFuel = new FluidMaterial(922, "steamcracked_heavy_fuel", 0xFFFF00, MaterialIconSet.FLUID, of(), 0);
+    public static FluidMaterial SteamCrackedPropene = new FluidMaterial(903, "steamcracked_propene", 12494144, FLUID, of(), GENERATE_FLUID_BLOCK);
+    public static FluidMaterial SteamCrackedPropane = new FluidMaterial(902, "steamcracked_propane", 12494144, FLUID, of(), GENERATE_FLUID_BLOCK);
+    public static FluidMaterial SteamCrackedButane = new FluidMaterial(901, "steamcracked_butane", 8727576, FLUID, of(), GENERATE_FLUID_BLOCK);
+    public static FluidMaterial SteamCrackedNaphtha = new FluidMaterial(917, "steamcracked_naphtha", 12563976, FLUID, of(), GENERATE_FLUID_BLOCK);
+    public static FluidMaterial SteamCrackedGas = new FluidMaterial(918, "steamcracked_gas", 11842740, FLUID, of(), GENERATE_FLUID_BLOCK);
+    public static FluidMaterial SteamCrackedButene = new FluidMaterial(919, "steamcracked_butene", 10042885, FLUID, of(), GENERATE_FLUID_BLOCK);
+    public static FluidMaterial SteamCrackedButadiene = new FluidMaterial(920, "steamcracked_butadiene", 11358723, FLUID, of(), GENERATE_FLUID_BLOCK);
+    public static FluidMaterial SteamCrackedLightFuel = new FluidMaterial(921, "steamcracked_light_fuel", 0xFFFF00, FLUID, of(), 0);
+    public static FluidMaterial SteamCrackedHeavyFuel = new FluidMaterial(922, "steamcracked_heavy_fuel", 0xFFFF00, FLUID, of(), 0);
 
     public static Material Superconductor = new Material(959, "superconductor",0xFFFFFF, MaterialIconSet.NONE, of(), 0L, null) {};
 

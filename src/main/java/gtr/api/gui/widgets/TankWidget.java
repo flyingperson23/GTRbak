@@ -1,10 +1,12 @@
 package gtr.api.gui.widgets;
 
+import com.mojang.realmsclient.gui.ChatFormatting;
 import gtr.api.gui.IRenderContext;
 import gtr.api.gui.Widget;
 import gtr.api.gui.igredient.IIngredientSlot;
 import gtr.api.gui.resources.RenderUtil;
 import gtr.api.gui.resources.TextureArea;
+import gtr.api.util.FluidTooltipUtil;
 import gtr.api.util.Position;
 import gtr.api.util.Size;
 import net.minecraft.client.Minecraft;
@@ -135,6 +137,12 @@ public class TankWidget extends Widget implements IIngredientSlot {
             if (lastFluidInTank != null) {
                 Fluid fluid = lastFluidInTank.getFluid();
                 tooltips.add(fluid.getLocalizedName(lastFluidInTank));
+
+                // Add chemical formula tooltip
+                String formula = FluidTooltipUtil.getFluidTooltip(lastFluidInTank);
+                if (formula != null && !formula.isEmpty())
+                    tooltips.add(ChatFormatting.GRAY.toString() + formula);
+
                 tooltips.add(I18n.format("gtr.fluid.amount", lastFluidInTank.amount, lastTankCapacity));
                 tooltips.add(I18n.format("gtr.fluid.temperature", fluid.getTemperature(lastFluidInTank)));
                 tooltips.add(I18n.format(fluid.isGaseous(lastFluidInTank) ? "gtr.fluid.state_gas" : "gtr.fluid.state_liquid"));

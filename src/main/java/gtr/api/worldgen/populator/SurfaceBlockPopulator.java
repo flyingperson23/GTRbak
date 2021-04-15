@@ -38,6 +38,10 @@ public class SurfaceBlockPopulator implements VeinChunkPopulator {
     public void initializeForVein(OreDepositDefinition definition) {
     }
 
+    public IBlockState getBlockState() {
+        return blockState;
+    }
+
     @Override
     public void populateChunk(World world, int chunkX, int chunkZ, Random random, OreDepositDefinition definition, GridEntryInfo gridEntryInfo) {
         if (world.getWorldType() != WorldType.FLAT) {

@@ -44,6 +44,8 @@ public class SimpleCapabilityManager {
         registerCapabilityWithNoDefault(IScrewdriverItem.class);
         registerCapabilityWithNoDefault(ISoftHammerItem.class);
         registerCapabilityWithNoDefault(IWireCutterItem.class);
+        registerCapabilityWithNoDefault(IActiveOutputSide.class);
+        registerCapabilityWithNoDefault(IFuelable.class);
 
         //internal capabilities
         CapabilityManager.INSTANCE.register(GTWorldGenCapability.class, GTWorldGenCapability.STORAGE, GTWorldGenCapability.FACTORY);

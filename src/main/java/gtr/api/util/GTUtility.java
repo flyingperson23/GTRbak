@@ -216,18 +216,24 @@ public class GTUtility {
     }
 
     public static int convertRGBtoRGBA_CL(int colorValue, int opacity) {
-        int r = (colorValue >> 16) & 0xFF;
-        int g = (colorValue >> 8) & 0xFF;
-        int b = (colorValue & 0xFF);
-        return (r & 0xFF) << 24 | (g & 0xFF) << 16 | (b & 0xFF) << 8 | (opacity & 0xFF);
+        return colorValue << 8 | (opacity & 0xFF);
+    }
+
+    public static int convertOpaqueRGBA_CLtoRGB(int colorAlpha) {
+        return colorAlpha >>> 8;
     }
 
     //0xAARRGGBB
     public static int convertRGBtoOpaqueRGBA_MC(int colorValue) {
-        int r = (colorValue >> 16) & 0xFF;
-        int g = (colorValue >> 8) & 0xFF;
-        int b = (colorValue & 0xFF);
-        return 0xFF << 24 | (r & 0xFF) << 16 | (g & 0xFF) << 8 | (b & 0xFF);
+        return convertRGBtoOpaqueRGBA_MC(colorValue, 255);
+    }
+
+    public static int convertRGBtoOpaqueRGBA_MC(int colorValue, int opacity) {
+        return opacity << 24 | colorValue;
+    }
+
+    public static int convertOpaqueRGBA_MCtoRGB(int alphaColor) {
+        return alphaColor & 0xFFFFFF;
     }
 
     public static void setItem(ItemStack itemStack, ItemStack newStack) {
@@ -349,7 +355,7 @@ public class GTUtility {
 
         boolean wasRemovedByPlayer = blockState.getBlock().removedByPlayer(blockState, world, pos, player, !player.capabilities.isCreativeMode);
         if(wasRemovedByPlayer) {
-            blockState.getBlock().onBlockDestroyedByPlayer(world, pos, blockState);
+            blockState.getBlock().onPlayerDestroy(world, pos, blockState);
 
             if(!world.isRemote && !player.capabilities.isCreativeMode) {
                 ItemStack stackInHand = player.getHeldItemMainhand();
@@ -615,7 +621,9 @@ public class GTUtility {
 
     public static List<EntityPlayerMP> findPlayersUsing(MetaTileEntity metaTileEntity, double radius) {
         ArrayList<EntityPlayerMP> result = new ArrayList<>();
-        AxisAlignedBB box = new AxisAlignedBB(metaTileEntity.getPos()).expand(radius, radius, radius);
+        AxisAlignedBB box = new AxisAlignedBB(metaTileEntity.getPos())
+            .expand(radius, radius, radius)
+            .expand(-radius, -radius, -radius);
         List<EntityPlayerMP> entities = metaTileEntity.getWorld().getEntitiesWithinAABB(EntityPlayerMP.class, box);
         for (EntityPlayerMP player : entities) {
             if (player.openContainer instanceof ModularUIContainer) {
@@ -771,21 +779,8 @@ public class GTUtility {
             .thenComparing(ItemStack::getItemDamage)
             .thenComparing(ItemStack::hasTagCompound)
             .thenComparing(it -> -Objects.hashCode(it.getTagCompound()))
-            .thenComparing(ItemStack::getCount);
+            .thenComparing(it -> -it.getCount());
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     public static boolean arePosEqual(BlockPos pos1, BlockPos pos2) {
         return pos1.getX() == pos2.getX() & pos1.getY() == pos2.getY() & pos1.getZ() == pos2.getZ();
@@ -1136,7 +1131,7 @@ public class GTUtility {
     }
 
     public static RayTraceResult getBlockLookingAtIgnoreBB(EntityPlayer liv) {
-        Vec3d pos2 = liv.getPositionVector().addVector(0, liv.getEyeHeight(), 0);
+        Vec3d pos2 = liv.getPositionVector().add(0, liv.getEyeHeight(), 0);
         RayTraceResult rayTraceResult = rayTraceIgnoreBB(pos2, pos2.add(liv.getLookVec().scale(12)), false, true, true, liv.world, new BlockPos(0, -1, 0));
         if (rayTraceResult != null) {
             if (rayTraceResult.typeOfHit != null) {
@@ -1149,7 +1144,7 @@ public class GTUtility {
     }
 
     public static RayTraceResult getBlockLookingat1(EntityPlayer liv) {
-        Vec3d pos2 = liv.getPositionVector().addVector(0, liv.getEyeHeight(), 0);
+        Vec3d pos2 = liv.getPositionVector().add(0, liv.getEyeHeight(), 0);
         RayTraceResult rayTraceResult = liv.world.rayTraceBlocks(pos2, pos2.add(liv.getLookVec().scale(12)), false, true, true);
         if (rayTraceResult != null) {
             if (rayTraceResult.typeOfHit != null) {
@@ -1162,7 +1157,7 @@ public class GTUtility {
     }
 
     public static RayTraceResult getBlockLookingat2(EntityPlayer liv, BlockPos exclude) {
-        Vec3d pos2 = liv.getPositionVector().addVector(0, liv.getEyeHeight(), 0);
+        Vec3d pos2 = liv.getPositionVector().add(0, liv.getEyeHeight(), 0);
         RayTraceResult rayTraceResult = rayTraceBlocks(pos2, pos2.add(liv.getLookVec().scale(12)), false, true, true, liv.world, exclude);
         if (rayTraceResult != null) {
             if (rayTraceResult.typeOfHit != null) {
@@ -1180,7 +1175,7 @@ public class GTUtility {
         Vec3d vec3d = start.subtract(pos.getX(), pos.getY(), pos.getZ());
         Vec3d vec3d1 = end.subtract(pos.getX(), pos.getY(), pos.getZ());
         RayTraceResult raytraceresult = boundingBox.calculateIntercept(vec3d, vec3d1);
-        return raytraceresult == null ? null : new RayTraceResult(raytraceresult.hitVec.addVector(pos.getX(), pos.getY(), pos.getZ()), raytraceresult.sideHit, pos);
+        return raytraceresult == null ? null : new RayTraceResult(raytraceresult.hitVec.add(pos.getX(), pos.getY(), pos.getZ()), raytraceresult.sideHit, pos);
     }
 
     public static EnumFacing getDirection(EnumFacing overlaySide, Vec3d vec) {

@@ -80,7 +80,7 @@ public class BlockMachine extends BlockCustomParticle implements ITileEntityProv
         setSoundType(SoundType.METAL);
         setHardness(6.0f);
         setResistance(6.0f);
-        setUnlocalizedName("unnamed");
+        setTranslationKey("unnamed");
         setDefaultState(getDefaultState().withProperty(OPAQUE, true));
         setHarvestLevel("wrench", 1);
     }
@@ -265,7 +265,7 @@ public class BlockMachine extends BlockCustomParticle implements ITileEntityProv
         NBTTagCompound tagCompound = new NBTTagCompound();
         metaTileEntity.writeItemStackData(tagCompound);
         //only set item tag if it's not empty, so newly created items will stack with dismantled
-        if (!tagCompound.hasNoTags())
+        if (!tagCompound.isEmpty())
             itemStack.setTagCompound(tagCompound);
         drops.add(itemStack);
         metaTileEntity.getDrops(drops, harvesters.get());
@@ -297,7 +297,7 @@ public class BlockMachine extends BlockCustomParticle implements ITileEntityProv
 
             if (wrenchItem.damageItem(DamageValues.DAMAGE_FOR_WRENCH, true) &&
                 metaTileEntity.onWrenchClick(playerIn, hand, wrenchDirection, rayTraceResult)) {
-                wrenchItem.damageItem(DamageValues.DAMAGE_FOR_SCREWDRIVER, false);
+                wrenchItem.damageItem(DamageValues.DAMAGE_FOR_WRENCH, false);
                 return true;
             }
             return false;
@@ -406,7 +406,7 @@ public class BlockMachine extends BlockCustomParticle implements ITileEntityProv
     public int getLightOpacity(IBlockState state, IBlockAccess world, BlockPos pos) {
         //why mc is so fucking retarded to call this method on fucking NEIGHBOUR BLOCKS!
         MetaTileEntity metaTileEntity = getMetaTileEntity(world, pos);
-        return metaTileEntity == null ? 255 : metaTileEntity.getLightOpacity();
+        return metaTileEntity == null ? 0 : metaTileEntity.getLightOpacity();
     }
 
     @Override

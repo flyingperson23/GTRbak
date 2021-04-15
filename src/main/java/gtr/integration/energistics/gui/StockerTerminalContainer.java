@@ -120,7 +120,7 @@ public class StockerTerminalContainer extends AEBaseContainer {
                         this.updateTagChildItems(data, inv, i, 1);
             }
 
-        if (data.hasNoTags())
+        if (data.isEmpty())
             return;
 
         GregTechMod.DISPLAY_INFO_WRAPPER.sendTo(new PacketCompressedNBT(data), (EntityPlayerMP) this.getPlayerInv().player);
@@ -241,7 +241,7 @@ public class StockerTerminalContainer extends AEBaseContainer {
         final String name = getItemTagName(tracker);
         final NBTTagCompound tag = parentTag.getCompoundTag(name);
 
-        if (tag.hasNoTags()) {
+        if (tag.isEmpty()) {
             tag.setLong("sortBy", tracker.sortBy);
             tag.setString("un", tracker.unlocalizedName);
         }
@@ -271,7 +271,7 @@ public class StockerTerminalContainer extends AEBaseContainer {
     }
 
     protected void setItemTag(NBTTagCompound parent, NBTTagCompound child, InvTracker inv) {
-        if (child.hasNoTags())
+        if (child.isEmpty())
             return;
 
         parent.setTag(getItemTagName(inv), child);

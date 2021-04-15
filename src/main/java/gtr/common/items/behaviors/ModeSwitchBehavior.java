@@ -50,7 +50,7 @@ public class ModeSwitchBehavior<T extends Enum<T> & ILocalizationKey> implements
             int currentModeIndex = ArrayUtils.indexOf(enumConstants, currentMode);
             T nextMode = enumConstants[(currentModeIndex + 1) % enumConstants.length];
             setModeForItemStack(itemStack, nextMode);
-            ITextComponent newModeComponent = new TextComponentTranslation(nextMode.getUnlocalizedName());
+            ITextComponent newModeComponent = new TextComponentTranslation(nextMode.getTranslationKey());
             ITextComponent textComponent = new TextComponentTranslation("metaitem.behavior.mode_switch.mode_switched", newModeComponent);
             player.sendStatusMessage(textComponent, true);
             return ActionResult.newResult(EnumActionResult.SUCCESS, itemStack);
@@ -62,10 +62,10 @@ public class ModeSwitchBehavior<T extends Enum<T> & ILocalizationKey> implements
     public void addInformation(ItemStack itemStack, List<String> lines) {
         T currentMode = getModeFromItemStack(itemStack);
         lines.add(I18n.format("metaitem.behavior.mode_switch.tooltip"));
-        lines.add(I18n.format("metaitem.behavior.mode_switch.current_mode", I18n.format(currentMode.getUnlocalizedName())));
+        lines.add(I18n.format("metaitem.behavior.mode_switch.current_mode", I18n.format(currentMode.getTranslationKey())));
     }
 
     public interface ILocalizationKey {
-        String getUnlocalizedName();
+        String getTranslationKey();
     }
 }

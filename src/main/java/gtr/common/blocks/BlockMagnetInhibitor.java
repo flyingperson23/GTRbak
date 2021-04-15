@@ -17,7 +17,7 @@ import java.util.List;
 public class BlockMagnetInhibitor extends Block {
     public BlockMagnetInhibitor() {
         super(Material.IRON);
-        setUnlocalizedName("gt.magnetinhibitor");
+        setTranslationKey("gt.magnetinhibitor");
         setCreativeTab(GregTechAPI.TAB_GREGTECH);
         setHarvestLevel("pickaxe", 1);
         setHardness(7);

@@ -377,7 +377,7 @@ public class Utils {
     }
 
     public static RayTraceResult getBlockLookingAtIgnoreBB(EntityPlayer liv) {
-        Vec3d pos2 = liv.getPositionVector().addVector(0, liv.getEyeHeight(), 0);
+        Vec3d pos2 = liv.getPositionVector().add(0, liv.getEyeHeight(), 0);
         RayTraceResult rayTraceResult = Utils.rayTraceIgnoreBB(pos2, pos2.add(liv.getLookVec().scale(12)), false, true, true, liv.world, new BlockPos(0, -1, 0));
         if (rayTraceResult != null) {
             if (rayTraceResult.typeOfHit != null) {
@@ -390,7 +390,7 @@ public class Utils {
     }
 
     public static RayTraceResult getBlockLookingat1(EntityPlayer liv) {
-        Vec3d pos2 = liv.getPositionVector().addVector(0, liv.getEyeHeight(), 0);
+        Vec3d pos2 = liv.getPositionVector().add(0, liv.getEyeHeight(), 0);
         RayTraceResult rayTraceResult = liv.world.rayTraceBlocks(pos2, pos2.add(liv.getLookVec().scale(12)), false, true, true);
         if (rayTraceResult != null) {
             if (rayTraceResult.typeOfHit != null) {
@@ -403,7 +403,7 @@ public class Utils {
     }
 
     public static RayTraceResult getBlockLookingat2(EntityPlayer liv, BlockPos exclude) {
-        Vec3d pos2 = liv.getPositionVector().addVector(0, liv.getEyeHeight(), 0);
+        Vec3d pos2 = liv.getPositionVector().add(0, liv.getEyeHeight(), 0);
         RayTraceResult rayTraceResult = Utils.rayTraceBlocks(pos2, pos2.add(liv.getLookVec().scale(12)), false, true, true, liv.world, exclude);
         if (rayTraceResult != null) {
             if (rayTraceResult.typeOfHit != null) {
@@ -421,7 +421,7 @@ public class Utils {
         Vec3d vec3d = start.subtract(pos.getX(), pos.getY(), pos.getZ());
         Vec3d vec3d1 = end.subtract(pos.getX(), pos.getY(), pos.getZ());
         RayTraceResult raytraceresult = boundingBox.calculateIntercept(vec3d, vec3d1);
-        return raytraceresult == null ? null : new RayTraceResult(raytraceresult.hitVec.addVector(pos.getX(), pos.getY(), pos.getZ()), raytraceresult.sideHit, pos);
+        return raytraceresult == null ? null : new RayTraceResult(raytraceresult.hitVec.add(pos.getX(), pos.getY(), pos.getZ()), raytraceresult.sideHit, pos);
     }
 
     public static EnumFacing getDirection(EnumFacing overlaySide, Vec3d vec) {
@@ -573,7 +573,7 @@ public class Utils {
                 double effective_partial_volume_range = 4;
                 
                 double aabbRange = effective_full_volume_range + effective_partial_volume_range;
-                Vec3d setConnectionVector = new Vec3d(setConnection.getX(), setConnection.getY(), setConnection.getZ()).addVector(0.5, 0.5, 0.5);
+                Vec3d setConnectionVector = new Vec3d(setConnection.getX(), setConnection.getY(), setConnection.getZ()).add(0.5, 0.5, 0.5);
                 AxisAlignedBB max_aabb = new AxisAlignedBB(-1*aabbRange, -1*aabbRange, -1*aabbRange, aabbRange, aabbRange, aabbRange).offset(setConnectionVector);
                 List<EntityPlayer> full_play_list = worldIn.getEntitiesWithinAABB(EntityPlayer.class, max_aabb);
                 List<EntityPlayer> partial_sound_play_list = worldIn.getEntitiesWithinAABB(EntityPlayer.class, max_aabb);
@@ -589,7 +589,7 @@ public class Utils {
 
                 for (EntityPlayer partial_sound : partial_sound_play_list) {
                     if (partial_sound instanceof EntityPlayerMP) {
-                        float volume = 1.0F - (float) ((partial_sound.getPositionVector().distanceTo(new Vec3d(setConnection.getX(), setConnection.getY(), setConnection.getZ()).addVector(0.5, 0.5, 0.5)) - effective_full_volume_range)/effective_partial_volume_range);
+                        float volume = 1.0F - (float) ((partial_sound.getPositionVector().distanceTo(new Vec3d(setConnection.getX(), setConnection.getY(), setConnection.getZ()).add(0.5, 0.5, 0.5)) - effective_full_volume_range)/effective_partial_volume_range);
                         GregTechMod.WRENCH_NET_WRAPPER.sendTo(new MessagePlaySound(volume), (EntityPlayerMP) partial_sound);
                     }
                 }

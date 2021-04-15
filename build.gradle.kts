@@ -69,7 +69,7 @@ fun minecraft(configure: UserBaseExtension.() -> Unit) = project.configure(confi
 
 minecraft {
     version = mcFullVersion
-    mappings = "snapshot_20170928"
+    mappings = "stable_39"
     runDir = "run"
     isUseDepAts = true
 }
@@ -112,13 +112,15 @@ repositories {
         setUrl("https://maven.blamejared.com/")
     }
     maven {
+        name = "CCL Maven New"
+        setUrl("https://minecraft.curseforge.com/api/maven")
+    }
+    maven {
         name = "Modmaven for Applied Energistics 2"
         setUrl("https://modmaven.dev/")
     }
 
 }
-
-
 
 val GCBuild = "261"
 val GCVersion = "1.12.2-4.0.2.${GCBuild}"
@@ -128,8 +130,8 @@ dependencies {
         isTransitive = false
     }
     "deobfCompile"("codechicken:ChickenASM:$shortVersion-$chickenasmVersion")
-    "deobfCompile"("codechicken:CodeChickenLib:$mcVersion-$cclVersion:deobf")
-    "deobfCompile"("codechicken:ForgeMultipart:$mcVersion-$multipartVersion:deobf")
+    "deobfCompile"("codechicken-lib-1-8:CodeChickenLib-$mcVersion:$cclVersion:universal")
+    "deobfCompile"("forge-multipart-cbe:ForgeMultipart-$mcVersion:$multipartVersion:universal")
     "deobfCompile"("CraftTweaker2:CraftTweaker2-MC$strippedVersion-Main:$crafttweakerVersion")
     "deobfCompile"("mezz.jei:jei_$mcVersion:$jeiVersion")
     "deobfCompile"("mcjty.theoneprobe:TheOneProbe-$shortVersion:$shortVersion-$topVersion")

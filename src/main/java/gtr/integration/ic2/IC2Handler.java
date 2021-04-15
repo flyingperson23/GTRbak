@@ -24,7 +24,7 @@ public class IC2Handler {
                 return true;
             }
         }
-        if (!te.getBlockType().getUnlocalizedName().contains("ic2")) return false;
+        if (!te.getBlockType().getTranslationKey().contains("ic2")) return false;
         return te instanceof IEnergySink || te instanceof IEnergySource;
     }
 

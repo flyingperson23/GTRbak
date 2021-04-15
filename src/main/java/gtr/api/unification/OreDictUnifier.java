@@ -49,7 +49,7 @@ public class OreDictUnifier {
                 stackComparator = Collections.reverseOrder(new CustomModPriorityComparator(modPriorities));
             } else {
                 //noinspection ConstantConditions
-                Function<ItemAndMetadata, String> modIdExtractor = stack -> stack.item.getRegistryName().getResourceDomain();
+                Function<ItemAndMetadata, String> modIdExtractor = stack -> stack.item.getRegistryName().getNamespace();
                 stackComparator = Comparator.comparing(modIdExtractor);
             }
         }
@@ -81,6 +81,11 @@ public class OreDictUnifier {
     public static void registerOre(ItemStack itemStack, String oreDict) {
         if (itemStack.isEmpty()) return;
         OreDictionary.registerOre(oreDict, itemStack);
+    }
+
+    public static void registerOre(ItemStack itemStack, String customOrePrefix, @Nullable Material material) {
+        if (itemStack.isEmpty()) return;
+        OreDictionary.registerOre(customOrePrefix + (material == null ? "" : material.toCamelCaseString()), itemStack);
     }
 
     public static void init() {

@@ -27,4 +27,6 @@ public class GregtechCapabilities {
     @CapabilityInject(IWireCutterItem.class)
     public static Capability<IWireCutterItem> CAPABILITY_WIRE_CUTTER = null;
 
+    @CapabilityInject(IFuelable.class)
+    public static Capability<IFuelable> CAPABILITY_FUELABLE = null;
 }

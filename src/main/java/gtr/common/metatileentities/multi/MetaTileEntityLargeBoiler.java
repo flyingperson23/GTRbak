@@ -7,9 +7,9 @@ import codechicken.lib.vec.Matrix4;
 import gtr.GregTechMod;
 import gtr.api.GTValues;
 import gtr.api.capability.GregtechCapabilities;
-import gtr.api.capability.impl.FluidTankList;
-import gtr.api.capability.impl.FuelRecipeLogic;
-import gtr.api.capability.impl.ItemHandlerList;
+import gtr.api.capability.IFuelInfo;
+import gtr.api.capability.IFuelable;
+import gtr.api.capability.impl.*;
 import gtr.api.capability.tool.ISoftHammerItem;
 import gtr.api.gui.IUIHolder;
 import gtr.api.gui.ModularUI;
@@ -55,17 +55,16 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static gtr.api.gui.widgets.AdvancedTextWidget.withButton;
 import static gtr.api.gui.widgets.AdvancedTextWidget.withHoverTextTranslate;
 
-public class MetaTileEntityLargeBoiler extends MultiblockWithDisplayBase implements IUIHolder {
+public class MetaTileEntityLargeBoiler extends MultiblockWithDisplayBase implements IUIHolder, IFuelable {
 
     private static final int CONSUMPTION_MULTIPLIER = 100;
     private static final int BOILING_TEMPERATURE = 100;
@@ -78,6 +77,89 @@ public class MetaTileEntityLargeBoiler extends MultiblockWithDisplayBase impleme
     @Override
     public void markAsDirty() {
         markDirty();
+    }
+
+
+    public <T> T getCapability(Capability<T> capability, EnumFacing side) {
+        T result = super.getCapability(capability, side);
+        if (result != null)
+            return result;
+        if (capability == GregtechCapabilities.CAPABILITY_FUELABLE) {
+            return GregtechCapabilities.CAPABILITY_FUELABLE.cast(this);
+        }
+        return null;
+    }
+
+    @Override
+    public Collection<IFuelInfo> getFuels() {
+        if (!isStructureFormed())
+            return Collections.emptySet();
+        final LinkedHashMap<Object, IFuelInfo> fuels = new LinkedHashMap<Object, IFuelInfo>();
+        int fluidCapacity = 0; // fluid capacity is all non water tanks
+        for (IFluidTank fluidTank : fluidImportInventory.getFluidTanks()) {
+            FluidStack fuelStack = fluidTank.drain(Integer.MAX_VALUE, false);
+            if (!ModHandler.isWater(fuelStack))
+                fluidCapacity += fluidTank.getCapacity();
+        }
+        for (IFluidTank fluidTank : fluidImportInventory.getFluidTanks()) {
+            FluidStack fuelStack = fluidTank.drain(Integer.MAX_VALUE, false);
+            if (fuelStack == null || ModHandler.isWater(fuelStack))
+                continue;
+            FuelRecipe dieselRecipe = RecipeMaps.DIESEL_GENERATOR_FUELS.findRecipe(GTValues.V[9], fuelStack);
+            if (dieselRecipe != null) {
+                long recipeVoltage = FuelRecipeLogic.getTieredVoltage(dieselRecipe.getMinVoltage());
+                int voltageMultiplier = (int) Math.max(1L, recipeVoltage / GTValues.V[GTValues.LV]);
+                int burnTime = (int) Math.ceil(dieselRecipe.getDuration() * CONSUMPTION_MULTIPLIER / 2.0 * voltageMultiplier * getThrottleMultiplier());
+                int fuelAmountToConsume = (int) Math.ceil(dieselRecipe.getRecipeFluid().amount * CONSUMPTION_MULTIPLIER * boilerType.fuelConsumptionMultiplier * getThrottleMultiplier());
+                int fuelBurnTime = fuelStack.amount * burnTime / fuelAmountToConsume;
+                FluidFuelInfo fluidFuelInfo = (FluidFuelInfo) fuels.get(fuelStack.getUnlocalizedName());
+                if (fluidFuelInfo == null) {
+                    fluidFuelInfo = new FluidFuelInfo(fuelStack, fuelStack.amount, fluidCapacity, fuelAmountToConsume, fuelBurnTime);
+                    fuels.put(fuelStack.getUnlocalizedName(), fluidFuelInfo);
+                }
+                else {
+                    fluidFuelInfo.addFuelRemaining(fuelStack.amount);
+                    fluidFuelInfo.addFuelBurnTime(fuelBurnTime);
+                }
+            }
+            FuelRecipe denseFuelRecipe = RecipeMaps.SEMI_FLUID_GENERATOR_FUELS.findRecipe(GTValues.V[9], fuelStack);
+            if (denseFuelRecipe != null) {
+                long recipeVoltage = FuelRecipeLogic.getTieredVoltage(denseFuelRecipe.getMinVoltage());
+                int voltageMultiplier = (int) Math.max(1L, recipeVoltage / GTValues.V[GTValues.LV]);
+                int burnTime = (int) Math.ceil(denseFuelRecipe.getDuration() * CONSUMPTION_MULTIPLIER * 2 * voltageMultiplier * getThrottleMultiplier());
+                int fuelAmountToConsume = (int) Math.ceil(denseFuelRecipe.getRecipeFluid().amount * CONSUMPTION_MULTIPLIER * boilerType.fuelConsumptionMultiplier * getThrottleMultiplier());
+                int fuelBurnTime = fuelStack.amount * burnTime / fuelAmountToConsume;
+                FluidFuelInfo fluidFuelInfo = (FluidFuelInfo) fuels.get(fuelStack.getUnlocalizedName());
+                if (fluidFuelInfo == null) {
+                    fluidFuelInfo = new FluidFuelInfo(fuelStack, fuelStack.amount, fluidCapacity, fuelAmountToConsume, fuelBurnTime);
+                    fuels.put(fuelStack.getUnlocalizedName(), fluidFuelInfo);
+                }
+                else {
+                    fluidFuelInfo.addFuelRemaining(fuelStack.amount);
+                    fluidFuelInfo.addFuelBurnTime(fuelBurnTime);
+                }
+            }
+        }
+        int itemCapacity = 0; // item capacity is all slots
+        for (int slotIndex = 0; slotIndex < itemImportInventory.getSlots(); slotIndex++) {
+            itemCapacity += itemImportInventory.getSlotLimit(slotIndex);
+        }
+        for (int slotIndex = 0; slotIndex < itemImportInventory.getSlots(); slotIndex++) {
+            ItemStack itemStack = itemImportInventory.getStackInSlot(slotIndex);
+            int burnTime = (int) Math.ceil(TileEntityFurnace.getItemBurnTime(itemStack) / (50.0 * boilerType.fuelConsumptionMultiplier * getThrottleMultiplier()));
+            if (burnTime > 0) {
+                ItemFuelInfo itemFuelInfo = (ItemFuelInfo) fuels.get(itemStack.getTranslationKey());
+                if (itemFuelInfo == null) {
+                    itemFuelInfo = new ItemFuelInfo(itemStack, itemStack.getCount(), itemCapacity, 1, itemStack.getCount() * burnTime);
+                    fuels.put(itemStack.getTranslationKey(), itemFuelInfo);
+                }
+                else {
+                    itemFuelInfo.addFuelRemaining(itemStack.getCount());
+                    itemFuelInfo.addFuelBurnTime(itemStack.getCount() * burnTime);
+                }
+            }
+        }
+        return fuels.values();
     }
 
     public enum BoilerType {

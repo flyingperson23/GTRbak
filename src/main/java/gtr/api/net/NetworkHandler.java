@@ -32,6 +32,7 @@ import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
 import net.minecraftforge.fml.common.network.internal.FMLProxyPacket;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import gtr.api.util.ClipboardUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -197,6 +198,14 @@ public class NetworkHandler {
             }
         });
 
+        registerPacket(5, PacketClipboard.class, new PacketCodec<>(
+            (packet, buf) -> {
+                buf.writeString(packet.text);
+            },
+            (buf) -> new PacketClipboard(buf.readString(32767))
+        ));
+
+
         if (FMLCommonHandler.instance().getSide().isClient()) {
             initClient();
         }
@@ -225,6 +234,10 @@ public class NetworkHandler {
             IBlockState blockState = world.getBlockState(packet.blockPos);
             ParticleManager particleManager = Minecraft.getMinecraft().effectRenderer;
             ((ICustomParticleBlock) blockState.getBlock()).handleCustomParticle(world, packet.blockPos, particleManager, packet.entityPos, packet.particlesAmount);
+        });
+
+        registerClientExecutor(PacketClipboard.class, (packet, handler) -> {
+            ClipboardUtil.copyToClipboard(packet.text);
         });
     }
 

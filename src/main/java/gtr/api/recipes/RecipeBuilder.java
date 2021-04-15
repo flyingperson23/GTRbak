@@ -2,6 +2,7 @@ package gtr.api.recipes;
 
 import gtr.api.items.metaitem.MetaItem;
 import gtr.api.recipes.Recipe.ChanceEntry;
+import gtr.api.unification.material.type.FluidMaterial;
 import gtr.api.unification.material.type.Material;
 import gtr.api.unification.ore.OrePrefix;
 import gtr.api.util.EnumValidationResult;
@@ -148,6 +149,14 @@ public abstract class RecipeBuilder<R extends RecipeBuilder<R>> {
 
     public R notConsumable(MetaItem<?>.MetaValueItem item) {
         return inputs(CountableIngredient.from(item.getStackForm(), 0));
+    }
+
+    public R notConsumable(FluidMaterial fluidMat) {
+        return fluidInputs(new FluidStack(fluidMat.getFluid(1), 0));
+    }
+
+    public R notConsumable(FluidStack fluidStack) {
+        return fluidInputs(new FluidStack(fluidStack, 0));
     }
 
     public R outputs(ItemStack... outputs) {

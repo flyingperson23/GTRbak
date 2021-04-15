@@ -363,14 +363,14 @@ public abstract class Material implements Comparable<Material> {
     }
 
     @ZenGetter("unlocalizedName")
-    public String getUnlocalizedName() {
+    public String getTranslationKey() {
         return "material." + toString();
     }
 
     @SideOnly(Side.CLIENT)
     @ZenGetter("localizedName")
     public String getLocalizedName() {
-        return I18n.format(getUnlocalizedName());
+        return I18n.format(getTranslationKey());
     }
 
     @Override

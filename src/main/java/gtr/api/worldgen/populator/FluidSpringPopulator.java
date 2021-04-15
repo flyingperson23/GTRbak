@@ -42,6 +42,10 @@ public class FluidSpringPopulator implements VeinBufferPopulator {
         }
     }
 
+    public IBlockState getFluidState() {
+        return fluidState;
+    }
+
     @Override
     public void populateBlockBuffer(Random random, GridEntryInfo gridEntryInfo, IBlockModifierAccess modifier, OreDepositDefinition depositDefinition) {
         if (random.nextFloat() <= springGenerationChance) {

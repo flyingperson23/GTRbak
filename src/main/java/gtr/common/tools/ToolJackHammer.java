@@ -60,7 +60,7 @@ public class ToolJackHammer extends ToolDrillLV {
         }
 
         @Override
-        public String getUnlocalizedName() {
+        public String getTranslationKey() {
             return localizationKey;
         }
     }

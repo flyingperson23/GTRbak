@@ -252,24 +252,18 @@ public class PartsRecipeHandler {
             'R', new UnificationEntry(OrePrefix.ring, material),
             'S', new UnificationEntry(OrePrefix.screw, material));
 
-        RecipeMaps.ASSEMBLER_RECIPES.recipeBuilder()
-            .input(OrePrefix.plate, material, 4).input(OrePrefix.ring, material)
-            .outputs(stack)
-            .duration(240)
-            .EUt(24)
-            .buildAndRegister();
+        if (material.shouldGenerateFluid()) {
+            RecipeMaps.FLUID_SOLIDFICATION_RECIPES.recipeBuilder()
+                .notConsumable(MetaItems.SHAPE_MOLD_ROTOR)
+                .fluidInputs(material.getFluid(L * 4))
+                .outputs(OreDictUnifier.get(rotorPrefix, material))
+                .duration(120)
+                .EUt(20)
+                .buildAndRegister();
+        }
     }
 
     public static void processStick(OrePrefix stickPrefix, DustMaterial material) {
-        if (material instanceof IngotMaterial) {
-            RecipeMaps.EXTRUDER_RECIPES.recipeBuilder()
-                .input(OrePrefix.ingot, material)
-                .notConsumable(MetaItems.SHAPE_EXTRUDER_ROD)
-                .outputs(OreDictUnifier.get(OrePrefix.stick, material, 2))
-                .duration((int) material.getAverageMass() * 2)
-                .EUt(6 * getVoltageMultiplier(material))
-                .buildAndRegister();
-        }
 
         if (material instanceof GemMaterial || material instanceof IngotMaterial) {
             RecipeMaps.LATHE_RECIPES.recipeBuilder()

@@ -130,7 +130,7 @@ public class ElectricStats implements IItemComponent, IItemCapabilityProvider, I
             NBTTagCompound tagCompound = itemStack.getTagCompound();
             if(tagCompound != null) {
                 tagCompound.removeTag("DischargeMode");
-                if(tagCompound.hasNoTags()) {
+                if(tagCompound.isEmpty()) {
                     itemStack.setTagCompound(null);
                 }
             }

@@ -11,6 +11,7 @@ import gtr.api.items.toolitem.ToolMetaItem.MetaToolValueItem;
 import gtr.api.unification.material.type.Material;
 import gtr.api.unification.ore.OrePrefix;
 import gtr.api.unification.stack.UnificationEntry;
+import gtr.api.util.ClipboardUtil;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
@@ -90,6 +91,7 @@ public class CommandHand extends CommandBase {
                         IToolStats toolStats = ((MetaToolValueItem) metaValueItem).getToolStats();
                         player.sendMessage(new TextComponentTranslation("gtr.command.util.hand.tool_stats", toolStats.getClass().getName()));
                     }
+                    ClipboardUtil.copyToClipboard(player, metaValueItem.unlocalizedName);
                     ClickEvent metaItemEvent = new ClickEvent(Action.OPEN_URL, metaValueItem.unlocalizedName);
                     player.sendMessage(new TextComponentTranslation("gtr.command.util.hand.meta_item", metaValueItem.unlocalizedName, metaValueItem)
                         .setStyle(new Style().setClickEvent(metaItemEvent)));

@@ -4,6 +4,7 @@ import com.google.common.base.Preconditions;
 import gtr.api.GTValues;
 import gtr.api.GregTechAPI;
 import gtr.api.block.machines.BlockMachine;
+import gtr.api.cover.CoverBehavior;
 import gtr.api.gui.IUIHolder;
 import gtr.api.util.GTControlledRegistry;
 import gtr.api.util.GTLog;
@@ -110,7 +111,7 @@ public class MetaTileEntityHolder extends TickableTileEntityBase implements IUIH
         //try to lookup by different registry IDs
         if (registeredModIDs == null) {
             registeredModIDs = registry.getKeys().stream()
-                .map(ResourceLocation::getResourceDomain)
+                .map(ResourceLocation::getNamespace)
                 .distinct().collect(Collectors.toList());
             registeredModIDs.remove(GTValues.MODID);
         }
@@ -248,6 +249,15 @@ public class MetaTileEntityHolder extends TickableTileEntityBase implements IUIH
 
     @Override
     public boolean shouldRenderInPass(int pass) {
+        if (metaTileEntity == null) return false;
+        for (EnumFacing side: EnumFacing.VALUES){
+            CoverBehavior cover = metaTileEntity.getCoverAtSide(side);
+            if (cover instanceof IFastRenderMetaTileEntity && ((IFastRenderMetaTileEntity) cover).shouldRenderInPass(pass)) {
+                return true;
+            } else if(cover instanceof IRenderMetaTileEntity && ((IRenderMetaTileEntity) cover).shouldRenderInPass(pass)) {
+                return true;
+            }
+        }
         if(metaTileEntity instanceof IRenderMetaTileEntity) {
             return ((IRenderMetaTileEntity) metaTileEntity).shouldRenderInPass(pass);
         } else if(metaTileEntity instanceof IFastRenderMetaTileEntity) {
@@ -263,13 +273,7 @@ public class MetaTileEntityHolder extends TickableTileEntityBase implements IUIH
         } else if(metaTileEntity instanceof IFastRenderMetaTileEntity) {
             return ((IFastRenderMetaTileEntity) metaTileEntity).getRenderBoundingBox();
         }
-        return new AxisAlignedBB(getPos(), getPos().add(1, 1, 1));
-    }
-
-    @Override
-    public boolean hasFastRenderer() {
-        return metaTileEntity instanceof IFastRenderMetaTileEntity &&
-            !(metaTileEntity instanceof IRenderMetaTileEntity);
+        return new AxisAlignedBB(getPos());
     }
 
     @Override

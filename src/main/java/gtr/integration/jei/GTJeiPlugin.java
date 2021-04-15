@@ -20,6 +20,7 @@ import gtr.api.unification.material.Materials;
 import gtr.api.unification.material.type.DustMaterial;
 import gtr.api.unification.material.type.Material;
 import gtr.api.unification.ore.OrePrefix;
+import gtr.api.worldgen.config.OreDepositDefinition;
 import gtr.api.worldgen.config.WorldGenRegistry;
 import gtr.common.blocks.MetaBlocks;
 import gtr.common.items.MetaItems;
@@ -71,7 +72,6 @@ public class GTJeiPlugin implements IModPlugin {
     public void registerCategories(IRecipeCategoryRegistration registry) {
         registry.addRecipeCategories(new IntCircuitCategory(registry.getJeiHelpers().getGuiHelper()));
         registry.addRecipeCategories(new MultiblockInfoCategory(registry.getJeiHelpers()));
-        registry.addRecipeCategories(new OreGenCategory(registry.getJeiHelpers().getGuiHelper()));
         for (RecipeMap<?> recipeMap : RecipeMap.getRecipeMaps()) {
             registry.addRecipeCategories(new RecipeMapCategory(recipeMap, registry.getJeiHelpers().getGuiHelper()));
         }
@@ -81,6 +81,7 @@ public class GTJeiPlugin implements IModPlugin {
         registry.addRecipeCategories(new PrimitiveBlastRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
         registry.addRecipeCategories(new CokeOvenRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
         registry.addRecipeCategories(new OreByProductCategory(registry.getJeiHelpers().getGuiHelper()));
+        registry.addRecipeCategories(new GTOreCategory(registry.getJeiHelpers().getGuiHelper()));
 
         registry.addRecipeCategories(new FluidRecipeCategory(registry.getJeiHelpers().getGuiHelper()));
     }
@@ -92,13 +93,6 @@ public class GTJeiPlugin implements IModPlugin {
         registry.handleRecipes(FluidWrapper.class, FluidRecipeWrapper::new, FluidRecipeCategory.NAME);
         registry.addRecipes(FluidWrapper.getAllFluids(), FluidRecipeCategory.NAME);
         registry.addRecipes(MagneticRecipeMaker.getMagneticRecipes(), VanillaRecipeCategoryUid.CRAFTING);
-
-
-        List<OreGenWrapper> l = new ArrayList<>();
-        WorldGenRegistry.getOreDeposits().forEach(deposit -> l.add(new OreGenWrapper(deposit)));
-        l.removeIf(OreGenWrapper::shouldDelete);
-        registry.addRecipes(l, "gtr:ores");
-
 
 
         registry.addRecipes(IntCircuitRecipeWrapper.create(), IntCircuitCategory.UID);
@@ -149,13 +143,13 @@ public class GTJeiPlugin implements IModPlugin {
             registry.addRecipeCatalyst(breweryTile.getStackForm(), VanillaRecipeCategoryUid.BREWING);
         }
 
-        String semiFluidMapId = GTValues.MODID + ":" + RecipeMaps.SEMI_FLUID_GENERATOR_FUELS.getUnlocalizedName();
+        String semiFluidMapId = GTValues.MODID + ":" + RecipeMaps.SEMI_FLUID_GENERATOR_FUELS.getTranslationKey();
         registry.addRecipeCatalyst(MetaTileEntities.LARGE_BRONZE_BOILER.getStackForm(), semiFluidMapId);
         registry.addRecipeCatalyst(MetaTileEntities.LARGE_STEEL_BOILER.getStackForm(), semiFluidMapId);
         registry.addRecipeCatalyst(MetaTileEntities.LARGE_TITANIUM_BOILER.getStackForm(), semiFluidMapId);
         registry.addRecipeCatalyst(MetaTileEntities.LARGE_TUNGSTENSTEEL_BOILER.getStackForm(), semiFluidMapId);
 
-        registry.addRecipeCatalyst(MetaTileEntities.LHE.getStackForm(), GTValues.MODID + ":" + RecipeMaps.LARGE_HEAT_EXCHANGER_FUELS.getUnlocalizedName());
+        registry.addRecipeCatalyst(MetaTileEntities.LHE.getStackForm(), GTValues.MODID + ":" + RecipeMaps.LARGE_HEAT_EXCHANGER_FUELS.getTranslationKey());
 
         registry.addIngredientInfo(Objects.requireNonNull(Materials.Air.getFluid(1000)), VanillaTypes.FLUID, I18n.format("gtr.machine.air_collector.jei_description"));
 
@@ -174,7 +168,8 @@ public class GTJeiPlugin implements IModPlugin {
         List<OreByProduct> oreByproductList = new CopyOnWriteArrayList<>();
         for (Material material : Material.MATERIAL_REGISTRY) {
             if (material instanceof DustMaterial && OreDictUnifier.get(OrePrefix.ore, material) != ItemStack.EMPTY) {
-                oreByproductList.add(new OreByProduct((DustMaterial) material));
+                final OreByProduct oreByProduct = new OreByProduct((DustMaterial) material);
+                if (oreByProduct.hasByProducts()) oreByproductList.add(oreByProduct);
             }
         }
         String oreByProductId = GTValues.MODID + ":" + "ore_by_product";
@@ -189,6 +184,19 @@ public class GTJeiPlugin implements IModPlugin {
             registry.addRecipeCatalyst(machine.getStackForm(), oreByProductId);
         for (MetaTileEntity machine : MetaTileEntities.CHEMICAL_BATH)
             registry.addRecipeCatalyst(machine.getStackForm(), oreByProductId);
+
+
+        //Ore Veins
+        List<OreDepositDefinition> oreVeins = WorldGenRegistry.getOreDeposits();
+        List<GTOreInfo> oreInfoList = new CopyOnWriteArrayList<>();
+        for(OreDepositDefinition vein : oreVeins) {
+            oreInfoList.add(new GTOreInfo(vein));
+        }
+
+        String oreSpawnID = GTValues.MODID + ":" + "ore_spawn_location";
+        registry.addRecipes(oreInfoList, oreSpawnID);
+        registry.addRecipeCatalyst(MetaItems.SCANNER.getStackForm(), oreSpawnID);
+        //Ore Veins End
 
         ingredientRegistry = registry.getIngredientRegistry();
         for (int i = 0; i <= IntCircuitIngredient.CIRCUIT_MAX; i++) {

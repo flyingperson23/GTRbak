@@ -28,7 +28,7 @@ public class BlockSurfaceRockDeprecated extends BlockSurfaceRock implements ISca
     @Override
     public List<ITextComponent> getMagnifyResults(IBlockAccess world, BlockPos pos, IBlockState blockState, EntityPlayer player) {
         ArrayList<ITextComponent> result = new ArrayList<>();
-        ITextComponent materialComponent = new TextComponentTranslation(getStoneMaterial(world, pos, blockState).getUnlocalizedName());
+        ITextComponent materialComponent = new TextComponentTranslation(getStoneMaterial(world, pos, blockState).getTranslationKey());
         materialComponent.getStyle().setColor(TextFormatting.GREEN);
         result.add(new TextComponentTranslation("gtr.block.surface_rock.material", materialComponent));
         return result;
