@@ -5,7 +5,7 @@ import gtr.api.multiblock.BlockPattern;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenProperty;
 
-@ZenClass("mods.gregtech.multiblock.RelativeDirection")
+@ZenClass("mods.gtr.multiblock.RelativeDirection")
 @ZenRegister
 public enum ConstantRelativeDirection {
     /** */ @ZenProperty UP(BlockPattern.RelativeDirection.UP),

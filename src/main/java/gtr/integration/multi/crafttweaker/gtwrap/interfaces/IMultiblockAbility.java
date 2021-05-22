@@ -12,7 +12,7 @@ import javax.annotation.Nonnull;
  *
  * @see ConstantMultiblockAbility
  */
-@ZenClass("mods.gregtech.multiblock.IMultiblockAbility")
+@ZenClass("mods.gtr.multiblock.IMultiblockAbility")
 @ZenRegister
 public interface IMultiblockAbility {
 

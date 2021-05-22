@@ -14,7 +14,7 @@ import javax.annotation.Nonnull;
  * Use this to store any extra data from the pattern matching.
  */
 @FunctionalInterface
-@ZenClass("mods.gregtech.multiblock.functions.IFormStructureFunction")
+@ZenClass("mods.gtr.multiblock.functions.IFormStructureFunction")
 @ZenRegister
 public interface IFormStructureFunction {
 

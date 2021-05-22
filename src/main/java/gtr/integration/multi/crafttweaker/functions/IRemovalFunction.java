@@ -11,7 +11,7 @@ import javax.annotation.Nonnull;
  * Called when the controller block is about to be removed.
  */
 @FunctionalInterface
-@ZenClass("mods.gregtech.multiblock.functions.IRemovalFunction")
+@ZenClass("mods.gtr.multiblock.functions.IRemovalFunction")
 @ZenRegister
 public interface IRemovalFunction {
 

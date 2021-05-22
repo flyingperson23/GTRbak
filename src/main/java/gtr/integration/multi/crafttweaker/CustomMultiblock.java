@@ -37,7 +37,7 @@ import java.util.List;
  * @see ICompleteRecipeFunction
  * @see IRecipePredicate
  */
-@ZenClass("mods.gregtech.multiblock.Multiblock")
+@ZenClass("mods.gtr.multiblock.Multiblock")
 @ZenRegister
 public class CustomMultiblock {
 

@@ -26,7 +26,7 @@ public class MultiblockTweakerJEIPlugin implements IModPlugin {
             }
         }
 
-        registry.addRecipes(recipeList, "gregtech:multiblock_info");
+        registry.addRecipes(recipeList, "gtr:multiblock_info");
     }
 
     @Override

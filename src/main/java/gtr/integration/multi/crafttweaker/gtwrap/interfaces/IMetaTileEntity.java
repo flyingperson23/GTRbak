@@ -20,7 +20,7 @@ import javax.annotation.Nullable;
  *
  * @see ConstantMetaTileEntities
  */
-@ZenClass("mods.gregtech.IMetaTileEntity")
+@ZenClass("mods.gtr.IMetaTileEntity")
 @ZenRegister
 public interface IMetaTileEntity {
 

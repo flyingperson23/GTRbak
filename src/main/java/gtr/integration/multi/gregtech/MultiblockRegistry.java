@@ -18,7 +18,7 @@ import java.util.*;
 /**
  * An alternative way to get a {@link CustomMultiblock} from its metadata or ID.
  */
-@ZenClass("mods.gregtech.multiblock.MultiblockRegistry")
+@ZenClass("mods.gtr.multiblock.MultiblockRegistry")
 @ZenRegister
 public class MultiblockRegistry {
 

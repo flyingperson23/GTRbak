@@ -28,7 +28,7 @@ import java.util.Map;
  *
  * @see MultiblockBuilder
  */
-@ZenClass("mods.gregtech.render.ICubeRenderer")
+@ZenClass("mods.gtr.render.ICubeRenderer")
 @ZenRegister
 public interface IICubeRenderer {
 

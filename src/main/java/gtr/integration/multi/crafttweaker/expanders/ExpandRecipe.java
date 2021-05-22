@@ -9,7 +9,7 @@ import stanhebben.zenscript.annotations.ZenCaster;
 import stanhebben.zenscript.annotations.ZenExpansion;
 
 @ZenRegister
-@ZenExpansion("mods.gregtech.recipe.Recipe")
+@ZenExpansion("mods.gtr.recipe.Recipe")
 public class ExpandRecipe {
 
     @ZenCaster

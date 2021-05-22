@@ -17,7 +17,7 @@ import javax.annotation.Nonnull;
  *
  * @see BlockPatternBuilder
  */
-@ZenClass("mods.gregtech.multiblock.IBlockPattern")
+@ZenClass("mods.gtr.multiblock.IBlockPattern")
 @ZenRegister
 public interface IBlockPattern {
 

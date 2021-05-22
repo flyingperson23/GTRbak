@@ -11,7 +11,7 @@ import javax.annotation.Nonnull;
  * Called every time the worktable updates, probably.
  */
 @FunctionalInterface
-@ZenClass("mods.gregtech.recipe.functions.IUpdateFunction")
+@ZenClass("mods.gtr.recipe.functions.IUpdateFunction")
 @ZenRegister
 public interface IUpdateFunction {
 

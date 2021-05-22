@@ -23,7 +23,7 @@ import java.util.Arrays;
  *
  * Used for {@link MultiblockBuilder#withPattern(IBlockPattern)}.
  */
-@ZenClass("mods.gregtech.multiblock.FactoryBlockPattern")
+@ZenClass("mods.gtr.multiblock.FactoryBlockPattern")
 @ZenRegister
 public class BlockPatternBuilder {
 

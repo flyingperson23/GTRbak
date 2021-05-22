@@ -11,7 +11,7 @@ import javax.annotation.Nullable;
 /**
  * Used for interacting with multiple fluid tanks.
  */
-@ZenClass("mods.gregtech.fluids.IMultipleTankHandler")
+@ZenClass("mods.gtr.fluids.IMultipleTankHandler")
 @IterableSimple("mods.forge.fluids.IFluidTank")
 @ZenRegister
 public interface IIMultipleTankHandler extends Iterable<IIFluidTank> {

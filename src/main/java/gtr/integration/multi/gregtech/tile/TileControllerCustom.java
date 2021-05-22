@@ -73,7 +73,7 @@ public class TileControllerCustom extends RecipeMapMultiblockController {
                 recipeMapWorkable.isActive()) {
             int eut = recipeMapWorkable.getRecipeEUt();
             if(eut < 0) {
-                textList.add(new TextComponentTranslation("gregtech.multiblock.generation_eu", Math.min(-eut, energyContainer.getOutputVoltage())));
+                textList.add(new TextComponentTranslation("gtr.multiblock.generation_eu", Math.min(-eut, energyContainer.getOutputVoltage())));
             }
         }
 

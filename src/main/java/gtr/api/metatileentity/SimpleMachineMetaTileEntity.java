@@ -340,7 +340,7 @@ public class SimpleMachineMetaTileEntity extends WorkableTieredMetaTileEntity im
 
         builder.widget(new CycleButtonWidget(rightButtonStartX, 60, 24, 20,
             workable.getAvailableOverclockingTiers(), workable::getOverclockTier, workable::setOverclockTier)
-            .setTooltipHoverString("gregtech.gui.overclock.description"));
+            .setTooltipHoverString("gtr.gui.overclock.description"));
 
         return builder;
     }

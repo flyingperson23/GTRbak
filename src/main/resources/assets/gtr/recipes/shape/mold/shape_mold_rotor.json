@@ -1,5 +1,5 @@
 {
-  "type": "gregtech:metaitem_shaped",
+  "type": "gtr:metaitem_shaped",
   "pattern": [
     "  h",
     " P ",
@@ -7,7 +7,7 @@
   ],
   "key": {
     "P": {
-      "type": "gregtech:metaitem",
+      "type": "gtr:metaitem",
       "name": "shape.empty"
     },
     "h": {

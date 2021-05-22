@@ -13,7 +13,7 @@ import javax.annotation.Nonnull;
  * Called before a recipe is chosen. Used for additional logic such as blast furnace temperature.
  */
 @FunctionalInterface
-@ZenClass("mods.gregtech.recipe.functions.IRecipePredicate")
+@ZenClass("mods.gtr.recipe.functions.IRecipePredicate")
 @ZenRegister
 public interface IRecipePredicate {
 

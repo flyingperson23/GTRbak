@@ -11,7 +11,7 @@ import javax.annotation.Nonnull;
  * A function run when the worktable is updated, that is, every tick.
  */
 @FunctionalInterface
-@ZenClass("mods.gregtech.recipe.function.IUpdateWorktableFunction")
+@ZenClass("mods.gtr.recipe.function.IUpdateWorktableFunction")
 @ZenRegister
 public interface IUpdateWorktableFunction {
 

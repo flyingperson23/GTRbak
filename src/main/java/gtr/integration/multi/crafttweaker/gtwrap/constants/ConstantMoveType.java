@@ -5,7 +5,7 @@ import gtr.api.gui.widgets.ProgressWidget;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenProperty;
 
-@ZenClass("mods.gregtech.render.MoveType")
+@ZenClass("mods.gtr.render.MoveType")
 @ZenRegister
 public enum ConstantMoveType {
     /** */ @ZenProperty VERTICAL(ProgressWidget.MoveType.VERTICAL),

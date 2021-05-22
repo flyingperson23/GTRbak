@@ -242,7 +242,7 @@ public class Materials {
     public static FluidMaterial BioFuel = new FluidMaterial(310, "bio_fuel", 0xFF8000, FLUID, of(), 0);
     public static FluidMaterial Biomass = new FluidMaterial(312, "biomass", 0x00FF00, FLUID, of(), 0);
     public static FluidMaterial Creosote = new FluidMaterial(313, "creosote", 0x804000, FLUID, of(), 0);
-    public static FluidMaterial Ethanol = new FluidMaterial(317, "ethanol", 0xFF8000, FLUID, of(new MaterialStack(Carbon, 2), new MaterialStack(Hydrogen, 6), new MaterialStack(Oxygen, 1)), DISABLE_DECOMPOSITION);
+    public static FluidMaterial Ethanol = new FluidMaterial(314, "ethanol", 0xFF8000, FLUID, of(new MaterialStack(Carbon, 2), new MaterialStack(Hydrogen, 6), new MaterialStack(Oxygen, 1)), DISABLE_DECOMPOSITION);
     public static FluidMaterial Fuel = new FluidMaterial(315, "fuel", 0xFFFF00, FLUID, of(), 0);
     public static FluidMaterial SulfuricLightFuel = new FluidMaterial(311, "sulfuric_light_fuel", 0xFFFF00, FLUID, of(), 0);
     public static FluidMaterial SulfuricHeavyFuel = new FluidMaterial(316, "sulfuric_heavy_fuel", 0xFFFF00, FLUID, of(), 0);
@@ -432,7 +432,7 @@ public class Materials {
     public static FluidMaterial IndiumConcentrate = new FluidMaterial(757, "indium_concentrate", 205130, FLUID, of(), GENERATE_FLUID_BLOCK | DISABLE_DECOMPOSITION);
     public static FluidMaterial LeadZincSolution = new FluidMaterial(756, "lead_zinc_solution", 3213570, FLUID, of(new MaterialStack(Lead, 1), new MaterialStack(Silver, 1), new MaterialStack(Zinc, 1), new MaterialStack(Sulfur, 3), new MaterialStack(Water, 1)), GENERATE_FLUID_BLOCK | DECOMPOSITION_BY_ELECTROLYZING);
     public static FluidMaterial Tetrafluoroethylene = new FluidMaterial(758, "tetrafluoroethylene", 6776679, MaterialIconSet.GAS, of(new MaterialStack(Carbon, 2), new MaterialStack(Fluorine, 4)), STATE_GAS | DECOMPOSITION_BY_ELECTROLYZING);
-    public static FluidMaterial SaltWater = new FluidMaterial(428, "salt_water", 255, FLUID, of(new MaterialStack(Salt, 1), new MaterialStack(Water, 1)), DISABLE_DECOMPOSITION);
+    public static FluidMaterial SaltWater = new FluidMaterial(755, "salt_water", 255, FLUID, of(new MaterialStack(Salt, 1), new MaterialStack(Water, 1)), DISABLE_DECOMPOSITION);
     public static FluidMaterial Benzene = new FluidMaterial(760, "benzene", 2039583, FLUID, of(new MaterialStack(Carbon, 6), new MaterialStack(Hydrogen, 6)), GENERATE_FLUID_BLOCK | DECOMPOSITION_BY_ELECTROLYZING);
     public static FluidMaterial Chloroform = new FluidMaterial(759, "chloroform", 7351936, FLUID, of(new MaterialStack(Carbon, 1), new MaterialStack(Hydrogen, 1), new MaterialStack(Chlorine, 3)), GENERATE_FLUID_BLOCK | DECOMPOSITION_BY_ELECTROLYZING);
     public static FluidMaterial Dimethylhydrazine = new FluidMaterial(761, "dimethylhidrazine", 1052748, FLUID, of(new MaterialStack(Carbon, 2), new MaterialStack(Hydrogen, 8), new MaterialStack(Nitrogen, 2)), GENERATE_FLUID_BLOCK | DISABLE_DECOMPOSITION);

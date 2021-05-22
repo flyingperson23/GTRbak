@@ -10,7 +10,7 @@ import javax.annotation.Nonnull;
 /**
  * The context of a match. Can be obtained from {@link IBlockWorldState#getMatchContext()} or {@link IBlockWorldState#getLayerContext()}.
  */
-@ZenClass("mods.gregtech.multiblock.IPatternMatchContext")
+@ZenClass("mods.gtr.multiblock.IPatternMatchContext")
 @ZenRegister
 public interface IPatternMatchContext {
 

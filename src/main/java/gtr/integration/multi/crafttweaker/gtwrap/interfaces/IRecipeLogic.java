@@ -9,7 +9,7 @@ import stanhebben.zenscript.annotations.ZenSetter;
 /**
  * Used to perform the recipe logic.
  */
-@ZenClass("mods.gregtech.recipe.IRecipeLogic")
+@ZenClass("mods.gtr.recipe.IRecipeLogic")
 @ZenRegister
 public interface IRecipeLogic {
 

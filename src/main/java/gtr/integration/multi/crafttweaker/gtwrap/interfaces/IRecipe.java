@@ -11,7 +11,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
 /**
  * A constructed GregTech recipe, with details about inputs, outputs, or custom properties.
  */
-@ZenClass("mods.gregtech.recipe.IRecipe")
+@ZenClass("mods.gtr.recipe.IRecipe")
 @ZenRegister
 public interface IRecipe {
 

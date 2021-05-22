@@ -16,7 +16,7 @@ import javax.annotation.Nonnull;
  * Similar to an {@link IBlockState}, but bound to a position and world,
  * and holding extra information about the match taking place.
  */
-@ZenClass("mods.gregtech.multiblock.IBlockWorldState")
+@ZenClass("mods.gtr.multiblock.IBlockWorldState")
 @ZenRegister
 public interface IBlockWorldState {
 

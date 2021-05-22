@@ -7,7 +7,7 @@ import gtr.integration.multi.crafttweaker.gtwrap.interfaces.ITextureArea;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenProperty;
 
-@ZenClass("mods.gregtech.render.GuiTextures")
+@ZenClass("mods.gtr.render.GuiTextures")
 @ZenRegister
 public class ConstantGuiTextures {
 

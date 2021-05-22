@@ -20,7 +20,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
  *
  * Used for {@link MultiblockBuilder#withRecipeMap(RecipeMap)}.
  */
-@ZenClass("mods.gregtech.recipe.FactoryRecipeMap")
+@ZenClass("mods.gtr.recipe.FactoryRecipeMap")
 @ZenRegister
 public class RecipeMapBuilder {
 

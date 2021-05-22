@@ -19,7 +19,7 @@ import java.util.function.Predicate;
  * layer contains exactly one fluid output hatch.
  */
 @FunctionalInterface
-@ZenClass("mods.gregtech.multiblock.IMatchValidator")
+@ZenClass("mods.gtr.multiblock.IMatchValidator")
 @ZenRegister
 public interface IMatchValidator {
 

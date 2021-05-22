@@ -12,7 +12,7 @@ import javax.annotation.Nonnull;
  *
  * @see MultiblockShapeInfoBuilder
  */
-@ZenClass("mods.gregtech.multiblock.IMultiblockShapeInfo")
+@ZenClass("mods.gtr.multiblock.IMultiblockShapeInfo")
 @ZenRegister
 public interface IMultiblockShapeInfo {
 

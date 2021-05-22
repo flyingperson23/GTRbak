@@ -24,7 +24,7 @@ import javax.annotation.Nonnull;
  * @see MultiblockShapeInfoBuilder
  * @see IMultiblockShapeInfo
  */
-@ZenClass("mods.gregtech.multiblock.IBlockInfo")
+@ZenClass("mods.gtr.multiblock.IBlockInfo")
 @ZenRegister
 public interface IBlockInfo {
 

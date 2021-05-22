@@ -119,7 +119,7 @@ public class GTRecipeWrapper implements IRecipeWrapper {
         if (entry != null) {
             double chance = entry.getChance() / 100.0;
             double boost = entry.getBoostPerTier() / 100.0;
-            tooltip.add(I18n.format("gregtech.recipe.chance", chance, boost));
+            tooltip.add(I18n.format("gtr.recipe.chance", chance, boost));
         } else if (notConsumed) {
             tooltip.add(I18n.format("gtr.recipe.not_consumed"));
         }

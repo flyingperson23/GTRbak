@@ -11,7 +11,7 @@ import stanhebben.zenscript.annotations.ZenSetter;
 
 import javax.annotation.Nonnull;
 
-@ZenClass("mods.gregtech.IControllerTile")
+@ZenClass("mods.gtr.IControllerTile")
 @ZenRegister
 public interface IControllerTile extends IMetaTileEntity {
 

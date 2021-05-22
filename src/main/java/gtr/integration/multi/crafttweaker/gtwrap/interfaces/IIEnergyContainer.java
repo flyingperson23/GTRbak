@@ -7,7 +7,7 @@ import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenGetter;
 import stanhebben.zenscript.annotations.ZenMethod;
 
-@ZenClass("mods.gregtech.energy.IEnergyContainer")
+@ZenClass("mods.gtr.energy.IEnergyContainer")
 @ZenRegister
 public interface IIEnergyContainer {
 

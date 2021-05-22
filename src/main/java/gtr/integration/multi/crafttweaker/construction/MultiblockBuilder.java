@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
  *
  * To get started, call {@link #start(String, int)}.
  */
-@ZenClass("mods.gregtech.multiblock.Builder")
+@ZenClass("mods.gtr.multiblock.Builder")
 @ZenRegister
 public class MultiblockBuilder {
 

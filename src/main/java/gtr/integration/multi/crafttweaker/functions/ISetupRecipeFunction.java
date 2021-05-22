@@ -12,7 +12,7 @@ import javax.annotation.Nonnull;
  * Called whenever the worktable sets up for a new recipe.
  */
 @FunctionalInterface
-@ZenClass("mods.gregtech.recipe.functions.ISetupRecipeFunction")
+@ZenClass("mods.gtr.recipe.functions.ISetupRecipeFunction")
 @ZenRegister
 public interface ISetupRecipeFunction {
 

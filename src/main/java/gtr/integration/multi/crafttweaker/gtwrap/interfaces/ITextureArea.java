@@ -12,7 +12,7 @@ import javax.annotation.Nonnull;
 /**
  * Can be used for defining a custom recipe arrow.
  */
-@ZenClass("mods.gregtech.render.ITextureArea")
+@ZenClass("mods.gtr.render.ITextureArea")
 @ZenRegister
 public interface ITextureArea {
 

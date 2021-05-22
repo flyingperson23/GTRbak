@@ -36,7 +36,7 @@ import static gtr.api.metatileentity.multiblock.MultiblockControllerBase.tilePre
  * @see BlockPatternBuilder
  */
 @FunctionalInterface
-@ZenClass("mods.gregtech.multiblock.IBlockMatcher")
+@ZenClass("mods.gtr.multiblock.IBlockMatcher")
 @ZenRegister
 public interface IBlockMatcher {
 

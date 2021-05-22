@@ -7,7 +7,7 @@ import gtr.integration.multi.crafttweaker.gtwrap.interfaces.IMultiblockAbility;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenProperty;
 
-@ZenClass("mods.gregtech.multiblock.MultiblockAbility")
+@ZenClass("mods.gtr.multiblock.MultiblockAbility")
 @ZenRegister
 public class ConstantMultiblockAbility {
 

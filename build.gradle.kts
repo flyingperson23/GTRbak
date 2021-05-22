@@ -137,7 +137,7 @@ dependencies {
     "deobfCompile"("mcjty.theoneprobe:TheOneProbe-$shortVersion:$shortVersion-$topVersion")
     "deobfCompile"("team.chisel.ctm:CTM:MC$mcVersion-$ctmVersion")
     "deobfCompile"("appeng:appliedenergistics2:rv6-stable-7")
-    "deobfCompile"("curse.maven:industrial-craft-242638:2746893")
+    "deobfCompile"("curse.maven:industrial-craft-242638:3078604")
 
 }
 

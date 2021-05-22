@@ -24,7 +24,7 @@ import stanhebben.zenscript.annotations.ZenMethod;
  * <p>
  * Used for {@link MultiblockBuilder#addDesign(IMultiblockShapeInfo...)}.
  */
-@ZenClass("mods.gregtech.multiblock.FactoryMultiblockShapeInfo")
+@ZenClass("mods.gtr.multiblock.FactoryMultiblockShapeInfo")
 @ZenRegister
 public class MultiblockShapeInfoBuilder {
 

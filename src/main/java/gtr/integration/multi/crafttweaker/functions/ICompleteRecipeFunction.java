@@ -11,7 +11,7 @@ import javax.annotation.Nonnull;
  * Called every time a recipe completes.
  */
 @FunctionalInterface
-@ZenClass("mods.gregtech.recipe.functions.ICompleteRecipeFunction")
+@ZenClass("mods.gtr.recipe.functions.ICompleteRecipeFunction")
 @ZenRegister
 public interface ICompleteRecipeFunction {
 
