@@ -33,6 +33,7 @@ import codechicken.lib.render.pipeline.IVertexOperation;
 import codechicken.lib.vec.Cuboid6;
 import codechicken.lib.vec.Matrix4;
 import com.google.common.collect.ImmutableSet;
+import gtr.integration.energistics.gui.widgets.NestedTextWidget;
 import gtr.integration.energistics.impl.ItemHandlerListFixed;
 import gtr.integration.energistics.gui.widgets.AE2PatternSlotWidget;
 import gtr.integration.energistics.gui.widgets.AE2UpgradeSlotWidget;
@@ -78,7 +79,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @SuppressWarnings("BooleanMethodIsAlwaysInverted")
-public class CoverAE2Stocker extends CoverBehavior
+public class CoverAE2Stocker extends PlayerPlacedCoverBehavior
         implements CoverWithUI, ITickable, IControllable, IGridBlock, IGridHost, IActionHost, ICraftingRequester {
 
     public final int tier;
@@ -132,6 +133,12 @@ public class CoverAE2Stocker extends CoverBehavior
         // In the case of non-multiblocks this only needs to be done once and can be done on instantiation
         if (!isHolderMultiblock())
             registerSingleBlockHandlers();
+    }
+
+    @Override
+    public void setPlacingPlayer(EntityPlayer player) {
+        super.setPlacingPlayer(player);
+        node.setPlayerID(AEApi.instance().registries().players().getID(getPlacingPlayer()));
     }
 
     public static boolean checkIfICoveraebleContainsCover(ICoverable coverHolder) {
@@ -340,7 +347,7 @@ public class CoverAE2Stocker extends CoverBehavior
                 "cover.stocker.fluids.enable"));
 
         // Status
-        primaryGroup.addWidget(new SimpleTextWidget(88, 120, "cover.stocker.status",
+        primaryGroup.addWidget(new NestedTextWidget(88, 120, "cover.stocker.status",
                 () -> getCurrentStatus().toString()));
 
         ModularUI.Builder builder = ModularUI.extendedBuilder().widget(primaryGroup)
@@ -538,14 +545,8 @@ public class CoverAE2Stocker extends CoverBehavior
         tagCompound.setTag("CraftingTag", craftingTracker.serializeNBT());
 
 
-        NBTTagCompound remainingItems = serializeRemainingInputItems();
-        if(!remainingItems.isEmpty())
-            tagCompound.setTag("RemainingItems", remainingItems);
-
-        NBTTagCompound remainingInputFluids = serializeRemainingInputFluids();
-        if(!remainingItems.isEmpty())
-            tagCompound.setTag("RemainingFluids", remainingInputFluids);
-
+        tagCompound.setTag("RemainingItems", serializeRemainingInputItems());
+        tagCompound.setTag("RemainingFluids", serializeRemainingInputFluids());
         node.saveToNBT("node", tagCompound);
     }
 
@@ -608,7 +609,7 @@ public class CoverAE2Stocker extends CoverBehavior
                     .map(key -> AEItemStack.fromNBT(remainingItemsTag.getCompoundTag(key)))
                     .collect(Collectors.toList());
         } else
-            this.remainingInputItems = null;
+            this.remainingInputItems = new LinkedList<>();
 
         if (tagCompound.hasKey("RemainingFluids")) {
             NBTTagCompound remainingFluidsTag = tagCompound.getCompoundTag("RemainingFluids");
@@ -616,7 +617,7 @@ public class CoverAE2Stocker extends CoverBehavior
                     .map(key -> AEFluidStack.fromNBT(remainingFluidsTag.getCompoundTag(key)))
                     .collect(Collectors.toList());
         } else
-            remainingInputFluids = null;
+            remainingInputFluids = new LinkedList<>();
 
         if (tagCompound.hasKey("Status"))
             currentStatus = CoverStatus.values()[tagCompound.getInteger("Status")];

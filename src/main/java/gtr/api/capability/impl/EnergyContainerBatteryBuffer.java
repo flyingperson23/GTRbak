@@ -10,6 +10,8 @@ import gtr.api.capability.impl.EnergyContainerHandler.IEnergyChangeListener;
 import gtr.api.metatileentity.MTETrait;
 import gtr.api.metatileentity.MetaTileEntity;
 import gtr.api.util.GTUtility;
+import gtr.integration.ic2.IC2ElectricItem;
+import gtr.integration.ic2.IC2Handler;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -17,6 +19,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
 import java.util.BitSet;
@@ -159,6 +162,9 @@ public class EnergyContainerBatteryBuffer extends MTETrait implements IEnergyCon
         if (electricItem != null && getTier() >= electricItem.getTier() &&
             electricItem.canProvideChargeExternally())
             return electricItem;
+        else if (Loader.isModLoaded("ic2") && IC2Handler.isBattery(itemStack)) {
+            if (IC2Handler.getTier(itemStack) <= (getTier()+1)) return new IC2ElectricItem(itemStack);
+        }
         return null;
     }
 

@@ -75,6 +75,7 @@ minecraft {
 }
 
 repositories {
+
     maven {
         name = "ic2, forestry"
         setUrl("http://maven.ic2.player.to/")
@@ -122,8 +123,7 @@ repositories {
 
 }
 
-val GCBuild = "261"
-val GCVersion = "1.12.2-4.0.2.${GCBuild}"
+val GCVersion = "1.12.2-4.0.2.261"
 
 dependencies {
     "deobfCompile"("net.sengir.forestry:forestry_$mcVersion:$forestryVersion") {
@@ -136,8 +136,16 @@ dependencies {
     "deobfCompile"("mezz.jei:jei_$mcVersion:$jeiVersion")
     "deobfCompile"("mcjty.theoneprobe:TheOneProbe-$shortVersion:$shortVersion-$topVersion")
     "deobfCompile"("team.chisel.ctm:CTM:MC$mcVersion-$ctmVersion")
-    "deobfCompile"("appeng:appliedenergistics2:rv6-stable-7")
+    "deobfCompile"("curse.maven:applied-energistics-2-223794:2747063")
     "deobfCompile"("curse.maven:industrial-craft-242638:3078604")
+
+    //"deobfCompile"("Galacticraft-1.12-dev:GalacticraftCore-Dev:${GCVersion}")
+    //"deobfCompile"("Galacticraft-1.12-dev:Galacticraft-API:${GCVersion}")
+    //"deobfCompile"("Galacticraft-1.12-dev:Galacticraft-Planets-Dev:${GCVersion}")
+    //"deobfCompile"("Galacticraft-1.12-dev:MicdoodleCore-Dev:${GCVersion}")
+
+    "deobfCompile"("curse.maven:railcraft-51195:2687757")
+
 
 }
 

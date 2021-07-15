@@ -127,14 +127,6 @@ public class MetaTileEntityDieselEngine extends FueledMultiblockController imple
             textList.add(new TextComponentTranslation("gtr.multiblock.diesel_engine.fuel_amount", fuelAmount));
             textList.add(new TextComponentTranslation("gtr.multiblock.diesel_engine.oxygen_amount", oxygenAmount));
             textList.add(new TextComponentTranslation(oxygenAmount >= 2 ? "gtr.multiblock.diesel_engine.oxygen_boosted" : "gtr.multiblock.diesel_engine.supply_oxygen_to_boost"));
-            if (!workableHandler.isWorkingEnabled()) {
-                textList.add(new TextComponentTranslation("gtr.multiblock.work_paused"));
-            } else if (workableHandler.isActive()) {
-                textList.add(new TextComponentTranslation("gtr.multiblock.running"));
-                textList.add(new TextComponentTranslation("gtr.multiblock.generation_eu", workableHandler.getRecipeOutputVoltage()));
-            } else {
-                textList.add(new TextComponentTranslation("gtr.multiblock.idling"));
-            }
         }
     }
 

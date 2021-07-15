@@ -17,6 +17,7 @@ import gtr.common.pipelike.cable.net.WorldENet;
 import gtr.common.pipelike.cable.tile.TileEntityCable;
 import gtr.common.pipelike.cable.tile.TileEntityCableTickable;
 import gtr.common.render.CableRenderer;
+import gtr.integration.galacticraft.GCHandler;
 import gtr.integration.ic2.IC2Handler;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.state.IBlockState;
@@ -101,7 +102,7 @@ public class BlockCable extends BlockMaterialPipe<Insulation, WireProperties, Wo
             if (tileEntity == null || getPipeTileEntity(tileEntity) != null) continue;
             EnumFacing opposite = side.getOpposite();
             if (tileEntity.getCapability(GregtechCapabilities.CAPABILITY_ENERGY_CONTAINER, opposite) != null ||
-            tileEntity.getCapability(CapabilityEnergy.ENERGY, opposite) != null || (Loader.isModLoaded("ic2") && IC2Handler.isAcceptable(tileEntity))) {
+            tileEntity.getCapability(CapabilityEnergy.ENERGY, opposite) != null || (Loader.isModLoaded("ic2") && IC2Handler.isAcceptable(tileEntity)) || (Loader.isModLoaded("galacticraft-core") && GCHandler.isAcceptable(tileEntity))) {
                 activeNodeConnections |= 1 << side.getIndex();
             }
         }

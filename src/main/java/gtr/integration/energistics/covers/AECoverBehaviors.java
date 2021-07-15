@@ -36,6 +36,6 @@ public class AECoverBehaviors {
 		CoverDefinition coverDefinition = new CoverDefinition(coverId, behaviorCreator, placerItem.getStackForm());
 		CoverDefinition.registerCover(startingCoverId + idOffset, coverDefinition);
 		//noinspection deprecation // Using deprecation fields allows for compatibility with older GTCE versions
-		placerItem.addStats(new CoverPlaceBehavior(coverDefinition));
+		placerItem.addStats(new PlayerCoverPlaceBehavior(coverDefinition));
 	}
 }

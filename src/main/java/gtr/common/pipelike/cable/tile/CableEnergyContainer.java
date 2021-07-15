@@ -9,6 +9,7 @@ import gtr.common.pipelike.cable.WireProperties;
 import gtr.common.pipelike.cable.net.EnergyNet;
 import gtr.common.pipelike.cable.net.RoutePath;
 import gtr.common.pipelike.cable.net.WorldENet;
+import gtr.integration.galacticraft.GCHandler;
 import gtr.integration.ic2.IC2Handler;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -92,15 +93,18 @@ public class CableEnergyContainer implements IEnergyContainer {
             IEnergyContainer energyContainer = tileEntity.getCapability(GregtechCapabilities.CAPABILITY_ENERGY_CONTAINER, facing.getOpposite());
             if (energyContainer != null) {
                 amperesUsed += energyContainer.acceptEnergyFromNetwork(facing.getOpposite(), voltage, amperage - amperesUsed);
-            }
-            if (tileEntity.hasCapability(CapabilityEnergy.ENERGY, facing.getOpposite())) {
-                int rfToSend = (int) (ConfigHolder.rfPerEU*voltage*(amperage-amperesUsed));
+            } else if (Loader.isModLoaded("galacticraftcore") && GCHandler.isAcceptable(tileEntity)) {
+                if (amperage - amperesUsed >= 1 && GCHandler.getEnergyRequested(tileEntity) / ConfigHolder.joulesPerEU >= voltage) {
+                    GCHandler.receiveEnergy(tileEntity, (int) (voltage * ConfigHolder.joulesPerEU), facing.getOpposite());
+                    amperesUsed++;
+                }
+            } else if (tileEntity.hasCapability(CapabilityEnergy.ENERGY, facing.getOpposite())) {
+                int rfToSend = (int) (ConfigHolder.rfPerEU * voltage * (amperage - amperesUsed));
                 rfToSend /= ConfigHolder.rfPerEU;
                 rfToSend *= ConfigHolder.rfPerEU;
                 amperesUsed += (tileEntity.getCapability(CapabilityEnergy.ENERGY, facing.getOpposite()).receiveEnergy(rfToSend, false) / ConfigHolder.rfPerEU) / voltage;
-            }
-            if (Loader.isModLoaded("ic2") && IC2Handler.isAcceptable(tileEntity)) {
-                amperesUsed += IC2Handler.receiveEnergy(tileEntity, voltage,  amperage - amperesUsed, facing.getOpposite()) / voltage;
+            } else if (Loader.isModLoaded("ic2") && IC2Handler.isAcceptable(tileEntity)) {
+                amperesUsed += IC2Handler.receiveEnergy(tileEntity, voltage, amperage - amperesUsed, facing.getOpposite()) / voltage;
             }
             if (amperesUsed == amperage)
                 break;

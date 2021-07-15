@@ -187,14 +187,6 @@ public class MetaTileEntityLargeTurbine extends RotorHolderMultiblockController 
                         .setStyle(new Style().setColor(TextFormatting.RED)));
                 }
             }
-            if (!workableHandler.isWorkingEnabled()) {
-                textList.add(new TextComponentTranslation("gtr.multiblock.work_paused"));
-            } else if (workableHandler.isActive()) {
-                textList.add(new TextComponentTranslation("gtr.multiblock.running"));
-                textList.add(new TextComponentTranslation("gtr.multiblock.generation_eu", workableHandler.getRecipeOutputVoltage()));
-            } else {
-                textList.add(new TextComponentTranslation("gtr.multiblock.idling"));
-            }
         }
     }
 

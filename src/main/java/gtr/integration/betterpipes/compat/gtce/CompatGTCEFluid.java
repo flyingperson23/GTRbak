@@ -50,10 +50,14 @@ public class CompatGTCEFluid extends CompatBaseTE {
         if (isAcceptable(te)) {
             TileEntityFluidPipe cable = (TileEntityFluidPipe) te;
             cable.setConnectionBlocked(AttachmentType.PIPE, direction, false);
+            cable.notifyBlockUpdate();
 
             if (te.getWorld() instanceof WorldServer) {
                 Utils.update(te);
             }
+
+            Utils.update2(te);
+
         }
     }
 
@@ -62,10 +66,14 @@ public class CompatGTCEFluid extends CompatBaseTE {
         if (isAcceptable(te)) {
             TileEntityFluidPipe cable = (TileEntityFluidPipe) te;
             cable.setConnectionBlocked(AttachmentType.PIPE, direction, true);
+            cable.notifyBlockUpdate();
 
             if (te.getWorld() instanceof WorldServer) {
                 Utils.update(te);
             }
+
+            Utils.update2(te);
+
         }
     }
 

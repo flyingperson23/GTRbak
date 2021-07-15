@@ -81,8 +81,13 @@ public class CraftingRecipeLoader {
         registerFacadeRecipe(Materials.Iron, 2);
 
         ToolRecipeHandler.registerPowerUnitRecipes();
+        ModHandler.addShapedRecipe("tiny_wooden_pipe", OreDictUnifier.get(OrePrefix.pipeTiny, Materials.Wood, 8), "WWW", "f h", 'W', new UnificationEntry(OrePrefix.plank, Materials.Wood));
         ModHandler.addShapedRecipe("small_wooden_pipe", OreDictUnifier.get(OrePrefix.pipeSmall, Materials.Wood, 4), "WWW", "h f", 'W', new UnificationEntry(OrePrefix.plank, Materials.Wood));
         ModHandler.addShapedRecipe("medium_wooden_pipe", OreDictUnifier.get(OrePrefix.pipeMedium, Materials.Wood, 2), "WWW", "f h", "WWW", 'W', new UnificationEntry(OrePrefix.plank, Materials.Wood));
+        ModHandler.addShapedRecipe("large_wooden_pipe", OreDictUnifier.get(OrePrefix.pipeLarge, Materials.Wood, 1), "WWW", "h f", "WWW", 'W', new UnificationEntry(OrePrefix.plank, Materials.Wood));
+
+        ModHandler.addShapedRecipe("enderpearl_block", OreDictUnifier.get(OrePrefix.block, Materials.EnderPearl), "EEE", "EEE", "EEE", 'E', new UnificationEntry(OrePrefix.gem, Materials.EnderPearl));
+        ModHandler.addShapedRecipe("endereye_block", OreDictUnifier.get(OrePrefix.block, Materials.EnderEye), "EEE", "EEE", "EEE", 'E', new UnificationEntry(OrePrefix.gem, Materials.EnderEye));
 
         ModHandler.addShapelessRecipe("clay_block_to_dust", OreDictUnifier.get(OrePrefix.dust, Materials.Clay, 4), 'm', Blocks.CLAY);
         ModHandler.addShapelessRecipe("clay_ball_to_dust", OreDictUnifier.get(OrePrefix.dust, Materials.Clay), 'm', Items.CLAY_BALL);
@@ -207,7 +212,7 @@ public class CraftingRecipeLoader {
             ModHandler.removeRecipeByName(new ResourceLocation("minecraft:stick"));
         }
 
-        ModHandler.addShapelessRecipe("dust_ferrite_mixture", OreDictUnifier.get(OrePrefix.dust, Materials.FerriteMixture, 6), new UnificationEntry(OrePrefix.dust, Materials.Nickel), new UnificationEntry(OrePrefix.dust, Materials.Zinc), new UnificationEntry(OrePrefix.dust, Materials.Iron), new UnificationEntry(OrePrefix.dust, Materials.Iron), new UnificationEntry(OrePrefix.dust, Materials.Iron), new UnificationEntry(OrePrefix.dust, Materials.Iron));
+        // ModHandler.addShapelessRecipe("dust_ferrite_mixture", OreDictUnifier.get(OrePrefix.dust, Materials.FerriteMixture, 6), new UnificationEntry(OrePrefix.dust, Materials.Nickel), new UnificationEntry(OrePrefix.dust, Materials.Zinc), new UnificationEntry(OrePrefix.dust, Materials.Iron), new UnificationEntry(OrePrefix.dust, Materials.Iron), new UnificationEntry(OrePrefix.dust, Materials.Iron), new UnificationEntry(OrePrefix.dust, Materials.Iron));
         ModHandler.addShapelessRecipe("dust_electrum", OreDictUnifier.get(OrePrefix.dust, Materials.Electrum, 2), new UnificationEntry(OrePrefix.dust, Materials.Silver), new UnificationEntry(OrePrefix.dust, Materials.Gold));
         ModHandler.addShapelessRecipe("dust_brass", OreDictUnifier.get(OrePrefix.dust, Materials.Brass, 4), new UnificationEntry(OrePrefix.dust, Materials.Copper), new UnificationEntry(OrePrefix.dust, Materials.Copper), new UnificationEntry(OrePrefix.dust, Materials.Copper), new UnificationEntry(OrePrefix.dust, Materials.Zinc));
         ModHandler.addShapelessRecipe("dust_bronze", OreDictUnifier.get(OrePrefix.dust, Materials.Bronze, 4), new UnificationEntry(OrePrefix.dust, Materials.Copper), new UnificationEntry(OrePrefix.dust, Materials.Copper), new UnificationEntry(OrePrefix.dust, Materials.Copper), new UnificationEntry(OrePrefix.dust, Materials.Tin));

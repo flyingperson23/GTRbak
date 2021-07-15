@@ -8,6 +8,7 @@ import gtr.common.render.WrenchOverlayRenderer;
 import gtr.integration.betterpipes.compat.ICompatBase;
 import gtr.integration.betterpipes.compat.wrench.IWrenchProvider;
 import gtr.integration.betterpipes.network.ConnectionGrid;
+import gtr.integration.betterpipes.network.MessageBlockUpdate;
 import gtr.integration.betterpipes.network.MessageGetConnections;
 import gtr.integration.betterpipes.util.BlockWrapper;
 import gtr.integration.betterpipes.util.Utils;
@@ -121,6 +122,7 @@ public class BetterPipesEventHandler {
                                         GregTechMod.instance.wrenchMap.add(lookingAt.getBlockPos());
                                         if (Utils.wrenchUse(event, i)) {
                                             c.use(event.getEntityPlayer().getHeldItemMainhand(), event.getEntityPlayer());
+
                                             return;
                                         }
                                     }

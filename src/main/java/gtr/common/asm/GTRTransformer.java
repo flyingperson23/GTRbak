@@ -30,14 +30,19 @@ public class GTRTransformer implements IClassTransformer, Opcodes {
             classReader.accept(new SpecialArmorClassVisitor(classWriter, SpecialArmorApplyVisitor.TARGET_METHOD, SpecialArmorApplyVisitor::new), 0);
             return classWriter.toByteArray();
         }
+
         if (transformedName.equals("net.minecraft.server.management.PlayerInteractionManager")) {
             return PlayerInteractVisitorPost.patchPlayerInteractionManager(basicClass);
         }
+
         if (transformedName.equals("ic2.core.block.generator.tileentity.TileEntityBaseGenerator")) {
             return IC2GeneratorVisitor.patchTileEntityBaseGenerator(basicClass);
         }
         if (transformedName.equals("ic2.core.block.wiring.TileEntityElectricBlock")) {
             return IC2GeneratorVisitor.patchTileEntityElectric(basicClass);
+        }
+        if (transformedName.equals("ic2.core.item.ItemBatteryChargeHotbar")) {
+            return IC2BatteryVisitor.patchTileEntityBaseGenerator(basicClass);
         }
         if (internalName.equals(JEIVisitor.TARGET_CLASS_NAME)) {
             ClassReader classReader = new ClassReader(basicClass);

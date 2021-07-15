@@ -10,6 +10,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.items.CapabilityItemHandler;
 
@@ -49,10 +50,12 @@ public class CompatGTCEItem extends CompatBaseTE {
         if (isAcceptable(te)) {
             TileEntityInventoryPipe cable = (TileEntityInventoryPipe) te;
             cable.setConnectionBlocked(AttachmentType.PIPE, direction, false);
+            cable.notifyBlockUpdate();
 
             if (te.getWorld() instanceof WorldServer) {
                 Utils.update(te);
             }
+            Utils.update2(te);
         }
     }
 
@@ -61,10 +64,14 @@ public class CompatGTCEItem extends CompatBaseTE {
         if (isAcceptable(te)) {
             TileEntityInventoryPipe cable = (TileEntityInventoryPipe) te;
             cable.setConnectionBlocked(AttachmentType.PIPE, direction, true);
+            cable.notifyBlockUpdate();
 
             if (te.getWorld() instanceof WorldServer) {
                 Utils.update(te);
             }
+
+            Utils.update2(te);
+
         }
     }
 

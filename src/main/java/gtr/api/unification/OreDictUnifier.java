@@ -2,6 +2,7 @@ package gtr.api.unification;
 
 import com.google.common.base.CaseFormat;
 import com.google.common.base.Joiner;
+import gtr.api.GTValues;
 import gtr.api.unification.material.type.DustMaterial;
 import gtr.api.unification.material.type.IngotMaterial;
 import gtr.api.unification.material.type.MarkerMaterial;
@@ -44,14 +45,10 @@ public class OreDictUnifier {
 
     public static Comparator<ItemAndMetadata> getSimpleItemStackComparator() {
         if (stackComparator == null) {
-            if (ConfigHolder.useCustomModPriorities) {
-                List<String> modPriorities = Arrays.asList(ConfigHolder.modPriorities);
-                stackComparator = Collections.reverseOrder(new CustomModPriorityComparator(modPriorities));
-            } else {
-                //noinspection ConstantConditions
-                Function<ItemAndMetadata, String> modIdExtractor = stack -> stack.item.getRegistryName().getNamespace();
-                stackComparator = Comparator.comparing(modIdExtractor);
-            }
+            ArrayList<String> priorities = new ArrayList<>();
+            priorities.add(GTValues.MODID);
+            priorities.addAll(Arrays.asList(ConfigHolder.modPriorities));
+            stackComparator = Collections.reverseOrder(new CustomModPriorityComparator(priorities));
         }
         return stackComparator;
     }

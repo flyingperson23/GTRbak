@@ -43,14 +43,13 @@ import gtr.integration.betterpipes.compat.gtce.CompatGTCEFluid;
 import gtr.integration.betterpipes.compat.gtce.CompatGTCEItem;
 import gtr.integration.betterpipes.compat.wrench.GTCEWrenchProvider;
 import gtr.integration.betterpipes.compat.wrench.IWrenchProvider;
-import gtr.integration.betterpipes.network.MessageGetConnections;
-import gtr.integration.betterpipes.network.MessagePlaySound;
-import gtr.integration.betterpipes.network.MessageReturnConnections;
-import gtr.integration.betterpipes.network.MessageSwingArm;
+import gtr.integration.betterpipes.network.*;
 import gtr.integration.energistics.covers.AECoverBehaviors;
 import gtr.integration.energistics.gui.GuiProxy;
 import gtr.integration.energistics.items.AEItems;
+import gtr.integration.energistics.jei.JEIPacket;
 import gtr.integration.energistics.networking.PacketCompressedNBT;
+import gtr.integration.energistics.networking.PacketTerminal;
 import gtr.integration.multi.client.PreviewHandler;
 import gtr.integration.theoneprobe.TheOneProbeCompatibility;
 import gtr.integration.tinkers.TinkersMaterials;
@@ -73,7 +72,7 @@ import java.util.ArrayList;
 @Mod(modid = GTValues.MODID,
     name = "GT: Remastered",
     acceptedMinecraftVersions = "[1.12,1.13)",
-    dependencies = "required:forge@[14.23.5.2847,);" + CodeChickenLib.MOD_VERSION_DEP + "after:forestry;after:appliedenergistics2;after:tconstruct;required:ctm;after:forgemultipartcbe;after:jei@[4.15.0,);after:crafttweaker;after:ic2;")
+    dependencies = "required:forge@[14.23.5.2847,);" + CodeChickenLib.MOD_VERSION_DEP + "after:forestry;after:appliedenergistics2;after:tconstruct;after:forgemultipartcbe;after:jei@[4.15.0,);after:crafttweaker;after:ic2;before:galacticraft-core;")
 public class GregTechMod {
 
     public int counter = 0;
@@ -167,10 +166,14 @@ public class GregTechMod {
         GregTechMod.DISPLAY_INFO_WRAPPER.registerMessage(MessageSetRecipeMultiblock.MessageHandler.class, MessageSetRecipeMultiblock.class, 4, Side.CLIENT);
         GregTechMod.DISPLAY_INFO_WRAPPER.registerMessage(MessageRequestRecipeMultiblock.MessageHandler.class, MessageRequestRecipeMultiblock.class, 5, Side.SERVER);
         GregTechMod.DISPLAY_INFO_WRAPPER.registerMessage(KeysUpdateHandler.class, KeysPacket.class, 6, Side.SERVER);
+
+
+
         if (Loader.isModLoaded("appliedenergistics2")) {
             NetworkRegistry.INSTANCE.registerGuiHandler(GregTechMod.instance, new GuiProxy());
             AECoverBehaviors.init();
-            GregTechMod.DISPLAY_INFO_WRAPPER.registerMessage(PacketCompressedNBT.TerminalHandler.class, PacketCompressedNBT.class, 7, Side.CLIENT);
+            GregTechMod.DISPLAY_INFO_WRAPPER.registerMessage(JEIPacket.JEIHandler.class, JEIPacket.class, 7, Side.SERVER);
+            GregTechMod.DISPLAY_INFO_WRAPPER.registerMessage(PacketTerminal.TerminalHandler.class, PacketTerminal.class, 0, Side.CLIENT);
         }
 
         if (RecipeMap.isFoundInvalidRecipe()) {
@@ -209,6 +212,7 @@ public class GregTechMod {
         WRENCH_NET_WRAPPER.registerMessage(MessageReturnConnections.MessageHandler.class, MessageReturnConnections.class, 1, Side.CLIENT);
         WRENCH_NET_WRAPPER.registerMessage(MessagePlaySound.MessageHandler.class, MessagePlaySound.class, 2, Side.CLIENT);
         WRENCH_NET_WRAPPER.registerMessage(MessageSwingArm.MessageHandler.class, MessageSwingArm.class, 3, Side.CLIENT);
+        WRENCH_NET_WRAPPER.registerMessage(MessageBlockUpdate.MessageHandler.class, MessageBlockUpdate.class, 4, Side.SERVER);
 
     }
 

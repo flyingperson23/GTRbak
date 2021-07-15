@@ -13,9 +13,12 @@ import gtr.common.blocks.BlockConcrete;
 import gtr.common.blocks.BlockMineral;
 import gtr.common.blocks.MetaBlocks;
 import gtr.common.blocks.StoneBlock;
+import gtr.common.items.MetaItems;
+import gtr.integration.ic2.IC2Handler;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.oredict.OreDictionary;
 
 import static gtr.api.GTValues.M;
@@ -28,6 +31,14 @@ public class OreDictionaryLoader {
 
         OreDictionary.registerOre("fuelCoke", OreDictUnifier.get(OrePrefix.gem, Materials.Coke));
         OreDictionary.registerOre("blockFuelCoke", OreDictUnifier.get(OrePrefix.block, Materials.Coke));
+        OreDictionary.registerOre("itemResin", MetaItems.RUBBER_DROP.getStackForm());
+        OreDictionary.registerOre("materialResin", MetaItems.RUBBER_DROP.getStackForm());
+        OreDictionary.registerOre("itemRubber", OreDictUnifier.get(OrePrefix.plate, Materials.Rubber));
+        OreDictionary.registerOre("materialRubber", OreDictUnifier.get(OrePrefix.plate, Materials.Rubber));
+
+        if (Loader.isModLoaded("ic2")) {
+            IC2Handler.registerRubberOredict();
+        }
 
         OreDictUnifier.registerOre(new ItemStack(MetaBlocks.GRANITE, 1, 0), OrePrefix.stone, Materials.GraniteBlack);
         OreDictUnifier.registerOre(new ItemStack(MetaBlocks.GRANITE, 1, 1), OrePrefix.stone, Materials.GraniteRed);

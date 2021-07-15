@@ -21,6 +21,7 @@ import gtr.GregTechMod;
 import gtr.integration.energistics.covers.CoverAE2Stocker;
 import gtr.integration.energistics.covers.CoverStatus;
 import gtr.integration.energistics.networking.PacketCompressedNBT;
+import gtr.integration.energistics.networking.PacketTerminal;
 import gtr.integration.energistics.parts.StockerTerminalPart;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -123,7 +124,7 @@ public class StockerTerminalContainer extends AEBaseContainer {
         if (data.isEmpty())
             return;
 
-        GregTechMod.DISPLAY_INFO_WRAPPER.sendTo(new PacketCompressedNBT(data), (EntityPlayerMP) this.getPlayerInv().player);
+        GregTechMod.DISPLAY_INFO_WRAPPER.sendTo(new PacketTerminal(data), (EntityPlayerMP) this.getPlayerInv().player);
     }
 
     @Override

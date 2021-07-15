@@ -60,14 +60,11 @@ public class ConfigHolder {
     @Config.Comment("RF per GTEU")
     public static int rfPerEU = 4;
 
-    @Config.Comment("Whether to use modPriorities setting in config for prioritizing ore dictionary item registrations. " +
-        "By default, GTR will sort ore dictionary registrations alphabetically comparing their owner ModIDs. Default: false")
-    @Config.RequiresMcRestart
-    public static boolean useCustomModPriorities = false;
+    @Config.Comment("Galacticraft Joules per GTEU")
+    public static double joulesPerEU = 6.4;
 
     @Config.Comment("Specifies priorities of mods in ore dictionary item registration. First ModID has highest priority, last - lowest. " +
-        "Unspecified ModIDs follow standard sorting, but always have lower priority than last specified ModID." +
-        "\nFor this to work \"useCustomModPriorities\" has to be set to true.")
+        "Unspecified ModIDs follow standard sorting, but always have lower priority than last specified ModID.")
     @Config.RequiresMcRestart
     public static String[] modPriorities = {"gtr"};
 

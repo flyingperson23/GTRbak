@@ -671,6 +671,24 @@ public class Utils {
         te.getWorld().notifyBlockUpdate(te.getPos(), te.getWorld().getBlockState(te.getPos()), te.getWorld().getBlockState(te.getPos()), 3);
     }
 
+    public static void update2(TileEntity te) {
+        update(te);
+        BlockPos currentPos;
+        IBlockState state;
+        for (int x = -1; x < 2; x++) {
+            for (int y = -1; y < 2; y++) {
+                for (int z = -1; z < 2; z++) {
+                    currentPos = te.getPos().add(x, y, z);
+                    state = te.getWorld().getBlockState(currentPos);
+                    te.getWorld().notifyBlockUpdate(currentPos, state, state, 3);
+                    if (te.getWorld().getTileEntity(currentPos) != null) {
+                        te.getWorld().getTileEntity(currentPos).markDirty();
+                    }
+                }
+            }
+        }
+    }
+
     public static void update(BlockWrapper block, EnumFacing f) {
         block.world.notifyBlockUpdate(block.pos, block.state, block.state, 3);
         block.world.notifyBlockUpdate(block.offset(f).pos, block.offset(f).state, block.offset(f).state, 3);

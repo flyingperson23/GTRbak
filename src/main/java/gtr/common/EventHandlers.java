@@ -20,6 +20,7 @@ import gtr.common.items.MetaItems;
 import gtr.common.pipelike.cable.WireProperties;
 import gtr.common.pipelike.cable.net.WorldENet;
 import gtr.common.render.InvOverlayRenderer;
+import gtr.integration.galacticraft.GCHandler;
 import gtr.integration.ic2.IC2Handler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
@@ -94,6 +95,8 @@ public class EventHandlers {
             if (flag) {
                 WorldENet.getWorldENet(e.getWorld()).addNode(e.getPos(), new WireProperties(1, 1, 0), Node.DEFAULT_MARK, 0, true);
             } else if (Loader.isModLoaded("ic2") && IC2Handler.isAcceptable(te)) {
+                WorldENet.getWorldENet(e.getWorld()).addNode(e.getPos(), new WireProperties(1, 1, 0), Node.DEFAULT_MARK, 0, true);
+            } else if (Loader.isModLoaded("galacticraft-core") && GCHandler.isAcceptable(te)) {
                 WorldENet.getWorldENet(e.getWorld()).addNode(e.getPos(), new WireProperties(1, 1, 0), Node.DEFAULT_MARK, 0, true);
             }
         }
@@ -343,12 +346,11 @@ public class EventHandlers {
         if (resync) GregTechMod.DISPLAY_INFO_WRAPPER.sendToServer(new KeysPacket(Keybinds.REGISTERY));
     }
 
-    @SideOnly(Side.CLIENT)
     private static long eu = 0;
-    @SideOnly(Side.CLIENT)
     private static long maxeu = 0;
 
     @SubscribeEvent
+    @SideOnly(Side.CLIENT)
     public static void render(TickEvent.RenderTickEvent event) {
         if (Minecraft.getMinecraft().player != null) {
             if (GregTechMod.instance.counter % 3 == 0) {
@@ -371,6 +373,7 @@ public class EventHandlers {
 
     }
 
+    @SideOnly(Side.CLIENT)
     private static void countItems(NonNullList<ItemStack> items) {
         if (items != null) {
             for (ItemStack s : items) {

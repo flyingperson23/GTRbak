@@ -1756,7 +1756,7 @@ metaitem.soc.expert.name=Emerald System-on-Chip
 metaitem.soc.ultimate.name=Diamond System-on-Chip
 
 
-metaitem.rubber_drop.name=Rubber
+metaitem.rubber_drop.name=Raw Rubber Resin
 metaitem.plant_ball.name=Plant Ball
 metaitem.tool_parts_box.name=Tool Parts Box
 metaitem.tool_parts_box.tooltip=Contains some tool parts/nRight click to open
@@ -3475,7 +3475,7 @@ gtr.machine.air_collector.description=Collects air from adjacent air blocks
 
 #Fusion Reactor
 gtr.machine.fusion_reactor.name=Fusion Reactor
-gtr.multiblock.fusion_reactor.description=The Fusion Reactor is a large multiblock structure used for fusing elements into heavier ones. The Mark 1 Fusion Reactor can only use EV Energy Hatches./nFor every Hatch it has its buffer increases by 100k.
+gtr.multiblock.fusion_reactor.description=The Fusion Reactor is a large multiblock structure used for fusing elements into heavier ones. The Mark 1 Fusion Reactor can only use EV Energy Hatches. For every Hatch it has its buffer increases by 100k.
 gtr.machine.fusion_energy_injector.name=Fusion Energy Injector
 gtr.machine.fusion_material_extractor.name=Fusion Material Extractor
 gtr.machine.fusion_material_injector.name=Fusion Material Injector
@@ -3507,7 +3507,7 @@ gtr.multiblock.large_battery_buffer.stored=Energy: %s / %s EU
 tile.multiblock_casing.high_power.name=High Power Casing
 
 gtr.machine.large_battery_buffer.name=Large Battery Buffer
-gtr.multiblock.large_battery_buffer.description=Can house any number of energy input or output hatches,/nor battery holders, which can hold batteris of/nany tier. Functions as a transformer if components/nare different voltages.
+gtr.multiblock.large_battery_buffer.description=Can house any number of energy input or output hatches, or battery holders, which can hold batteris of any tier. Functions as a transformer if components are of different voltages.
 gtr.machine.battery_holder.name=Battery Holder
 gtr.multiblock.large_battery_buffer.input=Input Total: %s Amps %s
 gtr.multiblock.large_battery_buffer.output=Output Total: %s Amps %s

@@ -60,7 +60,11 @@ public class CompatGTCEEnergy extends CompatBaseTE {
                 Utils.update(te);
             }
             cable.notifyBlockUpdate();
+
+            Utils.update2(te);
+
         }
+
     }
 
     @Override
@@ -73,6 +77,9 @@ public class CompatGTCEEnergy extends CompatBaseTE {
                 Utils.update(te);
             }
             cable.notifyBlockUpdate();
+
+            Utils.update2(te);
+
         }
     }
 
