@@ -42,8 +42,8 @@ public class UniversalDistillationRecipeBuilder extends RecipeBuilder<UniversalD
 
     public ValidationResult<Recipe> build() {
         return ValidationResult.newResult(finalizeAndValidate(),
-            new Recipe(inputs, outputs, chancedOutputs, fluidInputs, fluidOutputs,
-                ImmutableMap.of(), duration, EUt, hidden));
+            new Recipe(inputs, outputs, chancedOutputs, fluidInputs, fluidOutputs, duration, EUt, hidden));
+
     }
 
 }

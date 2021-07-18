@@ -21,10 +21,12 @@ public class PacketCompressedNBT implements IMessage {
         InputStream byteStream = new InputStream() {
             @Override
             public int read() {
+                /*
                 if (buf.readableBytes() <= 0)
                     return -1;
 
-                return buf.readByte() & 0xff;
+                return buf.readByte() & 0xff;*/
+                return buf.readByte();
             }
         };
 

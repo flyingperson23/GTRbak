@@ -132,6 +132,14 @@ public final class MetaItems {
     public static MetaItem<?>.MetaValueItem ELECTRIC_PUMP_EV;
     public static MetaItem<?>.MetaValueItem ELECTRIC_PUMP_IV;
 
+    public static final MetaItem<?>.MetaValueItem[] PUMPS = new MetaValueItem[5];
+    public static MetaItem<?>.MetaValueItem FLUID_REGULATOR_LV;
+    public static MetaItem<?>.MetaValueItem FLUID_REGULATOR_MV;
+    public static MetaItem<?>.MetaValueItem FLUID_REGULATOR_HV;
+    public static MetaItem<?>.MetaValueItem FLUID_REGULATOR_EV;
+    public static MetaItem<?>.MetaValueItem FLUID_REGULATOR_IV;
+
+    public static final MetaItem<?>.MetaValueItem[] FLUID_REGULATORS = new MetaValueItem[5];
     public static MetaItem<?>.MetaValueItem FLUID_FILTER;
 
     public static MetaItem<?>.MetaValueItem DYNAMITE;

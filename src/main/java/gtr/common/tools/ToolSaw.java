@@ -1,5 +1,6 @@
 package gtr.common.tools;
 
+import gtr.api.items.toolitem.ToolMetaItem;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.Enchantment;
@@ -58,7 +59,13 @@ public class ToolSaw extends ToolBase {
         if (player.world.isRemote || player.capabilities.isCreativeMode) {
             return false;
         }
-        return ToolUtility.applyShearBehavior(stack, blockPos, player);
+        boolean result = ToolUtility.applyShearBehavior(stack, blockPos, player);
+        if (result) {
+            ToolMetaItem<?> toolMetaItem = (ToolMetaItem<?>) stack.getItem();
+            int damagePerBlockBreak = getToolDamagePerBlockBreak(stack);
+            toolMetaItem.damageItem(stack, damagePerBlockBreak, false);
+        }
+        return result;
     }
 
     @Override

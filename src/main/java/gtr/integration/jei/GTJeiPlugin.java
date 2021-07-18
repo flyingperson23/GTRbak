@@ -26,6 +26,7 @@ import gtr.common.blocks.MetaBlocks;
 import gtr.common.items.MetaItems;
 import gtr.common.metatileentities.MetaTileEntities;
 import gtr.integration.jei.multiblock.MultiblockInfoCategory;
+import gtr.integration.jei.multiblock.MultiblockInfoPage;
 import gtr.integration.jei.recipe.*;
 import gtr.integration.jei.recipe.fuel.FuelRecipeMapCategory;
 import gtr.integration.jei.recipe.fuel.GTFuelRecipeWrapper;
@@ -73,7 +74,9 @@ public class GTJeiPlugin implements IModPlugin {
         registry.addRecipeCategories(new IntCircuitCategory(registry.getJeiHelpers().getGuiHelper()));
         registry.addRecipeCategories(new MultiblockInfoCategory(registry.getJeiHelpers()));
         for (RecipeMap<?> recipeMap : RecipeMap.getRecipeMaps()) {
-            registry.addRecipeCategories(new RecipeMapCategory(recipeMap, registry.getJeiHelpers().getGuiHelper()));
+            if(!recipeMap.isHidden) {
+                registry.addRecipeCategories(new RecipeMapCategory(recipeMap, registry.getJeiHelpers().getGuiHelper()));
+            }
         }
         for (FuelRecipeMap fuelRecipeMap : FuelRecipeMap.getRecipeMaps()) {
             registry.addRecipeCategories(new FuelRecipeMapCategory(fuelRecipeMap, registry.getJeiHelpers().getGuiHelper()));
@@ -108,7 +111,7 @@ public class GTJeiPlugin implements IModPlugin {
         for (RecipeMap<?> recipeMap : RecipeMap.getRecipeMaps()) {
             List<GTRecipeWrapper> recipesList = recipeMap.getRecipeList()
                 .stream().filter(recipe -> !recipe.isHidden() && recipe.hasValidInputsForDisplay())
-                .map(r -> new GTRecipeWrapper(recipeMap, r))
+                .map(GTRecipeWrapper::new)
                 .collect(Collectors.toList());
             registry.addRecipes(recipesList, GTValues.MODID + ":" + recipeMap.unlocalizedName);
         }
@@ -205,6 +208,14 @@ public class GTJeiPlugin implements IModPlugin {
         }
 
         registry.addRecipeCatalyst(MetaTileEntities.WORKBENCH.getStackForm(), VanillaRecipeCategoryUid.CRAFTING);
+
+        //Multiblock info page registration
+        MultiblockInfoCategory.multiblockRecipes.values().forEach(v -> {
+            MultiblockInfoPage infoPage = v.getInfoPage();
+            registry.addIngredientInfo(infoPage.getController().getStackForm(),
+                VanillaTypes.ITEM,
+                infoPage.getDescription());
+        });
     }
 
     public static void show(RecipeMap<?> recipes) {

@@ -2,6 +2,7 @@ package gtr.loaders.recipe;
 
 import gtr.api.GTValues;
 import gtr.api.items.metaitem.MetaItem;
+import gtr.api.recipes.CountableIngredient;
 import gtr.api.recipes.ModHandler;
 import gtr.api.recipes.RecipeMaps;
 import gtr.api.recipes.builders.CokeOvenRecipeBuilder;
@@ -31,6 +32,8 @@ import gtr.common.blocks.StoneBlock.ChiselingVariant;
 import gtr.common.blocks.wood.BlockGregLog.LogVariant;
 import gtr.common.items.MetaItems;
 import gtr.common.metatileentities.MetaTileEntities;
+import gtr.common.metatileentities.storage.MetaTileEntityQuantumChest;
+import gtr.common.metatileentities.storage.MetaTileEntityQuantumTank;
 import gtr.integration.ic2.IC2Handler;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -55,10 +58,15 @@ import static gtr.common.items.MetaItems.*;
 
 public class MachineRecipeLoader {
 
+
+    private MachineRecipeLoader() {
+    }
+
     public static void init() {
         ChemistryRecipes.init();
         FuelRecipes.registerFuels();
         AssemblyLineRecipeLoader.registerAssemblyLineRecipes();
+        ComponentRecipes.init();
 
         registerCutterRecipes();
         registerChemicalRecipes();
@@ -76,6 +84,18 @@ public class MachineRecipeLoader {
         registerStoneBricksRecipes();
         registerOrganicRecyclingRecipes();
         registerFusionRecipes();
+
+        registerNBTRemoval();
+
+    }
+
+
+    private static void registerNBTRemoval() {
+        for (MetaTileEntityQuantumChest chest : MetaTileEntities.QUANTUM_CHEST)
+            ModHandler.addShapelessRecipe("quantum_chest_nbt_" + chest.getTier(), chest.getStackForm(), chest.getStackForm());
+
+        for (MetaTileEntityQuantumTank tank : MetaTileEntities.QUANTUM_TANK)
+            ModHandler.addShapelessRecipe("quantum_tank_nbt_" + tank.getTier(), tank.getStackForm(), tank.getStackForm());
     }
 
     private static void registerFusionRecipes() {
@@ -243,8 +263,12 @@ public class MachineRecipeLoader {
     private static void registerBendingCompressingRecipes() {
         RecipeMaps.COMPRESSOR_RECIPES.recipeBuilder().inputs(new ItemStack(Blocks.ICE, 2, OreDictionary.WILDCARD_VALUE)).outputs(new ItemStack(Blocks.PACKED_ICE)).buildAndRegister();
         RecipeMaps.COMPRESSOR_RECIPES.recipeBuilder().input(OrePrefix.dust, Materials.Ice, 1).outputs(new ItemStack(Blocks.ICE)).buildAndRegister();
-        RecipeMaps.COMPRESSOR_RECIPES.recipeBuilder().inputs(new ItemStack(Items.WHEAT, 9)).outputs(new ItemStack(Blocks.HAY_BLOCK)).buildAndRegister();
-
+        RecipeMaps.PACKER_RECIPES.recipeBuilder()
+            .inputs(new ItemStack(Items.WHEAT, 9))
+            .inputs(new CountableIngredient(new IntCircuitIngredient(9), 0))
+            .outputs(new ItemStack(Blocks.HAY_BLOCK))
+            .duration(200).EUt(2)
+            .buildAndRegister();
         RecipeMaps.COMPRESSOR_RECIPES.recipeBuilder()
             .input(OrePrefix.dust, Materials.Fireclay)
             .outputs(COMPRESSED_FIRECLAY.getStackForm())
@@ -1048,6 +1072,12 @@ public class MachineRecipeLoader {
     }
 
     private static void registerFluidRecipes() {
+
+        RecipeMaps.FLUID_HEATER_RECIPES.recipeBuilder().duration(32).EUt(4)
+            .fluidInputs(Materials.Ice.getFluid(144))
+            .circuitMeta(1)
+            .fluidOutputs(Materials.Water.getFluid(144)).buildAndRegister();
+
         RecipeMaps.FLUID_EXTRACTION_RECIPES.recipeBuilder().duration(32).EUt(2)
             .inputs(new ItemStack(Items.MELON_SEEDS, 1, OreDictionary.WILDCARD_VALUE))
             .fluidOutputs(Materials.SeedOil.getFluid(3)).buildAndRegister();

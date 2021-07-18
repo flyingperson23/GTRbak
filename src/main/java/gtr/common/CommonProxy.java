@@ -5,6 +5,7 @@ import gtr.api.block.machines.MachineItemBlock;
 import gtr.api.enchants.EnchantmentEnderDamage;
 import gtr.api.items.metaitem.MetaItem;
 import gtr.api.recipes.crafttweaker.MetaItemBracketHandler;
+import gtr.api.recipes.recipeproperties.BlastTemperatureProperty;
 import gtr.api.unification.material.type.DustMaterial;
 import gtr.api.unification.material.type.Material;
 import gtr.api.unification.ore.OrePrefix;
@@ -13,6 +14,7 @@ import gtr.common.blocks.*;
 import gtr.common.blocks.wood.BlockGregLeaves;
 import gtr.common.blocks.wood.BlockGregLog;
 import gtr.common.blocks.wood.BlockGregSapling;
+import gtr.common.datafix.GregTechDataFixers;
 import gtr.common.items.MetaItems;
 import gtr.common.items.potions.PotionFluids;
 import gtr.common.pipelike.cable.ItemBlockCable;
@@ -171,6 +173,11 @@ public class CommonProxy {
     //ore dictionary and recipes will get recipes accessible in time
     @SubscribeEvent
     public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
+        for (BlockWireCoil.CoilType values : BlockWireCoil.CoilType.values()) {
+            BlastTemperatureProperty.registerCoilType(values.getCoilTemperature(), values.getMaterial(),
+                "tile.wire_coil." + values.getName() + ".name");
+        }
+
         GTLog.logger.info("Registering ore dictionary...");
 
         MetaItems.registerOreDict();
@@ -267,6 +274,7 @@ public class CommonProxy {
     }
 
     public void onLoad() {
+        GregTechDataFixers.init();
 
     }
 

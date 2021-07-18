@@ -1,18 +1,19 @@
 package gtr.integration.theoneprobe.provider;
 
 
-import java.util.Collection;
 
 import gtr.api.capability.GregtechCapabilities;
 import gtr.api.capability.IFuelInfo;
 import gtr.api.capability.IFuelable;
+import gtr.api.capability.impl.ItemFuelInfo;
 import mcjty.theoneprobe.api.ElementAlignment;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.TextStyleClass;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
+
+import java.util.Collection;
 
 public class FuelableInfoProvider extends CapabilityInfoProvider<IFuelable> {
 
@@ -43,10 +44,14 @@ public class FuelableInfoProvider extends CapabilityInfoProvider<IFuelable> {
             final int fuelRemaining = fuelInfo.getFuelRemaining();
             final int fuelCapacity = fuelInfo.getFuelCapacity();
             final int fuelMinConsumed = fuelInfo.getFuelMinConsumed();
-            final int burnTime = fuelInfo.getFuelBurnTime()/20;
+            final long burnTime = fuelInfo.getFuelBurnTimeLong() / 20;
 
             IProbeInfo horizontalPane = probeInfo.horizontal(probeInfo.defaultLayoutStyle().alignment(ElementAlignment.ALIGN_CENTER));
-            horizontalPane.text(TextStyleClass.INFO + "{*gtr.top.fuel_name*} {*" + fuelName + "*}");
+            if (fuelInfo instanceof ItemFuelInfo) {
+                horizontalPane.text(TextStyleClass.INFO + "{*gtr.top.fuel_name*} ").itemLabel(((ItemFuelInfo) fuelInfo).getItemStack());
+            } else {
+                horizontalPane.text(TextStyleClass.INFO + "{*gtr.top.fuel_name*} {*" + fuelName + "*}");
+            }
 
             horizontalPane = probeInfo.horizontal(probeInfo.defaultLayoutStyle().alignment(ElementAlignment.ALIGN_CENTER));
             horizontalPane.progress(fuelRemaining, fuelCapacity, probeInfo.defaultProgressStyle()
@@ -55,7 +60,6 @@ public class FuelableInfoProvider extends CapabilityInfoProvider<IFuelable> {
                 .backgroundColor(0x00000000)
                 .filledColor(0xFFFFE000)
                 .alternateFilledColor(0xFFEED000));
-
             if (fuelRemaining < fuelMinConsumed)
                 horizontalPane.text("{*gtr.top.fuel_min_consume*} " + fuelMinConsumed);
             else

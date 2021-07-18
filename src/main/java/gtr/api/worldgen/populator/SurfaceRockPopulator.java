@@ -4,12 +4,14 @@ import com.google.gson.JsonObject;
 import gtr.api.unification.OreDictUnifier;
 import gtr.api.unification.material.type.Material;
 import gtr.api.unification.stack.UnificationEntry;
+import gtr.api.util.GTLog;
 import gtr.api.worldgen.config.OreConfigUtils;
 import gtr.api.worldgen.config.OreDepositDefinition;
 import gtr.api.worldgen.generator.GridEntryInfo;
 import gtr.common.MetaFluids;
 import gtr.common.blocks.MetaBlocks;
 import gtr.common.blocks.surfacerock.TileEntitySurfaceRock;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
@@ -27,6 +29,7 @@ import java.util.*;
 public class SurfaceRockPopulator implements VeinChunkPopulator {
 
     private Material material;
+    private int failedGenerationCounter = 0;
 
     public SurfaceRockPopulator() {
     }
@@ -74,6 +77,9 @@ public class SurfaceRockPopulator implements VeinChunkPopulator {
             if (tileEntity != null)
                 tileEntity.setData(this.material, undergroundMaterials);
         }
+        else {
+            failedGenerationCounter++;
+        }
     }
 
     @Override
@@ -87,10 +93,25 @@ public class SurfaceRockPopulator implements VeinChunkPopulator {
                 int randomX = chunkX * 16 + 8 + random.nextInt(16);
                 int randomZ = chunkZ * 16 + 8 + random.nextInt(16);
                 BlockPos topBlockPos = world.getTopSolidOrLiquidBlock(new BlockPos(randomX, 0, randomZ));
-                if (world.isAirBlock(topBlockPos) && world.isSideSolid(topBlockPos.down(), EnumFacing.UP)) {
-                    setStoneBlock(world, topBlockPos, undergroundMaterials);
+                Block blockAtPos = world.getBlockState(topBlockPos).getBlock();
+                //Checks if the block is a replaceable feature like grass, snow layers, or Air. Liquids are replaceable, so
+                // exclude one deep liquid blocks, for looks
+                if(!blockAtPos.isReplaceable(world, topBlockPos) || world.getBlockState(topBlockPos).getMaterial().isLiquid()) {
+                    continue;
                 }
+
+                //Checks if the block below has a solid top. This method is also used to check what blocks redstone can
+                //be placed on.
+                if(!world.isSideSolid(topBlockPos.down(), EnumFacing.UP)) {
+                    continue;
+                }
+                setStoneBlock(world, topBlockPos, undergroundMaterials);
+
             }
+        }
+        //Log if all Surface Rock generation attempts were failed
+        if(failedGenerationCounter == stonesCount && stonesCount > 0 && world.getWorldType() != WorldType.FLAT) {
+            GTLog.logger.debug("Failed to generate surface rocks for vein {} at chunk with position: x: {}, z: {}", definition.getDepositName(), chunkX, chunkZ);
         }
     }
 }

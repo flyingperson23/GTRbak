@@ -50,6 +50,7 @@ import gtr.integration.energistics.items.AEItems;
 import gtr.integration.energistics.jei.JEIPacket;
 import gtr.integration.energistics.networking.PacketCompressedNBT;
 import gtr.integration.energistics.networking.PacketTerminal;
+import gtr.integration.ic2.IC2CropLoader;
 import gtr.integration.multi.client.PreviewHandler;
 import gtr.integration.theoneprobe.TheOneProbeCompatibility;
 import gtr.integration.tinkers.TinkersMaterials;
@@ -72,7 +73,7 @@ import java.util.ArrayList;
 @Mod(modid = GTValues.MODID,
     name = "GT: Remastered",
     acceptedMinecraftVersions = "[1.12,1.13)",
-    dependencies = "required:forge@[14.23.5.2847,);" + CodeChickenLib.MOD_VERSION_DEP + "after:forestry;after:appliedenergistics2;after:tconstruct;after:forgemultipartcbe;after:jei@[4.15.0,);after:crafttweaker;after:ic2;before:galacticraft-core;")
+    dependencies = "required:forge@[14.23.5.2847,);" + CodeChickenLib.MOD_VERSION_DEP + "after:forestry;after:appliedenergistics2;after:tconstruct;after:jei@[4.15.0,);after:crafttweaker;after:ic2;before:galacticraft-core;")
 public class GregTechMod {
 
     public int counter = 0;
@@ -213,6 +214,12 @@ public class GregTechMod {
         WRENCH_NET_WRAPPER.registerMessage(MessagePlaySound.MessageHandler.class, MessagePlaySound.class, 2, Side.CLIENT);
         WRENCH_NET_WRAPPER.registerMessage(MessageSwingArm.MessageHandler.class, MessageSwingArm.class, 3, Side.CLIENT);
         WRENCH_NET_WRAPPER.registerMessage(MessageBlockUpdate.MessageHandler.class, MessageBlockUpdate.class, 4, Side.SERVER);
+
+        try {
+            IC2CropLoader.run();
+        } catch(Exception e) {
+
+        }
 
     }
 

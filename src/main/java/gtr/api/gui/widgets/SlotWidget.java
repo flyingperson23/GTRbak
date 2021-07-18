@@ -2,12 +2,15 @@ package gtr.api.gui.widgets;
 
 import gtr.api.gui.INativeWidget;
 import gtr.api.gui.IRenderContext;
+import gtr.api.gui.IScissored;
 import gtr.api.gui.Widget;
 import gtr.api.gui.resources.TextureArea;
 import gtr.api.util.Position;
 import gtr.api.util.Size;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ClickType;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -16,10 +19,11 @@ import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.SlotItemHandler;
 
 import javax.annotation.Nonnull;
+import java.awt.*;
 
 public class SlotWidget extends Widget implements INativeWidget {
 
-    protected SlotItemHandler slotReference;
+    protected Slot slotReference;
     protected boolean isEnabled = true;
 
     protected boolean canTakeItems;
@@ -28,6 +32,15 @@ public class SlotWidget extends Widget implements INativeWidget {
 
     protected TextureArea[] backgroundTexture;
     protected Runnable changeListener;
+    protected Rectangle scissor;
+
+    public SlotWidget(IInventory inventory, int slotIndex, int xPosition, int yPosition, boolean canTakeItems, boolean canPutItems) {
+        super(new Position(xPosition, yPosition), new Size(18, 18));
+        this.canTakeItems = canTakeItems;
+        this.canPutItems = canPutItems;
+        this.slotReference = createSlot(inventory, slotIndex);
+    }
+
 
     public SlotWidget(IItemHandler itemHandler, int slotIndex, int xPosition, int yPosition, boolean canTakeItems, boolean canPutItems) {
         super(new Position(xPosition, yPosition), new Size(18, 18));
@@ -36,14 +49,22 @@ public class SlotWidget extends Widget implements INativeWidget {
         this.slotReference = createSlot(itemHandler, slotIndex);
     }
 
-    protected SlotItemHandler createSlot(IItemHandler itemHandler, int index) {
-        return new WidgetSlotDelegate(itemHandler, index, 0, 0);
+    protected Slot createSlot(IInventory inventory, int index) {
+        return new WidgetSlot(inventory, index, 0, 0);
+    }
+
+    protected Slot createSlot(IItemHandler itemHandler, int index) {
+        return new WidgetSlotItemHandler(itemHandler, index, 0, 0);
+    }
+
+    public SlotWidget(IInventory inventory, int slotIndex, int xPosition, int yPosition) {
+        this(inventory, slotIndex, xPosition, yPosition, true, true);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public void drawInBackground(int mouseX, int mouseY, IRenderContext context) {
-        if (isEnabled && backgroundTexture != null) {
+        if (isEnabled() && backgroundTexture != null) {
             Position pos = getPosition();
             Size size = getSize();
             for (TextureArea backgroundTexture : this.backgroundTexture) {
@@ -69,6 +90,11 @@ public class SlotWidget extends Widget implements INativeWidget {
     @Override
     public void setEnabled(boolean enabled) {
         isEnabled = enabled;
+    }
+
+    @Override
+    public void applyScissor(final int parentX, final int parentY, final int parentWidth, final int parentHeight) {
+        this.scissor = new Rectangle(parentX, parentY, parentWidth, parentHeight);
     }
 
     @Override
@@ -99,20 +125,25 @@ public class SlotWidget extends Widget implements INativeWidget {
     }
 
     public boolean canPutStack(ItemStack stack) {
-        return isEnabled && canPutItems;
+        return isEnabled() && canPutItems;
     }
 
     public boolean canTakeStack(EntityPlayer player) {
-        return isEnabled && canTakeItems;
+        return isEnabled() && canTakeItems;
     }
 
     public boolean isEnabled() {
-        return isEnabled;
+        if (!this.isEnabled) {
+            return false;
+        }
+        if (this.scissor == null) {
+            return true;
+        }
+        return scissor.intersects(toRectangleBox());
     }
-
     @Override
     public boolean canMergeSlot(ItemStack stack) {
-        return isEnabled;
+        return isEnabled();
     }
 
     public void onSlotChanged() {
@@ -125,11 +156,113 @@ public class SlotWidget extends Widget implements INativeWidget {
     }
 
     @Override
-    public final SlotItemHandler getHandle() {
+    public final Slot getHandle() {
         return slotReference;
     }
 
-    protected class WidgetSlotDelegate extends SlotItemHandler {
+
+    protected class WidgetSlot extends Slot implements IScissored {
+        public WidgetSlot(IInventory inventory, int index, int xPosition, int yPosition) {
+            super(inventory, index, xPosition, yPosition);
+        }
+
+        @Override
+        public boolean isItemValid(@Nonnull ItemStack stack) {
+            return SlotWidget.this.canPutStack(stack) && super.isItemValid(stack);
+        }
+
+        @Override
+        public boolean canTakeStack(EntityPlayer playerIn) {
+            return SlotWidget.this.canTakeStack(playerIn) && super.canTakeStack(playerIn);
+        }
+
+        @Override
+        public void putStack(@Nonnull ItemStack stack) {
+            super.putStack(stack);
+            if (changeListener != null) {
+                changeListener.run();
+            }
+        }
+
+        @Override
+        public final ItemStack onTake(EntityPlayer thePlayer, ItemStack stack) {
+            return onItemTake(thePlayer, super.onTake(thePlayer, stack), false);
+        }
+
+        @Override
+        public void onSlotChanged() {
+            SlotWidget.this.onSlotChanged();
+        }
+
+        @Override
+        public boolean isEnabled() {
+            return SlotWidget.this.isEnabled();
+        }
+
+        @Override
+        public Rectangle getScissor() {
+            return SlotWidget.this.scissor;
+        }
+    }
+
+    protected class WidgetSlotItemHandler extends SlotItemHandler implements IScissored {
+
+        public WidgetSlotItemHandler(IItemHandler itemHandler, int index, int xPosition, int yPosition) {
+            super(itemHandler, index, xPosition, yPosition);
+        }
+
+        @Override
+        public boolean isItemValid(@Nonnull ItemStack stack) {
+            return SlotWidget.this.canPutStack(stack) && super.isItemValid(stack);
+        }
+
+        @Override
+        public boolean canTakeStack(EntityPlayer playerIn) {
+            return SlotWidget.this.canTakeStack(playerIn) && super.canTakeStack(playerIn);
+        }
+
+        @Override
+        public void putStack(@Nonnull ItemStack stack) {
+            super.putStack(stack);
+            if (changeListener != null) {
+                changeListener.run();
+            }
+        }
+
+        @Override
+        public final ItemStack onTake(EntityPlayer thePlayer, ItemStack stack) {
+            return onItemTake(thePlayer, super.onTake(thePlayer, stack), false);
+        }
+
+        @Override
+        public void onSlotChanged() {
+            SlotWidget.this.onSlotChanged();
+        }
+
+        @Override
+        public boolean isEnabled() {
+            return SlotWidget.this.isEnabled();
+        }
+
+        @Override
+        public Rectangle getScissor() {
+            return SlotWidget.this.scissor;
+        }
+    }
+
+    /**
+     * @deprecated
+     * Use {@link WidgetSlotItemHandler} instead. <br>
+     * {@link WidgetSlotDelegate} was renamed to {@link WidgetSlotItemHandler} since GregTech 1.15.0.<br>
+     * Explanation of deprecation: In order to fix mouse wheel action a new class was introduced ({@link WidgetSlot}).
+     * To have consistent names {@link WidgetSlotDelegate} was renamed to {@link WidgetSlotItemHandler}.
+     *
+     * @see <a href="https://github.com/GregTechCE/GregTech/pull/1485">GregTech#1495 (Pull request)</a>
+     * @see <a href="https://github.com/GregTechCE/GregTech/issues/1291">GregTech#1291 (Issue)</a>
+     */
+    @Deprecated
+
+    protected class WidgetSlotDelegate extends SlotItemHandler implements IScissored {
 
         public WidgetSlotDelegate(IItemHandler itemHandler, int index, int xPosition, int yPosition) {
             super(itemHandler, index, xPosition, yPosition);
@@ -166,6 +299,12 @@ public class SlotWidget extends Widget implements INativeWidget {
         @Override
         public boolean isEnabled() {
             return SlotWidget.this.isEnabled();
+        }
+
+
+        @Override
+        public Rectangle getScissor() {
+            return SlotWidget.this.scissor;
         }
     }
 

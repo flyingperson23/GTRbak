@@ -25,6 +25,11 @@ metaitem.credit.naquadah.tooltip=32768 Credits
 metaitem.credit.darmstadtium.name=Darmstadtium Credit
 metaitem.credit.darmstadtium.tooltip=262144 Credits
 
+gtr.multiblock.preview.tilt=Shift+LMB to tilt
+gtr.multiblock.preview.zoom=Shift+RMB to zoom
+gtr.multiblock.preview.pan=LMB+Drag to pan
+gtr.multiblock.preview.move=RMB+Drag to move
+gtr.multiblock.preview.reset=Scroll Mousewheel to reset
 gtr.top.fuel_info=/%,d for %,d secs
 gtr.top.fuel_none=No fuel
 
@@ -1282,7 +1287,7 @@ gtr.recipe.duration=Duration: %,.1f secs
 gtr.recipe.amperage=Amperage: %,d
 gtr.recipe.not_consumed=Not consumed in process
 gtr.recipe.chance=Chance: %s%% +%s%%/tier
-gtr.recipe.blast_furnace_temperature=Temperature: %,dK
+gtr.recipe.blast_furnace_temperature=Temperature: %,dK (%s)
 gtr.recipe.eu_to_start=Energy To Start: %,dEU
 
 gtr.fluid.click_to_fill=§7Click with a empty fluid container to fill it from tank.
@@ -1445,8 +1450,8 @@ metaitem.shape.empty.name=Empty Shape Plate
 
 metaitem.dynamite.name=Dynamite
 
-gtr.gui.overclock.description=Recipes can overclock to this tier./nOFF means no overclocking is performed.
-gtr.gui.overclock.off=OFF
+gtr.gui.overclock.description=Recipes can overclock to this tier./nX means no overclocking is performed.
+gtr.gui.overclock.off=X
 
 metaitem.shape.mold.plate.name=Mold (Plate)
 metaitem.shape.mold.gear.name=Mold (Gear)
@@ -1996,6 +2001,29 @@ item.material.oreprefix.cableGtQuadruple=4x %s Cable
 item.material.oreprefix.cableGtDouble=2x %s Cable
 item.material.oreprefix.cableGtSingle=1x %s Cable
 
+metaitem.fluid.regulator.lv.name=Fluid Regulator (LV)
+metaitem.fluid.regulator.mv.name=Fluid Regulator (MV)
+metaitem.fluid.regulator.hv.name=Fluid Regulator (HV)
+metaitem.fluid.regulator.ev.name=Fluid Regulator (EV)
+metaitem.fluid.regulator.iv.name=Fluid Regulator (IV)
+metaitem.fluid.regulator.luv.name=Fluid Regulator (LuV)
+metaitem.fluid.regulator.zpm.name=Fluid Regulator (ZPM)
+metaitem.fluid.regulator.uv.name=Fluid Regulator (UV)
+metaitem.fluid.regulator.lv.tooltip=1280 mb/sec (as Cover)
+metaitem.fluid.regulator.mv.tooltip=5120 mb/sec (as Cover)
+metaitem.fluid.regulator.hv.tooltip=20,480 mb/sec (as Cover)
+metaitem.fluid.regulator.ev.tooltip=81,920 mb/sec (as Cover)
+metaitem.fluid.regulator.iv.tooltip=327,680 mb/sec (as Cover)
+metaitem.fluid.regulator.luv.tooltip=1,310,720 mb/sec (as Cover)
+metaitem.fluid.regulator.zpm.tooltip=5,242,880 mb/sec (as Cover)
+metaitem.fluid.regulator.uv.tooltip=20,971,520 mb/sec (as Cover)
+
+cover.fluid_regulator.title=Fluid Regulator Settings (%s)
+cover.fluid_regulator.transfer_mode.description=§eTransfer Any§r - in this mode, cover will transfer as many fluids matching its filter as possible./n§eSupply Exact§r - in this mode, cover will supply fluids in portions specified in the window underneath this button. If amount of fluids is less than portion size, fluids won't be moved./n§eKeep Exact§r - in this mode, cover will keep specified amount of fluids in the destination inventory, supplying additional amount of fluids if required./n§7Tip: shift click will multiply increase/decrease amounts by 10 and ctrl click will multiply by 100.
+cover.fluid_regulator.supply_exact=Supply Exact: %s
+cover.fluid_regulator.keep_exact=Keep Exact: %s
+
+
 material.aluminium=Aluminium
 material.americium=Americium
 material.antimony=Antimony
@@ -2271,7 +2299,7 @@ material.nitro_carbon=Nitro-Carbon
 material.nitrogen_dioxide=Nitrogen Dioxide
 material.obsidian=Obsidian
 material.obsidian.name=Obsidian
-material.phosphate=Phosphate
+material.phosphate=Tricalcium Phosphate
 material.pig_iron=Pig Iron
 material.pig_iron.name=Pig Iron
 material.polyethylene=Polyethylene
@@ -3173,9 +3201,25 @@ gtr.machine.magic_energy_absorber.ev.name=Elite Magic Energy Absorber
 gtr.machine.magic_energy_absorber.iv.name=Master Magic Energy Absorber
 gtr.machine.magic_energy_absorber.luv.name=Expert Magic Energy Absorber
 
-gtr.machine.magic_energy_absorber.tooltip=Max Voltage OUT: §a2048 §7(§aEV§7)/nCollects energy from ender crystals in 64 blocks/nEach ender crystal adds 32 EU/t to output/nPlace Dragon Egg on top to amplify output/n/nWhen amplified:/nEach ender crystal adds 128 EU/t
+gtr.machine.magic_energy_absorber.tooltip=Max Voltage OUT: §a2048 §7(§aEV§7)/nCollects energy from end crystals on naturally generated obsidian pillars in the End within 64 blocks./nEach ender crystal adds 32 EU/t to output/nPlace Dragon Egg on top to amplify output/n/nWhen amplified:/nEach ender crystal adds 128 EU/t
 gtr.machine.magic_energy_converter.name=Magic Energy Converter
 gtr.machine.magic_energy_converter.tooltip=Voltage OUT: §a128 §7(§aMV§7)/nCollects essentia from containers within 16 blocks/nConsumes 20 Potentia per second
+
+gtr.machine.quantum_chest.tooltip.item=Item Stored: §b%s
+gtr.machine.quantum_chest.tooltip.count=Item Amount: §e%,d
+
+gtr.machine.quantum_tank.tooltip.name=Fluid Stored: §b%s
+gtr.machine.quantum_tank.tooltip.count=Fluid Amount: §e%,d mb
+
+gtr.universal.clear_nbt_recipe.tooltip=§cThis will destroy all contents!
+
+gtr.multiblock.preview.any_hatch=Any tier hatch can be used to form the structure
+gtr.multiblock.preview.limit=Minimum Limit: %d
+gtr.multiblock.preview.limit_per_layer=Only %d per layer
+gtr.multiblock.preview.only=Only %s allowed
+gtr.multiblock.preview.only_location=Only allowed at %s
+gtr.multiblock.preview.location.b_c=Bottom Center
+
 
 # Machines
 gtr.machine.electric_furnace.lv.name=Basic Electric Furnace
@@ -3688,3 +3732,5 @@ metaitem.fluid.encoder.amount=%s mb
 metaitem.fluid.encoder.fluid=Fluid:
 
 metaitem.stocker.terminal.name=Stocker terminal
+
+gtr.recipe.explosive=Explosive: %s

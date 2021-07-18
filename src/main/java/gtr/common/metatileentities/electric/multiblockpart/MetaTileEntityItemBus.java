@@ -60,6 +60,8 @@ public class MetaTileEntityItemBus extends MetaTileEntityMultiblockPart implemen
         if (shouldRenderOverlay()) {
             SimpleOverlayRenderer renderer = isExportHatch ? Textures.PIPE_OUT_OVERLAY : Textures.PIPE_IN_OVERLAY;
             renderer.renderSided(getFrontFacing(), renderState, translation, pipeline);
+            SimpleOverlayRenderer overlay = isExportHatch ? Textures.ITEM_HATCH_OUTPUT_OVERLAY : Textures.ITEM_HATCH_INPUT_OVERLAY;
+            overlay.renderSided(getFrontFacing(), renderState, translation, pipeline);
         }
     }
 
@@ -91,19 +93,25 @@ public class MetaTileEntityItemBus extends MetaTileEntityMultiblockPart implemen
     @Override
     protected ModularUI createUI(EntityPlayer entityPlayer) {
         int rowSize = (int) Math.sqrt(getInventorySize());
-        Builder builder = ModularUI.builder(GuiTextures.getBackground(this, GuiTextures.BACKGROUND_LOCATION), 176,
+        return createUITemplate(entityPlayer, rowSize, rowSize == 10 ? 9 : 0)
+            .build(getHolder(), entityPlayer);
+    }
+
+    private ModularUI.Builder createUITemplate(EntityPlayer player, int rowSize, int xOffset) {
+        Builder builder = ModularUI.builder(GuiTextures.BACKGROUND, 176 + xOffset * 2,
             18 + 18 * rowSize + 94)
             .label(10, 5, getMetaFullName());
 
         for (int y = 0; y < rowSize; y++) {
             for (int x = 0; x < rowSize; x++) {
                 int index = y * rowSize + x;
-                builder.widget(new SlotWidget(isExportHatch ? exportItems : importItems, index, 89 - rowSize * 9 + x * 18, 18 + y * 18, true, !isExportHatch)
+                builder.widget(new SlotWidget(isExportHatch ? exportItems : importItems, index,
+                    (88 - rowSize * 9 + x * 18) + xOffset, 18 + y * 18, true, !isExportHatch)
                     .setBackgroundTexture(GuiTextures.SLOT));
             }
         }
-        builder.bindPlayerInventory(entityPlayer.inventory, GuiTextures.SLOT, 8, 18 + 18 * rowSize + 12);
-        return builder.build(getHolder(), entityPlayer);
+        return builder.bindPlayerInventory(player.inventory, GuiTextures.SLOT, 7 + xOffset, 18 + 18 * rowSize + 12);
+
     }
 
     @Override

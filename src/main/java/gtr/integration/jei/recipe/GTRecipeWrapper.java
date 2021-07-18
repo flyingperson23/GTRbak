@@ -5,6 +5,7 @@ import gtr.api.recipes.CountableIngredient;
 import gtr.api.recipes.Recipe;
 import gtr.api.recipes.Recipe.ChanceEntry;
 import gtr.api.recipes.RecipeMap;
+import gtr.api.recipes.recipeproperties.RecipeProperty;
 import gtr.api.unification.OreDictUnifier;
 import gtr.api.util.ItemStackHashStrategy;
 import gtr.integration.jei.utils.JEIHelpers;
@@ -25,9 +26,8 @@ import java.util.stream.Collectors;
 
 public class GTRecipeWrapper implements IRecipeWrapper {
 
-    private static final int lineHeight = 10;
-    private final RecipeMap<?> recipeMap;
-    private final Recipe recipe;
+    private static final int LINE_HEIGHT = 10;
+
 
 
     private final Hash.Strategy<ItemStack> strategy = ItemStackHashStrategy.comparingAllButCount();
@@ -36,9 +36,18 @@ public class GTRecipeWrapper implements IRecipeWrapper {
     private final Map<ItemStack, ChanceEntry> chanceOutput = new Object2ObjectOpenCustomHashMap<>(strategy);
     private final List<FluidStack> notConsumedFluidInput = new ArrayList<>();
 
+    private final Recipe recipe;
+
+    public GTRecipeWrapper(Recipe recipe) {
+        this.recipe = recipe;
+    }
+
+    /**
+     * @deprecated use {@link #GTRecipeWrapper(Recipe recipe)} instead
+     */
+    @Deprecated
 
     public GTRecipeWrapper(RecipeMap<?> recipeMap, Recipe recipe) {
-        this.recipeMap = recipeMap;
         this.recipe = recipe;
     }
 
@@ -116,32 +125,31 @@ public class GTRecipeWrapper implements IRecipeWrapper {
         } else {
             throw new IllegalArgumentException("Unknown ingredient type: " + ingredient.getClass());
         }
-        if (entry != null) {
+        if (entry != null && !input) {
             double chance = entry.getChance() / 100.0;
             double boost = entry.getBoostPerTier() / 100.0;
             tooltip.add(I18n.format("gtr.recipe.chance", chance, boost));
-        } else if (notConsumed) {
+        } else if (notConsumed && input) {
             tooltip.add(I18n.format("gtr.recipe.not_consumed"));
         }
     }
 
     @Override
+    @SuppressWarnings("java:S1121")
     public void drawInfo(Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
         int yPosition = recipeHeight - getPropertyListHeight();
-        if (recipe.getEUt() > 0) {
-            minecraft.fontRenderer.drawString(I18n.format("gtr.recipe.total", Math.abs((long) recipe.getEUt()) * recipe.getDuration()), 0, yPosition, 0x111111);
-            minecraft.fontRenderer.drawString(I18n.format(recipe.getEUt() >= 0 ? "gtr.recipe.eu" : "gtr.recipe.eu_inverted", Math.abs(recipe.getEUt()), JEIHelpers.getMinTierForVoltage(recipe.getEUt())), 0, yPosition += lineHeight, 0x111111);
-        }
-        minecraft.fontRenderer.drawString(I18n.format("gtr.recipe.duration", recipe.getDuration() / 20f), 0, yPosition += lineHeight, 0x111111);
-
-        for (String propertyKey : recipe.getPropertyKeys()) {
-            minecraft.fontRenderer.drawString(I18n.format("gtr.recipe." + propertyKey,
-                recipe.<Object>getProperty(propertyKey)), 0, yPosition += lineHeight, 0x111111);
+        minecraft.fontRenderer.drawString(I18n.format("gtr.recipe.total", Math.abs((long) recipe.getEUt()) * recipe.getDuration()), 0, yPosition, 0x111111);
+        minecraft.fontRenderer.drawString(I18n.format(recipe.getEUt() >= 0 ? "gtr.recipe.eu" : "gtr.recipe.eu_inverted", Math.abs(recipe.getEUt()), JEIHelpers.getMinTierForVoltage(recipe.getEUt())), 0, yPosition += LINE_HEIGHT, 0x111111);
+        minecraft.fontRenderer.drawString(I18n.format("gtr.recipe.duration", recipe.getDuration() / 20f), 0, yPosition += LINE_HEIGHT, 0x111111);
+        for (Map.Entry<RecipeProperty<?>, Object> propertyEntry : recipe.getRecipePropertyStorage().getRecipeProperties()) {
+            if(!propertyEntry.getKey().isHidden()) {
+                propertyEntry.getKey().drawInfo(minecraft, 0, yPosition += LINE_HEIGHT, 0x111111, propertyEntry.getValue());
+            }
         }
     }
 
     private int getPropertyListHeight() {
-        return (recipe.getPropertyKeys().size() + 3) * lineHeight;
+        return (recipe.getRecipePropertyStorage().getSize() + 3) * LINE_HEIGHT;
     }
 
 }

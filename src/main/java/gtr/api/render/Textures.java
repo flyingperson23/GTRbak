@@ -54,8 +54,10 @@ public class Textures {
     public static SimpleCubeRenderer FUSION_BASE = new SimpleCubeRenderer("casings/fusion/machine_casing_fusion_glass");
     public static SimpleCubeRenderer ACTIVE_FUSION_BASE = new SimpleCubeRenderer("casings/fusion/machine_casing_fusion_glass_yellow");
     public static SimpleCubeRenderer FUSION_SIDE_2 = new SimpleCubeRenderer("casings/fusion/machine_casing_fusion_side");
-
-
+    public static SimpleOverlayRenderer FLUID_HATCH_OUTPUT_OVERLAY = new SimpleOverlayRenderer("overlay/machine/overlay_fluid_hatch_output");
+    public static SimpleOverlayRenderer FLUID_HATCH_INPUT_OVERLAY = new SimpleOverlayRenderer("overlay/machine/overlay_fluid_hatch_input");
+    public static SimpleOverlayRenderer ITEM_HATCH_OUTPUT_OVERLAY = new SimpleOverlayRenderer("overlay/machine/overlay_item_hatch_output");
+    public static SimpleOverlayRenderer ITEM_HATCH_INPUT_OVERLAY = new SimpleOverlayRenderer("overlay/machine/overlay_item_hatch_input");
     public static SimpleCubeRenderer BRONZE_PLATED_BRICKS = new SimpleCubeRenderer("casings/solid/machine_bronze_plated_bricks");
     public static SimpleCubeRenderer PRIMITIVE_BRICKS = new SimpleCubeRenderer("casings/solid/machine_primitive_bricks");
     public static SimpleCubeRenderer COKE_BRICKS = new SimpleCubeRenderer("casings/solid/machine_coke_bricks");

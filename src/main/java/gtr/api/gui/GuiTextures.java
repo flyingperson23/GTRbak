@@ -150,6 +150,10 @@ public class GuiTextures {
     public static final TextureArea PROGRESS_BAR_WIREMILL = TextureArea.fullImage("textures/gui/progress_bar/progress_bar_wiremill.png");
     public static final TextureArea PROGRESS_BAR_MIXER = TextureArea.fullImage("textures/gui/progress_bar/progress_bar_mixer.png");
 
+    //JEI
+    public static final TextureArea MULTIBLOCK_CATEGORY = TextureArea.fullImage("textures/gui/icon/coke_oven.png");
+    public static final TextureArea INFO_ICON = TextureArea.fullImage("textures/gui/widget/information.png");
+
     public static TextureArea getBackground(MetaTileEntity te, String location) {
         int color = te.getPaintingColor();
         double dR = (color >> 16) & 0xFF;

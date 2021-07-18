@@ -16,6 +16,7 @@ import gtr.common.items.behaviors.CoverPlaceBehavior;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 
+import java.util.Locale;
 import java.util.function.BiFunction;
 
 public class CoverBehaviors {
@@ -34,11 +35,11 @@ public class CoverBehaviors {
         registerBehavior(13, new ResourceLocation(GTValues.MODID, "robotic_arm.ev"), MetaItems.ROBOT_ARM_EV, (tile, side) -> new CoverRoboticArm(tile, side, GTValues.EV, 3 * 64));
         registerBehavior(14, new ResourceLocation(GTValues.MODID, "robotic_arm.iv"), MetaItems.ROBOT_ARM_IV, (tile, side) -> new CoverRoboticArm(tile, side, GTValues.IV, 8 * 64));
 
-        registerBehavior(20, new ResourceLocation(GTValues.MODID, "pump.lv"), MetaItems.ELECTRIC_PUMP_LV, (tile, side) -> new CoverPump(tile, side, GTValues.LV, 1280));
-        registerBehavior(21, new ResourceLocation(GTValues.MODID, "pump.mv"), MetaItems.ELECTRIC_PUMP_MV, (tile, side) -> new CoverPump(tile, side, GTValues.MV, 5120));
-        registerBehavior(22, new ResourceLocation(GTValues.MODID, "pump.hv"), MetaItems.ELECTRIC_PUMP_HV, (tile, side) -> new CoverPump(tile, side, GTValues.HV, 20480));
-        registerBehavior(23, new ResourceLocation(GTValues.MODID, "pump.ev"), MetaItems.ELECTRIC_PUMP_EV, (tile, side) -> new CoverPump(tile, side, GTValues.EV, 81920));
-        registerBehavior(24, new ResourceLocation(GTValues.MODID, "pump.iv"), MetaItems.ELECTRIC_PUMP_IV, (tile, side) -> new CoverPump(tile, side, GTValues.IV, 327680));
+        for (int i = 0; i < 5; i++) {
+            int finalI = i;
+            registerBehavior(40 + i, new ResourceLocation(GTValues.MODID, "fluid.regulator" + GTValues.VN[i].toLowerCase(Locale.ROOT)), MetaItems.PUMPS[i], (tile, side) -> new CoverPump(tile, side, finalI, (int) (Math.pow(4, finalI - 1) * 1280)));
+            registerBehavior(20 + i, new ResourceLocation(GTValues.MODID, "pump" + GTValues.VN[i].toLowerCase(Locale.ROOT)), MetaItems.FLUID_REGULATORS[i], (tile, side) -> new CoverFluidRegulator(tile, side, finalI, (int) (Math.pow(4, finalI - 1) * 1280)));
+        }
 
         registerBehavior(30, new ResourceLocation(GTValues.MODID, "ore_dictionary_filter"), MetaItems.ORE_DICTIONARY_FILTER, (tile, side) -> new CoverItemFilter(tile, side, "cover.ore_dictionary_filter.title", Textures.ORE_DICTIONARY_FILTER_OVERLAY, new OreDictionaryItemFilter()));
         registerBehavior(31, new ResourceLocation(GTValues.MODID, "item_filter"), MetaItems.ITEM_FILTER, (tile, side) -> new CoverItemFilter(tile, side, "cover.item_filter.title", Textures.ITEM_FILTER_FILTER_OVERLAY, new SimpleItemFilter()));

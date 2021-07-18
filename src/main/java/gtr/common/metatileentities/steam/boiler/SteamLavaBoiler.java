@@ -61,7 +61,7 @@ public class SteamLavaBoiler extends SteamBoiler implements IFuelable {
             return Collections.emptySet();
         final int fuelRemaining = lava.amount;
         final int fuelCapacity = lavaFluidTank.getCapacity();
-        final int burnTime = fuelRemaining; // 100 mb lasts 100 ticks
+        final long burnTime = fuelRemaining * (this.isHighPressure ? 6 : 12); // 100 mb lasts 600 or 1200 ticks
         return Collections.singleton(new FluidFuelInfo(lava, fuelRemaining, fuelCapacity, LAVA_PER_OPERATION, burnTime));
     }
 

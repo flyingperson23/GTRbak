@@ -11,6 +11,10 @@ import gtr.integration.jei.multiblock.MultiblockShapeInfo;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.Style;
+import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TextFormatting;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +50,13 @@ public class ElectricBlastFurnaceInfo extends MultiblockInfoPage {
                 .build());
         }
         return shapeInfo;
+    }
+
+    @Override
+    protected void generateBlockTooltips() {
+        super.generateBlockTooltips();
+        ITextComponent tooltip = new TextComponentTranslation("gtr.multiblock.preview.limit", 10).setStyle(new Style().setColor(TextFormatting.AQUA));
+        addBlockTooltip(MetaBlocks.METAL_CASING.getItemVariant(MetalCasingType.INVAR_HEATPROOF), tooltip);
     }
 
     @Override

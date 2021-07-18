@@ -26,7 +26,7 @@ public class WorkableInfoProvider extends CapabilityInfoProvider<IWorkable> {
         int currentProgress = capability.getProgress();
         int maxProgress = capability.getMaxProgress();
         if (maxProgress > 0) {
-            int progressScaled = maxProgress == 0 ? 0 : (int) Math.floor(currentProgress / (maxProgress * 1.0) * 100);
+            int progressScaled = (int) Math.floor(currentProgress / (maxProgress * 1.0) * 100);
             IProbeInfo horizontalPane = probeInfo.horizontal(probeInfo.defaultLayoutStyle().alignment(ElementAlignment.ALIGN_CENTER));
             horizontalPane.text(TextStyleClass.INFO + "{*gtr.top.progress*} ");
             horizontalPane.progress(progressScaled, 100, probeInfo.defaultProgressStyle()

@@ -1,9 +1,11 @@
 package gtr.api.recipes.builders;
 
 import com.google.common.collect.ImmutableMap;
+import gtr.api.recipes.CountableIngredient;
 import gtr.api.recipes.Recipe;
 import gtr.api.recipes.RecipeBuilder;
 import gtr.api.recipes.RecipeMap;
+import gtr.api.recipes.recipeproperties.ImplosionExplosiveProperty;
 import gtr.api.util.EnumValidationResult;
 import gtr.api.util.GTLog;
 import gtr.api.util.GTUtility;
@@ -23,6 +25,7 @@ public class ImplosionRecipeBuilder extends RecipeBuilder<ImplosionRecipeBuilder
 
     public ImplosionRecipeBuilder(Recipe recipe, RecipeMap<ImplosionRecipeBuilder> recipeMap) {
         super(recipe, recipeMap);
+        this.explosivesType = recipe.getRecipePropertyStorage().getRecipePropertyValue(ImplosionExplosiveProperty.getInstance(), ItemStack.EMPTY);
     }
 
     public ImplosionRecipeBuilder(RecipeBuilder<ImplosionRecipeBuilder> recipeBuilder) {
@@ -69,29 +72,35 @@ public class ImplosionRecipeBuilder extends RecipeBuilder<ImplosionRecipeBuilder
         return this;
     }
 
-    @Override
-    public void buildAndRegister() {
+    public ValidationResult<Recipe> build() {
+
         int amount  = Math.max(1, explosivesAmount / 2);
         if(explosivesType == null) {
-            explosivesType = new ItemStack(Blocks.TNT, amount);
+            this.explosivesType = new ItemStack(Blocks.TNT, amount);
         }
         else {
-            explosivesType = new ItemStack(explosivesType.getItem(), amount, explosivesType.getMetadata());
+            this.explosivesType = new ItemStack(explosivesType.getItem(), amount, explosivesType.getMetadata());
         }
-        recipeMap.addRecipe(this.copy().inputs(explosivesType).build());
-    }
+        inputs.add(CountableIngredient.from(explosivesType));
 
-    public ValidationResult<Recipe> build() {
-        return ValidationResult.newResult(finalizeAndValidate(),
-            new Recipe(inputs, outputs, chancedOutputs, fluidInputs, fluidOutputs,
-                ImmutableMap.of(), duration, EUt, hidden));
+
+
+        Recipe recipe = new Recipe(inputs, outputs, chancedOutputs, fluidInputs, fluidOutputs,
+            duration, EUt, hidden);
+
+        if (!recipe.getRecipePropertyStorage().store(ImmutableMap.of(ImplosionExplosiveProperty.getInstance(), explosivesType))) {
+            return ValidationResult.newResult(EnumValidationResult.INVALID, recipe);
+        }
+
+        return ValidationResult.newResult(finalizeAndValidate(), recipe);
+
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
             .appendSuper(super.toString())
-            .append("explosivesAmount", explosivesAmount)
+            .append(ImplosionExplosiveProperty.getInstance().getKey(), explosivesType)
             .toString();
     }
 }

@@ -60,8 +60,8 @@ public class IntCircuitRecipeBuilder extends RecipeBuilder<IntCircuitRecipeBuild
 
     public ValidationResult<Recipe> build() {
         return ValidationResult.newResult(finalizeAndValidate(),
-            new Recipe(inputs, outputs, chancedOutputs, fluidInputs, fluidOutputs,
-                ImmutableMap.of(), duration, EUt, hidden));
+            new Recipe(inputs, outputs, chancedOutputs, fluidInputs, fluidOutputs, duration, EUt, hidden));
+
     }
 
     @Override

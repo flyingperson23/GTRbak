@@ -165,11 +165,11 @@ public class MetaItem1 extends MaterialMetaItem {
         ELECTRIC_MOTOR_EV = addItem(603, "electric.motor.ev");
         ELECTRIC_MOTOR_IV = addItem(604, "electric.motor.iv");
 
-        ELECTRIC_PUMP_LV = addItem(610, "electric.pump.lv");
-        ELECTRIC_PUMP_MV = addItem(611, "electric.pump.mv");
-        ELECTRIC_PUMP_HV = addItem(612, "electric.pump.hv");
-        ELECTRIC_PUMP_EV = addItem(613, "electric.pump.ev");
-        ELECTRIC_PUMP_IV = addItem(614, "electric.pump.iv");
+        PUMPS[0] = ELECTRIC_PUMP_LV = addItem(610, "electric.pump.lv");
+        PUMPS[1] = ELECTRIC_PUMP_MV = addItem(611, "electric.pump.mv");
+        PUMPS[2] = ELECTRIC_PUMP_HV = addItem(612, "electric.pump.hv");
+        PUMPS[3] = ELECTRIC_PUMP_EV = addItem(613, "electric.pump.ev");
+        PUMPS[4] = ELECTRIC_PUMP_IV = addItem(614, "electric.pump.iv");
 
         RUBBER_DROP = addItem(627, "rubber_drop").setBurnValue(200);
 

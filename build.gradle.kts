@@ -1,33 +1,31 @@
 
-import com.jfrog.bintray.gradle.BintrayExtension
-import com.jfrog.bintray.gradle.BintrayExtension.PackageConfig
-import com.jfrog.bintray.gradle.BintrayExtension.VersionConfig
 import net.minecraftforge.gradle.user.UserBaseExtension
 import org.eclipse.jgit.api.Git
-import java.time.ZoneOffset
-import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 
 buildscript {
     repositories {
-        jcenter()
+        mavenCentral()
+        maven {
+            name = "jitpack"
+            setUrl("https://jitpack.io")
+        }
         maven {
             name = "forge"
-            setUrl("http://files.minecraftforge.net/maven")
+            setUrl("https://maven.minecraftforge.net/")
         }
     }
     dependencies {
-        classpath("net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT")
-        classpath("org.eclipse.jgit:org.eclipse.jgit:5.5.0.201909110433-r")
+        classpath("com.github.GregTechCE:ForgeGradle:FG_2.3-SNAPSHOT")
+        classpath("org.eclipse.jgit:org.eclipse.jgit:5.8.0.202006091008-r")
+        classpath("org.apache.commons:commons-lang3:3.12.0")
     }
 }
 
 plugins {
     id("com.matthewprenger.cursegradle") version "1.1.0"
     id("maven-publish")
-    id("com.jfrog.bintray") version "1.8.4"
 }
 
 apply {
@@ -48,13 +46,12 @@ val strippedVersion = shortVersion.replace(".", "") + "0"
 val forestryVersion = config["forestry.version"] as String
 val chickenasmVersion = config["chickenasm.version"] as String
 val cclVersion = config["ccl.version"] as String
-val multipartVersion = config["multipart.version"] as String
 val crafttweakerVersion = config["crafttweaker.version"] as String
 val jeiVersion = config["jei.version"] as String
 val topVersion = config["top.version"] as String
 val ctmVersion = config["ctm.version"] as String
 
-val git: Git = Git.open(File("."))
+val git: Git = Git.open(projectDir)
 
 val modVersion = getVersionFromJava(file("src/main/java/gtr/GregTechVersion.java"))
 val modVersionNoBuild = modVersion.substring(0, modVersion.lastIndexOf('.'))
@@ -120,7 +117,6 @@ repositories {
         name = "Modmaven for Applied Energistics 2"
         setUrl("https://modmaven.dev/")
     }
-
 }
 
 val GCVersion = "1.12.2-4.0.2.261"
@@ -131,7 +127,6 @@ dependencies {
     }
     "deobfCompile"("codechicken:ChickenASM:$shortVersion-$chickenasmVersion")
     "deobfCompile"("codechicken-lib-1-8:CodeChickenLib-$mcVersion:$cclVersion:universal")
-    "deobfCompile"("forge-multipart-cbe:ForgeMultipart-$mcVersion:$multipartVersion:universal")
     "deobfCompile"("CraftTweaker2:CraftTweaker2-MC$strippedVersion-Main:$crafttweakerVersion")
     "deobfCompile"("mezz.jei:jei_$mcVersion:$jeiVersion")
     "deobfCompile"("mcjty.theoneprobe:TheOneProbe-$shortVersion:$shortVersion-$topVersion")
@@ -250,42 +245,4 @@ fun getVersionFromJava(file: File): String  {
 
 
     return "$major.$minor.$revision"
-}
-
-
-fun BintrayExtension.pkg(config: PackageConfig.() -> Unit) = PackageConfig().also {
-    it.config()
-    this.pkg = it
-}
-
-fun BintrayExtension.version(config: VersionConfig.() -> Unit) {
-    VersionConfig().also {
-        it.config()
-        this.pkg.version = it
-    }
-}
-
-bintray {
-    val bintrayUser = if (project.hasProperty("bintrayUser")) project.property("bintrayUser") as String else System.getenv("BINTRAY_USER")
-    val bintrayApiKey = if (project.hasProperty("bintrayApiKey")) project.property("bintrayApiKey") as String else System.getenv("BINTRAY_API_KEY")
-
-    if (bintrayUser == null || bintrayApiKey == null) {
-        println("Skipping bintrayUpload task as there is no api key or user in the environment")
-        return@bintray
-    }
-
-    user = bintrayUser
-    key = bintrayApiKey
-    override = true //not sure why it is needed
-    pkg {
-        repo = "dev"
-        name = "GregTech: Remastered"
-        userOrg = "gtr"
-        setLicenses("LGPL-3.0")
-        vcsUrl = "https://https://github.com/flyingperson23/GTR.git"
-        version {
-            name = project.version as String
-            released = ZonedDateTime.now(ZoneOffset.UTC).format(DateTimeFormatter.ISO_INSTANT)
-        }
-    }
 }

@@ -290,6 +290,18 @@ public abstract class MetaTileEntity implements ICoverable {
      */
     protected abstract ModularUI createUI(EntityPlayer entityPlayer);
 
+
+    /**
+     * Override this if the MTE will keep its Item inventory on-break.
+     * If this is overridden to return True, you MUST take care to handle
+     * the ItemStacks in the MTE's inventory otherwise they will be voided on break.
+     *
+     * @return True if MTE inventory is kept as an ItemStack, false otherwise
+     */
+    public boolean keepsInventory() {
+        return false;
+    }
+
     public final void onCoverLeftClick(EntityPlayer playerIn, CuboidRayTraceResult result) {
         CoverBehavior coverBehavior = getCoverAtSide(result.sideHit);
         if (coverBehavior == null || !coverBehavior.onLeftClick(playerIn, result)) {

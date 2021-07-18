@@ -17,7 +17,14 @@ public interface IFoodBehavior extends IItemComponent {
 
     EnumAction getFoodAction(ItemStack itemStack);
 
-    void onEaten(ItemStack itemStack, EntityPlayer player);
+    @Deprecated
+    void onEaten(ItemStack stack, EntityPlayer player);
+
+    default ItemStack onFoodEaten(ItemStack stack, EntityPlayer player) {
+        onEaten(stack, player);
+
+        return stack;
+    }
 
     void addInformation(ItemStack itemStack, List<String> lines);
 

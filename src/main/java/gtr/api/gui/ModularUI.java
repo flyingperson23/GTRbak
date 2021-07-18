@@ -92,7 +92,12 @@ public final class ModularUI implements ISizeProvider {
     }
 
     public static Builder defaultBuilder() {
-        return new Builder(GuiTextures.BACKGROUND, 176, 166);
+        return defaultBuilder(0);
+    }
+
+    //to be called in order to change the gui height by a specific amount
+    public static Builder defaultBuilder(int yOffset) {
+        return new Builder(GuiTextures.BACKGROUND, 176, 166 + yOffset);
     }
 
     public static Builder defaultBuilder(MetaTileEntity te) {
@@ -188,18 +193,23 @@ public final class ModularUI implements ISizeProvider {
         }
 
         public Builder bindPlayerInventory(InventoryPlayer inventoryPlayer, int startY) {
-            bindPlayerInventory(inventoryPlayer, GuiTextures.SLOT, 8, startY);
+            bindPlayerInventory(inventoryPlayer, GuiTextures.SLOT, 7, startY);
             return this;
         }
 
         public Builder bindPlayerInventory(InventoryPlayer inventoryPlayer, TextureArea imageLocation) {
-            return bindPlayerInventory(inventoryPlayer, imageLocation, 8, 84);
+            return bindPlayerInventory(inventoryPlayer, imageLocation, 0);
+        }
+
+        //to be called in order to offset the player inventory from the top of the window
+        public Builder bindPlayerInventory(InventoryPlayer inventoryPlayer, TextureArea imageLocation, int yOffset) {
+            return bindPlayerInventory(inventoryPlayer, imageLocation, 7, 84 + yOffset);
         }
 
         public Builder bindPlayerInventory(InventoryPlayer inventoryPlayer, TextureArea imageLocation, int x, int y) {
             for (int row = 0; row < 3; row++) {
                 for (int col = 0; col < 9; col++) {
-                    this.widget(new SlotWidget(new PlayerMainInvWrapper(inventoryPlayer), col + (row + 1) * 9, x + col * 18, y + row * 18)
+                    this.widget(new SlotWidget(inventoryPlayer, col + (row + 1) * 9, x + col * 18, y + row * 18)
                         .setBackgroundTexture(imageLocation)
                         .setLocationInfo(true, false));
                 }
@@ -209,7 +219,7 @@ public final class ModularUI implements ISizeProvider {
 
         public Builder bindPlayerHotbar(InventoryPlayer inventoryPlayer, TextureArea imageLocation, int x, int y) {
             for (int slot = 0; slot < 9; slot++) {
-                this.widget(new SlotWidget(new PlayerMainInvWrapper(inventoryPlayer), slot, x + slot * 18, y)
+                this.widget(new SlotWidget(inventoryPlayer, slot, x + slot * 18, y)
                     .setBackgroundTexture(imageLocation)
                     .setLocationInfo(true, true));
             }

@@ -62,6 +62,7 @@ public class RecipeMap<R extends RecipeBuilder<R>> {
     private final TByteObjectMap<TextureArea> slotOverlays;
     protected TextureArea progressBarTexture;
     protected MoveType moveType;
+    public final boolean isHidden;
 
     private final Map<FluidKey, Collection<Recipe>> recipeFluidMap = new HashMap<>();
     private final HashMap<Recipe, Integer> recipeList = new HashMap<>();
@@ -70,6 +71,12 @@ public class RecipeMap<R extends RecipeBuilder<R>> {
                      int minInputs, int maxInputs, int minOutputs, int maxOutputs,
                      int minFluidInputs, int maxFluidInputs, int minFluidOutputs, int maxFluidOutputs,
                      R defaultRecipe) {
+        this(unlocalizedName, minInputs, maxInputs, minOutputs, maxOutputs, minFluidInputs, maxFluidInputs, minFluidOutputs, maxFluidOutputs, defaultRecipe, false);
+    }
+    public RecipeMap(String unlocalizedName,
+                     int minInputs, int maxInputs, int minOutputs, int maxOutputs,
+                     int minFluidInputs, int maxFluidInputs, int minFluidOutputs, int maxFluidOutputs,
+                     R defaultRecipe, boolean isHidden) {
         this.unlocalizedName = unlocalizedName;
         this.slotOverlays = new TByteObjectHashMap<>();
         this.progressBarTexture = GuiTextures.PROGRESS_BAR_ARROW;
@@ -84,6 +91,7 @@ public class RecipeMap<R extends RecipeBuilder<R>> {
         this.maxFluidInputs = maxFluidInputs;
         this.maxOutputs = maxOutputs;
         this.maxFluidOutputs = maxFluidOutputs;
+        this.isHidden = isHidden;
 
         defaultRecipe.setRecipeMap(this);
         this.recipeBuilderSample = defaultRecipe;
@@ -280,10 +288,16 @@ public class RecipeMap<R extends RecipeBuilder<R>> {
 
     //this DOES NOT include machine control widgets or binds player inventory
     public ModularUI.Builder createUITemplate(DoubleSupplier progressSupplier, IItemHandlerModifiable importItems, IItemHandlerModifiable exportItems, FluidTankList importFluids, FluidTankList exportFluids) {
-        ModularUI.Builder builder = ModularUI.defaultBuilder();
-        builder.widget(new ProgressWidget(progressSupplier, 77, 22, 21, 20, progressBarTexture, moveType));
-        addInventorySlotGroup(builder, importItems, importFluids, false);
-        addInventorySlotGroup(builder, exportItems, exportFluids, true);
+        return createUITemplate(progressSupplier, importItems, exportItems, importFluids, exportFluids, 0);
+    }
+
+    //this DOES NOT include machine control widgets or binds player inventory
+    //to be called in order to offset widgets and slots from the top of the window
+    public ModularUI.Builder createUITemplate(DoubleSupplier progressSupplier, IItemHandlerModifiable importItems, IItemHandlerModifiable exportItems, FluidTankList importFluids, FluidTankList exportFluids, int yOffset) {
+        ModularUI.Builder builder = ModularUI.defaultBuilder(yOffset);
+        builder.widget(new ProgressWidget(progressSupplier, 77, 22 + yOffset, 21, 20, progressBarTexture, moveType));
+        addInventorySlotGroup(builder, importItems, importFluids, false, yOffset);
+        addInventorySlotGroup(builder, exportItems, exportFluids, true, yOffset);
         return builder;
     }
 
@@ -296,6 +310,10 @@ public class RecipeMap<R extends RecipeBuilder<R>> {
     }
 
     protected void addInventorySlotGroup(ModularUI.Builder builder, IItemHandlerModifiable itemHandler, FluidTankList fluidHandler, boolean isOutputs) {
+        addInventorySlotGroup(builder, itemHandler, fluidHandler, isOutputs, 0);
+    }
+
+    protected void addInventorySlotGroup(ModularUI.Builder builder, IItemHandlerModifiable itemHandler, FluidTankList fluidHandler, boolean isOutputs, int yOffset) {
         int itemInputsCount = itemHandler.getSlots();
         int fluidInputsCount = fluidHandler.getTanks();
         boolean invertFluids = false;
@@ -309,7 +327,7 @@ public class RecipeMap<R extends RecipeBuilder<R>> {
         int itemSlotsToLeft = inputSlotGrid[0];
         int itemSlotsToDown = inputSlotGrid[1];
         int startInputsX = isOutputs ? 106 : 69 - itemSlotsToLeft * 18;
-        int startInputsY = 32 - (int) (itemSlotsToDown / 2.0 * 18);
+        int startInputsY = 32 - (int) (itemSlotsToDown / 2.0 * 18) + yOffset;
         for (int i = 0; i < itemSlotsToDown; i++) {
             for (int j = 0; j < itemSlotsToLeft; j++) {
                 int slotIndex = i * itemSlotsToLeft + j;

@@ -11,9 +11,13 @@ public abstract class AbstractFuelInfo implements IFuelInfo {
     private int fuelRemaining;
     private int fuelCapacity;
     private int fuelMinConsumed;
-    private int fuelBurnTime;
+    private long fuelBurnTime;
 
-    public AbstractFuelInfo(int fuelRemaining, int fuelCapacity, int fuelMinConsumed, int fuelBurnTime) {
+    public AbstractFuelInfo(final int fuelRemaining, final int fuelCapacity, final int fuelMinConsumed, final int fuelBurnTime) {
+        this(fuelRemaining, fuelCapacity, fuelMinConsumed, (long) fuelBurnTime);
+    }
+
+    public AbstractFuelInfo(final int fuelRemaining, final int fuelCapacity, final int fuelMinConsumed, final long fuelBurnTime) {
         this.fuelRemaining = fuelRemaining;
         this.fuelCapacity = fuelCapacity;
         this.fuelMinConsumed = fuelMinConsumed;
@@ -33,13 +37,17 @@ public abstract class AbstractFuelInfo implements IFuelInfo {
     }
 
     public int getFuelBurnTime() {
-        return fuelBurnTime;
+        return this.fuelBurnTime > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) this.fuelBurnTime;
     }
 
-    public void setFuelRemaining(int fuelRemaining) {
-        this.fuelRemaining = fuelRemaining;
+    @Override
+    public long getFuelBurnTimeLong() {
+        return this.fuelBurnTime;
     }
 
+    public void setFuelBurnTime(final long fuelBurnTime) {
+        this.fuelBurnTime = fuelBurnTime;
+    }
     public void setFuelCapacity(int fuelCapacity) {
         this.fuelCapacity = fuelCapacity;
     }
@@ -54,6 +62,10 @@ public abstract class AbstractFuelInfo implements IFuelInfo {
 
     public void addFuelRemaining(int fuelRemaining) {
         this.fuelRemaining += fuelRemaining;
+    }
+
+    public void addFuelBurnTime(final long fuelBurnTime) {
+        this.fuelBurnTime += fuelBurnTime;
     }
 
     public void addFuelCapacity(int fuelCapacity) {

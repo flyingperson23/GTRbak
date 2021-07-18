@@ -1,9 +1,11 @@
 package gtr.api.gui.impl;
 
 import gtr.api.gui.IRenderContext;
+import gtr.api.gui.IScissored;
 import gtr.api.gui.ModularUI;
 import gtr.api.gui.Widget;
 import gtr.api.net.PacketUIWidgetUpdate;
+import gtr.api.util.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
@@ -18,6 +20,7 @@ import net.minecraftforge.common.MinecraftForge;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
+import java.awt.*;
 import java.io.IOException;
 
 public class ModularUIGui extends GuiContainer implements IRenderContext {
@@ -87,12 +90,22 @@ public class ModularUIGui extends GuiContainer implements IRenderContext {
 
         for (int i = 0; i < this.inventorySlots.inventorySlots.size(); ++i) {
             Slot slot = this.inventorySlots.inventorySlots.get(i);
+            Rectangle scissor = null;
+            if (slot instanceof IScissored) {
+                scissor = ((IScissored) slot).getScissor();
+                if (scissor != null) {
+                    RenderUtil.pushScissorFrame(scissor.x, scissor.y, scissor.width, scissor.height);
+                }
+            }
             if (slot.isEnabled()) {
                 this.drawSlotContents(slot);
             }
             if (isPointInRegion(slot.xPos, slot.yPos, 16, 16, mouseX, mouseY) && slot.isEnabled()) {
                 renderSlotOverlay(slot);
                 setHoveredSlot(slot);
+            }
+            if (scissor != null) {
+                RenderUtil.popScissorFrame();
             }
         }
 

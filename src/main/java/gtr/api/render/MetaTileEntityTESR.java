@@ -126,10 +126,19 @@ public class MetaTileEntityTESR extends TileEntitySpecialRenderer<MetaTileEntity
 
     @Override
     public boolean isGlobalRenderer(MetaTileEntityHolder te) {
-        if(te instanceof IRenderMetaTileEntity) {
-            return ((IRenderMetaTileEntity) te).isGlobalRenderer();
-        } else if(te instanceof IFastRenderMetaTileEntity) {
-            return ((IFastRenderMetaTileEntity) te).isGlobalRenderer();
+        if (te instanceof IRenderMetaTileEntity) {
+            if (((IRenderMetaTileEntity) te).isGlobalRenderer()) {
+                return true;
+            }
+        } else if (te instanceof IFastRenderMetaTileEntity) {
+            if (((IFastRenderMetaTileEntity) te).isGlobalRenderer()) {
+                return true;
+            }
+        }
+        if (te.getMetaTileEntity() instanceof IRenderMetaTileEntity) {
+            return ((IRenderMetaTileEntity) te.getMetaTileEntity()).isGlobalRenderer();
+        } else if (te.getMetaTileEntity() instanceof IFastRenderMetaTileEntity){
+            return ((IFastRenderMetaTileEntity) te.getMetaTileEntity()).isGlobalRenderer();
         }
         return false;
     }

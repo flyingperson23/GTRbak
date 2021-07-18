@@ -28,7 +28,7 @@ public class Materials {
     private static final long EXT_METAL = STD_METAL | GENERATE_ROD | GENERATE_BOLT_SCREW | GENERATE_LONG_ROD;
     private static final long EXT2_METAL = EXT_METAL | GENERATE_GEAR | GENERATE_FOIL | GENERATE_FINE_WIRE;
 
-    public static MarkerMaterial _NULL = new MarkerMaterial("_null");
+    public static final MarkerMaterial _NULL = new MarkerMaterial("_null");
 
 
     /**
@@ -516,6 +516,7 @@ public class Materials {
     public static DustMaterial GraniteBlack = new DustMaterial(970, "granite_black", 0x0A0A0A, MaterialIconSet.ROUGH, 3, of(new MaterialStack(SiliconDioxide, 4), new MaterialStack(Biotite, 1)), NO_SMASHING);
     public static DustMaterial GraniteRed = new DustMaterial(971, "granite_red", 0xFF0080, MaterialIconSet.ROUGH, 3, of(new MaterialStack(Aluminium, 2), new MaterialStack(PotassiumFeldspar, 1), new MaterialStack(Oxygen, 3)), NO_SMASHING);
     public static DustMaterial Marble = new DustMaterial(972, "marble", 0xC8C8C8, MaterialIconSet.FINE, 1, of(new MaterialStack(Magnesium, 1), new MaterialStack(Calcite, 7)), NO_SMASHING);
+    public static DustMaterial Granite = new DustMaterial(449, "granite", 0xCFA18C, MaterialIconSet.ROUGH, 2, of(), NO_SMASHING);
 
 
 

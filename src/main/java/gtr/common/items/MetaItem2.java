@@ -81,8 +81,11 @@ public class MetaItem2 extends MaterialMetaItem {
         TURBINE_ROTOR = addItem(508, "turbine_rotor").addComponents(new TurbineRotorBehavior());
         COVER_FACADE = addItem(509, "cover.facade").addComponents(new FacadeItem()).disableModelLoading();
 
-
-
+        FLUID_REGULATORS[0] = FLUID_REGULATOR_LV = addItem(700, "fluid.regulator.lv");
+        FLUID_REGULATORS[1] = FLUID_REGULATOR_MV = addItem(701, "fluid.regulator.mv");
+        FLUID_REGULATORS[2] = FLUID_REGULATOR_HV = addItem(702, "fluid.regulator.hv");
+        FLUID_REGULATORS[3] = FLUID_REGULATOR_EV = addItem(703, "fluid.regulator.ev");
+        FLUID_REGULATORS[4] = FLUID_REGULATOR_IV = addItem(704, "fluid.regulator.iv");
 
 
         CIRCUIT_LV = addItem(530, "circuit.basic").setUnificationData(OrePrefix.circuit, MarkerMaterials.Tier.Basic);

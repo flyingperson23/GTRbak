@@ -1,13 +1,9 @@
 package gtr.common.pipelike.fluidpipe.net;
 
-import codechicken.multipart.TMultiPart;
-import codechicken.multipart.TileMultipart;
-import gtr.api.GTValues;
 import gtr.api.pipenet.MonolithicPipeNet;
 import gtr.api.pipenet.Node;
 import gtr.api.pipenet.PipeNet;
 import gtr.api.pipenet.WorldPipeNet;
-import gtr.api.pipenet.tile.IPipeTile;
 import gtr.common.pipelike.fluidpipe.FluidPipeProperties;
 import gtr.common.pipelike.fluidpipe.tile.TileEntityFluidPipe;
 import net.minecraft.init.Blocks;
@@ -19,9 +15,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
-import net.minecraftforge.fml.common.Optional.Method;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -55,8 +49,6 @@ public class FluidPipeNet extends MonolithicPipeNet<FluidPipeProperties> {
                 } else {
                     world.setBlockToAir(nodePos);
                 }
-            } else if (GTValues.isModLoaded(GTValues.MODID_FMP)) {
-                removeMultipartPipePartFromTile(tileEntity);
             }
             Random random = world.rand;
             if (isBurning) {
@@ -66,25 +58,10 @@ public class FluidPipeNet extends MonolithicPipeNet<FluidPipeProperties> {
                     TileEntityFluidPipe.setNeighboursToFire(world, nodePos);
                 }
             }
-            if (isLeaking) {
-                if (world.rand.nextInt(isBurning ? 3 : 7) == 0) {
-                    world.createExplosion(null,
+            if (isLeaking && world.rand.nextInt(isBurning ? 3 : 7) == 0) {
+                world.createExplosion(null,
                         nodePos.getX() + 0.5, nodePos.getY() + 0.5, nodePos.getZ() + 0.5,
                         1.0f + world.rand.nextFloat(), false);
-                }
-            }
-        }
-    }
-
-    @Method(modid = GTValues.MODID_FMP)
-    private static void removeMultipartPipePartFromTile(TileEntity tileEntity) {
-        if (tileEntity instanceof TileMultipart) {
-            TileMultipart tileMultipart = (TileMultipart) tileEntity;
-            List<TMultiPart> partList = tileMultipart.jPartList();
-            for (TMultiPart tMultiPart : partList) {
-                if (tMultiPart instanceof IPipeTile) {
-                    tileMultipart.remPart(tMultiPart);
-                }
             }
         }
     }

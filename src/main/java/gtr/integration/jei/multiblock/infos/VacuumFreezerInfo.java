@@ -11,6 +11,10 @@ import gtr.integration.jei.multiblock.MultiblockShapeInfo;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.Style;
+import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TextFormatting;
 
 import java.util.List;
 
@@ -42,6 +46,13 @@ public class VacuumFreezerInfo extends MultiblockInfoPage {
     @Override
     public String[] getDescription() {
         return new String[]{I18n.format("gtr.multiblock.vacuum_freezer.description")};
+    }
+
+    @Override
+    protected void generateBlockTooltips() {
+        super.generateBlockTooltips();
+        ITextComponent tooltip = new TextComponentTranslation("gtr.multiblock.preview.limit", 14).setStyle(new Style().setColor(TextFormatting.AQUA));
+        addBlockTooltip(MetaBlocks.METAL_CASING.getItemVariant(MetalCasingType.ALUMINIUM_FROSTPROOF), tooltip);
     }
 
 }

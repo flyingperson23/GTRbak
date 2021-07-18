@@ -11,6 +11,8 @@ import gtr.api.multiblock.BlockWorldState;
 import gtr.api.multiblock.IPatternCenterPredicate;
 import gtr.api.multiblock.PatternMatchContext;
 import gtr.api.render.ICubeRenderer;
+import gtr.api.render.OrientedOverlayRenderer;
+import gtr.api.render.Textures;
 import gtr.api.util.GTUtility;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -27,6 +29,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.tuple.Pair;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
 import java.util.function.BiFunction;
@@ -76,6 +79,15 @@ public abstract class MultiblockControllerBase extends MetaTileEntity {
 
     public boolean shouldRenderOverlay(IMultiblockPart sourcePart) {
         return true;
+    }
+
+    /**
+     * Override this method to change the Controller overlay
+     * @return The overlay to render on the Multiblock Controller
+     */
+    @Nonnull
+    protected OrientedOverlayRenderer getFrontOverlay() {
+        return Textures.MULTIBLOCK_WORKABLE_OVERLAY;
     }
 
     public int getLightValueForPart(IMultiblockPart sourcePart) {

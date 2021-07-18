@@ -44,7 +44,7 @@ public class RecipeMapMultiblock extends RecipeMap<CustomRecipeBuilder> {
         ModularUI.Builder builder = ModularUI.builder(GuiTextures.BACKGROUND,
                 176,
                 (slotsHeight + (getRecipeList().parallelStream()
-                        .map(Recipe::getPropertyKeys)
+                        .map(r -> r.getRecipePropertyStorage().getRecipePropertyKeys())
                         .mapToInt(Set::size)
                         .max()
                         .orElse(0) + 4) * LINE_DIFF) * 3 / 2); // For some godforsaken reason the JEI category multiplies by 2/3

@@ -40,6 +40,12 @@ public class CTRecipeBuilder {
     }
 
     @ZenMethod
+    public CTRecipeBuilder notConsumable(ILiquidStack ingredient) {
+        this.backingBuilder.notConsumable(CraftTweakerMC.getLiquidStack(ingredient));
+        return this;
+    }
+
+    @ZenMethod
     public CTRecipeBuilder circuit(int num) {
         this.backingBuilder.notConsumable(CraftTweakerIngredientWrapper.fromStacks(IntCircuitIngredient.getIntegratedCircuit(num)));
         return this;

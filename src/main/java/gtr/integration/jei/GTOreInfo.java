@@ -3,7 +3,6 @@ package gtr.integration.jei;
 
 import gtr.api.unification.OreDictUnifier;
 import gtr.api.unification.material.type.Material;
-import gtr.api.worldgen.config.FillerConfigUtils;
 import gtr.api.worldgen.config.OreDepositDefinition;
 import gtr.api.worldgen.filler.BlockFiller;
 import gtr.api.worldgen.filler.FillerEntry;
@@ -11,7 +10,6 @@ import gtr.api.worldgen.populator.FluidSpringPopulator;
 import gtr.api.worldgen.populator.IVeinPopulator;
 import gtr.api.worldgen.populator.SurfaceBlockPopulator;
 import gtr.api.worldgen.populator.SurfaceRockPopulator;
-import it.unimi.dsi.fastutil.ints.IntSortedSet;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.block.Block;
@@ -19,10 +17,9 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.DimensionType;
 import net.minecraft.world.biome.Biome;
-import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.fluids.*;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
@@ -40,13 +37,11 @@ public class GTOreInfo implements IRecipeWrapper {
     private final String name;
     private final String description;
     private final int weight;
-    private final int[] dimensionIDs;
     private final IVeinPopulator veinPopulator;
     private final BlockFiller blockFiller;
     private List<List<ItemStack>> groupedInputsAsItemStacks = new ArrayList<>();
     private List<List<ItemStack>> groupedOutputsAsItemStacks = new ArrayList<>();
     private final Function<Biome, Integer> biomeFunction;
-    private Map<DimensionType, IntSortedSet> dimMap =  DimensionManager.getRegisteredDimensions();
 
     public GTOreInfo(OreDepositDefinition definition) {
         this.definition = definition;
@@ -84,12 +79,6 @@ public class GTOreInfo implements IRecipeWrapper {
 
         this.biomeFunction = definition.getBiomeWeightModifier();
 
-        //Gather the dimension IDs that the vein can spawn in
-        dimensionIDs = dimMap.values().stream()
-            .flatMap(Collection::stream)
-            .mapToInt(Integer::intValue)
-            .filter(num -> definition.getDimensionFilter().test(DimensionManager.createProviderFor(num)))
-            .toArray();
 
         //Group the input ores and the Surface Identifier
         List<ItemStack> generatedBlocksAsItemStacks = findComponentBlocksAsItemStacks();
@@ -257,8 +246,8 @@ public class GTOreInfo implements IRecipeWrapper {
             }
         }
         else {
-            //TODO: Support for an individual ore's weight in the vein
-            //tooltip.addAll(createOreWeightingTooltip());
+            tooltip.addAll(createOreWeightingTooltip(slotIndex));
+
         }
     }
 
@@ -302,17 +291,27 @@ public class GTOreInfo implements IRecipeWrapper {
     }
 
     //Creates a tooltip show the weighting of the individual ores in the ore vein
-    //TODO: Figure out a way to get the individual ore weightings from the BlockFiller
-    public List<String> createOreWeightingTooltip() {
+    public List<String> createOreWeightingTooltip(int slotIndex) {
 
         List<String> tooltip = new ArrayList<>();
+        int totalWeight = 0;
+        double weight;
 
         List<FillerEntry> fillerEntries = blockFiller.getAllPossibleStates();
-        for(FillerEntry entry : fillerEntries) {
+        for (FillerEntry entries : fillerEntries) {
+            if (entries != null && !entries.getEntries().isEmpty()) {
+                for (Pair<Integer, FillerEntry> entry : entries.getEntries()) {
+                    totalWeight = totalWeight + entry.getKey();
+                }
+            }
+        }
 
-            /*if(entry instanceof FillerConfigUtils.WeightRandomMatcherEntry) {
-                ((FillerConfigUtils.WeightRandomMatcherEntry) entry)
-            }*/
+        for(FillerEntry entry : fillerEntries) {
+            if(entry.getEntries() != null && !entry.getEntries().isEmpty()) {
+                Pair<Integer, FillerEntry> entryWithWeight = entry.getEntries().get(slotIndex - 2);
+                weight = Math.round((entryWithWeight.getKey() / (double) totalWeight) * 100);
+                tooltip.add("Weight in vein: " + weight + "%");
+            }
         }
 
 
@@ -336,11 +335,11 @@ public class GTOreInfo implements IRecipeWrapper {
         return minHeight;
     }
 
-    public int[] getDimensionIDs() {
-        return  dimensionIDs;
-    }
-
     public int getWeight() {
         return weight;
+    }
+
+    public OreDepositDefinition getDefinition() {
+        return definition;
     }
 }

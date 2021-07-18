@@ -39,6 +39,12 @@ public class OreDictionaryLoader {
         if (Loader.isModLoaded("ic2")) {
             IC2Handler.registerRubberOredict();
         }
+        OreDictUnifier.registerOre(new ItemStack(Items.SUGAR), OrePrefix.DUST_REGULAR, Materials.Sugar);
+        OreDictUnifier.registerOre(new ItemStack(Items.REDSTONE), OrePrefix.DUST_REGULAR, Materials.Redstone);
+        OreDictUnifier.registerOre(new ItemStack(Items.GUNPOWDER), OrePrefix.DUST_REGULAR, Materials.Gunpowder);
+        OreDictUnifier.registerOre(new ItemStack(Items.GLOWSTONE_DUST), OrePrefix.DUST_REGULAR, Materials.Glowstone);
+        OreDictUnifier.registerOre(new ItemStack(Items.DYE, 1, 15), OrePrefix.DUST_REGULAR, Materials.Bone);
+        OreDictUnifier.registerOre(new ItemStack(Items.BLAZE_POWDER), OrePrefix.DUST_REGULAR, Materials.Blaze);
 
         OreDictUnifier.registerOre(new ItemStack(MetaBlocks.GRANITE, 1, 0), OrePrefix.stone, Materials.GraniteBlack);
         OreDictUnifier.registerOre(new ItemStack(MetaBlocks.GRANITE, 1, 1), OrePrefix.stone, Materials.GraniteRed);

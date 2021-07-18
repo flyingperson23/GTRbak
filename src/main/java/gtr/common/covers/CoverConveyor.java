@@ -425,7 +425,7 @@ public class CoverConveyor extends CoverBehavior implements CoverWithUI, ITickab
 
         ModularUI.Builder builder = ModularUI.builder(GuiTextures.BACKGROUND, 176, 170 + 82)
             .widget(primaryGroup)
-            .bindPlayerInventory(player.inventory, GuiTextures.SLOT, 8, 170);
+            .bindPlayerInventory(player.inventory, GuiTextures.SLOT, 7, 170);
         return buildUI(builder, player);
     }
 

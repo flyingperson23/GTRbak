@@ -48,6 +48,9 @@ public class SimpleMachineMetaTileEntity extends WorkableTieredMetaTileEntity im
     protected IItemHandler outputItemInventory;
     protected IFluidHandler outputFluidInventory;
 
+    private static final int FONT_HEIGHT = 9; // Minecraft's FontRenderer FONT_HEIGHT value
+
+
     public SimpleMachineMetaTileEntity(ResourceLocation metaTileEntityId, RecipeMap<?> recipeMap, OrientedOverlayRenderer renderer, int tier) {
         this(metaTileEntityId, recipeMap, renderer, tier, true);
     }
@@ -311,37 +314,45 @@ public class SimpleMachineMetaTileEntity extends WorkableTieredMetaTileEntity im
     }
 
     protected ModularUI.Builder createGuiTemplate(EntityPlayer player) {
-        ModularUI.Builder builder = workable.recipeMap.createUITemplate(this, workable::getProgressPercent, importItems, exportItems, importFluids, exportFluids)
-            .widget(new LabelWidget(5, 5, getMetaFullName()))
-            .widget(new DischargerSlotWidget(chargerInventory, 0, 79, 62)
+        RecipeMap<?> workableRecipeMap = workable.recipeMap;
+        int yOffset = 0;
+        if (workableRecipeMap.getMaxInputs() > 6 || workableRecipeMap.getMaxFluidInputs() > 6 || workableRecipeMap.getMaxOutputs() > 6 || workableRecipeMap.getMaxFluidOutputs() > 6) {
+            yOffset = FONT_HEIGHT;
+        }
+
+        ModularUI.Builder builder = workableRecipeMap.createUITemplate(workable::getProgressPercent, importItems, exportItems, importFluids, exportFluids, yOffset)
+            .widget(new LabelWidget(7, 5, getMetaFullName()))
+            .widget(new DischargerSlotWidget(chargerInventory, 0, 79, 62 + yOffset)
                 .setBackgroundTexture(GuiTextures.SLOT, GuiTextures.CHARGER_OVERLAY))
-            .widget(new ImageWidget(79, 42, 18, 18, GuiTextures.INDICATOR_NO_ENERGY)
+            .widget(new ImageWidget(79, 42 + yOffset, 18, 18, GuiTextures.INDICATOR_NO_ENERGY)
                 .setPredicate(workable::isHasNotEnoughEnergy))
-            .bindPlayerInventory(player.inventory);
+            .bindPlayerInventory(player.inventory, GuiTextures.SLOT, yOffset);
 
         int leftButtonStartX = 7;
-        int rightButtonStartX = 176 - 7 - 24;
-        if(workable.recipeMap instanceof RecipeMapWithConfigButton) {
-            leftButtonStartX += ((RecipeMapWithConfigButton) workable.recipeMap).getLeftButtonOffset();
-            rightButtonStartX -= ((RecipeMapWithConfigButton) workable.recipeMap).getRightButtonOffset();
+        int rightButtonStartX = 176 - 7 - 45;
+        if (workableRecipeMap instanceof RecipeMapWithConfigButton) {
+            leftButtonStartX += ((RecipeMapWithConfigButton) workableRecipeMap).getLeftButtonOffset();
+            rightButtonStartX -= ((RecipeMapWithConfigButton) workableRecipeMap).getRightButtonOffset();
         }
 
         if (exportItems.getSlots() > 0) {
-            builder.widget(new ToggleButtonWidget(leftButtonStartX, 62, 18, 18,
+            builder.widget(new ToggleButtonWidget(leftButtonStartX, 62 + yOffset, 18, 18,
                 GuiTextures.BUTTON_ITEM_OUTPUT, this::isAutoOutputItems, this::setAutoOutputItems)
             		.setTooltipText("gtr.gui.item_auto_output.tooltip"));
             leftButtonStartX += 18;
         }
         if (exportFluids.getTanks() > 0) {
-            builder.widget(new ToggleButtonWidget(leftButtonStartX, 62, 18, 18,
+            builder.widget(new ToggleButtonWidget(leftButtonStartX, 62 + yOffset, 18, 18,
                 GuiTextures.BUTTON_FLUID_OUTPUT, this::isAutoOutputFluids, this::setAutoOutputFluids)
             		.setTooltipText("gtr.gui.fluid_auto_output.tooltip"));
+            leftButtonStartX += 18;
+
         }
 
-        builder.widget(new CycleButtonWidget(rightButtonStartX, 60, 24, 20,
+        builder.widget(new CycleButtonWidget(leftButtonStartX, 62 + yOffset, 18, 18,
             workable.getAvailableOverclockingTiers(), workable::getOverclockTier, workable::setOverclockTier)
-            .setTooltipHoverString("gtr.gui.overclock.description"));
-
+            .setTooltipHoverString("gtr.gui.overclock.description")
+            .setButtonTexture(GuiTextures.BUTTON_OVERCLOCK));
         return builder;
     }
 

@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import gtr.api.recipes.Recipe;
 import gtr.api.recipes.RecipeBuilder;
 import gtr.api.recipes.RecipeMap;
+import gtr.api.recipes.recipeproperties.BlastTemperatureProperty;
 import gtr.api.util.EnumValidationResult;
 import gtr.api.util.GTLog;
 import gtr.api.util.ValidationResult;
@@ -18,7 +19,7 @@ public class BlastRecipeBuilder extends RecipeBuilder<BlastRecipeBuilder> {
 
     public BlastRecipeBuilder(Recipe recipe, RecipeMap<BlastRecipeBuilder> recipeMap) {
         super(recipe, recipeMap);
-        this.blastFurnaceTemp = recipe.getIntegerProperty("blastFurnaceTemp");
+        this.blastFurnaceTemp = recipe.getRecipePropertyStorage().getRecipePropertyValue(BlastTemperatureProperty.getInstance(), 0);
     }
 
     public BlastRecipeBuilder(RecipeBuilder<BlastRecipeBuilder> recipeBuilder) {
@@ -49,17 +50,20 @@ public class BlastRecipeBuilder extends RecipeBuilder<BlastRecipeBuilder> {
     }
 
     public ValidationResult<Recipe> build() {
-        return ValidationResult.newResult(finalizeAndValidate(),
-            new Recipe(inputs, outputs, chancedOutputs, fluidInputs, fluidOutputs,
-                ImmutableMap.of("blast_furnace_temperature", blastFurnaceTemp),
-                duration, EUt, hidden));
+        Recipe recipe = new Recipe(inputs, outputs, chancedOutputs, fluidInputs, fluidOutputs,
+            duration, EUt, hidden);
+        if (!recipe.getRecipePropertyStorage().store(ImmutableMap.of(BlastTemperatureProperty.getInstance(), blastFurnaceTemp))) {
+            return ValidationResult.newResult(EnumValidationResult.INVALID, recipe);
+        }
+
+        return ValidationResult.newResult(finalizeAndValidate(), recipe);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
             .appendSuper(super.toString())
-            .append("blast_furnace_temperature", blastFurnaceTemp)
+            .append(BlastTemperatureProperty.getInstance().getKey(), blastFurnaceTemp)
             .toString();
     }
 }
