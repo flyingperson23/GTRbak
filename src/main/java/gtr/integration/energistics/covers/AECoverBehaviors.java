@@ -13,7 +13,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 
 public class AECoverBehaviors {
-	public static final int startingCoverId = 40;
+	public static final int startingCoverId = 50;
 	public static void init() {
 		registerStockerCover(0, "ae2.interface.lv", AEItems.AE2_STOCKER_LV, GTValues.LV, 1280);
 		registerStockerCover(1, "ae2.interface.mv", AEItems.AE2_STOCKER_MV, GTValues.MV, 20480);
