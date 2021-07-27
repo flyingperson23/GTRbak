@@ -187,6 +187,8 @@ public abstract class Material implements Comparable<Material> {
     @ZenProperty
     public final Element element;
 
+    public final String name;
+
     private String calculateChemicalFormula() {
         if (element != null) {
             return element.name();
@@ -210,6 +212,7 @@ public abstract class Material implements Comparable<Material> {
         calculateDecompositionType();
         initializeMaterial();
         registerMaterial(metaItemSubId, name);
+        this.name = name;
     }
 
     protected void registerMaterial(int metaItemSubId, String name) {

@@ -27,7 +27,7 @@ import java.util.Set;
 
 public abstract class WorkableTieredMetaTileEntity extends TieredMetaTileEntity {
 
-    protected final RecipeLogicEnergy workable;
+    protected RecipeLogicEnergy workable;
     protected final OrientedOverlayRenderer renderer;
 
     public WorkableTieredMetaTileEntity(ResourceLocation metaTileEntityId, RecipeMap<?> recipeMap, OrientedOverlayRenderer renderer, int tier) {

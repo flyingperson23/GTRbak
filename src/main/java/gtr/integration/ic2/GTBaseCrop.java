@@ -1,27 +1,31 @@
 package gtr.integration.ic2;
 
-import gtr.api.unification.material.Materials;
+import gtr.api.GTValues;
 import gtr.api.unification.material.type.Material;
 import ic2.api.crops.CropCard;
 import ic2.api.crops.CropProperties;
 import ic2.api.crops.Crops;
 import ic2.api.crops.ICropTile;
-import net.minecraft.block.Block;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.Loader;
+import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.oredict.OreDictionary;
 import speiger.src.crops.api.ICropCardInfo;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class GTBaseCrop extends CropCard implements ICropCardInfo {
+
+    public static ArrayList<GTBaseCrop> cropList = new ArrayList<>();
 
     private int id;
     private String cropName;
@@ -32,9 +36,12 @@ public class GTBaseCrop extends CropCard implements ICropCardInfo {
     private ItemStack drop;
     private ItemStack[] specialDrops;
     private CropProperties properties;
+    public Material requiredMatBelow;
+    public Runnable registerBaseSeed;
 
     public GTBaseCrop(int aID, String aCropName, String aDiscoveredBy, ItemStack aBaseSeed, int aTier, int aMaxSize, int aGrowthSpeed, int aAfterHarvestSize, int aHarvestSize, int aStatChemical, int aStatFood, int aStatDefensive, int aStatColor, int aStatWeed, String[] aAttributes, Material aBlock, ItemStack aDrop, ItemStack[] aSpecialDrops) {
         this(aID, aCropName, aDiscoveredBy, aBaseSeed, aTier, aMaxSize, aGrowthSpeed, aAfterHarvestSize, aHarvestSize, aStatChemical, aStatFood, aStatDefensive, aStatColor, aStatWeed, aAttributes, aDrop, aSpecialDrops);
+        requiredMatBelow = aBlock;
     }
         /**
          * To create new Crops
@@ -51,7 +58,7 @@ public class GTBaseCrop extends CropCard implements ICropCardInfo {
          */
     public GTBaseCrop(int aID, String aCropName, String aDiscoveredBy, ItemStack aBaseSeed, int aTier, int aMaxSize, int aGrowthSpeed, int aAfterHarvestSize, int aHarvestSize, int aStatChemical, int aStatFood, int aStatDefensive, int aStatColor, int aStatWeed, String[] aAttributes, ItemStack aDrop, ItemStack[] aSpecialDrops) {
         id = aID;
-        cropName = aCropName;
+        cropName = aCropName.toLowerCase();
         discoveredBy = aDiscoveredBy;
         baseSeed = aBaseSeed;
         tier = aTier;
@@ -68,15 +75,30 @@ public class GTBaseCrop extends CropCard implements ICropCardInfo {
         drop = aDrop;
         specialDrops = aSpecialDrops;
         properties = new CropProperties(tier, statChemical, statFood, statDefensive, statColor, statWeed);
-        Crops.instance.registerCrop(this);
         if (baseSeed != null) {
-            Crops.instance.registerBaseSeed(baseSeed, this, 1, 1, 1, 1);
+            registerBaseSeed = () -> Crops.instance.registerBaseSeed(baseSeed, this, 1, 1, 1, 1);
         }
+        cropList.add(this);
     }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public List<ResourceLocation> getTexturesLocation() {
+
+        List<ResourceLocation> ret = new ArrayList<>();
+
+        for(int size = 1; size <= getMaxSize(); ++size) {
+            ResourceLocation r = new ResourceLocation("gtr", "blocks/crop/blockcrop." + cropName + "." + size);
+            ret.add(r);
+        }
+
+        return ret;
+    }
+
 
     @Override
     public String getId() {
-        return String.valueOf(id);
+        return cropName;
     }
 
     @Override
@@ -84,16 +106,60 @@ public class GTBaseCrop extends CropCard implements ICropCardInfo {
         return afterHarvestSize;
     }
 
-    /*
+    @Override
+    public int getRootsLength(ICropTile crop) {
+        return 5;
+    }
+
     @Override
     public int getOptimalHarvestSize(ICropTile cropTile) {
         return harvestSize;
     }
-     */
+
+    @Override
+    public ItemStack[] getGains(ICropTile aCrop) {
+        int tDrop;
+        if (specialDrops != null && (tDrop = java.util.concurrent.ThreadLocalRandom.current().nextInt(0, (specialDrops.length*2) + 2)) < specialDrops.length && specialDrops[tDrop] != null) {
+            if (Math.random() < 0.25) return new ItemStack[] {drop.copy(), specialDrops[tDrop].copy()};
+            return new ItemStack[] {specialDrops[tDrop].copy()};
+        }
+        return new ItemStack[] {drop.copy()};
+    }
+
+    @Override
+    public boolean canGrow(ICropTile iCropTile) {
+        if (iCropTile.getCurrentSize() < (getOptimalHarvestSize(iCropTile) - 1)) return super.canGrow(iCropTile);
+        else if (iCropTile.getCurrentSize() == (getOptimalHarvestSize(iCropTile) - 1) && requiredMatBelow != null) return super.canGrow(iCropTile) && isBlockBelow(iCropTile);
+        return super.canGrow(iCropTile);
+    }
+
+    public boolean isBlockBelow(ICropTile aCrop) {
+        if (aCrop != null) {
+            for (int i = 1; i <= this.getRootsLength(aCrop); ++i) {
+                BlockPos pos = aCrop.getPosition();
+                IBlockState state = aCrop.getWorldObj().getBlockState(pos.add(0, -1-i, 0));
+                ItemStack stack = new ItemStack(state.getBlock(), 1, state.getBlock().getMetaFromState(state));
+                List<String> oreDictNamesInLowercase = IntStream.of(OreDictionary.getOreIDs(stack)).mapToObj(OreDictionary::getOreName).map(String::toLowerCase).collect(Collectors.toList());
+                if (oreDictNamesInLowercase.contains("block"+requiredMatBelow.toString())) return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public int getGrowthDuration(ICropTile aCrop) {
+        if (growthSpeed < 200) return super.getGrowthDuration(aCrop);
+        return tier * growthSpeed;
+    }
+
+    @Override
+    public String getDiscoveredBy() {
+        return discoveredBy;
+    }
 
     @Override
     public String getOwner() {
-        return discoveredBy;
+        return GTValues.MODID;
     }
 
     @Override
@@ -107,11 +173,6 @@ public class GTBaseCrop extends CropCard implements ICropCardInfo {
     }
 
     @Override
-    public List<ResourceLocation> getTexturesLocation() {
-        return Collections.singletonList(drop.getItem().getRegistryName());
-    }
-
-    @Override
     public List<String> getCropInformation() {
         return Arrays.asList(attributes);
     }
@@ -120,4 +181,11 @@ public class GTBaseCrop extends CropCard implements ICropCardInfo {
     public ItemStack getDisplayItem() {
         return drop;
     }
+
+    @Override
+    public String[] getAttributes() {
+        return attributes;
+    }
+
+
 }

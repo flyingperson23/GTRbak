@@ -54,18 +54,18 @@ public class RecipeMap<R extends RecipeBuilder<R>> {
 
     public final String unlocalizedName;
 
-    private final R recipeBuilderSample;
-    private final int minInputs, maxInputs;
-    private final int minOutputs, maxOutputs;
-    private final int minFluidInputs, maxFluidInputs;
-    private final int minFluidOutputs, maxFluidOutputs;
-    private final TByteObjectMap<TextureArea> slotOverlays;
+    public final R recipeBuilderSample;
+    public final int minInputs, maxInputs;
+    public final int minOutputs, maxOutputs;
+    public final int minFluidInputs, maxFluidInputs;
+    public final int minFluidOutputs, maxFluidOutputs;
+    public final TByteObjectMap<TextureArea> slotOverlays;
     protected TextureArea progressBarTexture;
     protected MoveType moveType;
     public final boolean isHidden;
 
-    private final Map<FluidKey, Collection<Recipe>> recipeFluidMap = new HashMap<>();
-    private final HashMap<Recipe, Integer> recipeList = new HashMap<>();
+    public final Map<FluidKey, Collection<Recipe>> recipeFluidMap = new HashMap<>();
+    public final HashMap<Recipe, Integer> recipeList = new HashMap<>();
 
     public RecipeMap(String unlocalizedName,
                      int minInputs, int maxInputs, int minOutputs, int maxOutputs,
@@ -258,7 +258,7 @@ public class RecipeMap<R extends RecipeBuilder<R>> {
     }
 
     @Nullable
-    private Recipe findByFluidInputs(long voltage, List<ItemStack> inputs, List<FluidStack> fluidInputs, MatchingMode m) {
+    public Recipe findByFluidInputs(long voltage, List<ItemStack> inputs, List<FluidStack> fluidInputs, MatchingMode m) {
         for (FluidStack fluid : fluidInputs) {
             if (fluid == null) continue;
             Collection<Recipe> recipes = recipeFluidMap.get(new FluidKey(fluid));
@@ -269,11 +269,17 @@ public class RecipeMap<R extends RecipeBuilder<R>> {
                 }
             }
         }
+
+        List<Recipe> noInputRecipes = recipeList.keySet().stream().filter(i -> (i.getFluidInputs().size() == 0 && i.getInputs().size() == 0)).collect(Collectors.toList());
+        if (noInputRecipes.size() == 1) {
+            return noInputRecipes.get(0);
+        }
+
         return null;
     }
 
     @Nullable
-    private Recipe findByInputs(long voltage, List<ItemStack> inputs, List<FluidStack> fluidInputs, MatchingMode m) {
+    public Recipe findByInputs(long voltage, List<ItemStack> inputs, List<FluidStack> fluidInputs, MatchingMode m) {
         for (Recipe recipe : recipeList.keySet()) {
             if (recipe.matches(false, inputs, fluidInputs, m)) {
                 return voltage >= recipe.getEUt() ? recipe : null;

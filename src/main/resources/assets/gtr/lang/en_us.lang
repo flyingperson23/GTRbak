@@ -166,9 +166,7 @@ metaitem.paper.punch.card.encoded.name=Punched Card
 
 
 metaitem.tool.datastick.name=Data Stick
-metaitem.tool.datastick.tooltip=A Low Capacity Data Storage
-metaitem.tool.dataorb.name=Data Orb
-metaitem.tool.dataorb.tooltip=A High Capacity Data Storage
+metaitem.tool.datastick.tooltip=A Data Storage
 metaitem.circuit.integrated.tooltip=Use to open configuration GUI
 metaitem.circuit.integrated.gui=Integrated circuit configuration
 metaitem.circuit.integrated.jei_description=JEI is only showing recipes for the given configuration.\n\nYou can select a configuration in the Integrated circuit configuration tab.
@@ -407,6 +405,9 @@ recipemap.metal_bender.name=Metal Bender
 
 recipemap.forming_press.name=Forming Press
 
+recipemap.gene_extractor.name=Crop Gene Extractor
+recipemap.scanner_jei.name=Scanner
+
 behaviour.hoe=Can till dirt
 behaviour.soft_hammer=Use on machine to allow/disallow it to work
 behaviour.lighter.tooltip=Can light things on fire
@@ -549,6 +550,47 @@ gtr.machine.block_breaker.tooltip=Mines block on front face and collects its dro
 gtr.machine.block_breaker.consumption=Consumes §e%,d EU§7 per operation
 gtr.machine.block_breaker.speed_bonus=Speed Bonus: §e%,d%%
 
+gtr.machine.gene_extractor.lv.name=Basic Crop Gene Extractor
+gtr.machine.gene_extractor.mv.name=Intermediate Crop Gene Extractor
+gtr.machine.gene_extractor.hv.name=Advanced Crop Gene Extractor
+gtr.machine.gene_extractor.ev.name=Elite Crop Gene Extractor
+gtr.machine.gene_extractor.iv.name=Ultimate Crop Gene Extractor
+
+gtr.machine.weed_picker.lv.name=Basic Weed Picker
+gtr.machine.weed_picker.mv.name=Intermediate Weed Picker
+gtr.machine.weed_picker.hv.name=Advanced Weed Picker
+gtr.machine.weed_picker.ev.name=Elite Weed Picker
+gtr.machine.weed_picker.iv.name=Ultimate Weed Picker
+
+gtr.machine.crop_synthesiser.lv.name=Basic Crop Synthesiser
+gtr.machine.crop_synthesiser.mv.name=Intermediate Crop Synthesiser
+gtr.machine.crop_synthesiser.hv.name=Advanced Crop Synthesiser
+gtr.machine.crop_synthesiser.ev.name=Elite Crop Synthesiser
+gtr.machine.crop_synthesiser.iv.name=Ultimate Crop Synthesiser
+
+gtr.machine.recycler.lv.name=Basic Recycler
+gtr.machine.recycler.mv.name=Intermediate Recycler
+gtr.machine.recycler.hv.name=Advanced Recycler
+gtr.machine.recycler.ev.name=Elite Recycler
+
+gtr.machine.replicator.lv.name=Basic Replicator
+gtr.machine.replicator.mv.name=Intermediate Replicator
+gtr.machine.replicator.hv.name=Advanced Replicator
+gtr.machine.replicator.ev.name=Elite Replicator
+gtr.machine.replicator.iv.name=Ultimate Replicator
+
+gtr.machine.amplifabricator.lv.name=Basic Amplifabricator
+gtr.machine.amplifabricator.mv.name=Intermediate Amplifabricator
+gtr.machine.amplifabricator.hv.name=Advanced Amplifabricator
+gtr.machine.amplifabricator.ev.name=Elite Amplifabricator
+gtr.machine.amplifabricator.iv.name=Ultimate Amplifabricator
+
+gtr.machine.crop_replicator.lv.name=Basic Crop Replicator
+gtr.machine.crop_replicator.mv.name=Intermediate Crop Replicator
+gtr.machine.crop_replicator.hv.name=Advanced Crop Replicator
+gtr.machine.crop_replicator.ev.name=Elite Crop Replicator
+gtr.machine.crop_replicator.iv.name=Ultimate Crop Replicator
+
 gtr.machine.amplifab.lv.name=Basic Amplifabricator
 gtr.machine.amplifab.mv.name=Intermediate Amplifabricator
 gtr.machine.amplifab.hv.name=Advanced Amplifabricator
@@ -650,6 +692,12 @@ gtr.machine.sifter.lv.name=Basic Sifting Machine
 gtr.machine.sifter.mv.name=Intermediate Sifting Machine
 gtr.machine.sifter.hv.name=Advanced Sifting Machine
 gtr.machine.sifter.ev.name=Elite Sifting Machine
+
+gtr.machine.scanner.lv.name=Basic Scanner
+gtr.machine.scanner.mv.name=Intermediate Scanner
+gtr.machine.scanner.hv.name=Advanced Scanner
+gtr.machine.scanner.ev.name=Elite Scanner
+gtr.machine.scanner.iv.name=Ultimate Scanner
 
 gtr.machine.thermal_centrifuge.tooltip=Separating Ores more precisely
 
@@ -1450,6 +1498,76 @@ metaitem.shape.empty.name=Empty Shape Plate
 
 metaitem.dynamite.name=Dynamite
 
+metaitem.plumbilia_leaf.name=Plumbilia Leaf
+metaitem.argentia_leaf.name=Argentia Leaf
+metaitem.indigo_blossom.name=Indigo Blossom
+metaitem.ferru_leaf.name=Ferru Leaf
+metaitem.aurelia_leaf.name=Aurelia Leaf
+metaitem.bauxia_leaf.name=Bauxia Leaf
+metaitem.titania_leaf.name=Titania Leaf
+metaitem.reactoria_leaf.name=Reactoria Leaf
+metaitem.uranium_leaf.name=Uranium Leaf
+metaitem.thunder_leaf.name=Thunder Leaf
+metaitem.nickelback_leaf.name=Nickelback Leaf
+metaitem.galvania_leaf.name=Galvania Leaf
+metaitem.pyrolusium_leaf.name=Pyrolusium Leaf
+metaitem.coppon_fiber.name=Coppon Fiber
+metaitem.scheelinium_leaf.name=Scheelinium Leaf
+metaitem.platina_leaf.name=Platina Leaf
+metaitem.quantaria_leaf_1.name=Quantaria Leaf
+metaitem.quantaria_leaf_2.name=Quantaria Leaf
+metaitem.stargatium_leaf.name=Stargatium Leaf
+metaitem.tine_twig.name=Tine Twig
+
+gtr.crop.indigo=Indigo
+gtr.crop.flax=Flax
+gtr.crop.oilberries=Oilberries
+gtr.crop.bobsyeruncleranks=Bobsyeruncleranks
+gtr.crop.diareed=Diareed
+gtr.crop.withereed=Withereed
+gtr.crop.blazereed=Blazereed
+gtr.crop.eggplant=Eggplant
+gtr.crop.corium=Corium
+gtr.crop.corpseplant=Corpseplant
+gtr.crop.creeperweed=Creeperweed
+gtr.crop.enderbloom=Enderbloom
+gtr.crop.meatrose=Meatrose
+gtr.crop.milkwart=Milkwart
+gtr.crop.slimeplant=Slimeplant
+gtr.crop.spidernip=Spidernip
+gtr.crop.tearstalks=Tearstalks
+gtr.crop.tine=Tine
+gtr.crop.coppon=Coppon
+gtr.crop.brown mushrooms=Brown Mushrooms
+gtr.crop.red mushrooms=Red Mushrooms
+gtr.crop.argentia=Argentia
+gtr.crop.plumbilia=Plumbilia
+gtr.crop.trollplant=Trollplant
+gtr.crop.lazulia=Lazulia
+gtr.crop.glowheat=Glowheat
+gtr.crop.fertilia=Fertilia
+gtr.crop.bauxia=Bauxia
+gtr.crop.titania=Titania
+gtr.crop.reactoria=Reactoria
+gtr.crop.god of thunder=God of Thunder
+gtr.crop.transformium=Transformium
+gtr.crop.starwart=Starward
+gtr.crop.zomplant=Zomplant
+gtr.crop.nickelback=Nickelback
+gtr.crop.galvania=Galvania
+gtr.crop.evil ore=Evil Ore
+gtr.crop.olivia=Olivia
+gtr.crop.sapphirum=Sapphirum
+gtr.crop.pyrolusium=Pyrolusium
+gtr.crop.scheelinium=Scheelinium
+gtr.crop.platina=Platina
+gtr.crop.quantaria=Quantaria
+gtr.crop.stargatium=Stargatium
+gtr.crop.ferru leaf=Ferru Leaf
+gtr.crop.aurelia leaf=Aurelia Leaf
+
+gtr.crop.canola=Canola
+
 gtr.gui.overclock.description=Recipes can overclock to this tier./nX means no overclocking is performed.
 gtr.gui.overclock.off=X
 
@@ -1751,6 +1869,12 @@ metaitem.etchingkit.intermediate.name=Intermediate Etching Kit
 metaitem.etchingkit.advanced.name=Advanced Etching Kit
 metaitem.etchingkit.elite.name=Elite Etching Kit
 
+metaitem.canola.name=Canola Seeds
+metaitem.berry.uum.name=UUM Berry
+metaitem.berry.uua.name=UUA Berry
+
+metaitem.scrap.name=Scrap
+metaitem.scrap_box.name=Scrap Box
 
 metaitem.soc.basic.name=Topaz System-on-Chip
 metaitem.soc.intermediate.name=Ender System-on-Chip
@@ -2709,6 +2833,8 @@ material.superconductor=Superconductor
 
 material.uuamplifier=UU-Amplifier
 material.uumatter=UU-Matter
+fluid.uum=UU-Matter
+fluid.uua=UU-Amplifier
 
 material.naquadah=Naquadah
 material.naquadah_alloy=Naquadah Alloy
@@ -2947,6 +3073,14 @@ item.wheat.dustTiny=Tiny Pile of Flour
 item.wheat.dustSmall=Small Pile of Flour
 item.wheat.dust=Flour
 
+recipemap.amplifabricator_jei.name=Amplifabricator
+recipemap.amplifabricator.name=Amplifabricator
+recipemap.recycler_jei.name=Recycler
+recipemap.synthesiser.name=Crop Synthesiser
+recipemap.synthesiser_jei.name=Crop Synthesiser
+recipemap.gene_extractor_jei.name=Crop Gene Extractor
+recipemap.crop_replicator.name=Crop Replicator
+recipemap.crop_replicator_jei.name=Crop Replicator
 recipemap.lhe.name=Large Heat Exchanger
 recipemap.ore_washer.name=Ore Washer
 recipemap.thermal_centrifuge.name=Thermal Centrifuge
@@ -3016,6 +3150,7 @@ recipemap.gas_turbine.name=Gas Turbine
 recipemap.steam_turbine.name=Steam Turbine
 recipemap.semi_fluid_generator.name=Semi-Fluid Fuels
 recipemap.mass_fabricator.name=Mass Fabricator
+recipemap.mass_fab.name=Mass Fabricator
 
 behaviour.plunger.description=Right click on machine to clear 1000MB out of the machine's output tank./nOr use it while sneaking to clear 1000MB out of the machine's input tank./nPlease note: input tank clearing works only on gtr machines!
 
@@ -3043,6 +3178,10 @@ fluid.distilled_water=Distilled Water
 fluid.pahoehoe=Pahoehoe Lava
 fluid.slurry=Dirty %s Slurry
 fluid.cleanslurry=Clean %s Slurry
+
+fluid.uum.name=UU-Matter
+fluid.uua.name=UU Amplifier
+fluid.construction_foam.name=Construction Foam
 
 # Wire coil blocks
 tile.wire_coil.tooltip_ebf=When used in §aElectric Blast Furnace§7:
@@ -3200,6 +3339,12 @@ gtr.machine.magic_energy_absorber.hv.name=Advanced Magic Energy Absorber
 gtr.machine.magic_energy_absorber.ev.name=Elite Magic Energy Absorber
 gtr.machine.magic_energy_absorber.iv.name=Master Magic Energy Absorber
 gtr.machine.magic_energy_absorber.luv.name=Expert Magic Energy Absorber
+
+gtr.machine.mass_fab.lv.name=Basic Mass Fabricator
+gtr.machine.mass_fab.mv.name=Intermediate Mass Fabricator
+gtr.machine.mass_fab.hv.name=Advanced Mass Fabricator
+gtr.machine.mass_fab.ev.name=Elite Mass Fabricator
+gtr.machine.mass_fab.iv.name=Master Mass Fabricator
 
 gtr.machine.magic_energy_absorber.tooltip=Max Voltage OUT: §a2048 §7(§aEV§7)/nCollects energy from end crystals on naturally generated obsidian pillars in the End within 64 blocks./nEach ender crystal adds 32 EU/t to output/nPlace Dragon Egg on top to amplify output/n/nWhen amplified:/nEach ender crystal adds 128 EU/t
 gtr.machine.magic_energy_converter.name=Magic Energy Converter

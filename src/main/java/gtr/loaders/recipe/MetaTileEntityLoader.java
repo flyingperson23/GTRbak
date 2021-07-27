@@ -18,6 +18,7 @@ import gtr.common.blocks.MetaBlocks;
 import gtr.common.items.MetaItems;
 import gtr.common.metatileentities.MetaTileEntities;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 import java.util.Arrays;
@@ -254,6 +255,15 @@ public class MetaTileEntityLoader {
         ModHandler.addShapedRecipe("magic_energy_absorber", MetaTileEntities.MAGIC_ENERGY_ABSORBER.getStackForm(), "PCP", "PMP", "PCP", 'M', MetaTileEntities.HULL[GTValues.EV].getStackForm(), 'P', MetaItems.SENSOR_EV, 'C', new UnificationEntry(OrePrefix.circuit, Tier.Elite));
 
         // MACHINES
+        registerMachineRecipe(MetaTileEntities.AMPLIFABRICATOR, "QPQ", "PHP", "CPC", 'Q', CABLE_QUAD, 'P', PUMP, 'H', HULL, 'C', CIRCUIT);
+        registerMachineRecipe(MetaTileEntities.REPLICATOR, "EFE", "CHC", "EQE", 'E', EMITTER, 'F', FIELD_GENERATOR, 'H', HULL, 'C', CIRCUIT, 'Q', CABLE_QUAD);
+        registerMachineRecipe(MetaTileEntities.RECYCLER, "GCG", "PHP", "WCW", 'G', Items.GLOWSTONE_DUST, 'C', CIRCUIT, 'P', PISTON, 'H', HULL, 'W', CABLE);
+        registerMachineRecipe(MetaTileEntities.CROP_REPLICATOR, "CFC", "CHC", "EWE", 'C', CIRCUIT, 'F', FIELD_GENERATOR, 'H', HULL, 'E', EMITTER, 'W', CABLE);
+        registerMachineRecipe(MetaTileEntities.SCANNER, "CEC", "WHW", "CSC", 'C', CIRCUIT, 'E', EMITTER, 'W', CABLE, 'H', HULL, 'S', SENSOR);
+        registerMachineRecipe(MetaTileEntities.CROP_GENE_EXTRACTOR, "SES", "CHC", "ISI", 'S', SENSOR, 'E', EMITTER, 'C', CABLE, 'H', HULL, 'I', CIRCUIT);
+        registerMachineRecipe(MetaTileEntities.CROP_SYNTHESISER, "FCF", "CHC", "EEE", 'F', FIELD_GENERATOR, 'C', CIRCUIT, 'H', HULL, 'E', EMITTER);
+        registerMachineRecipe(MetaTileEntities.CROP_WEED_PICKER, "RRR", "AHA", "RRR", 'R', OreDictUnifier.get(OrePrefix.stickLong, Materials.Steel), 'A', ROBOT_ARM, 'H', HULL);
+        registerMachineRecipe(MetaTileEntities.MASS_FAB, "CFC", "WHW", "CFC", 'C', CIRCUIT, 'F', FIELD_GENERATOR, 'H', HULL, 'W', CABLE_QUAD);
         registerMachineRecipe(MetaTileEntities.ALLOY_SMELTER, "ECE", "CMC", "WCW", 'M', HULL, 'E', CIRCUIT, 'W', CABLE, 'C', COIL_HEATING_DOUBLE);
         registerMachineRecipe(MetaTileEntities.ASSEMBLER, "ACA", "VMV", "WCW", 'M', HULL, 'V', CONVEYOR, 'A', ROBOT_ARM, 'C', CIRCUIT, 'W', CABLE);
         registerMachineRecipe(MetaTileEntities.BENDER, "PwP", "CMC", "EWE", 'M', HULL, 'E', MOTOR, 'P', PISTON, 'C', CIRCUIT, 'W', CABLE);

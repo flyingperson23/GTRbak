@@ -8,10 +8,14 @@ import gtr.api.recipes.RecipeMaps;
 import gtr.api.recipes.builders.CokeOvenRecipeBuilder;
 import gtr.api.recipes.builders.PBFRecipeBuilder;
 import gtr.api.recipes.ingredients.IntCircuitIngredient;
+import gtr.api.recipes.machines.RecipeMapRecycler;
+import gtr.api.recipes.machines.RecipeMapScanner;
+import gtr.api.unification.Element;
 import gtr.api.unification.OreDictUnifier;
 import gtr.api.unification.material.MarkerMaterials;
 import gtr.api.unification.material.MarkerMaterials.Tier;
 import gtr.api.unification.material.Materials;
+import gtr.api.unification.material.type.DustMaterial;
 import gtr.api.unification.material.type.FluidMaterial;
 import gtr.api.unification.material.type.IngotMaterial;
 import gtr.api.unification.material.type.Material;
@@ -31,6 +35,7 @@ import gtr.common.blocks.StoneBlock;
 import gtr.common.blocks.StoneBlock.ChiselingVariant;
 import gtr.common.blocks.wood.BlockGregLog.LogVariant;
 import gtr.common.items.MetaItems;
+import gtr.common.items.behaviors.DataBehavior;
 import gtr.common.metatileentities.MetaTileEntities;
 import gtr.common.metatileentities.storage.MetaTileEntityQuantumChest;
 import gtr.common.metatileentities.storage.MetaTileEntityQuantumTank;
@@ -41,12 +46,12 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IStringSerializable;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.oredict.OreDictionary;
-import slimeknights.mantle.util.RecipeMatch;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -84,11 +89,108 @@ public class MachineRecipeLoader {
         registerStoneBricksRecipes();
         registerOrganicRecyclingRecipes();
         registerFusionRecipes();
-
         registerNBTRemoval();
+        registerUURecipes();
 
     }
 
+    private static void registerUURecipes() {
+        RecipeMaps.MASS_FAB_RECIPES.recipeBuilder()
+            .fluidInputs(Materials.UUA.getFluid(1))
+            .fluidOutputs(Materials.UUM.getFluid(1))
+            .EUt(256).duration(803).buildAndRegister();
+
+        RecipeMaps.MASS_FAB_RECIPES.recipeBuilder()
+            .fluidOutputs(Materials.UUM.getFluid(1))
+            .EUt(256).duration(3215).buildAndRegister();
+
+        for (Material m : Material.MATERIAL_REGISTRY) {
+            if (m.element != null) {
+                if (m instanceof DustMaterial) {
+                    for (String s : OreDictUnifier.getOreDictionaryNames(OreDictUnifier.get(OrePrefix.dust, m))) {
+                        if (!s.toLowerCase().contains("regular")) {
+                            ItemStack output3 = MetaItems.DATA_STICK.getStackForm();
+                            output3.setTagCompound(new NBTTagCompound());
+                            output3.getTagCompound().setShort("data", DataBehavior.combine((short) m.element.ordinal(), DataBehavior.DataType.ELEMENT));
+                            RecipeMapScanner.JEI_MAP.recipeBuilder().EUt(32).duration(2400).input(s, 1).inputs(MetaItems.DATA_STICK.getStackForm())
+                                .outputs(output3).buildAndRegister();
+                            RecipeMapScanner.RECIPE_MAP.recipeBuilder().EUt(32).duration(2400).input(s, 1).inputs(MetaItems.DATA_STICK.getStackForm())
+                                .outputs(output3).buildAndRegister();
+                        }
+                    }
+
+                    ItemStack stick = DATA_STICK.getStackForm();
+                    NBTTagCompound compound = new NBTTagCompound();
+                    compound.setShort("data", DataBehavior.combine((short) m.element.ordinal(), DataBehavior.DataType.ELEMENT));
+                    stick.setTagCompound(compound);
+                    long time = getTime(m.element);
+                    long uu = getUU(m.element);
+                    if (time > 0 && uu > 0 && time < Integer.MAX_VALUE && uu < Integer.MAX_VALUE) {
+                        RecipeMaps.REPLICATOR_RECIPES.recipeBuilder().notConsumable(stick).fluidInputs(Materials.UUM.getFluid((int) uu)).outputs(OreDictUnifier.get(OrePrefix.dust, m)).duration((int) time).EUt(30).buildAndRegister();
+                    }
+                } else if (m instanceof FluidMaterial && ((FluidMaterial) m).getMaterialFluid() != null) {
+                    for (String s : OreDictUnifier.getOreDictionaryNames(OreDictUnifier.get(OrePrefix.dust, m))) {
+                        if (!s.toLowerCase().contains("regular")) {
+                            ItemStack output3 = MetaItems.DATA_STICK.getStackForm();
+                            output3.setTagCompound(new NBTTagCompound());
+                            output3.getTagCompound().setShort("data", DataBehavior.combine((short) m.element.ordinal(), DataBehavior.DataType.ELEMENT));
+                            RecipeMapScanner.JEI_MAP.recipeBuilder().EUt(32).duration(2400).fluidInputs(((FluidMaterial) m).getFluid(144)).inputs(MetaItems.DATA_STICK.getStackForm())
+                                .outputs(output3).buildAndRegister();
+                            RecipeMapScanner.RECIPE_MAP.recipeBuilder().EUt(32).duration(2400).fluidInputs(((FluidMaterial) m).getFluid(144)).inputs(MetaItems.DATA_STICK.getStackForm())
+                                .outputs(output3).buildAndRegister();
+                        }
+                    }
+
+                    ItemStack stick = DATA_STICK.getStackForm();
+                    NBTTagCompound compound = new NBTTagCompound();
+                    compound.setShort("data", DataBehavior.combine((short) m.element.ordinal(), DataBehavior.DataType.ELEMENT));
+                    stick.setTagCompound(compound);
+                    long time = getTime(m.element);
+                    long uu = getUU(m.element);
+                    if (time > 0 && uu > 0 && time < Integer.MAX_VALUE && uu < Integer.MAX_VALUE) {
+                        RecipeMaps.REPLICATOR_RECIPES.recipeBuilder().notConsumable(stick).fluidInputs(Materials.UUM.getFluid((int) uu)).fluidOutputs(((FluidMaterial) m).getFluid(144)).duration((int) time).EUt(30).buildAndRegister();
+                    }
+
+
+                }
+            }
+        }
+
+        ItemStack i = DATA_STICK.getStackForm();
+        ItemStack i2 = DATA_STICK.getStackForm();
+        ItemStack i3 = DATA_STICK.getStackForm();
+        i.setStackDisplayName("Data Stick To Copy");
+        i2.setStackDisplayName("Any Data Stick (Will Be Erased)");
+        i3.setStackDisplayName("Copy of Input Stick");
+
+        RecipeMapScanner.JEI_MAP.recipeBuilder().duration(80).EUt(24).notConsumable(i).inputs(i2).outputs(i3).buildAndRegister();
+
+
+        ItemStack s3 = new ItemStack(Blocks.COBBLESTONE, 1);
+        s3.setStackDisplayName("This can be any item");
+        RecipeMapRecycler.JEI_MAP.recipeBuilder().duration(40).EUt(1).inputs(s3).chancedOutput(RecipeMapRecycler.getScrap(), 1250, 1000).buildAndRegister();
+
+        if (!Loader.isModLoaded("ic2")) {
+            ModHandler.addShapedRecipe("scrap_box", SCRAP_BOX.getStackForm(), "III", "III", "III", 'I', SCRAP.getStackForm());
+        }
+
+        ItemStack scrap = RecipeMapRecycler.getScrap();
+        scrap.setCount(9);
+        RecipeMaps.AMPLIFABRICATOR_RECIPES.recipeBuilder().duration(180).EUt(30).inputs(scrap).fluidOutputs(Materials.UUA.getFluid(9)).buildAndRegister();
+
+        RecipeMaps.AMPLIFABRICATOR_RECIPES.recipeBuilder().duration(180).EUt(30).inputs(RecipeMapRecycler.getScrapBox()).fluidOutputs(Materials.UUA.getFluid(9)).buildAndRegister();
+
+    }
+
+    private static long getUU(Element e) {
+        double exponent = ConfigHolder.uuAmplifier;
+        return (long) Math.pow(e.getMass(), exponent);
+    }
+
+    private static long getTime(Element e) {
+        double exponent = ConfigHolder.timeAmplifier;
+        return 1024L * (long) Math.pow(e.getMass(), exponent);
+    }
 
     private static void registerNBTRemoval() {
         for (MetaTileEntityQuantumChest chest : MetaTileEntities.QUANTUM_CHEST)
@@ -1085,6 +1187,12 @@ public class MachineRecipeLoader {
         RecipeMaps.FLUID_EXTRACTION_RECIPES.recipeBuilder().duration(32).EUt(2)
             .inputs(new ItemStack(Items.PUMPKIN_SEEDS, 1, OreDictionary.WILDCARD_VALUE))
             .fluidOutputs(Materials.SeedOil.getFluid(6)).buildAndRegister();
+
+        for (ItemStack stack : OreDictUnifier.getAllWithOreDictionaryName("seedCanola")) {
+            RecipeMaps.FLUID_EXTRACTION_RECIPES.recipeBuilder().duration(32).EUt(2)
+                .inputs(stack)
+                .fluidOutputs(Materials.SeedOil.getFluid(50)).buildAndRegister();
+        }
 
         RecipeMaps.FLUID_CANNER_RECIPES.recipeBuilder().duration(100).EUt(30).inputs(BATTERY_HULL_LV.getStackForm()).fluidInputs(Materials.Mercury.getFluid(1000)).outputs(BATTERY_SU_LV_MERCURY.getChargedStack(Long.MAX_VALUE)).buildAndRegister();
         RecipeMaps.FLUID_CANNER_RECIPES.recipeBuilder().duration(200).EUt(30).inputs(BATTERY_HULL_MV.getStackForm()).fluidInputs(Materials.Mercury.getFluid(4000)).outputs(BATTERY_SU_MV_MERCURY.getChargedStack(Long.MAX_VALUE)).buildAndRegister();

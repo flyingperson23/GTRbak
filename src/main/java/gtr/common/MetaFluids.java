@@ -8,14 +8,19 @@ import gtr.api.unification.material.type.Material;
 import gtr.api.util.FluidTooltipUtil;
 import gtr.api.util.GTUtility;
 import gtr.common.blocks.MetaBlocks;
+import gtr.integration.ic2.IC2Handler;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.*;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.tuple.Pair;
 
+import java.awt.*;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -39,6 +44,18 @@ public class MetaFluids {
     public static final Fluid PAHOEHOE = new Fluid("pahoehoe",
         new ResourceLocation(GTValues.MODID, "blocks/fluids/fluid.pahoehoe"),
         new ResourceLocation(GTValues.MODID, "blocks/fluids/fluid.pahoehoe"));
+
+    public static final Fluid UUM_FLUID = new Fluid("uum",
+        new ResourceLocation(GTValues.MODID, "blocks/fluids/fluid.uum"),
+        new ResourceLocation(GTValues.MODID, "blocks/fluids/fluid.uum.flow"));
+
+    public static final Fluid UUA_FLUID = new Fluid("uua",
+        new ResourceLocation(GTValues.MODID, "blocks/fluids/fluid.uua"),
+        new ResourceLocation(GTValues.MODID, "blocks/fluids/fluid.uua"));
+
+    public static final Fluid CONSTRUCTION_FOAM = new Fluid("construction_foam",
+        new ResourceLocation(GTValues.MODID, "blocks/fluids/construction_foam"),
+        new ResourceLocation(GTValues.MODID, "blocks/fluids/construction_foam_flow"));
 
     public enum FluidType {
         NORMAL("", material -> material.hasFlag(MatFlags.STATE_GAS) ? FluidState.GAS : FluidState.LIQUID),
@@ -82,14 +99,33 @@ public class MetaFluids {
         Materials.Water.setMaterialFluid(FluidRegistry.WATER);
         Materials.Lava.setMaterialFluid(FluidRegistry.LAVA);
 
+        if (!Loader.isModLoaded("ic2")) {
+            FluidRegistry.registerFluid(UUM_FLUID);
+            Materials.UUM.setMaterialFluid(UUM_FLUID);
+
+            FluidRegistry.registerFluid(PAHOEHOE);
+            Materials.Pahoehoe.setMaterialFluid(PAHOEHOE);
+
+            FluidRegistry.registerFluid(CONSTRUCTION_FOAM);
+            Materials.ConstructionFoam.setMaterialFluid(CONSTRUCTION_FOAM);
+        } else {
+            Materials.UUM.setMaterialFluid(IC2Handler.getUU());
+
+            Materials.Pahoehoe.setMaterialFluid(IC2Handler.getPahoehoe());
+
+            Materials.ConstructionFoam.setMaterialFluid(IC2Handler.getFoam());
+        }
+
+        FluidRegistry.registerFluid(UUA_FLUID);
+        Materials.UUA.setMaterialFluid(UUA_FLUID);
+
         FluidRegistry.registerFluid(DISTILLED_WATER);
         Materials.DistilledWater.setMaterialFluid(DISTILLED_WATER);
 
         FluidTooltipUtil.registerTooltip(FluidRegistry.WATER, FluidTooltipUtil.getWaterTooltip());
         FluidTooltipUtil.registerTooltip(DISTILLED_WATER, FluidTooltipUtil.getWaterTooltip());
 
-        FluidRegistry.registerFluid(PAHOEHOE);
-        Materials.Pahoehoe.setMaterialFluid(PAHOEHOE);
+
 
         fluidSprites.add(AUTO_GENERATED_FLUID_TEXTURE);
 
@@ -98,6 +134,10 @@ public class MetaFluids {
         setAlternativeFluidName(Materials.Honey, FluidType.NORMAL, "for.honey");
         setAlternativeFluidName(Materials.SeedOil, FluidType.NORMAL, "seed.oil");
         setAlternativeFluidName(Materials.Ice, FluidType.NORMAL, "fluid.ice");
+
+        setAlternativeFluidName(Materials.Pahoehoe, FluidType.NORMAL, "ic2pahoehoe_lava");
+        setAlternativeFluidName(Materials.UUM, FluidType.NORMAL, "ic2uu_matter");
+        setAlternativeFluidName(Materials.ConstructionFoam, FluidType.NORMAL, "ic2construction_foam");
 
         setDefaultTexture(Materials.Air, FluidType.NORMAL);
         setDefaultTexture(Materials.Oxygen, FluidType.NORMAL);

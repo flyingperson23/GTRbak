@@ -155,7 +155,7 @@ public abstract class AbstractRecipeLogic extends MTETrait implements IWorkable 
         Recipe currentRecipe = null;
         IItemHandlerModifiable importInventory = getInputInventory();
         IMultipleTankHandler importFluids = getInputTank();
-        if (previousRecipe != null && previousRecipe.matches(false, importInventory, importFluids)) {
+        if (previousRecipe != null && previousRecipe.matches(false, importInventory, importFluids) && (previousRecipe.getInputs().size() > 0 || previousRecipe.getFluidInputs().size() > 0)) {
             //if previous recipe still matches inputs, try to use it
             currentRecipe = previousRecipe;
         } else {

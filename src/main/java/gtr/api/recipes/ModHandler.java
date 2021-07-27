@@ -67,7 +67,7 @@ public class ModHandler {
     }
 
     public static FluidStack getPahoehoe(int amount) {
-        return new FluidStack(MetaFluids.PAHOEHOE, amount);
+        return new FluidStack(Materials.Pahoehoe.getMaterialFluid(), amount);
     }
 
     /**

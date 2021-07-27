@@ -55,24 +55,7 @@ import static gtr.common.blocks.MetaBlocks.*;
 public class CommonProxy {
 
     public void init(FMLInitializationEvent e) {
-        /*
-        System.out.println("WHAT IN THE KENTUCKY FRIED FUCK JAVA:");
-        for (int i = 0; i < 100; i++) {
-            System.out.println("asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf");
-            GTLog.logger.log(Level.INFO, "ASDFASEDFASDFASDFFDSAADSFADFSADFS");
-        }
-        GregTechMod.DISPLAY_INFO_WRAPPER.registerMessage(MessageSetFuelDieselEngine.MessageHandler.class, MessageSetFuelDieselEngine.class, 0, Side.CLIENT);
-        GregTechMod.DISPLAY_INFO_WRAPPER.registerMessage(MessageRequestFuelDieselEngine.MessageHandler.class, MessageRequestFuelDieselEngine.class, 1, Side.SERVER);
-        GregTechMod.DISPLAY_INFO_WRAPPER.registerMessage(MessageSetFuelLargeTurbine.MessageHandler.class, MessageSetFuelLargeTurbine.class, 2, Side.CLIENT);
-        GregTechMod.DISPLAY_INFO_WRAPPER.registerMessage(MessageRequestFuelLargeTurbine.MessageHandler.class, MessageRequestFuelLargeTurbine.class, 3, Side.SERVER);
-        GregTechMod.DISPLAY_INFO_WRAPPER.registerMessage(MessageSetRecipeMultiblock.MessageHandler.class, MessageSetRecipeMultiblock.class, 4, Side.CLIENT);
-        GregTechMod.DISPLAY_INFO_WRAPPER.registerMessage(MessageRequestRecipeMultiblock.MessageHandler.class, MessageRequestRecipeMultiblock.class, 5, Side.SERVER);
-        GregTechMod.DISPLAY_INFO_WRAPPER.registerMessage(KeysUpdateHandler.class, KeysPacket.class, 6, Side.SERVER);
-        //if (Loader.isModLoaded("appliedenergistics2")) {
-        //    NetworkRegistry.INSTANCE.registerGuiHandler(GregTechMod.instance, new GuiProxy());
-        //    CoverBehaviors.init();
-        //    GregTechMod.DISPLAY_INFO_WRAPPER.registerMessage(PacketCompressedNBT.TerminalHandler.class, PacketCompressedNBT.class, 7, Side.CLIENT);
-        //}*/
+
     }
 
     @SubscribeEvent

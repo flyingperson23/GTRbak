@@ -29,6 +29,13 @@ public class RecipeMaps {
         .setSlotOverlay(false, false, GuiTextures.EXTRACTOR_OVERLAY)
         .setProgressBar(GuiTextures.PROGRESS_BAR_EXTRACT, MoveType.HORIZONTAL);
 
+    @ZenProperty
+    public static final RecipeMap<SimpleRecipeBuilder> AMPLIFABRICATOR_RECIPES = new RecipeMap<>("amplifabricator", 1, 1, 0, 0, 0, 0, 1, 1, new SimpleRecipeBuilder())
+        .setProgressBar(GuiTextures.PROGRESS_BAR_EXTRACT, MoveType.HORIZONTAL);
+
+    @ZenProperty
+    public static final RecipeMap<SimpleRecipeBuilder> REPLICATOR_RECIPES = new RecipeMap<>("replicator", 1, 1, 0, 1, 1, 1, 0, 1, new SimpleRecipeBuilder())
+        .setProgressBar(GuiTextures.PROGRESS_BAR_ARROW, MoveType.HORIZONTAL);
 
     @ZenProperty
     public static final RecipeMap<SimpleRecipeBuilder> MACERATOR_RECIPES = new RecipeMap<>("macerator", 1, 1, 1, 3, 0, 0, 0, 0, new SimpleRecipeBuilder().duration(150).EUt(8))
@@ -541,6 +548,11 @@ public class RecipeMaps {
     public static final RecipeMap<SimpleRecipeBuilder> WIREMILL_RECIPES = new RecipeMap<>("wiremill", 1, 1, 1, 1, 0, 0, 0, 0, new SimpleRecipeBuilder())
         .setSlotOverlay(false, false, GuiTextures.WIREMILL_OVERLAY)
         .setProgressBar(GuiTextures.PROGRESS_BAR_WIREMILL, MoveType.HORIZONTAL);
+
+    @ZenProperty
+    public static final RecipeMap<SimpleRecipeBuilder> MASS_FAB_RECIPES = new RecipeMap<>("mass_fab", 0, 0, 0, 0, 0, 1, 1, 1, new SimpleRecipeBuilder())
+        .setSlotOverlay(false, false, GuiTextures.CIRCUIT_OVERLAY)
+        .setProgressBar(GuiTextures.PROGRESS_BAR_ARROW, MoveType.HORIZONTAL);
 
     /**
      * Example:

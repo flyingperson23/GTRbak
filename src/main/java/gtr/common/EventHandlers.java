@@ -201,6 +201,10 @@ public class EventHandlers {
                 }
             }
         }
+
+        if (Loader.isModLoaded("ic2")) {
+            IC2Handler.onTooltip(event);
+        }
     }
 
     @SubscribeEvent

@@ -6,6 +6,7 @@ import gtr.api.metatileentity.MetaTileEntity;
 import gtr.api.metatileentity.SimpleGeneratorMetaTileEntity;
 import gtr.api.metatileentity.SimpleMachineMetaTileEntity;
 import gtr.api.recipes.RecipeMaps;
+import gtr.api.recipes.machines.*;
 import gtr.api.render.Textures;
 import gtr.api.unification.material.Materials;
 import gtr.api.util.GTLog;
@@ -26,6 +27,7 @@ import gtr.common.metatileentities.steam.boiler.SteamLavaBoiler;
 import gtr.common.metatileentities.steam.boiler.SteamSolarBoiler;
 import gtr.common.metatileentities.storage.*;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.Loader;
 
 @SuppressWarnings("WeakerAccess")
 public class MetaTileEntities {
@@ -94,6 +96,15 @@ public class MetaTileEntities {
     public static SimpleMachineMetaTileEntity[] SIFTER = new SimpleMachineMetaTileEntity[4];
     public static SimpleMachineMetaTileEntity[] THERMAL_CENTRIFUGE = new SimpleMachineMetaTileEntity[4];
     public static SimpleMachineMetaTileEntity[] WIREMILL = new SimpleMachineMetaTileEntity[4];
+    public static MetaTileEntityMassFab[] MASS_FAB = new MetaTileEntityMassFab[5];
+    public static SimpleMachineMetaTileEntity[] CROP_GENE_EXTRACTOR = new SimpleMachineMetaTileEntity[5];
+    public static MetaTileEntityCropWeedPicker[] CROP_WEED_PICKER = new MetaTileEntityCropWeedPicker[4];
+    public static MetaTileEntityCropSynthesiser[] CROP_SYNTHESISER = new MetaTileEntityCropSynthesiser[5];
+    public static MetaTileEntityCropReplicator[] CROP_REPLICATOR = new MetaTileEntityCropReplicator[5];
+    public static MetaTileEntityScanner[] SCANNER = new MetaTileEntityScanner[5];
+    public static SimpleMachineMetaTileEntity[] RECYCLER = new SimpleMachineMetaTileEntity[4];
+    public static SimpleMachineMetaTileEntity[] AMPLIFABRICATOR = new SimpleMachineMetaTileEntity[5];
+    public static SimpleMachineMetaTileEntity[] REPLICATOR = new SimpleMachineMetaTileEntity[5];
 
     //GENERATORS SECTION
     public static SimpleGeneratorMetaTileEntity[] DIESEL_GENERATOR = new SimpleGeneratorMetaTileEntity[4];
@@ -398,6 +409,61 @@ public class MetaTileEntities {
         WIREMILL[2] = GregTechAPI.registerMetaTileEntity(472, new SimpleMachineMetaTileEntity(gtrId("wiremill.hv"), RecipeMaps.WIREMILL_RECIPES, Textures.WIREMILL_OVERLAY, GTValues.HV));
         WIREMILL[3] = GregTechAPI.registerMetaTileEntity(473, new SimpleMachineMetaTileEntity(gtrId("wiremill.ev"), RecipeMaps.WIREMILL_RECIPES, Textures.WIREMILL_OVERLAY, GTValues.EV));
 
+        MASS_FAB[0] = GregTechAPI.registerMetaTileEntity(1214, new MetaTileEntityMassFab(gtrId("mass_fab.lv"), RecipeMaps.MASS_FAB_RECIPES, Textures.MASS_FAB_OVERLAY, GTValues.LV));
+        MASS_FAB[1] = GregTechAPI.registerMetaTileEntity(1215, new MetaTileEntityMassFab(gtrId("mass_fab.mv"), RecipeMaps.MASS_FAB_RECIPES, Textures.MASS_FAB_OVERLAY, GTValues.MV));
+        MASS_FAB[2] = GregTechAPI.registerMetaTileEntity(1216, new MetaTileEntityMassFab(gtrId("mass_fab.hv"), RecipeMaps.MASS_FAB_RECIPES, Textures.MASS_FAB_OVERLAY, GTValues.HV));
+        MASS_FAB[3] = GregTechAPI.registerMetaTileEntity(1217, new MetaTileEntityMassFab(gtrId("mass_fab.ev"), RecipeMaps.MASS_FAB_RECIPES, Textures.MASS_FAB_OVERLAY, GTValues.EV));
+        MASS_FAB[4] = GregTechAPI.registerMetaTileEntity(1218, new MetaTileEntityMassFab(gtrId("mass_fab.iv"), RecipeMaps.MASS_FAB_RECIPES, Textures.MASS_FAB_OVERLAY, GTValues.IV));
+
+        if (Loader.isModLoaded("ic2")) {
+            CROP_GENE_EXTRACTOR[0] = GregTechAPI.registerMetaTileEntity(1219, new MetaTileEntityCropGeneExtractor(gtrId("gene_extractor.lv"), RecipeMapCropGeneExtractor.RECIPE_MAP, Textures.SCANNER, GTValues.LV));
+            CROP_GENE_EXTRACTOR[1] = GregTechAPI.registerMetaTileEntity(1220, new MetaTileEntityCropGeneExtractor(gtrId("gene_extractor.mv"), RecipeMapCropGeneExtractor.RECIPE_MAP, Textures.SCANNER, GTValues.MV));
+            CROP_GENE_EXTRACTOR[2] = GregTechAPI.registerMetaTileEntity(1221, new MetaTileEntityCropGeneExtractor(gtrId("gene_extractor.hv"), RecipeMapCropGeneExtractor.RECIPE_MAP, Textures.SCANNER, GTValues.HV));
+            CROP_GENE_EXTRACTOR[3] = GregTechAPI.registerMetaTileEntity(1222, new MetaTileEntityCropGeneExtractor(gtrId("gene_extractor.ev"), RecipeMapCropGeneExtractor.RECIPE_MAP, Textures.SCANNER, GTValues.EV));
+            CROP_GENE_EXTRACTOR[4] = GregTechAPI.registerMetaTileEntity(1223, new MetaTileEntityCropGeneExtractor(gtrId("gene_extractor.iv"), RecipeMapCropGeneExtractor.RECIPE_MAP, Textures.SCANNER, GTValues.IV));
+
+            CROP_WEED_PICKER[0] = GregTechAPI.registerMetaTileEntity(1224, new MetaTileEntityCropWeedPicker(gtrId("weed_picker.lv"), GTValues.LV));
+            CROP_WEED_PICKER[1] = GregTechAPI.registerMetaTileEntity(1225, new MetaTileEntityCropWeedPicker(gtrId("weed_picker.mv"), GTValues.MV));
+            CROP_WEED_PICKER[2] = GregTechAPI.registerMetaTileEntity(1226, new MetaTileEntityCropWeedPicker(gtrId("weed_picker.hv"), GTValues.HV));
+            CROP_WEED_PICKER[3] = GregTechAPI.registerMetaTileEntity(1227, new MetaTileEntityCropWeedPicker(gtrId("weed_picker.ev"), GTValues.EV));
+
+            CROP_SYNTHESISER[0] = GregTechAPI.registerMetaTileEntity(1228, new MetaTileEntityCropSynthesiser(gtrId("crop_synthesiser.lv"), RecipeMapCropSynthesizer.RECIPE_MAP, Textures.SCANNER, GTValues.LV));
+            CROP_SYNTHESISER[1] = GregTechAPI.registerMetaTileEntity(1229, new MetaTileEntityCropSynthesiser(gtrId("crop_synthesiser.mv"), RecipeMapCropSynthesizer.RECIPE_MAP, Textures.SCANNER, GTValues.MV));
+            CROP_SYNTHESISER[2] = GregTechAPI.registerMetaTileEntity(1230, new MetaTileEntityCropSynthesiser(gtrId("crop_synthesiser.hv"), RecipeMapCropSynthesizer.RECIPE_MAP, Textures.SCANNER, GTValues.HV));
+            CROP_SYNTHESISER[3] = GregTechAPI.registerMetaTileEntity(1231, new MetaTileEntityCropSynthesiser(gtrId("crop_synthesiser.ev"), RecipeMapCropSynthesizer.RECIPE_MAP, Textures.SCANNER, GTValues.EV));
+            CROP_SYNTHESISER[4] = GregTechAPI.registerMetaTileEntity(1232, new MetaTileEntityCropSynthesiser(gtrId("crop_synthesiser.iv"), RecipeMapCropSynthesizer.RECIPE_MAP, Textures.SCANNER, GTValues.IV));
+
+            CROP_REPLICATOR[0] = GregTechAPI.registerMetaTileEntity(1233, new MetaTileEntityCropReplicator(gtrId("crop_replicator.lv"), RecipeMapCropReplicator.RECIPE_MAP, Textures.SCANNER, GTValues.LV));
+            CROP_REPLICATOR[1] = GregTechAPI.registerMetaTileEntity(1234, new MetaTileEntityCropReplicator(gtrId("crop_replicator.mv"), RecipeMapCropReplicator.RECIPE_MAP, Textures.SCANNER, GTValues.MV));
+            CROP_REPLICATOR[2] = GregTechAPI.registerMetaTileEntity(1235, new MetaTileEntityCropReplicator(gtrId("crop_replicator.hv"), RecipeMapCropReplicator.RECIPE_MAP, Textures.SCANNER, GTValues.HV));
+            CROP_REPLICATOR[3] = GregTechAPI.registerMetaTileEntity(1236, new MetaTileEntityCropReplicator(gtrId("crop_replicator.ev"), RecipeMapCropReplicator.RECIPE_MAP, Textures.SCANNER, GTValues.EV));
+            CROP_REPLICATOR[4] = GregTechAPI.registerMetaTileEntity(1237, new MetaTileEntityCropReplicator(gtrId("crop_replicator.iv"), RecipeMapCropReplicator.RECIPE_MAP, Textures.SCANNER, GTValues.IV));
+
+        }
+
+        SCANNER[0] = GregTechAPI.registerMetaTileEntity(1238, new MetaTileEntityScanner(gtrId("scanner.lv"), RecipeMapScanner.RECIPE_MAP, Textures.SCANNER, GTValues.LV));
+        SCANNER[1] = GregTechAPI.registerMetaTileEntity(1239, new MetaTileEntityScanner(gtrId("scanner.mv"), RecipeMapScanner.RECIPE_MAP, Textures.SCANNER, GTValues.MV));
+        SCANNER[2] = GregTechAPI.registerMetaTileEntity(1240, new MetaTileEntityScanner(gtrId("scanner.hv"), RecipeMapScanner.RECIPE_MAP, Textures.SCANNER, GTValues.HV));
+        SCANNER[3] = GregTechAPI.registerMetaTileEntity(1241, new MetaTileEntityScanner(gtrId("scanner.ev"), RecipeMapScanner.RECIPE_MAP, Textures.SCANNER, GTValues.EV));
+        SCANNER[4] = GregTechAPI.registerMetaTileEntity(1242, new MetaTileEntityScanner(gtrId("scanner.iv"), RecipeMapScanner.RECIPE_MAP, Textures.SCANNER, GTValues.IV));
+
+        RECYCLER[0] = GregTechAPI.registerMetaTileEntity(1243, new SimpleMachineMetaTileEntity(gtrId("recycler.lv"), RecipeMapRecycler.RECIPE_MAP, Textures.RECYCLER, GTValues.LV));
+        RECYCLER[1] = GregTechAPI.registerMetaTileEntity(1244, new SimpleMachineMetaTileEntity(gtrId("recycler.mv"), RecipeMapRecycler.RECIPE_MAP, Textures.RECYCLER, GTValues.MV));
+        RECYCLER[2] = GregTechAPI.registerMetaTileEntity(1245, new SimpleMachineMetaTileEntity(gtrId("recycler.hv"), RecipeMapRecycler.RECIPE_MAP, Textures.RECYCLER, GTValues.HV));
+        RECYCLER[3] = GregTechAPI.registerMetaTileEntity(1246, new SimpleMachineMetaTileEntity(gtrId("recycler.ev"), RecipeMapRecycler.RECIPE_MAP, Textures.RECYCLER, GTValues.EV));
+
+        AMPLIFABRICATOR[0] = GregTechAPI.registerMetaTileEntity(1247, new SimpleMachineMetaTileEntity(gtrId("amplifabricator.lv"), RecipeMaps.AMPLIFABRICATOR_RECIPES, Textures.AMPLIFABRICATOR, GTValues.LV));
+        AMPLIFABRICATOR[1] = GregTechAPI.registerMetaTileEntity(1248, new SimpleMachineMetaTileEntity(gtrId("amplifabricator.mv"), RecipeMaps.AMPLIFABRICATOR_RECIPES, Textures.AMPLIFABRICATOR, GTValues.MV));
+        AMPLIFABRICATOR[2] = GregTechAPI.registerMetaTileEntity(1249, new SimpleMachineMetaTileEntity(gtrId("amplifabricator.hv"), RecipeMaps.AMPLIFABRICATOR_RECIPES, Textures.AMPLIFABRICATOR, GTValues.HV));
+        AMPLIFABRICATOR[3] = GregTechAPI.registerMetaTileEntity(1250, new SimpleMachineMetaTileEntity(gtrId("amplifabricator.ev"), RecipeMaps.AMPLIFABRICATOR_RECIPES, Textures.AMPLIFABRICATOR, GTValues.EV));
+        AMPLIFABRICATOR[4] = GregTechAPI.registerMetaTileEntity(1270, new SimpleMachineMetaTileEntity(gtrId("amplifabricator.iv"), RecipeMaps.AMPLIFABRICATOR_RECIPES, Textures.AMPLIFABRICATOR, GTValues.IV));
+
+        REPLICATOR[0] = GregTechAPI.registerMetaTileEntity(1271, new SimpleMachineMetaTileEntity(gtrId("replicator.lv"), RecipeMaps.REPLICATOR_RECIPES, Textures.REPLICATOR, GTValues.LV));
+        REPLICATOR[1] = GregTechAPI.registerMetaTileEntity(1272, new SimpleMachineMetaTileEntity(gtrId("replicator.mv"), RecipeMaps.REPLICATOR_RECIPES, Textures.REPLICATOR, GTValues.MV));
+        REPLICATOR[2] = GregTechAPI.registerMetaTileEntity(1273, new SimpleMachineMetaTileEntity(gtrId("replicator.hv"), RecipeMaps.REPLICATOR_RECIPES, Textures.REPLICATOR, GTValues.HV));
+        REPLICATOR[3] = GregTechAPI.registerMetaTileEntity(1274, new SimpleMachineMetaTileEntity(gtrId("replicator.ev"), RecipeMaps.REPLICATOR_RECIPES, Textures.REPLICATOR, GTValues.EV));
+        REPLICATOR[4] = GregTechAPI.registerMetaTileEntity(1275, new SimpleMachineMetaTileEntity(gtrId("replicator.iv"), RecipeMaps.REPLICATOR_RECIPES, Textures.REPLICATOR, GTValues.IV));
+
         DIESEL_GENERATOR[0] = GregTechAPI.registerMetaTileEntity(480, new SimpleGeneratorMetaTileEntity(gtrId("diesel_generator.lv"), RecipeMaps.DIESEL_GENERATOR_FUELS, Textures.DIESEL_GENERATOR_OVERLAY, GTValues.LV));
         DIESEL_GENERATOR[1] = GregTechAPI.registerMetaTileEntity(481, new SimpleGeneratorMetaTileEntity(gtrId("diesel_generator.mv"), RecipeMaps.DIESEL_GENERATOR_FUELS, Textures.DIESEL_GENERATOR_OVERLAY, GTValues.MV));
         DIESEL_GENERATOR[2] = GregTechAPI.registerMetaTileEntity(482, new SimpleGeneratorMetaTileEntity(gtrId("diesel_generator.hv"), RecipeMaps.DIESEL_GENERATOR_FUELS, Textures.DIESEL_GENERATOR_OVERLAY, GTValues.HV));
@@ -512,8 +578,8 @@ public class MetaTileEntities {
             GregTechAPI.registerMetaTileEntity(1250 + 11 * i + 10, ENERGY_OUTPUT_HATCH[i][4]);*/
 
 
-            GregTechAPI.registerMetaTileEntity(1250 + 11 * i + 1, ENERGY_INPUT_HATCH[i]);
-            GregTechAPI.registerMetaTileEntity(1250 + 11 * i + 2, ENERGY_OUTPUT_HATCH[i]);
+            GregTechAPI.registerMetaTileEntity(1250 + 2*i + 1, ENERGY_INPUT_HATCH[i]);
+            GregTechAPI.registerMetaTileEntity(1250 + 2*i + 2, ENERGY_OUTPUT_HATCH[i]);
 
         }
 
@@ -597,7 +663,7 @@ public class MetaTileEntities {
 
     }
 
-    private static ResourceLocation gtrId(String name) {
+     public static ResourceLocation gtrId(String name) {
         return new ResourceLocation(GTValues.MODID, name);
     }
 

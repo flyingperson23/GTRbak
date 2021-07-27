@@ -208,6 +208,16 @@ public final class MetaItems {
     public static MetaItem<?>.MetaValueItem ETCHING_KIT_HV;
     public static MetaItem<?>.MetaValueItem ETCHING_KIT_EV;
 
+    public static MetaItem<?>.MetaValueItem UUM_BERRY;
+    public static MetaItem<?>.MetaValueItem UUA_BERRY;
+
+    public static MetaItem<?>.MetaValueItem CANOLA_SEED;
+
+    public static MetaItem<?>.MetaValueItem DATA_STICK;
+
+    public static MetaItem<?>.MetaValueItem SCRAP;
+    public static MetaItem<?>.MetaValueItem SCRAP_BOX;
+
     public static MetaItem<?>.MetaValueItem CIRCUIT_ULTIMATE;
 
     public static MetaItem<?>.MetaValueItem COMPONENT_GRINDER_DIAMOND;
@@ -260,6 +270,29 @@ public final class MetaItems {
     public static MetaItem<?>.MetaValueItem NANO_BOW;
     public static MetaItem<?>.MetaValueItem ENERGY_FIELD_PROJECTOR;
     public static MetaItem<?>.MetaValueItem SCANNER;
+
+    public static MetaItem<?>.MetaValueItem PLUMBILIA_LEAF;
+    public static MetaItem<?>.MetaValueItem ARGENTIA_LEAF;
+    public static MetaItem<?>.MetaValueItem FERRU_LEAF;
+    public static MetaItem<?>.MetaValueItem AURELIA_LEAF;
+    public static MetaItem<?>.MetaValueItem BAUXIA_LEAF;
+    public static MetaItem<?>.MetaValueItem TITANIA_LEAF;
+    public static MetaItem<?>.MetaValueItem REACTORIA_LEAF;
+    public static MetaItem<?>.MetaValueItem URANIUM_LEAF;
+    public static MetaItem<?>.MetaValueItem THUNDER_LEAF;
+    public static MetaItem<?>.MetaValueItem NICKELBACK_LEAF;
+    public static MetaItem<?>.MetaValueItem GALVANIA_LEAF;
+    public static MetaItem<?>.MetaValueItem PYROLUSIUM_LEAF;
+    public static MetaItem<?>.MetaValueItem COPPON_FIBER;
+    public static MetaItem<?>.MetaValueItem SCHEELINIUM_LEAF;
+    public static MetaItem<?>.MetaValueItem PLATINA_LEAF;
+    public static MetaItem<?>.MetaValueItem QUANTARIA_LEAF_1;
+    public static MetaItem<?>.MetaValueItem QUANTARIA_LEAF_2;
+    public static MetaItem<?>.MetaValueItem STARGATIUM_LEAF;
+    public static MetaItem<?>.MetaValueItem TINE_TWIG;
+
+
+
 
     public static MetaItem<?>.MetaValueItem ELECTROMAGNET;
 

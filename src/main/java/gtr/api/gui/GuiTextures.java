@@ -5,6 +5,7 @@ import gtr.api.gui.resources.AdoptableTextureArea;
 import gtr.api.gui.resources.SizedTextureArea;
 import gtr.api.gui.resources.TextureArea;
 import gtr.api.metatileentity.MetaTileEntity;
+import gtr.api.render.Textures;
 import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
@@ -89,6 +90,10 @@ public class GuiTextures {
     public static final TextureArea ARROW_OUTPUT_OVERLAY = TextureArea.fullImage("textures/gui/overlay/arrow_output_overlay.png");
     public static final TextureArea CHARGER_OVERLAY = TextureArea.fullImage("textures/gui/overlay/charger_slot_overlay.png");
     public static final TextureArea INT_CIRCUIT_OVERLAY = TextureArea.fullImage("textures/gui/overlay/int_circuit_overlay.png");
+    public static final TextureArea CROP_OVERLAY = TextureArea.fullImage("textures/gui/overlay/crop.png");
+    public static final TextureArea SCANNER_OVERLAY = TextureArea.fullImage("textures/gui/overlay/scanner.png");
+    public static final TextureArea DATA_OVERLAY = TextureArea.fullImage("textures/gui/overlay/data.png");
+    public static final TextureArea RECYCLER_OVERLAY = TextureArea.fullImage("textures/gui/overlay/recycler_overlay.png");
     public static final TextureArea TURBINE_OVERLAY = TextureArea.fullImage("textures/gui/overlay/turbine_overlay.png");
     public static final TextureArea FURNACE_OVERLAY = TextureArea.fullImage("textures/gui/overlay/furnace_overlay.png");
     public static final TextureArea COMPRESSOR_OVERLAY = TextureArea.fullImage("textures/gui/overlay/compressor_overlay.png");

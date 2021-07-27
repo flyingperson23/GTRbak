@@ -1,6 +1,5 @@
 package gtr.integration.jei.recipe;
 
-import codechicken.lib.util.ItemNBTUtils;
 import gtr.api.recipes.CountableIngredient;
 import gtr.api.recipes.Recipe;
 import gtr.api.recipes.Recipe.ChanceEntry;

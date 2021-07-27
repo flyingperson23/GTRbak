@@ -21,6 +21,7 @@ import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.Loader;
 
 import static gtr.common.items.MetaItems.*;
 
@@ -115,8 +116,38 @@ public class MetaItem2 extends MaterialMetaItem {
         ETCHING_KIT_HV = addItem(564, "etchingkit.advanced").addOreDict("etchingKitAdvanced");
         ETCHING_KIT_EV = addItem(565, "etchingkit.elite").addOreDict("etchingKitElite");
 
+        CANOLA_SEED = addItem(540, "canola").addOreDict("seedCanola");
+        UUM_BERRY = addItem(541, "berry.uum").addOreDict("berryUUM");
+        UUA_BERRY = addItem(546, "berry.uua").addOreDict("berryUUA");
+        DATA_STICK = addItem(547, "datastick").addComponents(new DataBehavior()).setMaxStackSize(1);
+
+        if (!Loader.isModLoaded("ic2")) {
+            SCRAP = addItem(548, "scrap");
+            SCRAP_BOX = addItem(549, "scrap_box");
+        }
+
         GLASS_TUBE = addItem(538, "glass_tube");
         CIRCUIT_VACUUM_TUBE_LV = addItem(539, "vacuum_tube").setUnificationData(OrePrefix.circuit, MarkerMaterials.Tier.Basic);
+
+        PLUMBILIA_LEAF = addItem(600, "plumbilia_leaf").addOreDict("leafPlumbilia");
+        ARGENTIA_LEAF = addItem(601, "argentia_leaf").addOreDict("leafArgentia");
+        FERRU_LEAF = addItem(603, "ferru_leaf").addOreDict("leafFerru");
+        AURELIA_LEAF = addItem(604, "aurelia_leaf").addOreDict("leafAurelia");
+        BAUXIA_LEAF = addItem(605, "bauxia_leaf").addOreDict("leafBauxia");
+        TITANIA_LEAF = addItem(606, "titania_leaf").addOreDict("leafTitania");
+        REACTORIA_LEAF = addItem(607, "reactoria_leaf").addOreDict("leafReactoria");
+        URANIUM_LEAF = addItem(608, "uranium_leaf").addOreDict("leafUranium");
+        THUNDER_LEAF = addItem(609, "thunder_leaf").addOreDict("leafThunder");
+        NICKELBACK_LEAF = addItem(610, "nickelback_leaf").addOreDict("leafNickelback");
+        GALVANIA_LEAF = addItem(611, "galvania_leaf").addOreDict("leafGalvania");
+        PYROLUSIUM_LEAF = addItem(612, "pyrolusium_leaf").addOreDict("leafPyrolusium");
+        COPPON_FIBER = addItem(613, "coppon_fiber").addOreDict("fiberCoppon").addOreDict("leafCoppon");
+        SCHEELINIUM_LEAF = addItem(614, "scheelinium_leaf").addOreDict("leafScheelinium");
+        PLATINA_LEAF = addItem(615, "platina_leaf").addOreDict("leafPlatina");
+        QUANTARIA_LEAF_1 = addItem(616, "quantaria_leaf_1").addOreDict("leafQuantaria1");
+        QUANTARIA_LEAF_2 = addItem(617, "quantaria_leaf_2").addOreDict("leafQuantaria2");
+        STARGATIUM_LEAF = addItem(618, "stargatium_leaf").addOreDict("leafStargatium");
+        TINE_TWIG = addItem(619, "tine_twig").addOreDict("twigTine").addOreDict("leafTine");
     }
 
     public void registerRecipes() {
@@ -195,6 +226,16 @@ public class MetaItem2 extends MaterialMetaItem {
             .inputs(new ItemStack(Items.BEETROOT, 1))
             .outputs(new ItemStack(Items.DYE, 2, 1))
             .buildAndRegister();
+
+        RecipeMaps.FLUID_EXTRACTION_RECIPES.recipeBuilder()
+            .input("berryUUM", 1)
+            .fluidOutputs(Materials.UUM.getFluid(4))
+            .EUt(4).duration(128).buildAndRegister();
+
+        RecipeMaps.FLUID_EXTRACTION_RECIPES.recipeBuilder()
+            .input("berryUUA", 1)
+            .fluidOutputs(Materials.UUA.getFluid(4))
+            .EUt(4).duration(128).buildAndRegister();
 
         // Misc
         RecipeMaps.MACERATOR_RECIPES.recipeBuilder()

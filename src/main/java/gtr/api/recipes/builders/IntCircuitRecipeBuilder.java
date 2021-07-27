@@ -1,6 +1,5 @@
 package gtr.api.recipes.builders;
 
-import com.google.common.collect.ImmutableMap;
 import gtr.api.recipes.CountableIngredient;
 import gtr.api.recipes.Recipe;
 import gtr.api.recipes.RecipeBuilder;

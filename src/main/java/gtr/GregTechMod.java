@@ -13,9 +13,12 @@ import gtr.api.net.KeysUpdateHandler;
 import gtr.api.net.NetworkHandler;
 import gtr.api.net.displayrecipes.*;
 import gtr.api.recipes.RecipeMap;
+import gtr.api.recipes.machines.RecipeMapScanner;
+import gtr.api.unification.Element;
 import gtr.api.unification.OreDictUnifier;
 import gtr.api.unification.material.Materials;
 import gtr.api.unification.material.type.Material;
+import gtr.api.unification.ore.OrePrefix;
 import gtr.api.util.AnnotatedMaterialHandlerLoader;
 import gtr.api.util.GTLog;
 import gtr.api.util.NBTUtil;
@@ -48,15 +51,15 @@ import gtr.integration.energistics.covers.AECoverBehaviors;
 import gtr.integration.energistics.gui.GuiProxy;
 import gtr.integration.energistics.items.AEItems;
 import gtr.integration.energistics.jei.JEIPacket;
-import gtr.integration.energistics.networking.PacketCompressedNBT;
 import gtr.integration.energistics.networking.PacketTerminal;
-import gtr.integration.ic2.IC2CropLoader;
+import gtr.integration.ic2.IC2Handler;
 import gtr.integration.multi.client.PreviewHandler;
 import gtr.integration.theoneprobe.TheOneProbeCompatibility;
 import gtr.integration.tinkers.TinkersMaterials;
 import gtr.loaders.dungeon.DungeonLootLoader;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.classloading.FMLForgePlugin;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.common.Optional.Method;
@@ -69,6 +72,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.logging.log4j.Level;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 @Mod(modid = GTValues.MODID,
     name = "GT: Remastered",
@@ -154,6 +158,10 @@ public class GregTechMod {
 
         if (ConfigHolder.GregsConstruct.EnableGregsConstruct && Loader.isModLoaded("tconstruct"))
             TinkersMaterials.preInit();
+
+        if (Loader.isModLoaded("ic2")) {
+            MinecraftForge.EVENT_BUS.register(new IC2Handler());
+        }
     }
 
     @Mod.EventHandler
@@ -215,12 +223,6 @@ public class GregTechMod {
         WRENCH_NET_WRAPPER.registerMessage(MessageSwingArm.MessageHandler.class, MessageSwingArm.class, 3, Side.CLIENT);
         WRENCH_NET_WRAPPER.registerMessage(MessageBlockUpdate.MessageHandler.class, MessageBlockUpdate.class, 4, Side.SERVER);
 
-        try {
-            IC2CropLoader.run();
-        } catch(Exception e) {
-
-        }
-
     }
 
     @Method(modid = GTValues.MODID_CT)
@@ -243,6 +245,11 @@ public class GregTechMod {
         COMPAT_LIST.add(new CompatGTCEFluid());
         COMPAT_LIST.add(new CompatGTCEEnergy());
         WRENCH_PROVIDERS.add(new GTCEWrenchProvider());
+
+        if (Loader.isModLoaded("ic2")) {
+            IC2Handler.mapCrops();
+        }
+
     }
 
     @Mod.EventHandler

@@ -44,6 +44,9 @@ public class GTRTransformer implements IClassTransformer, Opcodes {
         if (transformedName.equals("ic2.core.item.ItemBatteryChargeHotbar")) {
             return IC2BatteryVisitor.patchTileEntityBaseGenerator(basicClass);
         }
+        if (transformedName.equals("ic2.core.crop.IC2Crops")) {
+            return IC2CropsVisitor.patchTileEntityBaseGenerator(basicClass);
+        }
         if (internalName.equals(JEIVisitor.TARGET_CLASS_NAME)) {
             ClassReader classReader = new ClassReader(basicClass);
             ClassWriter classWriter = new ClassWriter(0);

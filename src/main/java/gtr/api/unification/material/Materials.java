@@ -90,11 +90,11 @@ public class Materials {
     public static IngotMaterial Tantalum = new IngotMaterial(66, "tantalum", 0xFFFFFF, MaterialIconSet.METALLIC, 2, of(), 0, Element.Ta);
     public static IngotMaterial Thorium = new IngotMaterial(69, "thorium", 0x001E00, MaterialIconSet.SHINY, 2, of(), STD_METAL | GENERATE_ORE, Element.Th, 6.0F, 4.0F, 788);
     public static IngotMaterial Tin = new IngotMaterial(71, "tin", 0xDCDCDC, MaterialIconSet.METALLIC, 1, of(), EXT2_METAL | MORTAR_GRINDABLE | GENERATE_RING | GENERATE_ROTOR | GENERATE_ORE, Element.Sn);
-    public static IngotMaterial Titanium = new IngotMaterial(72, "titanium", 0xDCA0F0, MaterialIconSet.METALLIC, 3, of(), EXT2_METAL | GENERATE_RING | GENERATE_ROTOR | GENERATE_SMALL_GEAR | GENERATE_FRAME, Element.Ti, 10.0F, 4.0F, 1600, 1941);
+    public static IngotMaterial Titanium = new IngotMaterial(72, "titanium", 0xDCA0F0, MaterialIconSet.METALLIC, 3, of(), EXT2_METAL | GENERATE_RING | GENERATE_ROTOR | GENERATE_SMALL_GEAR | GENERATE_FRAME | GENERATE_ORE, Element.Ti, 10.0F, 4.0F, 1600, 1941);
     public static FluidMaterial Tritium = new FluidMaterial(73, "tritium", 0xFF0000, MaterialIconSet.METALLIC, of(), STATE_GAS, Element.T);
     public static IngotMaterial Tungsten = new IngotMaterial(74, "tungsten", 0x323232, MaterialIconSet.METALLIC, 3, of(), EXT2_METAL | GENERATE_ORE, Element.W, 7.0F, 4.0F, 1300);
     public static IngotMaterial Uranium = new IngotMaterial(75, "uranium", 0x32F032, MaterialIconSet.METALLIC, 3, of(), GENERATE_ORE, Element.U, 8.0F, 4.0F, 1024);
-    public static IngotMaterial Uranium235 = new IngotMaterial(76, "uranium235", 0x46FA46, MaterialIconSet.SHINY, 3, of(), 0, Element.U_235, 8.0F, 4.0F, 1024);
+    public static IngotMaterial Uranium235 = new IngotMaterial(76, "uranium235", 0x46FA46, MaterialIconSet.SHINY, 3, of(), STD_METAL | GENERATE_ORE, Element.U_235, 8.0F, 4.0F, 1024);
     public static IngotMaterial Vanadium = new IngotMaterial(77, "vanadium", 0x323232, MaterialIconSet.METALLIC, 2, of(), STD_METAL, Element.V, 2183);
     public static IngotMaterial Yttrium = new IngotMaterial(79, "yttrium", 0xDCFADC, MaterialIconSet.METALLIC, 2, of(), STD_METAL, Element.Y, 1799);
     public static IngotMaterial Zinc = new IngotMaterial(80, "zinc", 0xFAF0F0, MaterialIconSet.METALLIC, 1, of(), STD_METAL | GENERATE_ORE | MORTAR_GRINDABLE | GENERATE_FOIL, Element.Zn);
@@ -518,7 +518,8 @@ public class Materials {
     public static DustMaterial Marble = new DustMaterial(972, "marble", 0xC8C8C8, MaterialIconSet.FINE, 1, of(new MaterialStack(Magnesium, 1), new MaterialStack(Calcite, 7)), NO_SMASHING);
     public static DustMaterial Granite = new DustMaterial(449, "granite", 0xCFA18C, MaterialIconSet.ROUGH, 2, of(), NO_SMASHING);
 
-
+    public static FluidMaterial UUM = new FluidMaterial(540, "uum", 0x7F00C4, FLUID, of(), 0);
+    public static FluidMaterial UUA = new FluidMaterial(541, "uua", 0x600080, FLUID, of(), 0);
 
     static {
         for (DustMaterial dustMaterial : new DustMaterial[]{Magnetite, VanadiumMagnetite}) {
@@ -536,7 +537,6 @@ public class Materials {
         for (DustMaterial dustMaterial : new DustMaterial[]{Bastnasite, Monazite}) {
             dustMaterial.separatedOnto = Neodymium;
         }
-
 
 
         for (DustMaterial dustMaterial : new DustMaterial[]{Gold, Silver, Osmium, Platinum, Cooperite, Chalcopyrite, Bornite}) {

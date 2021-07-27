@@ -336,20 +336,22 @@ public class SimpleMachineMetaTileEntity extends WorkableTieredMetaTileEntity im
         }
 
         if (exportItems.getSlots() > 0) {
-            builder.widget(new ToggleButtonWidget(leftButtonStartX, 62 + yOffset, 18, 18,
+            builder.widget(new ToggleButtonWidget(rightButtonStartX, 62 + yOffset, 18, 18,
                 GuiTextures.BUTTON_ITEM_OUTPUT, this::isAutoOutputItems, this::setAutoOutputItems)
             		.setTooltipText("gtr.gui.item_auto_output.tooltip"));
             leftButtonStartX += 18;
+            rightButtonStartX -= 18;
         }
         if (exportFluids.getTanks() > 0) {
-            builder.widget(new ToggleButtonWidget(leftButtonStartX, 62 + yOffset, 18, 18,
+            builder.widget(new ToggleButtonWidget(rightButtonStartX, 62 + yOffset, 18, 18,
                 GuiTextures.BUTTON_FLUID_OUTPUT, this::isAutoOutputFluids, this::setAutoOutputFluids)
             		.setTooltipText("gtr.gui.fluid_auto_output.tooltip"));
             leftButtonStartX += 18;
+            rightButtonStartX -= 18;
 
         }
 
-        builder.widget(new CycleButtonWidget(leftButtonStartX, 62 + yOffset, 18, 18,
+        builder.widget(new CycleButtonWidget(rightButtonStartX, 62 + yOffset, 18, 18,
             workable.getAvailableOverclockingTiers(), workable::getOverclockTier, workable::setOverclockTier)
             .setTooltipHoverString("gtr.gui.overclock.description")
             .setButtonTexture(GuiTextures.BUTTON_OVERCLOCK));

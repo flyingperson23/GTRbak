@@ -27,6 +27,12 @@ public class ConfigHolder {
     @Config.Comment("Specifies min amount of veins in section. Default: 0")
     public static int minVeinsInSection = 0;
 
+    @Config.Comment("Replicator UUM exponent")
+    public static double uuAmplifier = 1.2;
+
+    @Config.Comment("Replicator time exponent")
+    public static double timeAmplifier = 1.2;
+
     @Config.Comment("Specifies additional random amount of veins in section. Default: 2")
     public static int additionalVeinsInSection = 2;
 

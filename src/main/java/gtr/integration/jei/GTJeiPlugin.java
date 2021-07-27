@@ -9,12 +9,12 @@ import gtr.api.capability.impl.FuelRecipeLogic;
 import gtr.api.gui.impl.ModularUIGuiHandler;
 import gtr.api.items.metaitem.MetaItem;
 import gtr.api.metatileentity.MetaTileEntity;
+import gtr.api.metatileentity.SimpleMachineMetaTileEntity;
 import gtr.api.recipes.Recipe;
 import gtr.api.recipes.RecipeMap;
 import gtr.api.recipes.RecipeMaps;
 import gtr.api.recipes.ingredients.IntCircuitIngredient;
-import gtr.api.recipes.machines.FuelRecipeMap;
-import gtr.api.recipes.machines.RecipeMapFurnace;
+import gtr.api.recipes.machines.*;
 import gtr.api.unification.OreDictUnifier;
 import gtr.api.unification.material.Materials;
 import gtr.api.unification.material.type.DustMaterial;
@@ -25,6 +25,10 @@ import gtr.api.worldgen.config.WorldGenRegistry;
 import gtr.common.blocks.MetaBlocks;
 import gtr.common.items.MetaItems;
 import gtr.common.metatileentities.MetaTileEntities;
+import gtr.common.metatileentities.electric.MetaTileEntityCropGeneExtractor;
+import gtr.common.metatileentities.electric.MetaTileEntityCropReplicator;
+import gtr.common.metatileentities.electric.MetaTileEntityCropSynthesiser;
+import gtr.common.metatileentities.electric.MetaTileEntityScanner;
 import gtr.integration.jei.multiblock.MultiblockInfoCategory;
 import gtr.integration.jei.multiblock.MultiblockInfoPage;
 import gtr.integration.jei.recipe.*;
@@ -140,7 +144,24 @@ public class GTJeiPlugin implements IModPlugin {
                     registry.addRecipeCatalyst(metaTileEntity.getStackForm(), GTValues.MODID + ":" + recipeMap.unlocalizedName);
                 }
             }
+            if (metaTileEntity instanceof MetaTileEntityCropGeneExtractor) {
+                registry.addRecipeCatalyst(metaTileEntity.getStackForm(), GTValues.MODID+":"+ RecipeMapCropGeneExtractor.JEI_MAP.unlocalizedName);
+            }
+            if (metaTileEntity instanceof MetaTileEntityCropSynthesiser) {
+                registry.addRecipeCatalyst(metaTileEntity.getStackForm(), GTValues.MODID+":"+ RecipeMapCropSynthesizer.JEI_MAP.unlocalizedName);
+            }
+            if (metaTileEntity instanceof MetaTileEntityCropReplicator) {
+                registry.addRecipeCatalyst(metaTileEntity.getStackForm(), GTValues.MODID+":"+ RecipeMapCropReplicator.JEI_MAP.unlocalizedName);
+            }
+            if (metaTileEntity instanceof MetaTileEntityScanner) {
+                registry.addRecipeCatalyst(metaTileEntity.getStackForm(), GTValues.MODID+":"+RecipeMapScanner.JEI_MAP.unlocalizedName);
+            }
         }
+
+        for (MetaTileEntity m : MetaTileEntities.RECYCLER) {
+            registry.addRecipeCatalyst(m.getStackForm(), GTValues.MODID+":"+RecipeMapRecycler.JEI_MAP.unlocalizedName);
+        }
+
 
         for (MetaTileEntity breweryTile : MetaTileEntities.BREWERY) {
             registry.addRecipeCatalyst(breweryTile.getStackForm(), VanillaRecipeCategoryUid.BREWING);

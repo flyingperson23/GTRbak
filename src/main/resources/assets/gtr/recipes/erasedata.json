@@ -1,0 +1,17 @@
+{
+  "type": "gtr:metaitem_shapeless",
+  "pattern": [
+    "I"
+  ],
+  "key": {
+    "I": {
+      "type": "gtr:metaitem",
+      "name": "datastick",
+      "meta": 32767
+    }
+  },
+  "result": {
+    "name": "datastick",
+    "meta": 0
+  }
+}
