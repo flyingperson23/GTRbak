@@ -141,6 +141,10 @@ public class CircuitRecipes {
         ModHandler.addShapedRecipe("vacuum_tube", MetaItems.CIRCUIT_VACUUM_TUBE_LV.getStackForm(), "PTP", "STS", "WWW", 'P', new ItemStack(Items.PAPER), 'T', MetaItems.GLASS_TUBE.getStackForm(), 'S', new ItemStack(Items.SLIME_BALL), 'W', OreDictUnifier.get(OrePrefix.wireGtSingle, Materials.Copper));
         ModHandler.addShapedRecipe("vacuum_tube_fine", MetaItems.CIRCUIT_VACUUM_TUBE_LV.getStackForm(), "PTP", "STS", "WWW", 'P', new ItemStack(Items.PAPER), 'T', MetaItems.GLASS_TUBE.getStackForm(), 'S', new ItemStack(Items.SLIME_BALL), 'W', OreDictUnifier.get(OrePrefix.wireFine, Materials.Copper));
 
+        ModHandler.addShapedRecipe("vacuum_tube_rubber", MetaItems.CIRCUIT_VACUUM_TUBE_LV.getStackForm(), "PTP", "STS", "WWW", 'P', new ItemStack(Items.PAPER), 'T', MetaItems.GLASS_TUBE.getStackForm(), 'S', MetaItems.RUBBER_DROP.getStackForm(), 'W', OreDictUnifier.get(OrePrefix.wireGtSingle, Materials.Copper));
+        ModHandler.addShapedRecipe("vacuum_tube_rubber_fine", MetaItems.CIRCUIT_VACUUM_TUBE_LV.getStackForm(), "PTP", "STS", "WWW", 'P', new ItemStack(Items.PAPER), 'T', MetaItems.GLASS_TUBE.getStackForm(), 'S', MetaItems.RUBBER_DROP.getStackForm(), 'W', OreDictUnifier.get(OrePrefix.wireFine, Materials.Copper));
+
+
         RecipeMaps.ALLOY_SMELTER_RECIPES.recipeBuilder().duration(160).EUt(8).input(OrePrefix.dust, Materials.Glass).notConsumable(MetaItems.SHAPE_MOLD_BALL).outputs(MetaItems.GLASS_TUBE.getStackForm()).buildAndRegister();
 
 

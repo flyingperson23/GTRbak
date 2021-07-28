@@ -33,9 +33,11 @@ public class RecipeMapRecycler extends RecipeMap<SimpleRecipeBuilder> {
     public Recipe findRecipe(long voltage, List<ItemStack> inputs, List<FluidStack> fluidInputs, int outputFluidTankCapacity, MatchingMode m) {
         if (inputs.size() > 0) {
             ItemStack s = inputs.get(0).copy();
-            s.setCount(1);
-            return this.recipeBuilder().inputs(s).chancedOutput(getScrap(), 1250, 1000)
-                .duration(40).EUt(1).build().getResult();
+            if (!s.isEmpty()) {
+                s.setCount(1);
+                return this.recipeBuilder().inputs(s).chancedOutput(getScrap(), 1250, 1000)
+                    .duration(40).EUt(1).build().getResult();
+            }
         }
         return null;
     }

@@ -3326,25 +3326,25 @@ gtr.machine.world_accelerator.lv.name=Basic World Accelerator
 gtr.machine.world_accelerator.mv.name=Intermediate World Accelerator
 gtr.machine.world_accelerator.hv.name=Advanced World Accelerator
 gtr.machine.world_accelerator.ev.name=Elite World Accelerator
-gtr.machine.world_accelerator.iv.name=Master World Accelerator
+gtr.machine.world_accelerator.iv.name=Ultimate World Accelerator
 
 gtr.machine.wireless_charger.lv.name=Basic Wireless Charger
 gtr.machine.wireless_charger.mv.name=Intermediate Wireless Charger
 gtr.machine.wireless_charger.hv.name=Advanced Wireless Charger
 gtr.machine.wireless_charger.ev.name=Elite Wireless Charger
-gtr.machine.wireless_charger.iv.name=Master Wireless Charger
+gtr.machine.wireless_charger.iv.name=Ultimate Wireless Charger
 
 gtr.machine.magic_energy_absorber.mv.name=Intermediate Magic Energy Absorber
 gtr.machine.magic_energy_absorber.hv.name=Advanced Magic Energy Absorber
 gtr.machine.magic_energy_absorber.ev.name=Elite Magic Energy Absorber
-gtr.machine.magic_energy_absorber.iv.name=Master Magic Energy Absorber
+gtr.machine.magic_energy_absorber.iv.name=Ultimate Magic Energy Absorber
 gtr.machine.magic_energy_absorber.luv.name=Expert Magic Energy Absorber
 
 gtr.machine.mass_fab.lv.name=Basic Mass Fabricator
 gtr.machine.mass_fab.mv.name=Intermediate Mass Fabricator
 gtr.machine.mass_fab.hv.name=Advanced Mass Fabricator
 gtr.machine.mass_fab.ev.name=Elite Mass Fabricator
-gtr.machine.mass_fab.iv.name=Master Mass Fabricator
+gtr.machine.mass_fab.iv.name=Ultimate Mass Fabricator
 
 gtr.machine.magic_energy_absorber.tooltip=Max Voltage OUT: §a2048 §7(§aEV§7)/nCollects energy from end crystals on naturally generated obsidian pillars in the End within 64 blocks./nEach ender crystal adds 32 EU/t to output/nPlace Dragon Egg on top to amplify output/n/nWhen amplified:/nEach ender crystal adds 128 EU/t
 gtr.machine.magic_energy_converter.name=Magic Energy Converter
@@ -3376,43 +3376,43 @@ gtr.machine.macerator.lv.name=Basic Macerator
 gtr.machine.macerator.mv.name=Intermediate Macerator
 gtr.machine.macerator.hv.name=Advanced Macerator
 gtr.machine.macerator.ev.name=Elite Macerator
-gtr.machine.macerator.iv.name=Master Macerator
+gtr.machine.macerator.iv.name=Ultimate Macerator
 
 gtr.machine.alloy_smelter.lv.name=Basic Alloy Smelter
 gtr.machine.alloy_smelter.mv.name=Intermediate Alloy Smelter
 gtr.machine.alloy_smelter.hv.name=Advanced Alloy Smelter
 gtr.machine.alloy_smelter.ev.name=Elite Alloy Smelter
-gtr.machine.alloy_smelter.iv.name=Master Alloy Smelter
+gtr.machine.alloy_smelter.iv.name=Ultimate Alloy Smelter
 
 gtr.machine.assembler.lv.name=Basic Assembler
 gtr.machine.assembler.mv.name=Intermediate Assembler
 gtr.machine.assembler.hv.name=Advanced Assembler
 gtr.machine.assembler.ev.name=Elite Assembler
-gtr.machine.assembler.iv.name=Master Assembler
+gtr.machine.assembler.iv.name=Ultimate Assembler
 
 gtr.machine.autoclave.lv.name=Basic Autoclave
 gtr.machine.autoclave.mv.name=Intermediate Autoclave
 gtr.machine.autoclave.hv.name=Advanced Autoclave
 gtr.machine.autoclave.ev.name=Elite Autoclave
-gtr.machine.autoclave.iv.name=Master Autoclave
+gtr.machine.autoclave.iv.name=Ultimate Autoclave
 
 gtr.machine.bender.lv.name=Basic Bending Machine
 gtr.machine.bender.mv.name=Intermediate Bending Machine
 gtr.machine.bender.hv.name=Advanced Bending Machine
 gtr.machine.bender.ev.name=Elite Bending Machine
-gtr.machine.bender.iv.name=Master Bending Machine
+gtr.machine.bender.iv.name=Ultimate Bending Machine
 
 gtr.machine.brewery.lv.name=Basic Brewery
 gtr.machine.brewery.mv.name=Intermediate Brewery
 gtr.machine.brewery.hv.name=Advanced Brewery
 gtr.machine.brewery.ev.name=Elite Brewery
-gtr.machine.brewery.iv.name=Master Brewery
+gtr.machine.brewery.iv.name=Ultimate Brewery
 
 gtr.machine.canner.lv.name=Basic Canner
 gtr.machine.canner.mv.name=Intermediate Canner
 gtr.machine.canner.hv.name=Advanced Canner
 gtr.machine.canner.ev.name=Elite Canner
-gtr.machine.canner.iv.name=Master Canner
+gtr.machine.canner.iv.name=Ultimate Canner
 
 gtr.machine.canner.tooltip=Can fill or drain any fluid container!
 
@@ -3420,31 +3420,31 @@ gtr.machine.centrifuge.lv.name=Basic Centrifuge
 gtr.machine.centrifuge.mv.name=Intermediate Centrifuge
 gtr.machine.centrifuge.hv.name=Advanced Centrifuge
 gtr.machine.centrifuge.ev.name=Elite Centrifuge
-gtr.machine.centrifuge.iv.name=Master Centrifuge
+gtr.machine.centrifuge.iv.name=Ultimate Centrifuge
 
 gtr.machine.chemical_bath.lv.name=Basic Chemical Bath
 gtr.machine.chemical_bath.mv.name=Intermediate Chemical Bath
 gtr.machine.chemical_bath.hv.name=Advanced Chemical Bath
 gtr.machine.chemical_bath.ev.name=Elite Chemical Bath
-gtr.machine.chemical_bath.iv.name=Master Chemical Bath
+gtr.machine.chemical_bath.iv.name=Ultimate Chemical Bath
 
 gtr.machine.chemical_reactor.lv.name=Basic Chemical Reactor
 gtr.machine.chemical_reactor.mv.name=Intermediate Chemical Reactor
 gtr.machine.chemical_reactor.hv.name=Advanced Chemical Reactor
 gtr.machine.chemical_reactor.ev.name=Elite Chemical Reactor
-gtr.machine.chemical_reactor.iv.name=Master Chemical Reactor
+gtr.machine.chemical_reactor.iv.name=Ultimate Chemical Reactor
 
 gtr.machine.compressor.lv.name=Basic Compressor
 gtr.machine.compressor.mv.name=Intermediate Compressor
 gtr.machine.compressor.hv.name=Advanced Compressor
 gtr.machine.compressor.ev.name=Elite Compressor
-gtr.machine.compressor.iv.name=Master Compressor
+gtr.machine.compressor.iv.name=Ultimate Compressor
 
 gtr.machine.cutter.lv.name=Basic Cutter
 gtr.machine.cutter.mv.name=Intermediate Cutter
 gtr.machine.cutter.hv.name=Advanced Cutter
 gtr.machine.cutter.ev.name=Elite Cutter
-gtr.machine.cutter.iv.name=Master Cutter
+gtr.machine.cutter.iv.name=Ultimate Cutter
 
 gtr.machine.distillery.lv.name=Basic Distillery
 gtr.machine.distillery.mv.name=Intermediate Distillery
@@ -3454,95 +3454,95 @@ gtr.machine.electrolyzer.lv.name=Basic Electrolyzer
 gtr.machine.electrolyzer.mv.name=Intermediate Electrolyzer
 gtr.machine.electrolyzer.hv.name=Advanced Electrolyzer
 gtr.machine.electrolyzer.ev.name=Elite Electrolyzer
-gtr.machine.electrolyzer.iv.name=Master Electrolyzer
+gtr.machine.electrolyzer.iv.name=Ultimate Electrolyzer
 
 gtr.machine.extractor.lv.name=Basic Extractor
 gtr.machine.extractor.mv.name=Intermediate Extractor
 gtr.machine.extractor.hv.name=Advanced Extractor
 gtr.machine.extractor.ev.name=Elite Extractor
-gtr.machine.extractor.iv.name=Master Extractor
+gtr.machine.extractor.iv.name=Ultimate Extractor
 
 gtr.machine.extruder.lv.name=Basic Extruder
 gtr.machine.extruder.mv.name=Intermediate Extruder
 gtr.machine.extruder.hv.name=Advanced Extruder
 gtr.machine.extruder.ev.name=Elite Extruder
-gtr.machine.extruder.iv.name=Master Extruder
+gtr.machine.extruder.iv.name=Ultimate Extruder
 
 gtr.machine.fluid_extractor.lv.name=Basic Fluid Extractor
 gtr.machine.fluid_extractor.mv.name=Intermediate Fluid Extractor
 gtr.machine.fluid_extractor.hv.name=Advanced Fluid Extractor
 gtr.machine.fluid_extractor.ev.name=Elite Fluid Extractor
-gtr.machine.fluid_extractor.iv.name=Master Fluid Extractor
+gtr.machine.fluid_extractor.iv.name=Ultimate Fluid Extractor
 
 gtr.machine.fluid_heater.lv.name=Basic Fluid Heater
 gtr.machine.fluid_heater.mv.name=Intermediate Fluid Heater
 gtr.machine.fluid_heater.hv.name=Advanced Fluid Heater
 gtr.machine.fluid_heater.ev.name=Elite Fluid Heater
-gtr.machine.fluid_heater.iv.name=Master Fluid Heater
+gtr.machine.fluid_heater.iv.name=Ultimate Fluid Heater
 
 gtr.machine.fluid_solidifier.lv.name=Basic Fluid Solidifier
 gtr.machine.fluid_solidifier.mv.name=Intermediate Fluid Solidifier
 gtr.machine.fluid_solidifier.hv.name=Advanced Fluid Solidifier
 gtr.machine.fluid_solidifier.ev.name=Elite Fluid Solidifier
-gtr.machine.fluid_solidifier.iv.name=Master Fluid Solidifier
+gtr.machine.fluid_solidifier.iv.name=Ultimate Fluid Solidifier
 
 gtr.machine.forge_hammer.lv.name=Basic Forge Hammer
 gtr.machine.forge_hammer.mv.name=Intermediate Forge Hammer
 gtr.machine.forge_hammer.hv.name=Advanced Forge Hammer
 gtr.machine.forge_hammer.ev.name=Elite Forge Hammer
-gtr.machine.forge_hammer.iv.name=Master Forge Hammer
+gtr.machine.forge_hammer.iv.name=Ultimate Forge Hammer
 
 gtr.machine.press.lv.name=Basic Press
 gtr.machine.press.mv.name=Intermediate Press
 gtr.machine.press.hv.name=Advanced Press
 gtr.machine.press.ev.name=Elite Press
-gtr.machine.press.iv.name=Master Press
+gtr.machine.press.iv.name=Ultimate Press
 
 gtr.machine.lathe.lv.name=Basic Lathe
 gtr.machine.lathe.mv.name=Intermediate Lathe
 gtr.machine.lathe.hv.name=Advanced Lathe
 gtr.machine.lathe.ev.name=Elite Lathe
-gtr.machine.lathe.iv.name=Master Lathe
+gtr.machine.lathe.iv.name=Ultimate Lathe
 
 gtr.machine.mixer.lv.name=Basic Mixer
 gtr.machine.mixer.mv.name=Intermediate Mixer
 gtr.machine.mixer.hv.name=Advanced Mixer
 gtr.machine.mixer.ev.name=Elite Mixer
-gtr.machine.mixer.iv.name=Master Mixer
+gtr.machine.mixer.iv.name=Ultimate Mixer
 
 gtr.machine.ore_washer.lv.name=Basic Ore Washing Plant
 gtr.machine.ore_washer.mv.name=Intermediate Ore Washing Plant
 gtr.machine.ore_washer.hv.name=Advanced Ore Washing Plant
 gtr.machine.ore_washer.ev.name=Elite Ore Washing Plant
-gtr.machine.ore_washer.iv.name=Master Ore Washing Plant
+gtr.machine.ore_washer.iv.name=Ultimate Ore Washing Plant
 
 gtr.machine.plasma_arc_furnace.hv.name=Advanced Plasma Arc Furnace
 gtr.machine.plasma_arc_furnace.ev.name=Elite Plasma Arc Furnace
-gtr.machine.plasma_arc_furnace.iv.name=Master Plasma Arc Furnace
+gtr.machine.plasma_arc_furnace.iv.name=Ultimate Plasma Arc Furnace
 
 gtr.machine.polarizer.lv.name=Basic Polarizer
 gtr.machine.polarizer.mv.name=Intermediate Polarizer
 gtr.machine.polarizer.hv.name=Advanced Polarizer
 gtr.machine.polarizer.ev.name=Elite Polarizer
-gtr.machine.polarizer.iv.name=Master Polarizer
+gtr.machine.polarizer.iv.name=Ultimate Polarizer
 
 gtr.machine.laser_engraver.lv.name=Basic Precision Laser Engraver
 gtr.machine.laser_engraver.mv.name=Intermediate Precision Laser Engraver
 gtr.machine.laser_engraver.hv.name=Advanced Precision Laser Engraver
 gtr.machine.laser_engraver.ev.name=Elite Precision Laser Engraver
-gtr.machine.laser_engraver.iv.name=Master Precision Laser Engraver
+gtr.machine.laser_engraver.iv.name=Ultimate Precision Laser Engraver
 
 gtr.machine.thermal_centrifuge.lv.name=Basic Thermal Centrifuge
 gtr.machine.thermal_centrifuge.mv.name=Intermediate Thermal Centrifuge
 gtr.machine.thermal_centrifuge.hv.name=Advanced Thermal Centrifuge
 gtr.machine.thermal_centrifuge.ev.name=Elite Thermal Centrifuge
-gtr.machine.thermal_centrifuge.iv.name=Master Thermal Centrifuge
+gtr.machine.thermal_centrifuge.iv.name=Ultimate Thermal Centrifuge
 
 gtr.machine.wiremill.lv.name=Basic Wiremill
 gtr.machine.wiremill.mv.name=Intermediate Wiremill
 gtr.machine.wiremill.hv.name=Advanced Wiremill
 gtr.machine.wiremill.ev.name=Elite Wiremill
-gtr.machine.wiremill.iv.name=Master Wiremill
+gtr.machine.wiremill.iv.name=Ultimate Wiremill
 
 
 # Machine hulls
@@ -3635,7 +3635,7 @@ gtr.machine.pump.lv.name=Basic Pump
 gtr.machine.pump.mv.name=Intermediate Pump
 gtr.machine.pump.hv.name=Advanced Pump
 gtr.machine.pump.ev.name=Elite Pump
-gtr.machine.pump.iv.name=Master Pump
+gtr.machine.pump.iv.name=Ultimate Pump
 
 #Quantum chests
 gtr.machine.quantum_chest.capacity=Item Capacity: %,d items
@@ -3659,7 +3659,7 @@ gtr.machine.air_collector.lv.name=Basic Air Collector
 gtr.machine.air_collector.mv.name=Intermediate Air Collector
 gtr.machine.air_collector.hv.name=Advanced Air Collector
 gtr.machine.air_collector.ev.name=Elite Air Collector
-gtr.machine.air_collector.iv.name=Master Air Collector
+gtr.machine.air_collector.iv.name=Ultimate Air Collector
 gtr.machine.air_collector.description=Collects air from adjacent air blocks
 
 #Fusion Reactor

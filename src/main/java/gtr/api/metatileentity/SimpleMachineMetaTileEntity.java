@@ -329,7 +329,8 @@ public class SimpleMachineMetaTileEntity extends WorkableTieredMetaTileEntity im
             .bindPlayerInventory(player.inventory, GuiTextures.SLOT, yOffset);
 
         int leftButtonStartX = 7;
-        int rightButtonStartX = 176 - 7 - 45;
+        //int rightButtonStartX = 176 - 7 - 45;
+        int rightButtonStartX = 176-40;
         if (workableRecipeMap instanceof RecipeMapWithConfigButton) {
             leftButtonStartX += ((RecipeMapWithConfigButton) workableRecipeMap).getLeftButtonOffset();
             rightButtonStartX -= ((RecipeMapWithConfigButton) workableRecipeMap).getRightButtonOffset();

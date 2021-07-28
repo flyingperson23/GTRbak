@@ -72,12 +72,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.logging.log4j.Level;
 
 import java.util.ArrayList;
-import java.util.Set;
 
 @Mod(modid = GTValues.MODID,
     name = "GT: Remastered",
     acceptedMinecraftVersions = "[1.12,1.13)",
-    dependencies = "required:forge@[14.23.5.2847,);" + CodeChickenLib.MOD_VERSION_DEP + "after:forestry;after:appliedenergistics2;after:tconstruct;after:jei@[4.15.0,);after:crafttweaker;after:ic2;before:galacticraft-core;")
+    dependencies = "required:forge@[14.23.5.2847,);" + CodeChickenLib.MOD_VERSION_DEP + "after:forestry;after:appliedenergistics2;after:tconstruct;after:jei@[4.15.0,);after:crafttweaker;after:ic2@[2.8.221,);before:galacticraft-core;")
 public class GregTechMod {
 
     public int counter = 0;
