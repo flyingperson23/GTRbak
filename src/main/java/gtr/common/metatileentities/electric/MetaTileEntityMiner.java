@@ -5,7 +5,6 @@ import codechicken.lib.render.CCRenderState;
 import codechicken.lib.render.pipeline.IVertexOperation;
 import codechicken.lib.vec.Matrix4;
 import gtr.api.GTValues;
-import gtr.api.capability.GregtechCapabilities;
 import gtr.api.capability.GregtechTileCapabilities;
 import gtr.api.capability.IActiveOutputSide;
 import gtr.api.capability.impl.EnergyContainerHandler;
@@ -55,6 +54,7 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemStackHandler;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -91,6 +91,14 @@ public class MetaTileEntityMiner extends TieredMetaTileEntity implements IActive
                 return 1;
             }
         };
+    }
+
+    @SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, boolean advanced) {
+        super.addInformation(stack, player, tooltip, advanced);
+        if (getTier() > 0) {
+            tooltip.add("Applies fortune "+getTier());
+        }
     }
 
     @Override
@@ -422,7 +430,7 @@ public class MetaTileEntityMiner extends TieredMetaTileEntity implements IActive
     public NonNullList<ItemStack> mineBlock(BlockPos pos) {
         IBlockState state = getWorld().getBlockState(pos);
         NonNullList<ItemStack> drops = NonNullList.create();
-        state.getBlock().getDrops(drops, getWorld(), pos, state, 0);
+        state.getBlock().getDrops(drops, getWorld(), pos, state, getTier());
         getWorld().setBlockToAir(pos);
         getWorld().notifyBlockUpdate(pos, state, getWorld().getBlockState(pos), 3);
         return drops;

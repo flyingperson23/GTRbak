@@ -255,6 +255,7 @@ public class MetaTileEntityLoader {
         ModHandler.addShapedRecipe("magic_energy_absorber", MetaTileEntities.MAGIC_ENERGY_ABSORBER.getStackForm(), "PCP", "PMP", "PCP", 'M', MetaTileEntities.HULL[GTValues.EV].getStackForm(), 'P', MetaItems.SENSOR_EV, 'C', new UnificationEntry(OrePrefix.circuit, Tier.Elite));
 
         // MACHINES
+        registerMachineRecipe(MetaTileEntities.MINER, "APA", "QHQ", "CSC", 'A', ROBOT_ARM, 'P', PISTON, 'Q', CABLE_QUAD, 'H', HULL, 'C', CIRCUIT, 'S', SENSOR);
         registerMachineRecipe(MetaTileEntities.AMPLIFABRICATOR, "QPQ", "PHP", "CPC", 'Q', CABLE_QUAD, 'P', PUMP, 'H', HULL, 'C', CIRCUIT);
         registerMachineRecipe(MetaTileEntities.REPLICATOR, "EFE", "CHC", "EQE", 'E', EMITTER, 'F', FIELD_GENERATOR, 'H', HULL, 'C', CIRCUIT, 'Q', CABLE_QUAD);
         registerMachineRecipe(MetaTileEntities.RECYCLER, "GCG", "PHP", "WCW", 'G', Items.GLOWSTONE_DUST, 'C', CIRCUIT, 'P', PISTON, 'H', HULL, 'W', CABLE);
