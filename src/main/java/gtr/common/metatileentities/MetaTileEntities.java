@@ -2,7 +2,6 @@ package gtr.common.metatileentities;
 
 import gtr.api.GTValues;
 import gtr.api.GregTechAPI;
-import gtr.api.metatileentity.MetaTileEntity;
 import gtr.api.metatileentity.SimpleGeneratorMetaTileEntity;
 import gtr.api.metatileentity.SimpleMachineMetaTileEntity;
 import gtr.api.recipes.RecipeMaps;
@@ -105,6 +104,7 @@ public class MetaTileEntities {
     public static SimpleMachineMetaTileEntity[] RECYCLER = new SimpleMachineMetaTileEntity[4];
     public static SimpleMachineMetaTileEntity[] AMPLIFABRICATOR = new SimpleMachineMetaTileEntity[5];
     public static SimpleMachineMetaTileEntity[] REPLICATOR = new SimpleMachineMetaTileEntity[5];
+    public static MetaTileEntityMiner[] MINER = new MetaTileEntityMiner[5];
 
     //GENERATORS SECTION
     public static SimpleGeneratorMetaTileEntity[] DIESEL_GENERATOR = new SimpleGeneratorMetaTileEntity[4];
@@ -463,6 +463,12 @@ public class MetaTileEntities {
         REPLICATOR[2] = GregTechAPI.registerMetaTileEntity(1273, new SimpleMachineMetaTileEntity(gtrId("replicator.hv"), RecipeMaps.REPLICATOR_RECIPES, Textures.REPLICATOR, GTValues.HV));
         REPLICATOR[3] = GregTechAPI.registerMetaTileEntity(1274, new SimpleMachineMetaTileEntity(gtrId("replicator.ev"), RecipeMaps.REPLICATOR_RECIPES, Textures.REPLICATOR, GTValues.EV));
         REPLICATOR[4] = GregTechAPI.registerMetaTileEntity(1275, new SimpleMachineMetaTileEntity(gtrId("replicator.iv"), RecipeMaps.REPLICATOR_RECIPES, Textures.REPLICATOR, GTValues.IV));
+
+        MINER[0] = GregTechAPI.registerMetaTileEntity(1276, new MetaTileEntityMiner(gtrId("miner.lv"), GTValues.LV));
+        MINER[1] = GregTechAPI.registerMetaTileEntity(1277, new MetaTileEntityMiner(gtrId("miner.mv"), GTValues.MV));
+        MINER[2] = GregTechAPI.registerMetaTileEntity(1278, new MetaTileEntityMiner(gtrId("miner.hv"), GTValues.HV));
+        MINER[3] = GregTechAPI.registerMetaTileEntity(1279, new MetaTileEntityMiner(gtrId("miner.ev"), GTValues.EV));
+        MINER[4] = GregTechAPI.registerMetaTileEntity(1280, new MetaTileEntityMiner(gtrId("miner.iv"), GTValues.IV));
 
         DIESEL_GENERATOR[0] = GregTechAPI.registerMetaTileEntity(480, new SimpleGeneratorMetaTileEntity(gtrId("diesel_generator.lv"), RecipeMaps.DIESEL_GENERATOR_FUELS, Textures.DIESEL_GENERATOR_OVERLAY, GTValues.LV));
         DIESEL_GENERATOR[1] = GregTechAPI.registerMetaTileEntity(481, new SimpleGeneratorMetaTileEntity(gtrId("diesel_generator.mv"), RecipeMaps.DIESEL_GENERATOR_FUELS, Textures.DIESEL_GENERATOR_OVERLAY, GTValues.MV));

@@ -138,6 +138,7 @@ public class CommonProxy {
         registry.register(createMultiTexItemBlock(LEAVES, state -> state.getValue(BlockGregLeaves.VARIANT).getName()));
         registry.register(createMultiTexItemBlock(SAPLING, state -> state.getValue(BlockGregSapling.VARIANT).getName()));
         registry.register(createItemBlock(MAGNET_INHIBITOR, ItemBlock::new));
+        if (!Loader.isModLoaded("ic2")) registry.register(createItemBlock(MINING_PIPE, VariantItemBlock::new));
 
         COMPRESSED.values()
             .stream().distinct()

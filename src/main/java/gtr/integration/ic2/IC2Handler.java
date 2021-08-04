@@ -22,14 +22,19 @@ import ic2.api.item.ElectricItem;
 import ic2.api.item.IC2Items;
 import ic2.api.item.IElectricItem;
 import ic2.core.Ic2Fluid;
+import ic2.core.apihelper.ItemAPI;
 import ic2.core.block.TileEntityBlock;
 import ic2.core.block.comp.Energy;
+import ic2.core.block.machine.BlockMiningPipe;
 import ic2.core.crop.ItemCrop;
 import ic2.core.crop.cropcard.CropBaseMetalCommon;
+import ic2.core.init.BlocksItems;
 import ic2.core.item.ItemBattery;
 import ic2.core.item.ItemCropSeed;
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -793,4 +798,21 @@ public class IC2Handler {
         return IC2Items.getItem("crafting", "scrap_box");
     }
 
+    public static IBlockState getMiningPipe() {
+        return IC2Items.getItemAPI().getBlockState("mining_pipe", "pipe");
+    }
+
+    public static boolean isMiningPipe(ItemStack stack) {
+        ItemStack s = IC2Items.getItemAPI().getItemStack("mining_pipe", "pipe");
+        return s.getItem() == stack.getItem() && s.getMetadata() == stack.getMetadata();
+    }
+
+    public static IBlockState getMiningPipeTip() {
+        return IC2Items.getItemAPI().getBlockState("mining_pipe", "tip");
+    }
+
+    public static ItemStack getMiningPipeStack() {
+        BlockMiningPipe pipe = (BlockMiningPipe) IC2Items.getItemAPI().getBlock("mining_pipe");
+        return pipe.getItemStack(BlockMiningPipe.MiningPipeType.pipe);
+    }
 }

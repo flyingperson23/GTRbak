@@ -573,6 +573,12 @@ gtr.machine.recycler.mv.name=Intermediate Recycler
 gtr.machine.recycler.hv.name=Advanced Recycler
 gtr.machine.recycler.ev.name=Elite Recycler
 
+gtr.machine.miner.lv.name=Basic Miner
+gtr.machine.miner.mv.name=Intermediate Miner
+gtr.machine.miner.hv.name=Advanced Miner
+gtr.machine.miner.ev.name=Elite Miner
+gtr.machine.miner.iv.name=Ultimate Miner
+
 gtr.machine.replicator.lv.name=Basic Replicator
 gtr.machine.replicator.mv.name=Intermediate Replicator
 gtr.machine.replicator.hv.name=Advanced Replicator
@@ -3199,6 +3205,9 @@ tile.wire_coil.naquadah.name=Naquadah Coil Block
 tile.wire_coil.naquadah_alloy.name=Naquadah Alloy Coil Block
 tile.wire_coil.superconductor.name=Superconducting Coil Block
 tile.wire_coil.fusion_coil.name=Fusion Coil Block
+
+tile.mining_pipe.pipe.name=Mining Pipe
+tile.mining_pipe.tip.name=Mining Pipe
 
 # Boiler casing blocks
 tile.boiler_casing.bronze_pipe.name=Bronze Pipe Casing

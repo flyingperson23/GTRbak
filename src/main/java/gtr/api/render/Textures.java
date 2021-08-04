@@ -139,6 +139,7 @@ public class Textures {
     public static OrientedOverlayRenderer RECYCLER = new OrientedOverlayRenderer("machines/recycler", FRONT, SIDE, TOP);
     public static OrientedOverlayRenderer REPLICATOR = new OrientedOverlayRenderer("machines/replicator", FRONT);
     public static OrientedOverlayRenderer AMPLIFABRICATOR = new OrientedOverlayRenderer("machines/amplifabricator", FRONT);
+    public static OrientedOverlayRenderer MINER = new OrientedOverlayRenderer("machines/miner", FRONT, TOP);
 
     public static OrientedOverlayRenderer DIESEL_GENERATOR_OVERLAY = new OrientedOverlayRenderer("generators/diesel", TOP);
     public static OrientedOverlayRenderer GAS_TURBINE_OVERLAY = new OrientedOverlayRenderer("generators/gas_turbine", SIDE);

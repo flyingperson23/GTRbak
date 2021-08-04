@@ -58,6 +58,7 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.BlockFluidBase;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -113,6 +114,8 @@ public class MetaBlocks {
 
     public static BlockMagnetInhibitor MAGNET_INHIBITOR;
 
+    public static BlockGTMiningPipe MINING_PIPE;
+
     public static void init() {
         GregTechAPI.MACHINE = MACHINE = new BlockMachine();
         MACHINE.setRegistryName("machine");
@@ -140,6 +143,10 @@ public class MetaBlocks {
         GRANITE.setRegistryName("granite");
         MINERAL = new BlockMineral();
         MINERAL.setRegistryName("mineral");
+        if (!Loader.isModLoaded("ic2")) {
+            MINING_PIPE = new BlockGTMiningPipe();
+            MINING_PIPE.setRegistryName("mining_pipe");
+        }
 
         MAGNET_INHIBITOR = new BlockMagnetInhibitor();
         MAGNET_INHIBITOR.setRegistryName("magnet_inhibitor");
@@ -316,6 +323,7 @@ public class MetaBlocks {
         registerItemModel(LEAVES);
         registerItemModel(SAPLING);
         registerItemModel(MAGNET_INHIBITOR);
+        if (!Loader.isModLoaded("ic2")) registerItemModel(MINING_PIPE);
 
         COMPRESSED.values().stream().distinct().forEach(MetaBlocks::registerItemModel);
         FRAMES.values().forEach(MetaBlocks::registerItemModelWithFilteredProperties);

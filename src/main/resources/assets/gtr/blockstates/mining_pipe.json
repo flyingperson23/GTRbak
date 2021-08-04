@@ -1,0 +1,25 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "minecraft:cube_all",
+    "textures": {
+      "all": "gtr:blocks/rendering_error"
+    }
+  },
+  "variants": {
+    "variant": {
+      "tip": {
+        "model": "minecraft:cube_all",
+        "textures": {
+          "all": "gtr:blocks/mining_pipe/tip"
+        }
+      },
+      "pipe": {
+        "model": "minecraft:fence_post",
+        "textures": {
+          "all": "gtr:blocks/mining_pipe/pipe"
+        }
+      }
+    }
+  }
+}

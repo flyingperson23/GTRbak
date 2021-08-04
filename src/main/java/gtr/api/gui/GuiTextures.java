@@ -85,6 +85,8 @@ public class GuiTextures {
     public static final TextureArea COMPONENT_BATTERY = TextureArea.fullImage("textures/gui/armor/component/battery.png");
 
     //SLOT OVERLAYS
+    public static final TextureArea PIPE_OVERLAY = TextureArea.fullImage("textures/gui/overlay/pipe.png");
+    public static final TextureArea ORE_OVERLAY = TextureArea.fullImage("textures/gui/overlay/ore.png");
     public static final TextureArea TOOL_SLOT_OVERLAY = TextureArea.fullImage("textures/gui/overlay/tool_slot_overlay.png");
     public static final TextureArea ARROW_INPUT_OVERLAY = TextureArea.fullImage("textures/gui/overlay/arrow_input_overlay.png");
     public static final TextureArea ARROW_OUTPUT_OVERLAY = TextureArea.fullImage("textures/gui/overlay/arrow_output_overlay.png");

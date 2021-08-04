@@ -3,8 +3,8 @@ package gtr.integration.theoneprobe.provider;
 import gtr.api.capability.GregtechCapabilities;
 import gtr.api.capability.GregtechTileCapabilities;
 import gtr.api.capability.IEnergyContainer;
-import gtr.api.metatileentity.MetaTileEntity;
 import gtr.api.metatileentity.MetaTileEntityHolder;
+import gtr.common.metatileentities.electric.MetaTileEntityMiner;
 import gtr.common.metatileentities.electric.MetaTileEntityWirelessCharger;
 import gtr.common.metatileentities.electric.MetaTileEntityWorldAccelerator;
 import mcjty.theoneprobe.api.ElementAlignment;
@@ -13,6 +13,7 @@ import mcjty.theoneprobe.api.TextStyleClass;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.items.IItemHandlerModifiable;
 
 public class ElectricContainerInfoProvider extends CapabilityInfoProvider<IEnergyContainer> {
 
@@ -61,6 +62,35 @@ public class ElectricContainerInfoProvider extends CapabilityInfoProvider<IEnerg
                 MetaTileEntityWirelessCharger charger = (MetaTileEntityWirelessCharger) ((MetaTileEntityHolder) tileEntity).getMetaTileEntity();
                 probeInfo.horizontal(probeInfo.defaultLayoutStyle().alignment(ElementAlignment.ALIGN_CENTER)).text(TextStyleClass.INFO+"Range: "+charger.range);
                 if (!charger.enabled) probeInfo.text(TextStyleClass.INFOIMP + "{*gtr.top.working_disabled*}");
+            }
+            if (((MetaTileEntityHolder) tileEntity).getMetaTileEntity() instanceof MetaTileEntityMiner) {
+                MetaTileEntityMiner miner = (MetaTileEntityMiner) ((MetaTileEntityHolder) tileEntity).getMetaTileEntity();
+                for (String s : miner.getTOPText()) {
+                    probeInfo.horizontal(probeInfo.defaultLayoutStyle().alignment(ElementAlignment.ALIGN_CENTER)).text(TextStyleClass.INFO+s);
+                }
+                if (!miner.isActive()) probeInfo.horizontal(probeInfo.defaultLayoutStyle().alignment(ElementAlignment.ALIGN_CENTER)).text(TextStyleClass.INFOIMP + "{*gtr.top.working_disabled*}");
+
+                int progressScaled = (int) Math.floor(miner.progressTime / (miner.maxProgressTime * 1.0) * 100);
+                probeInfo.horizontal(probeInfo.defaultLayoutStyle().alignment(ElementAlignment.ALIGN_CENTER)).text(TextStyleClass.INFO + "{*gtr.top.progress*} ").progress(progressScaled, 100, probeInfo.defaultProgressStyle()
+                    .suffix("%")
+                    .borderColor(0x00000000)
+                    .backgroundColor(0x00000000)
+                    .filledColor(0xFF000099)
+                    .alternateFilledColor(0xFF000077));
+
+                IItemHandlerModifiable h = miner.getImportItems();
+                int total = 0;
+                int slots = h.getSlots();
+                for (int i = 0; i < slots; i++) {
+                    if (h.getStackInSlot(i).getItem() == miner.getMiningPipeItemStack().getItem()
+                        && h.getStackInSlot(i).getMetadata() == miner.getMiningPipeItemStack().getMetadata()) {
+                        total += h.getStackInSlot(i).getCount();
+                    }
+                }
+                probeInfo.horizontal(probeInfo.defaultLayoutStyle().alignment(ElementAlignment.ALIGN_CENTER))
+                    .item(miner.getMiningPipeItemStack())
+                    .progress(total, slots * 64, probeInfo.defaultProgressStyle().suffix(" mining pipes"));
+
             }
         }
     }
