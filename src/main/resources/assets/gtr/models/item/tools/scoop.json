@@ -1,8 +1,0 @@
-{
-  "parent": "item/handheld",
-  "textures": {
-    "layer0": "gtr:items/void",
-  	"layer1": "gtr:items/tools/scoop",
-    "layer2": "gtr:items/tools/scoop_overlay"
-  }
-}

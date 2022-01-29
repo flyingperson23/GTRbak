@@ -1,7 +1,0 @@
-{
-    "parent": "item/generated",
-    "textures": {
-        "layer0": "gtr:items/material_sets/quartz/dust_impure",
-        "layer1": "gtr:items/material_sets/quartz/dust_impure_overlay"
-    }
-}

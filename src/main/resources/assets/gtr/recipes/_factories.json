@@ -1,9 +1,0 @@
-{
-  "ingredients": {
-    "metaitem": "gtr.common.crafting.MetaItemIngredientFactory"
-  },
-  "recipes": {
-    "metaitem_shapeless": "gtr.common.crafting.MetaItemShapelessRecipeFactory",
-	  "metaitem_shaped": "gtr.common.crafting.MetaItemShapedRecipeFactory"
-  }
-}

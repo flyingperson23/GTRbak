@@ -1,6 +1,0 @@
-{
-    "parent": "gtr:item/metaitems/nano_bow/normal",
-    "textures": {
-        "layer0": "gtr:items/metaitems/nano_bow_pulling_0"
-    }
-}

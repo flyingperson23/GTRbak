@@ -1,7 +1,0 @@
-{
-    "parent": "item/generated",
-    "textures": {
-        "layer0": "gtr:items/material_sets/gem_vertical/plate",
-        "layer1": "gtr:items/material_sets/gem_vertical/plate_overlay"
-    }
-}

@@ -1,7 +1,0 @@
-{
-    "parent": "item/generated",
-    "textures": {
-        "layer0": "gtr:items/material_sets/diamond/bolt",
-        "layer1": "gtr:items/material_sets/diamond/bolt_overlay"
-    }
-}

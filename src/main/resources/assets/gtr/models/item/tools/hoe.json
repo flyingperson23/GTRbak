@@ -1,7 +1,0 @@
-{
-  "parent": "item/handheld",
-  "textures": {
-    "layer0": "gtr:items/tools/handle",
-    "layer1": "gtr:items/tools/hoe"
-  }
-}

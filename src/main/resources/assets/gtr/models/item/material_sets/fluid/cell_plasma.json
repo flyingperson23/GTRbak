@@ -1,7 +1,0 @@
-{
-    "parent": "item/generated",
-    "textures": {
-        "layer0": "gtr:items/material_sets/fluid/cell_plasma",
-        "layer1": "gtr:items/material_sets/fluid/cell_plasma_overlay"
-    }
-}

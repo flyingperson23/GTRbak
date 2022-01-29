@@ -1,7 +1,0 @@
-{
-  "parent": "item/handheld",
-  "textures": {
-    "layer0": "gtr:items/tools/power_unit_hv",
-	  "layer1": "gtr:items/tools/chainsaw"
-  }
-}

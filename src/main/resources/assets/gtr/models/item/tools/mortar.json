@@ -1,7 +1,0 @@
-{
-  "parent": "item/handheld",
-  "textures": {
-    "layer0": "gtr:items/tools/mortar_base",
-	  "layer1": "gtr:items/tools/mortar"
-  }
-}
